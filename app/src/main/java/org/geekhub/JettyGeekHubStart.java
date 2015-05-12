@@ -43,7 +43,7 @@ public class JettyGeekHubStart {
 		server.setHandler(webAppContext);
 
 		try {
-			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP !!");
+			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP!!");
 			server.start();
 			while (System.in.available() == 0) {
 				Thread.sleep(5000);
