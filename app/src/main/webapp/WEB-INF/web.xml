@@ -3,10 +3,15 @@
 		 xmlns="http://java.sun.com/xml/ns/j2ee"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    
-    <context-param>
+
+	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>app</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>dev</param-value>
 	</context-param>
 
 	<context-param>
@@ -15,10 +20,6 @@
 			/WEB-INF/applicationContext.xml
 		</param-value>
 	</context-param>
-
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
 
 	<context-param>
 		<param-name>org.eclipse.jetty.servlet.DefaultServlet.dirAllowed</param-name>
@@ -39,21 +40,31 @@
 			<param-value>sessionFactory</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+
+	<filter>
+		<filter-name>JAMonFilter</filter-name>
+		<filter-class>com.jamonapi.JAMonFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JAMonFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener </listener-class>
 	</listener>
-	
+
 	<error-page>
-        <error-code>404</error-code>
-        <location>/error404</location>
-    </error-page>
-	
+		<error-code>404</error-code>
+		<location>/error404</location>
+	</error-page>
+
 	<servlet>
 		<servlet-name>dispatch</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -65,18 +76,10 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<filter>
-		<filter-name>GatewayFilter</filter-name>
-		<filter-class>org.geekhub.servlet.Gateway</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GatewayFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 
-    <session-config>
-        <session-timeout>60</session-timeout>
-    </session-config>
+	<session-config>
+		<session-timeout>60</session-timeout><!--60 minutes-->
+	</session-config>
 
 	<servlet id="jsp">
 		<servlet-name>jsp</servlet-name>
@@ -94,5 +97,4 @@
 			<param-value>false</param-value>
 		</init-param>
 	</servlet>
-
 </web-app>
