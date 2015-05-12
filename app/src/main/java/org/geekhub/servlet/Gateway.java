@@ -1,3 +1,4 @@
+/*
 package org.geekhub.servlet;
 
 import javax.servlet.*;
@@ -19,3 +20,4 @@ public class Gateway implements Filter {
     public void destroy() { }
 
 }
+*/

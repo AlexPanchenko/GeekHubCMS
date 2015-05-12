@@ -7,8 +7,8 @@
 	<name>Parent Project</name>
 	
 	<modules>
-		<module>../common</module>
-		<module>../geekhub</module>
+		<!--<module>../common</module>
+		<module>../geekhub</module>-->
 		<module>../app</module>
 	</modules>
 </project>

@@ -18,10 +18,10 @@
     <context:component-scan base-package="org.geekhub.controllers" />
     <mvc:annotation-driven />
 
-    <import resource="data-source.xml"/>
-    <import resource="hibernate-dao.xml"/>
+    <!--<import resource="data-source.xml"/>-->
+    <!--<import resource="hibernate-dao.xml"/>-->
 
-    <context:property-placeholder />
+    <!--<context:property-placeholder />
 
 	<aop:aspectj-autoproxy />
 
@@ -32,13 +32,13 @@
 			</list>
 		</property>
 		<property name="checkRefresh" value="true"/>
-	</bean>
+	</bean>-->
 
-    <bean id="tilesViewResolver"
+    <!--<bean id="tilesViewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="order" value="2" />
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
-    </bean>
+    </bean>-->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
