@@ -31,7 +31,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.4</version>
@@ -42,17 +42,17 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.geekhub</groupId>
 			<artifactId>geekhub</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.geekhub</groupId>
 			<artifactId>geekhub</artifactId>

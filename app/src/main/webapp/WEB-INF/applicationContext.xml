@@ -20,7 +20,7 @@
 
     <context:property-placeholder />
 
-	<aop:aspectj-autoproxy />
+	<!--<aop:aspectj-autoproxy />-->
 
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
