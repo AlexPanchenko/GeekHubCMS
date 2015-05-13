@@ -5,7 +5,7 @@
         <property name="dataSource" ref="jmnDataSource"/>
     </bean>
     
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="flyway">
 	    <property name="packagesToScan">
 	        <list>
 	            <value>org.geekhub</value>
@@ -19,6 +19,9 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+		<property name="dataSource" ref="jmnDataSource"/>
+	</bean>
 
 
 

@@ -45,11 +45,6 @@ public class JettyGeekHubStart {
 		webAppContext.setConfigurations(new Configuration[]{new WebXmlConfiguration()});
 		server.setHandler(webAppContext);
 
-	/*	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		session.getTransaction().commit();*/
-
 
 		try {
 			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP!!");

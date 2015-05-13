@@ -1,4 +1,4 @@
-package Hibernate;
+package hibernate;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
