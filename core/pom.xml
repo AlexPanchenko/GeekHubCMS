@@ -7,10 +7,10 @@
 		<relativePath>../parent</relativePath>
 	</parent>
 	<groupId>org.geekhub</groupId>
-	<artifactId>geekhub</artifactId>
+	<artifactId>core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>geekhub</name>
+	<name>core</name>
 	<description>geekhub backend module</description>
 
 	<build>
