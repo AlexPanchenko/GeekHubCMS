@@ -18,8 +18,8 @@
     <context:component-scan base-package="org.geekhub.controllers" />
     <mvc:annotation-driven />
 
-    <!--<import resource="data-source.xml"/>-->
-    <!--<import resource="hibernate-dao.xml"/>-->
+    <import resource="data-source.xml"/>
+    <import resource="hibernate-dao.xml"/>
 
     <!--<context:property-placeholder />
 

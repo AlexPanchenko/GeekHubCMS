@@ -8,7 +8,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/geekhub?useUnicode=true&amp;characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="root" />
 		<property name="maxActive" value="100" />
 		<property name="maxIdle" value="30" />
 		<property name="maxWait" value="1000" />
@@ -27,5 +27,5 @@
     <bean id="jmnDataSource" class="com.jamonapi.proxy.JAMonDataSource">
         <constructor-arg ref="proxyDataSource"/>
     </bean>
-	
+
 </beans>
