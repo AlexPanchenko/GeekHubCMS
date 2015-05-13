@@ -1,7 +1,10 @@
 package org.geekhub;
 
 import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.util.resource.FileResource;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.Configuration;
@@ -42,6 +45,7 @@ public class JettyGeekHubStart {
 		webAppContext.setConfigurations(new Configuration[]{new WebXmlConfiguration()});
 		server.setHandler(webAppContext);
 
+
 		try {
 			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP!!");
 			server.start();
@@ -54,6 +58,7 @@ public class JettyGeekHubStart {
 			e.printStackTrace();
 			System.exit(100);
 		}
+
 	}
 
     private static int getSslPort() {

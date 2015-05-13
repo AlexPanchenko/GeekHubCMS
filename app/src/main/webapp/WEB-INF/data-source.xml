@@ -4,20 +4,12 @@
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
      
-     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/geekhub?useUnicode=true&amp;characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
-		<property name="maxActive" value="100" />
-		<property name="maxIdle" value="30" />
-		<property name="maxWait" value="1000" />
-		<property name="defaultAutoCommit" value="true" />
-		<property name="removeAbandoned" value="true" />
-		<property name="removeAbandonedTimeout" value="60" />
-        <!-- The query that will be used to validate connections from pool -->
-        <property name="validationQuery" value="SELECT 1" />
-        <property name="testOnBorrow" value="true" />
+		<property name="password" value="root" />
+
 	</bean>
 
     <bean id="proxyDataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
@@ -27,5 +19,5 @@
     <bean id="jmnDataSource" class="com.jamonapi.proxy.JAMonDataSource">
         <constructor-arg ref="proxyDataSource"/>
     </bean>
-	
+
 </beans>

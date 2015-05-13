@@ -5,10 +5,10 @@
         <property name="dataSource" ref="jmnDataSource"/>
     </bean>
     
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="flyway">
 	    <property name="packagesToScan">
 	        <list>
-	            <value>org.geekhub.hibernate.entities</value>
+	            <value>org.geekhub</value>
 	        </list>
 	    </property>
 	    <property name="configLocation" value="/WEB-INF/hibernate.cfg.xml" />
@@ -18,5 +18,11 @@
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-	
+
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+		<property name="dataSource" ref="jmnDataSource"/>
+	</bean>
+
+
+
 </beans>

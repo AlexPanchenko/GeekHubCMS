@@ -18,8 +18,12 @@
     <context:component-scan base-package="org.geekhub.controllers" />
     <mvc:annotation-driven />
 
-    <!--<import resource="data-source.xml"/>-->
-    <!--<import resource="hibernate-dao.xml"/>-->
+    <import resource="data-source.xml"/>
+    <import resource="hibernate-dao.xml"/>
+
+    <bean id="flyWayDBUpdater" class="migrationutil.FlyWayDBUpdater" init-method="updaterDB">
+        <constructor-arg ref="dataSource"/>
+    </bean>
 
     <!--<context:property-placeholder />
 
