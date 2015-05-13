@@ -1,4 +1,4 @@
-package migrationUtil;
+package migrationutil;
 
 
 import org.flywaydb.core.Flyway;
