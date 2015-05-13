@@ -1,16 +1,19 @@
 package org.geekhub.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by user on 13.05.2015.
  *
  * @Author Odahovskiy (Odahovskiy@gmail.com)
+ * @Author Palyvoda (jekainfinity@gmail.com)
  */
 @Entity
 @Table(name = "USERS")
@@ -63,13 +66,17 @@ public class User {
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "USER_ROLES", joinColumns = {@JoinColumn(name = "UR_USER_ID")}, inverseJoinColumns = {@JoinColumn(name = "UR_ROLE_ID")})
-    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES", joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    private Set<Role> roles = new HashSet<Role>();
 
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "USER_COURSES", joinColumns = {@JoinColumn(name = "UC_USER_ID")}, inverseJoinColumns = {@JoinColumn(name = "UC_COURSE_ID")})
-    private List<Course> courses;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_COURSES", joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "COURSE_ID")})
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    private Set<Course> courses = new HashSet<Course>();
 
     public User(){
     }
@@ -178,19 +185,19 @@ public class User {
         this.enable = enable;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    public List<Course> getCourses() {
+    public Set<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
 }

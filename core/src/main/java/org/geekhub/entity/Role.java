@@ -3,11 +3,12 @@ package org.geekhub.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by odahovskiy on 13.05.2015.
  * @Author Odahovskiy V.(Odahovskiy@gmail.com)
+ * @Author Palyvoda (jekainfinity@gmail.com)
  */
 @Entity
 @Table(name = "ROLES")
@@ -22,9 +23,8 @@ public class Role {
     @NotBlank(message = "Name should be not empty")
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH})
-    @JoinTable(name = "USER_ROLES", joinColumns = {@JoinColumn(name = "UR_ROLE_ID")}, inverseJoinColumns = {@JoinColumn(name = "UR_USER_ID")})
-    private List<User> users;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    private Set<User> users;
 
     public Role() {
     }
@@ -45,11 +45,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }
