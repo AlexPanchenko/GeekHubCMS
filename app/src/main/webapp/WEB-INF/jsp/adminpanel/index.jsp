@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,10 +12,10 @@
 
     <title>AdminPanel</title>
 
-    <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet" />
-    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
     <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
@@ -36,7 +36,7 @@
                 <span class="sr-only">Toggle navigation</span>
 
             </button>
-            <a class="navbar-brand" href="index.html">Admin Panel</a>
+            <a class="navbar-brand" href="/dashboard">Admin Panel</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -47,7 +47,7 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
