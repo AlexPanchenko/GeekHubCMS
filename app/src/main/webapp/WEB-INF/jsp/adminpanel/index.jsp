@@ -12,11 +12,10 @@
 
     <title>AdminPanel</title>
 
-    <link href="<c:url value='../bower_components/metisMenu/dist/metisMenu.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../bower_components/bootstrap/dist/css/bootstrap.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../bower_components/dist/css/sb-admin-2.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../bower_components/dist/css/sb-admin-2.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../bower_components/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='../css/metisMenu.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='../css/bootstrap.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='../css/sb-admin-2.css'/>" rel="stylesheet" />
+    <link href="<c:url value='../css/font-awesome.min.css'/>" rel="stylesheet" />
 
 </head>
 <body>
@@ -35,18 +34,7 @@
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
-            <!-- <li class="sidebar-search" >
-                 <div class="input-group custom-search-form">
-                     <input type="text" class="form-control" placeholder="Search...">
-                     <span class="input-group-btn">
-                         <button class="btn btn-default" type="button">
-                             <i class="fa fa-search"></i>
-                         </button>
-                     </span>
-                 </div>
-                 <!-- /input-group -->
-            <!--</li>
-            <li> -->
+
             <a href="#" enabled="false"><i class="fa" style="color:blue"></i>TODO: Principal.name</a>
             </li>
             <!-- /.dropdown -->
@@ -109,9 +97,9 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-<script src="../bower_components/dist/js/sb-admin-2.js"></script>
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/metisMenu.min.js"></script>
+<script src="../js/sb-admin-2.js"></script>
+<script src="../js/jquery.min.js"></script>
 </body>
 </html>
