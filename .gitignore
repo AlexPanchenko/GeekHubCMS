@@ -10,4 +10,5 @@ atlassian-ide-plugin.xml
 app/target/
 geekhub/target/
 parent/target/
+core/target/
 

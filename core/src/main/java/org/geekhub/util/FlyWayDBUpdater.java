@@ -1,4 +1,4 @@
-package migrationutil;
+package org.geekhub.util;
 
 
 import org.flywaydb.core.Flyway;

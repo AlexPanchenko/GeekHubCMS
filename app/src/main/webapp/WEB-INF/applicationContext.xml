@@ -21,7 +21,7 @@
     <import resource="data-source.xml"/>
     <import resource="hibernate-dao.xml"/>
 
-    <bean id="flyWayDBUpdater" class="org.geekhub.migrationutil.FlyWayDBUpdater" init-method="updaterDB">
+    <bean id="flyWayDBUpdater" class="org.geekhub.util.FlyWayDBUpdater" init-method="updaterDB">
         <constructor-arg ref="dataSource"/>
     </bean>
 

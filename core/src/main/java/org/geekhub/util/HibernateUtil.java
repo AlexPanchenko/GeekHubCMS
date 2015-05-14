@@ -1,4 +1,4 @@
-package hibernate;
+package org.geekhub.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
