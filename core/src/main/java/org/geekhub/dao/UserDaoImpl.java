@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,9 +29,12 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
-
+@Transactional
     public void addUser(User user) {
-        sessionFactory.getCurrentSession().saveOrUpdate(user);
+        Transaction trn = sessionFactory.getCurrentSession().beginTransaction();
+        sessionFactory.getCurrentSession().save(user);
+        trn.commit();
+
     }
 
     @Transactional
@@ -39,6 +43,7 @@ public class UserDaoImpl implements UserDao {
 
         List<User> list = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("U_LOGIN", userName)).list();
         trn.commit();
+
         if (list.size() > 0) {
             return list.get(0);
         } else {

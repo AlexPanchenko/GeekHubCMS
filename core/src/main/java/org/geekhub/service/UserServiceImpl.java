@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 
 
 @Service
@@ -20,11 +21,22 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(userId);
     }
 
-    public void addUser(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
+    @Override
+    public void addUser(String login, String password, String firstName, String lastName, String patronymic,
+                        String email, String skype, String phoneNumber, String confirmPassword, Date date, Date dataRegistration) {
+    User user = new User();
+        user.setLogin(login);
         user.setPassword(password);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPatronymic(patronymic);
+        user.setEmail(email);
+        user.setSkype(skype);
+        user.setPhoneNumber(phoneNumber);
+        user.setBirthDay(date);
+        user.setRegistrationDate(dataRegistration);
         userDao.addUser(user);
     }
+
 
 }

@@ -48,7 +48,7 @@ $(document).ready(function () {
             }
         }
         $.ajax({
-            url: isReg ? '/register' : '/login',
+            url: isReg ? '/registration' : '/login',
             type: 'POST',
             data: reqData
         }).done(function (response) {

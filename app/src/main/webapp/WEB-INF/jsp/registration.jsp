@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>LogIn/SignIn</h1>
-<form class="login-form well" action="j_spring_security_check" method="post">
+<form class="login-form well" action="" method="post">
 
     <div class="form-group">
         <label for="email">Email address</label>
