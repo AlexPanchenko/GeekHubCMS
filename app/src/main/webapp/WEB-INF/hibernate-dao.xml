@@ -11,6 +11,7 @@
 	            <value>org.geekhub.entity</value>
 	        </list>
 	    </property>
+
 	    <property name="configLocation" value="/WEB-INF/hibernate.cfg.xml" />
 	    <property name="dataSource" ref="jmnDataSource" />
 	</bean>
