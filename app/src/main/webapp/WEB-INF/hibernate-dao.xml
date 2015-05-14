@@ -8,7 +8,7 @@
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="flyway">
 	    <property name="packagesToScan">
 	        <list>
-	            <value>org.geekhub</value>
+	            <value>org.geekhub.entity</value>
 	        </list>
 	    </property>
 	    <property name="configLocation" value="/WEB-INF/hibernate.cfg.xml" />
