@@ -66,11 +66,11 @@
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
           <li>
-            <a href="#"><i class="fa fa-table fa-fw"></i> Users</a>
+            <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
           </li>
 
           <li>
-            <a href="#"><i class="fa fa-table fa-fw"></i> Courses</a>
+            <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
           </li>
           <li>
             <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -93,147 +93,7 @@
         <div class="col-lg-10">
           <h1 class="page-header">User <b>${user.id}</b> profile</h1>
           <div class="container">
-            <div class="row">
-              <div class="col-md-5">
-                <div class="control-group">
-                  <div class="form-horizontal">
-                    <img class="profile-avatar img-thumbnail"  src="http://www.w3schools.com/bootstrap/cinqueterre.jpg"/>
-                    <input  type="file" class="btn btn-sm btn-default avatar-upload" data-input="false">
-                  </div>
-                </div>
-              </div>
 
-              <div class="col-md-6">
-                <form data-toggle="validator" role="form" class="form-horizontal" method="post">
-                  <fieldset>
-                    <div class="control-group">
-                      <dl class="dl-horizontal">
-                        <dt>
-                          <label class="control-label pull-left" for="login">Login</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.login}" data-minlength="4" pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){4,}$" maxlength="25" type="text" id="login" name="login" placeholder="Enter login" class="form-control input-lg"  required>
-                            <small class="help-block with-errors">Login should be between 4-25 symbols</small>
-                          </div>
-                        </dd>
-
-                        <%--
-                        <dt>
-                           <label class="control-label pull-left" for="password">Password</label>
-                         </dt>
-                         <dd>
-                           <div class="form-group">
-                             <input value="${user.password}" data-minlength="6" type="text" id="password" name="password" placeholder="Enter password" class="form-control input-lg">
-                             <small class="help-block with-errors">Password should have at least 6 symbols</small>
-                           </div>
-                         </dd>--%>
-
-                        <dt>
-                          <label class="control-label pull-left" for="first-name">First name</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.firstName}" data-minlength="2" pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){2,}$" maxlength="25" type="text" id="first-name" name="first-name" placeholder="Enter first name" class="form-control input-lg" required>
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="patronymic">Patronymic</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.patronymic}" data-minlength="2" pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){2,}$" type="text" id="patronymic" name="patronymic" placeholder="Enter patronymic" class="form-control input-lg" required>
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="last-name">Last name</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.lastName}" data-minlength="2" pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){2,}$" type="text" id="last-name" name="last-name" placeholder="Enter last name" class="form-control input-lg" required>
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="email">E-mail</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.email}" type="email" id="email" name="email" placeholder="" class="form-control input-lg" required>
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="last-name">Skype</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.skype}" type="text" id="skype" name="skype" placeholder="" class="form-control input-lg">
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="icq">ICQ</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.icq}" type="text" id="icq" name="icq" placeholder="" class="form-control input-lg">
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="phone">Phone</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value="${user.phoneNumber}" type="tel" id="phone" name="phone" placeholder="" class="form-control input-lg mask" required>
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="last-name">Birthday</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <input value='<fmt:formatDate type="date" value="${user.birthDay}" pattern="yyyy-MM-dd" />' type="date" id="birthday" name="birthday"   class="form-control input-lg">
-                          </div>
-                        </dd>
-
-                        <dt>
-                          <label class="control-label pull-left" for="last-name">Roles</label>
-                        </dt>
-                        <dd>
-                          <div class="form-group">
-                            <select class="form-control" multiple>
-                              <c:forEach items="${roleList}" var="role">
-                                <c:forEach items="${user.roles}" var="userRole">
-                                  <c:choose>
-                                    <c:when test="${role.id eq userRole.id}">
-                                      <option value="${role.id}" selected>${role.name}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                      <option value="${role.id}">${role.name}</option>
-                                    </c:otherwise>
-                                  </c:choose>
-                                </c:forEach>
-                              </c:forEach>
-                            </select>
-                          </div>
-                        </dd>
-                      </dl>
-                    </div>
-                    <div class="control-group">
-                      <!-- Button -->
-                      <div class="controls">
-                        <button type="submit" class="btn btn-success pull-right">Update Data</button>
-                      </div>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
         <!-- /.col-lg-12 -->

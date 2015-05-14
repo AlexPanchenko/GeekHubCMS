@@ -66,11 +66,11 @@
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
           <li>
-            <a href="#"><i class="fa fa-table fa-fw"></i> Users</a>
+            <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
           </li>
 
           <li>
-            <a href="#"><i class="fa fa-table fa-fw"></i> Courses</a>
+            <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
           </li>
           <li>
             <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
