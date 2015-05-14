@@ -10,21 +10,21 @@
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/welcome**" access="permitAll" />
+        <intercept-url pattern="/index" access="permitAll" />
         <!-- access denied page -->
-        <access-denied-handler error-page="/403" />
         <form-login
                 login-page="/login"
                 default-target-url="/index"
                 authentication-failure-url="/login?error"
-                username-parameter="username"
+                username-parameter="name"
                 password-parameter="password"/>
         <logout logout-success-url="/login?logout"/>
-
-    </http>
-
+        </http>
     <authentication-manager>
-        <authentication-provider user-service-ref="myUserDetailsService" >
-            <password-encoder hash="bcrypt" />
+        <authentication-provider>
+            <user-service>
+                <user name="user@ukr.net" password="123456" authorities="ROLE_USER" />
+            </user-service>
         </authentication-provider>
     </authentication-manager>
 

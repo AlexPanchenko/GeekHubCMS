@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>LogIn/SignIn</h1>
-<form class="login-form well js-sign-in">
+<form class="login-form well" action="j_spring_security_check" method="post">
 
     <div class="form-group">
         <label for="email">Email address</label>
@@ -52,7 +52,8 @@
             <input type="checkbox" class="js-register"/> I am a new user
         </label>
     </div>
-    <button type="submit" class="btn btn-primary js-submit">Submit</button>
+    <input type="submit" >Submit</input>
+
 </form>
 <script src="/resources/js/forms.js"></script>
 <script src="/resources/js/sign-in.js"></script>

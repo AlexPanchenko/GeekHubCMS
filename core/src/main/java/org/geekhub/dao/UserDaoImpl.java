@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
     public User loadUserByUsername(String userName) throws UsernameNotFoundException {
         Transaction trn = sessionFactory.getCurrentSession().beginTransaction();
 
-        List<User> list = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("name", userName)).list();
+        List<User> list = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("U_LOGIN", userName)).list();
         trn.commit();
         if (list.size() > 0) {
             return list.get(0);
