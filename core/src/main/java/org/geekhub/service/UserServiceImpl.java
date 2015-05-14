@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-/**
- * Created by user on 13.05.2015.
- */
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -21,4 +19,12 @@ public class UserServiceImpl implements UserService {
     public User getUserById(int userId) {
         return userDao.getUserById(userId);
     }
+
+    public void addUser(String email, String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        userDao.addUser(user);
+    }
+
 }

@@ -80,6 +80,11 @@ public class User {
 
     public User(){
     }
+    public User (String login, String password, Set userRoles) {
+        this.login = login;
+        this.password = password;
+        this.roles = userRoles;
+    }
 
     public int getId() {
         return id;
