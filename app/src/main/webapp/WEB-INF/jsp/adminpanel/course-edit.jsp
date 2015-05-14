@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>AdminPanel</title>
+  <title>User edit page</title>
 
   <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet" />
   <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet" />
