@@ -12,10 +12,17 @@
 
     <title>AdminPanel</title>
 
-    <link href="<c:url value='../css/metisMenu.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../css/bootstrap.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../css/sb-admin-2.css'/>" rel="stylesheet" />
-    <link href="<c:url value='../css/font-awesome.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
+
+    <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/resources/js/validator.js'/>"></script>
+    <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
+    <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
+    <script src="<c:url value='/resources/js/validator.js'/>"></script>
 
 </head>
 <body>
@@ -96,10 +103,5 @@
 
 </div>
 <!-- /#wrapper -->
-
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/metisMenu.min.js"></script>
-<script src="../js/sb-admin-2.js"></script>
-<script src="../js/jquery.min.js"></script>
 </body>
 </html>
