@@ -18,12 +18,6 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
-    <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-    <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-
 </head>
 <body>
 
@@ -122,8 +116,9 @@
                                 </tr>
                             </c:forEach>
                         </table>
+                    <div class="text-center">
                         <nav>
-                            <ul class="pagination">
+                            <ul class="pagination" >
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
@@ -141,6 +136,7 @@
                                 </li>
                             </ul>
                         </nav>
+                        </div>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -153,7 +149,6 @@
 
 </div>
 <!-- /#wrapper -->
-
 </body>
 </html>
 
