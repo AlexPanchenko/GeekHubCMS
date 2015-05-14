@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
-    <title>LogIn/SignIn</title>
+    <title>Registration</title>
 
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -15,48 +15,60 @@
     <script src="<c:url value="http://code.jquery.com/jquery-1.11.3.min.js" />"></script>
 </head>
 <body>
-<h1>LogIn/SignIn</h1>
-<form class="login-form well" action="" method="post">
+<h1>Registration</h1>
+
+<form class="login-form well" action="/registration" method="post">
+
+
 
     <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control js-email" id="email" placeholder="Enter email">
+        <span class="must">*</span><label for="email">Email address</label>
+        <input type="email" class="form-control js-email" id="email" name="email" placeholder="Enter email">
+    </div>
+    <div class="form-group ">
+        <span class="must">*</span><label for="firstName">First Name</label>
+        <input type="text" class="form-control js-name" id="firstName" name="firstName" placeholder="Enter your first name">
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control js-pass" id="password" placeholder="Password">
+        <span class="must">*</span><label for="lastName">Last Name</label>
+        <input type="text" class="form-control js-name" id="lastName" name="lastName" placeholder="Enter your last name">
     </div>
-    <div class="form-group field-reg js-field-reg">
-        <label for="password">Confirm password</label>
-        <input type="password" class="form-control js-confirm-pass" id="confirmPassword"
+    <div class="form-group">
+        <span class="must">*</span><label for="patronymic">Patronymic</label>
+        <input type="text" class="form-control js-lastName" id="patronymic"  name="patronymic" placeholder="Enter your patronymic">
+    </div>
+    <div class="form-group">
+        <span class="must">*</span><label for="password">Password</label>
+        <input type="password" class="form-control js-pass" id="password" name="password" placeholder="Password">
+    </div>
+    <div class="form-group ">
+        <span class="must">*</span><label for="password">Confirm password</label>
+        <input type="password" class="form-control js-confirm-pass" id="confirmPassword"  name="confirmPassword"
                placeholder="Repeat your password">
     </div>
-    <div class="form-group js-field-reg field-reg">
-        <label for="name">Name</label>
-        <input type="text" class="form-control js-name" id="name" placeholder="Enter your name">
-    </div>
-    <div class="form-group js-field-reg field-reg">
-        <label for="name">Last name</label>
-        <input type="text" class="form-control js-lastName" id="lastName" placeholder="Enter your last name">
-    </div>
-    <div class="form-group js-field-reg field-reg">
-        <label for="name">Phone</label>
-        <input type="text" class="form-control js-phone" id="phone" placeholder="Enter your phone">
-    </div>
-    <div class="form-group js-field-reg field-reg">
-        <label for="name">Skype</label>
-        <input type="text" class="form-control js-skype" id="skype" placeholder="Enter your skype">
+    <div class="form-group ">
+        <span class="must">*</span><label for="login">Login</label>
+        <input type="text" class="form-control js-name" id="login"  name="login" placeholder="Enter your login">
     </div>
 
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" class="js-register"/> I am a new user
-        </label>
+    <div class="form-group ">
+        <label for="phoneNumber">Phone</label>
+        <input type="text" class="form-control js-phone" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone">
     </div>
-    <input type="submit" >Submit</input>
+    <div class="form-group ">
+        <label for="skype">Skype</label>
+        <input type="text" class="form-control js-skype" id="skype"  name="skype" placeholder="Enter your skype">
+    </div>
+    <div class="form-group ">
+        <label for="birthday">Birthday</label>
+        <input type="date" name="birthday" id="birthday" name="birthday" class="form-control js-birthday">
+    </div>
+    <p class="err-msg">${errorMessage}</p>
+    <input type="submit" value="Register">
+
 
 </form>
-<script src="/resources/js/forms.js"></script>
+<%--<script src="/resources/js/forms.js"></script>--%>
 <script src="/resources/js/sign-in.js"></script>
 
 </body>

@@ -28,6 +28,7 @@ a.logo {
 }
 .err-msg {
     margin: 10px;
+    font-size: 20px;
     color: #e50000;
 }
 .login-form {
@@ -157,4 +158,9 @@ p {
 
 h1{
     text-align: center;
+}
+
+.must{
+    font-size: 20px;
+    color: #e50000;
 }

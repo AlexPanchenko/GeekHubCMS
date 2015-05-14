@@ -1,11 +1,15 @@
 package org.geekhub.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.dao.UserDao;
 import org.geekhub.entity.User;
+import org.geekhub.util.FormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -21,12 +25,29 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(userId);
     }
 
+    public static final SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+
     @Override
-    public void addUser(String login, String password, String firstName, String lastName, String patronymic,
-                        String email, String skype, String phoneNumber, String confirmPassword, Date date, Date dataRegistration) {
-    User user = new User();
+    public String addUser(String login, String password, String firstName, String lastName, String patronymic,
+                          String email, String skype, String phoneNumber, String confirmPassword, String birthDay, Date dataRegistration) throws ParseException {
+        if (userDao.getUserByEmail(email) != null) {
+            return "Email already in use";
+        } else if (userDao.getUserByLogin(login) != null) {
+            return "Login already in use";
+        } else {
+            String errorMessage = new FormValidator().validateForm(password, firstName, lastName, patronymic,
+                    email, confirmPassword, login);
+            if (errorMessage != null) {
+                return errorMessage;
+            }
+        }
+        Date date = new Date();
+        if (!birthDay.equals("")) {
+            date = dt.parse(birthDay);
+        }
+        User user = new User();
         user.setLogin(login);
-        user.setPassword(password);
+        user.setPassword(DigestUtils.md5Hex(password));
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPatronymic(patronymic);
@@ -36,7 +57,7 @@ public class UserServiceImpl implements UserService {
         user.setBirthDay(date);
         user.setRegistrationDate(dataRegistration);
         userDao.addUser(user);
+
+        return null;
     }
-
-
 }

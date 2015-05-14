@@ -11,6 +11,6 @@
     <title></title>
 </head>
 <body>
-Hello wordl!
+Hello world!
 </body>
 </html>

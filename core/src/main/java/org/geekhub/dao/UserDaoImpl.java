@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,6 +49,24 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
 
+    }
+
+    @Override
+    public User getUserByEmail(String email) throws UsernameNotFoundException {
+        Transaction trn = sessionFactory.getCurrentSession().beginTransaction();
+        User user = (User)sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
+        trn.commit();
+
+        return user;
+    }
+
+    @Override
+    public User getUserByLogin(String login) throws UsernameNotFoundException {
+        Transaction trn = sessionFactory.getCurrentSession().beginTransaction();
+        User user = (User)sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
+        trn.commit();
+
+        return user;
     }
 
 }
