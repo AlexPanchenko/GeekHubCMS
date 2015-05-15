@@ -35,26 +35,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
-        List<GrantedAuthority> authList = new ArrayList<>();
-        List<String> listRole = new ArrayList<>();
-        for(Role role : roles) {
-          listRole.add(role.toString());
-        }
-        authList = getGrantedAuthorities(listRole);
-        return authList;
+    public List<GrantedAuthority> getAuthorities(Role role) {
+        return getGrantedAuthorities(role.toString());
     }
 
-
-    public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+    public static List<GrantedAuthority> getGrantedAuthorities(String role) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
-
-
-
-
 }

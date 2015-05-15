@@ -3,6 +3,7 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.dao.GenericDao;
 import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
 import org.geekhub.util.FormValidator;
@@ -59,7 +60,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         user.setEmail(email);
         user.setSkype(skype);
         user.setPhoneNumber(phoneNumber);
-
+        user.setRoles(Role.ROLE_STUDENT);
         user.setBirthDay(date);
         user.setRegistrationDate(dataRegistration);
         userDao.create(user);
