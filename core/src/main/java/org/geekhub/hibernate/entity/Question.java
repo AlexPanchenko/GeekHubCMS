@@ -30,7 +30,7 @@ public class Question implements Serializable{
     @NotBlank(message = "COURSE ID should be not empty")
     private int courseId;
 
-    @OneToMany(mappedBy="answer")
+    @OneToMany(mappedBy="question")
     private Set<Answer> answers;
 
     public Question() {
