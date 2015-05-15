@@ -5,10 +5,12 @@ import org.geekhub.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 
 
 @Service
+@Transactional
 public abstract class GenericServiceImpl<T extends Serializable> implements GenericService<T> {
 
     @Autowired
