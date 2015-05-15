@@ -102,6 +102,28 @@
       <div class="row">
         <div class="col-lg-12">
           <h1 class="page-header">Some information soon...1</h1>
+          <input type="submit">
+          <p class="container">
+
+          <table class="table">
+            <thead class="alert alert-success">
+            <tr>
+              <th>ID</th>
+              <th> Question text </th>
+              <th> Action</th>
+            </tr>
+            </thead>
+            <c:forEach items="${questions}" var="question">
+              <tr>
+                <td>${question.id}</td>
+                <td>${question.questionText}</td>
+                <td align="center">
+                  <a href="/dashboard/questions/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                  <i class="fa fa-times"></i>
+                </td>
+              </tr>
+            </c:forEach>
+          </table>
         </div>
         <!-- /.col-lg-12 -->
       </div>
