@@ -1,4 +1,4 @@
-package org.geekhub.dao;
+package org.geekhub.dao.interface_dao;
 
 import org.geekhub.entity.User;
 
