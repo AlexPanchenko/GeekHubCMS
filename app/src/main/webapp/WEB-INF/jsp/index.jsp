@@ -11,6 +11,6 @@
     <title></title>
 </head>
 <body>
-Hello world!
+Hello world! It's index page
 </body>
 </html>

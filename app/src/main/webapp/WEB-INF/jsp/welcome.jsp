@@ -6,6 +6,6 @@
     <title>Index</title>
 </head>
 <body>
-<h1>Hello!!! Its index page</h1>
+page after registration
 </body>
 </html>
