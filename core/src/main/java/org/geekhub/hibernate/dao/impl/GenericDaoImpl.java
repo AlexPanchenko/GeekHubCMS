@@ -4,12 +4,15 @@ import org.geekhub.hibernate.dao.GenericDao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by helldes on 15.05.2015.
  */
+@Transactional
+@SuppressWarnings(value = "unchecked")
 public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
     private Class<T> clazz;
 
