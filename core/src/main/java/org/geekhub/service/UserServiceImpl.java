@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setSkype(skype);
         user.setPhoneNumber(phoneNumber);
+
         user.setBirthDay(date);
         user.setRegistrationDate(dataRegistration);
         userDao.addUser(user);
