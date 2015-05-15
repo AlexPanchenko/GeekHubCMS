@@ -67,11 +67,11 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
                     </li>
 
                     <li>
-                        <a href="/dashboard/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -95,7 +95,7 @@
                     <c:choose>
                             <c:when test="${action eq 'create'}">
                             <h1 class="page-header">Add new course</h1>
-                            <form data-toggle="validator"  role="form" action="/dashboard/course"  method="PUT" class="form-horizontal">
+                            <form data-toggle="validator"  role="form" action="/admin/course"  method="PUT" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>
@@ -121,7 +121,7 @@
                         </c:when>
                         <c:otherwise>
                             <h1 class="page-header">Edit ${course.id}</h1>
-                            <form data-toggle="validator"  role="form" action="/dashboard/course"  method="POST" class="form-horizontal">
+                            <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
                                 <fieldset>
                                     <dl class="dl-horizontal">
                                         <dt>
