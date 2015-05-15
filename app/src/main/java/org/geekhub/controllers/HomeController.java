@@ -11,7 +11,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public ModelAndView defaultPage() throws IOException {
-        return new ModelAndView("welcome");
+        return new ModelAndView("users");
     }
 
 }
