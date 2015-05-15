@@ -1,10 +1,11 @@
 package org.geekhub.service;
 
 import org.geekhub.hibernate.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Date;
-
+@Component
 public interface UserService extends GenericService<User> {
     User getUserById(int userId);
 
