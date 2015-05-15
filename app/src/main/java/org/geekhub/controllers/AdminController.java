@@ -1,7 +1,6 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,12 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
-/**
- * Created on 14.05.2015.
- *
- * @Author Odahovskiy (odahovskiy@gmail.com)
- * @Author Palyvoda (jekainfinity@gmail.com)
- */
+
 @Controller
 @RequestMapping(value = "/dashboard")
 public class AdminController {
@@ -56,15 +50,7 @@ public class AdminController {
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
         try {
-            Role role = new Role();
-            role.setId(1);
-            role.setName("Admin");
-            Role role2 = new Role();
-            role.setId(2);
-            role2.setName("User");
-            Set<Role> roles = new HashSet<>();
-            roles.add(role);
-            roles.add(role2);
+
 
             Course cour = new Course();
             cour.setId(1);
@@ -79,7 +65,7 @@ public class AdminController {
             courses.add(cour);
 
             User u = new User();
-            u.setRoles(roles);
+
             u.setBirthDay(new Date());
             u.setId(userId);
             u.setFirstName("Test1");
@@ -92,7 +78,7 @@ public class AdminController {
             u.setRegistrationDate(new Date());
             u.setCourses(courses);
             u.setPhoneNumber("931451514");
-            model.addAttribute("roleList", roles);
+
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";

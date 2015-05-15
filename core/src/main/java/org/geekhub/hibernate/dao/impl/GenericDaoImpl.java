@@ -12,17 +12,11 @@ import java.util.List;
  * Created by helldes on 15.05.2015.
  */
 @Transactional
-@SuppressWarnings(value = "unchecked")
 public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
     private Class<T> clazz;
 
     @Autowired
-    private SessionFactory sessionFactory;
-/*
-    public GenericDaoImpl(){
-        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-    */
+    public SessionFactory sessionFactory;
 
     @Override
     public void create(T t) {
