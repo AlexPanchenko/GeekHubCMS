@@ -1,9 +1,7 @@
 package org.geekhub.service.impl;
 
-import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,13 +11,5 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private UserDao userDao;
-
-    @Override
-    public User getUserById(int userId) {
-        return userDao.getUserById(userId);
-    }
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 }
