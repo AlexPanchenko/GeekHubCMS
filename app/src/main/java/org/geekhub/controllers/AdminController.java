@@ -1,8 +1,8 @@
 package org.geekhub.controllers;
 
-import org.geekhub.entity.Course;
-import org.geekhub.entity.Role;
-import org.geekhub.entity.User;
+import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.Role;
+import org.geekhub.hibernate.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
