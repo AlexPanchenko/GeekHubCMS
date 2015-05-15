@@ -1,5 +1,6 @@
 package org.geekhub.dao;
 
+import org.geekhub.dao.interface_dao.UserDao;
 import org.geekhub.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * Created by user on 13.05.2015.
  */
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
