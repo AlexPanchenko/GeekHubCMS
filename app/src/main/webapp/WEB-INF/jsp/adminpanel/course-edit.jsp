@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -18,11 +19,11 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
-    <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-    <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
+    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
 
 </head>
 <body>
@@ -66,11 +67,11 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
                     </li>
 
                     <li>
-                        <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -91,11 +92,62 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
-                    <h1 class="page-header">User <b>${user.id}</b> profile</h1>
-
+                    <c:choose>
+                            <c:when test="${action eq 'create'}">
+                            <h1 class="page-header">Add new course</h1>
+                            <form data-toggle="validator"  role="form" action="/admin/course"  method="PUT" class="form-horizontal">
+                                    <fieldset>
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                <label class="pull-left control-label" for="name">Course name</label>
+                                            </dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <input id="albumName"  minlenght="1" maxlength="25" id="name" name="name" type="text" placeholder="Enter course name" class="form-control pull-left" required>
+                                                </div>
+                                            </dd>
+                                            <dt>
+                                                <label class="control-label pull-left" for="description">Course description</label>
+                                            </dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="description" name="description" placeholder="There should be description of course" rows="5" required></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </fieldset>
+                                <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <h1 class="page-header">Edit ${course.id}</h1>
+                            <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
+                                <fieldset>
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            <label class="pull-left control-label" for="name">Course name</label>
+                                        </dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <input id="albumName"  minlenght="1" maxlength="25" id="name" name="name" type="text" placeholder="Enter course name" class="form-control pull-left" required>
+                                            </div>
+                                        </dd>
+                                        <dt>
+                                            <label class="control-label pull-left" for="description">Course description</label>
+                                        </dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="description" name="description" placeholder="There should be description of course" rows="5" required></textarea>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </fieldset>
+                                <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                     <div class="container">
 
-                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
