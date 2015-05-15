@@ -1,4 +1,4 @@
-package org.geekhub.entity;
+package org.geekhub.hibernate.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 

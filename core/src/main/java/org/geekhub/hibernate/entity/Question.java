@@ -1,5 +1,6 @@
-package org.geekhub.entity;
+package org.geekhub.hibernate.entity;
 
+import org.geekhub.hibernate.entity.Answer;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
