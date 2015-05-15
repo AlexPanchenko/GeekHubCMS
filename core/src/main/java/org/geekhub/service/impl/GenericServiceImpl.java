@@ -1,7 +1,7 @@
-package org.geekhub.service;
+package org.geekhub.service.impl;
 
-import org.geekhub.dao.interface_dao.GenericDao;
-import org.geekhub.service.interface_service.GenericService;
+import org.geekhub.hibernate.dao.GenericDao;
+import org.geekhub.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package org.geekhub.dao.interface_dao;
+package org.geekhub.hibernate.dao;
 
 import java.io.Serializable;
 import java.util.List;
