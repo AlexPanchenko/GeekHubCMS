@@ -1,4 +1,4 @@
-package org.geekhub.service;
+package org.geekhub.service.interface_service;
 
 import org.geekhub.entity.User;
 
