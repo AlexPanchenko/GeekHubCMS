@@ -192,7 +192,7 @@
                                                 </dd>
 
                                                 <dt>
-                                                    <label class="control-label pull-left" for="last-name">Skype</label>
+                                                    <label class="control-label pull-left" for="skype">Skype</label>
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
@@ -202,22 +202,12 @@
                                                 </dd>
 
                                                 <dt>
-                                                    <label class="control-label pull-left" for="icq">ICQ</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input value="${user.icq}" type="text" id="icq" name="icq"
-                                                               placeholder="" class="form-control input-lg">
-                                                    </div>
-                                                </dd>
-
-                                                <dt>
-                                                    <label class="control-label pull-left" for="phone">Phone</label>
+                                                    <label class="control-label pull-right" for="phone">+380</label>
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
                                                         <input value="${user.phoneNumber}" type="tel" id="phone"
-                                                               name="phone" placeholder=""
+                                                               name="phone" placeholder="Enter phone number"
                                                                class="form-control input-lg mask" required>
                                                     </div>
                                                 </dd>
@@ -239,19 +229,48 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <select class="form-control" multiple>
+                                                        <select id="roles[]" name="roles[]"class="form-control" multiple>
                                                             <c:forEach items="${roleList}" var="role">
+                                                                <c:set var="selectRole" value="false"/>
                                                                 <c:forEach items="${user.roles}" var="userRole">
-                                                                    <c:choose>
-                                                                        <c:when test="${role.id eq userRole.id}">
-                                                                            <option value="${role.id}"
-                                                                                    selected>${role.name}</option>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <option value="${role.id}">${role.name}</option>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
+                                                                    <c:if test="${role.id eq userRole.id}">
+                                                                        <c:set var="selectRole" value="true"/>
+                                                                    </c:if>
                                                                 </c:forEach>
+                                                                <c:choose>
+                                                                    <c:when test="${selectRole eq true}">
+                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                </dd>
+
+                                                <dt>
+                                                    <label class="control-label pull-left" for="last-name">Courses</label>
+                                                </dt>
+                                                <dd>
+                                                    <div class="form-group">
+                                                        <select id="courses[]" name="courses[]"class="form-control" multiple>
+                                                            <c:forEach items="${courseList}" var="course">
+                                                                <c:set var="selectCourse" value="false"/>
+                                                                <c:forEach items="${user.courses}" var="userCourse">
+                                                                    <c:if test="${course.id eq userCourse.id}">
+                                                                        <c:set var="selectCourse" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:choose>
+                                                                    <c:when test="${selectCourse eq true}">
+                                                                        <option id="${course.id}" selected>${course.name}</option>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option id="${course.id}" selected>${course.name}</option>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:forEach>
                                                         </select>
                                                     </div>

@@ -1,8 +1,9 @@
-package org.geekhub.entity;
+package org.geekhub.hibernate.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ROLES")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue

@@ -1,6 +1,6 @@
 package org.geekhub.service;
 
-import org.geekhub.entity.User;
+import org.geekhub.hibernate.entity.User;
 
 /**
  * Created by user on 13.05.2015.
