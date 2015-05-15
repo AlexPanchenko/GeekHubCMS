@@ -1,9 +1,9 @@
 package org.geekhub.hibernate.entity;
 
-import org.geekhub.hibernate.entity.Answer;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -11,8 +11,8 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "QUESTION")
-public class Question {
+@Table(name = "QUESTIONS")
+public class Question implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "QUESTION_ID", unique = true, nullable = false)

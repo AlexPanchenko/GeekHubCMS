@@ -3,13 +3,14 @@ package org.geekhub.hibernate.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by helldes on 14.05.2015.
  */
 @Entity
-@Table(name = "ANSWER")
-public class Answer {
+@Table(name = "ANSWERS")
+public class Answer implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ANSWER_ID", unique = true, nullable = false)

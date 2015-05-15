@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -16,10 +15,12 @@ public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+/*
     public GenericDaoImpl(){
         this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
+    */
+
     @Override
     public void create(T t) {
         sessionFactory.getCurrentSession().save(t);
