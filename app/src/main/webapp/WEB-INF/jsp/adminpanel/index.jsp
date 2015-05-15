@@ -70,7 +70,7 @@
                     </li>
 
                     <li>
-                        <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/dashboard/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
