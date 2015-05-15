@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.text.ParseException;
@@ -23,8 +24,16 @@ public class AuthController {
 
 
     @RequestMapping("/auth")
-    public String loginForm() {
-        return "login";
+    public ModelAndView loginForm(@RequestParam(value = "error",required = false)String error,
+                                  @RequestParam(required = false) String logout  ) {
+        ModelAndView model = new ModelAndView("login");
+        if (error != null) {;
+            model.addObject("error", error);
+        }
+        if (logout != null) {
+            model.addObject("msg", logout);
+        }
+        return model;
     }
 
     @RequestMapping("/index")
