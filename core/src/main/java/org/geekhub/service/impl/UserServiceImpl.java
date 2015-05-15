@@ -1,8 +1,8 @@
-package org.geekhub.service;
+package org.geekhub.service.impl;
 
-import org.geekhub.dao.interface_dao.UserDao;
-import org.geekhub.entity.User;
-import org.geekhub.service.interface_service.UserService;
+import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
