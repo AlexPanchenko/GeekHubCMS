@@ -3,6 +3,7 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -101,7 +103,9 @@ public class AdminController {
         }
     }
 
-    public String editUser(@RequestParam("login")String login,
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public String editUser(@RequestParam("id")String id,
+                           @RequestParam("login")String login,
                            @RequestParam("first-name")String firstName,
                            @RequestParam("patronymic")String patronymic,
                            @RequestParam("last-name")String lastName,
@@ -109,12 +113,16 @@ public class AdminController {
                            @RequestParam("skype")String skype,
                            @RequestParam("phone")String phone,
                            @RequestParam("birthday")String birthday,
-                           @RequestParam("roles[]")int[] roles,
-                           @RequestParam("courses[]")int[] courses,
-                           @RequestParam("avatar")MultipartFile avatar,
-                           ModelMap model){
-
-
-        return "adminpanel/user-edit";
+                           @RequestParam("role")String role,
+                           @RequestParam("courses[]")String[] courses,
+                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
+                           ModelMap model) {
+        try {
+            Date date = CommonUtil.getFormattedDate(birthday);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/dashboard/users/"+id+"/edit";
     }
 }
