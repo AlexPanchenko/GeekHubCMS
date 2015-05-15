@@ -8,14 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Created by user on 13.05.2015.
- *
- * @Author Odahovskiy (Odahovskiy@gmail.com)
- * @Author Palyvoda (jekainfinity@gmail.com)
- */
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
@@ -66,12 +61,9 @@ public class User implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLES", joinColumns = {@JoinColumn(name = "USER_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private Set<Role> roles = new HashSet<Role>();
+    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_COURSES", joinColumns = {@JoinColumn(name = "USER_ID")},
@@ -80,6 +72,11 @@ public class User implements Serializable {
     private Set<Course> courses = new HashSet<Course>();
 
     public User(){
+    }
+    public User (String login, String password, Role userRole) {
+        this.login = login;
+        this.password = password;
+        this.role = userRole;
     }
 
     public int getId() {
@@ -186,12 +183,12 @@ public class User implements Serializable {
         this.enable = enable;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRoles() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Role roles) {
+        this.role = roles;
     }
 
     public Set<Course> getCourses() {

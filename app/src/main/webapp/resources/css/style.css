@@ -1,0 +1,166 @@
+.wrapper {
+    max-width: 1024px;
+    width: 90%;
+    margin: 0 auto;
+}
+.wrapper h1 {
+    text-align: center;
+}
+.login-form {
+    width: 50%;
+    margin: 0 auto;
+}
+ul.nav {
+    margin: 20px 0 50px;
+    padding: 0 20px;
+}
+a.logo {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    margin: 15px;
+}
+.logo  img{
+    width: 100%;
+}
+.field-reg {
+    display: none;
+}
+.err-msg {
+    margin: 10px;
+    font-size: 20px;
+    color: #e50000;
+}
+.login-form {
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+.panel {
+    background-color: white;
+    width: 330px;
+    float: left;
+}
+
+.mainContent {
+    background-color: white;
+    margin-top: 50px;
+    margin-left: 350px;
+}
+.boldRef{
+    font-weight:bold;
+}
+
+.date{
+    font-size: 8pt;
+    color: gray;
+}
+
+.users-list {
+    overflow: hidden;
+    padding: 0;
+}
+.users-list li:first-child {
+    border-top: 0;
+}
+.users-list li {
+    list-style: none;
+    overflow: hidden;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+}
+.users-list a {
+    display: block;
+    float: left;
+}
+.users-list h3 {
+    float: right;
+    margin: 5px 0 0 15px;
+}
+.messages-container {
+    height: 250px;
+    border: 1px solid #ccc;
+    margin: 0 0 20px;
+    overflow: auto;
+}
+.messages-container ul {
+    padding: 0;
+}
+.messages-container li {
+    padding: 10px;
+    list-style: none;
+    box-shadow: 0 0 10px #ccc;
+}
+.messages-container .author {
+    font-weight: bold;
+}
+.messages-container .date {
+    margin: 10px;
+    font-style: italic;
+    font-size: 12px;
+}
+.messages-container .message-text {
+    margin: 10px 0 0;
+}
+.messages-container .my-message {
+    background: #e9ebff;
+
+}
+.conv-topic input {
+    font-weight: normal;
+}
+.conv-topic input:not(.active) {
+    border: 0;
+    text-align: center;
+}
+.weather {
+    margin: 0 auto;
+    overflow: hidden;
+}
+.profileMenu a {
+    display: block;
+}
+
+.wall-text p {
+    display: block;
+}
+
+.message{
+    font-weight: bold;
+    color: forestgreen;
+}
+
+p {
+    padding-top: 7px;
+}
+
+.messages-list {
+    padding: 0;
+}
+.messages-list li:first-child {
+    border: 0;
+}
+.messages-list li {
+    list-style: none;
+    border-top: 1px solid #ccc;
+}
+.messages-list a {
+    display: block;
+    padding: 0 15px 10px;
+    background: #F4F4F4;
+    transition: background .5s;
+    overflow: hidden;
+}
+.messages-list a:hover {
+    text-decoration: none;
+    background: #E0E3EA;
+}
+
+h1{
+    text-align: center;
+}
+
+.must{
+    font-size: 20px;
+    color: #e50000;
+}

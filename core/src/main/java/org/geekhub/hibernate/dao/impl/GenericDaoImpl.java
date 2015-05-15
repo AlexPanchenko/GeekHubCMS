@@ -15,7 +15,7 @@ public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
     private Class<T> clazz;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public GenericDaoImpl(){
         this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
