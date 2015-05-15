@@ -10,8 +10,6 @@
     <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
 
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    <script src="<c:url value="/resources/js/forms.js" />"></script>
-    <script src="<c:url value="/resources/js/sign-in.js" />"></script>
     <script src="<c:url value="http://code.jquery.com/jquery-1.11.3.min.js" />"></script>
 </head>
 <body>
