@@ -1,5 +1,6 @@
 package org.geekhub.dao;
 
+import org.geekhub.entity.Role;
 import org.geekhub.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -36,20 +37,20 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    @Transactional
+    @Override
     public User loadUserByUsername(String userName) throws UsernameNotFoundException {
         Transaction trn = sessionFactory.getCurrentSession().beginTransaction();
-
-        List<User> list = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("U_LOGIN", userName)).list();
+        List<User> list = sessionFactory.getCurrentSession()
+                .createCriteria(User.class)
+                .add(Restrictions.eq("login", userName)).list();
         trn.commit();
-
         if (list.size() > 0) {
             return list.get(0);
         } else {
             return null;
         }
-
     }
+
 
     @Override
     public User getUserByEmail(String email) throws UsernameNotFoundException {
@@ -68,5 +69,6 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
+
 
 }

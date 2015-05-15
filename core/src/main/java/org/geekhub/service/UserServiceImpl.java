@@ -1,11 +1,11 @@
 package org.geekhub.service;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.dao.UserDao;
 import org.geekhub.entity.User;
 import org.geekhub.util.FormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
