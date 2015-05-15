@@ -16,6 +16,9 @@
 </head>
 <body>
 <h1>LogIn</h1>
+<c:if test="${not empty error}">
+  <div class="error">${error}</div>
+</c:if>
 
 <form class="login-form well" action="/login" method="post">
 
