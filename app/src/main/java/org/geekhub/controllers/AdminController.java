@@ -14,7 +14,7 @@ import java.util.*;
 
 
 @Controller
-@RequestMapping(value = "/dashboard")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
@@ -133,5 +133,27 @@ public class AdminController {
         model.addAttribute("action", "create");
         model.addAttribute("course", new Course());
         return "adminpanel/course-edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}/edit", method = RequestMethod.GET)
+    public String editCourses(@PathVariable("courseId") String courseId, ModelMap model) {
+        Course course = new Course();
+        course.setName("Pony");
+        course.setDescription("Sit and ride");
+        model.addAttribute("course",course);
+        return "course-edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
+    public String editCourses(@PathVariable("courseId") String courseId,
+                              @RequestParam("name") String name, @RequestParam("description") String description) {
+        return "redirect:/admin/courses/" + courseId + "/edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.PUT)
+    public String createCourse(@PathVariable("courseId") String courseId,
+                               @RequestParam("name") String name, @RequestParam("description") String description) {
+        System.out.println("Name " + name + "   Description " + description );
+        return "redirect:/admin/courses/" + courseId + "/edit";
     }
 }
