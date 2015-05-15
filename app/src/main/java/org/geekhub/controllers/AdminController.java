@@ -2,19 +2,18 @@ package org.geekhub.controllers;
 
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
 import java.util.*;
 
 
 @Controller
-@RequestMapping(value = "/dashboard")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
@@ -42,10 +41,6 @@ public class AdminController {
         return "adminpanel/users";
     }
 
-    @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public String courses() {
-        return "adminpanel/courses";
-    }
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
@@ -87,7 +82,9 @@ public class AdminController {
         }
     }
 
-    public String editUser(@RequestParam("login")String login,
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public String editUser(@RequestParam("id")String id,
+                           @RequestParam("login")String login,
                            @RequestParam("first-name")String firstName,
                            @RequestParam("patronymic")String patronymic,
                            @RequestParam("last-name")String lastName,
@@ -95,13 +92,68 @@ public class AdminController {
                            @RequestParam("skype")String skype,
                            @RequestParam("phone")String phone,
                            @RequestParam("birthday")String birthday,
-                           @RequestParam("roles[]")int[] roles,
-                           @RequestParam("courses[]")int[] courses,
-                           @RequestParam("avatar")MultipartFile avatar,
-                           ModelMap model){
+                           @RequestParam("role")String role,
+                           @RequestParam("courses[]")String[] courses,
+                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
+                           ModelMap model) {
+        try {
+            Date date = CommonUtil.getFormattedDate(birthday);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/dashboard/users/"+id+"/edit";
+    }
 
 
-        return "adminpanel/user-edit";
+    @RequestMapping(value = "/course/list", method = RequestMethod.GET)
+    public String coursesList(ModelMap modelMap) {
+
+        Course course = new Course();
+        course.setId(1);
+        course.setName("PHP");
+
+        Course course1 = new Course();
+        course1.setId(2);
+        course1.setName("Java for Web");
+
+        Course course2 = new Course();
+        course2.setId(3);
+        course2.setName("Front-end + CMS");
+
+
+        List<Course> courses = Arrays.asList(course, course1, course2);
+        modelMap.addAttribute("courses", courses);
+        return "adminpanel/courses";
+    }
+
+    @RequestMapping(value = "/course/create", method = RequestMethod.GET)
+    public String createPage(ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("course", new Course());
+        return "adminpanel/course-edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}/edit", method = RequestMethod.GET)
+    public String editCourses(@PathVariable("courseId") String courseId, ModelMap model) {
+        Course course = new Course();
+        course.setName("Pony");
+        course.setDescription("Sit and ride");
+        model.addAttribute("course",course);
+        return "course-edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
+    public String editCourses(@PathVariable("courseId") String courseId,
+                              @RequestParam("name") String name, @RequestParam("description") String description) {
+        return "redirect:/admin/courses/" + courseId + "/edit";
+    }
+
+    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.PUT)
+    public String createCourse(@PathVariable("courseId") String courseId,
+                               @RequestParam("name") String name, @RequestParam("description") String description) {
+        System.out.println("Name " + name + "   Description " + description );
+        return "redirect:/admin/courses/" + courseId + "/edit";
     }
 
     @RequestMapping(value = "/questions", method = RequestMethod.GET)

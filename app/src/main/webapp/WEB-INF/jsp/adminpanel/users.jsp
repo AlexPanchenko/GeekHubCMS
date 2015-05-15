@@ -30,7 +30,7 @@
                 <span class="sr-only">Toggle navigation</span>
 
             </button>
-            <a class="navbar-brand" href="/dashboard">Admin Panel</a>
+            <a class="navbar-brand" href="/admin">Admin Panel</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -60,11 +60,11 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
                     </li>
 
                     <li>
-                        <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -84,13 +84,10 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-10">
-                    <h1 class="page-header">User <b>${user.id}</b> profile</h1>
-
-                    <p class="container">
-
-                        <table class="table">
-                            <thead class="alert alert-success">
+                <div class="col-lg-12">
+                    <h1 class="alert alert-success text-center"><b>Users manage</b></h1>
+                    <table class="table">
+                        <thead class="alert alert-success">
                                 <tr>
                                     <th> Last name <input class="input-sm" placeholder="Place for filthering"> </th>
                                     <th> Name <input class="input-sm" placeholder="Place for filthering"></th>
@@ -110,7 +107,7 @@
                                     <td>${user.phoneNumber}</td>
                                     <td>${user.skype}</td>
                                     <td align="center">
-                                        <a href="/dashboard/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                                         <i class="fa fa-times"></i>
                                     </td>
                                 </tr>

@@ -26,10 +26,21 @@ public class Course implements Serializable {
     @NotBlank(message = "Name should be not empty")
     private String name;
 
+    @Column(name = "COURSE_DESCRIPTION")
+    private String description;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
     private Set<User> users = new HashSet<User>();
 
     public Course() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,11 +19,11 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
-    <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-    <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
+    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
 
 </head>
 <body>
@@ -36,7 +37,7 @@
                 <span class="sr-only">Toggle navigation</span>
 
             </button>
-            <a class="navbar-brand" href="/dashboard">Admin Panel</a>
+            <a class="navbar-brand" href="/admin">Admin Panel</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -66,11 +67,11 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
                     </li>
 
                     <li>
-                        <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -91,10 +92,68 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Some information soon...</h1>
+                    <h1 class="alert alert-success text-center">
+                        <a href="/admin/course/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
+                        <b>Courses manage</b></h1>
+                    <table class="table">
+                        <thead class="alert alert-success">
+                        <tr>
+                            <th> ID </th>
+                            <th> Name </th>
+                            <th class="text-center"> Members</th>
+                            <th class="text-center"> Action</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${courses}" var="course">
+                            <tr>
+                                <td>${course.id}</td>
+                                <td>${course.name}</td>
+                                <td class="text-center">
+                                    <c:choose>
+                                        <c:when test="${empty course.users}">
+                                            0
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${course.users.size()}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                    <i class="fa fa-times"></i>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <div class="text-center">
+                        <nav>
+                            <ul class="pagination" >
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
+            <!-- /.col-lg-12 -->
+        </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

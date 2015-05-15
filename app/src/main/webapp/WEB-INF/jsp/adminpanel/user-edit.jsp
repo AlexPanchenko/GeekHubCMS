@@ -36,7 +36,7 @@
                 <span class="sr-only">Toggle navigation</span>
 
             </button>
-            <a class="navbar-brand" href="/dashboard">Admin Panel</a>
+            <a class="navbar-brand" href="/admin">Admin Panel</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -66,11 +66,11 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="/dashboard/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
                     </li>
 
                     <li>
-                        <a href="/dashboard/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-lg-10">
                     <h1 class="page-header">User <b>${user.id}</b> profile</h1>
-
+                    <form action="/admin/users" data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-5">
@@ -100,17 +100,17 @@
                                     <div class="form-horizontal">
                                         <img class="profile-avatar img-thumbnail"
                                              src="http://www.w3schools.com/bootstrap/cinqueterre.jpg"/>
-                                        <input type="file" class="btn btn-sm btn-default avatar-upload"
+                                        <input type="file" name="avatar" id="avatar" class="btn btn-sm btn-default avatar-upload"
                                                data-input="false">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <form data-toggle="validator" role="form" class="form-horizontal" method="post">
                                     <fieldset>
                                         <div class="control-group">
                                             <dl class="dl-horizontal">
+                                                <input hidden="hidden" name="id" value="${user.id}"/>
                                                 <dt>
                                                     <label class="control-label pull-left" for="login">Login</label>
                                                 </dt>
@@ -126,17 +126,6 @@
                                                         </small>
                                                     </div>
                                                 </dd>
-
-                                                <%--
-                                                <dt>
-                                                   <label class="control-label pull-left" for="password">Password</label>
-                                                 </dt>
-                                                 <dd>
-                                                   <div class="form-group">
-                                                     <input value="${user.password}" data-minlength="6" type="text" id="password" name="password" placeholder="Enter password" class="form-control input-lg">
-                                                     <small class="help-block with-errors">Password should have at least 6 symbols</small>
-                                                   </div>
-                                                 </dd>--%>
 
                                                 <dt>
                                                     <label class="control-label pull-left" for="first-name">First
@@ -207,8 +196,8 @@
                                                 <dd>
                                                     <div class="form-group">
                                                         <input value="${user.phoneNumber}" type="tel" id="phone"
-                                                               name="phone" placeholder="Enter phone number"
-                                                               class="form-control input-lg mask" required>
+                                                               name="phone" placeholder="Enter phone number" pattern="^([0-9]){9,9}$"
+                                                               class="form-control input-lg" required>
                                                     </div>
                                                 </dd>
 
@@ -229,7 +218,7 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <select id="roles[]" name="roles[]"class="form-control" multiple>
+                                                        <select id="role" name="role"class="form-control">
                                                             <c:forEach items="${roleList}" var="role">
                                                                 <c:set var="selectRole" value="false"/>
                                                                 <c:forEach items="${user.roles}" var="userRole">
@@ -285,10 +274,10 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                                </form>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
