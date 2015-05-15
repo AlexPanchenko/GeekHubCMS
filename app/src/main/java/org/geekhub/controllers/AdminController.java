@@ -14,7 +14,7 @@ import java.util.*;
 
 
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/dashboard")
 public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
@@ -103,7 +103,7 @@ public class AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/users/"+id+"/edit";
+        return "redirect:/dashboard/users/"+id+"/edit";
     }
 
 
