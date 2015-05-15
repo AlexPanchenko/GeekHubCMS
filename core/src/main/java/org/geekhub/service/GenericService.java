@@ -1,4 +1,4 @@
-package org.geekhub.service.interface_service;
+package org.geekhub.service;
 
 import org.springframework.stereotype.Component;
 

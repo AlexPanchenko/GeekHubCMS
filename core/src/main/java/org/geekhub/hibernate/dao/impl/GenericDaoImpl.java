@@ -1,6 +1,6 @@
-package org.geekhub.dao;
+package org.geekhub.hibernate.dao.impl;
 
-import org.geekhub.dao.interface_dao.GenericDao;
+import org.geekhub.hibernate.dao.GenericDao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
