@@ -1,9 +1,12 @@
-package org.geekhub.dao;
+package org.geekhub.hibernate.dao;
 
-import org.geekhub.entity.User;
+import org.geekhub.hibernate.entity.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public interface UserDao {
+/**
+ * Created by user on 13.05.2015.
+ */
+public interface UserDao extends GenericDao<User> {
     User getUserById(int userId);
 
     public void addUser(User user);

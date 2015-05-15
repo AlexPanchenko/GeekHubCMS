@@ -1,10 +1,11 @@
-package org.geekhub.entity;
+package org.geekhub.hibernate.entity;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue

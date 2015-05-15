@@ -1,9 +1,9 @@
 package org.geekhub.service;
 
 
-import org.geekhub.dao.UserDaoImpl;
-import org.geekhub.entity.Role;
 
+import org.geekhub.hibernate.dao.impl.UserDaoImpl;
+import org.geekhub.hibernate.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 
-/**
- * Created by use on 14.05.2015.
- */
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
@@ -27,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         try {
-            org.geekhub.entity.User user = userDao.loadUserByUsername(userName);
+            org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
 
             return new User(user.getLogin(),
                             user.getPassword(),
@@ -41,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authList = new ArrayList<>();
         List<String> listRole = new ArrayList<>();
         for(Role role : roles) {
-          listRole.add(role.getName());
+          listRole.add(role.toString());
         }
         authList = getGrantedAuthorities(listRole);
         return authList;

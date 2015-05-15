@@ -1,8 +1,9 @@
-package org.geekhub.entity;
+package org.geekhub.hibernate.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "COURSES")
-public class Course {
+public class Course implements Serializable {
 
     @Id
     @GeneratedValue
@@ -28,7 +29,7 @@ public class Course {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
     private Set<User> users = new HashSet<User>();
 
-    private Course() {
+    public Course() {
     }
 
     public int getId() {
