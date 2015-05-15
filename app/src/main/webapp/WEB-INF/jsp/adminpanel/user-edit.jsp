@@ -218,20 +218,20 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <select id="role" name="role"class="form-control">
+                                                        <select id="role" name="role" class="form-control">
                                                             <c:forEach items="${roleList}" var="role">
                                                                 <c:set var="selectRole" value="false"/>
                                                                 <c:forEach items="${user.roles}" var="userRole">
-                                                                    <c:if test="${role.id eq userRole.id}">
+                                                                    <c:if test="${role eq userRole}">
                                                                         <c:set var="selectRole" value="true"/>
                                                                     </c:if>
                                                                 </c:forEach>
                                                                 <c:choose>
                                                                     <c:when test="${selectRole eq true}">
-                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                        <option id="${role}" selected>${role}</option>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                        <option id="${role}" selected>${role}</option>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:forEach>

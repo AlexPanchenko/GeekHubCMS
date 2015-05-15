@@ -81,6 +81,8 @@ public class AdminController {
             u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
+            List<Role> roles = Arrays.asList(Role.values());
+            model.addAttribute("roleList", roles);
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";
