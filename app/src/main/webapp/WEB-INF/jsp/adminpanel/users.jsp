@@ -84,13 +84,10 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-10">
-                    <h1 class="page-header">User <b>${user.id}</b> profile</h1>
-
-                    <p class="container">
-
-                        <table class="table">
-                            <thead class="alert alert-success">
+                <div class="col-lg-12">
+                    <h1 class="alert alert-success text-center"><b>Users manage</b></h1>
+                    <table class="table">
+                        <thead class="alert alert-success">
                                 <tr>
                                     <th> Last name <input class="input-sm" placeholder="Place for filthering"> </th>
                                     <th> Name <input class="input-sm" placeholder="Place for filthering"></th>
