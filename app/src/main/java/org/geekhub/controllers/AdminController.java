@@ -50,10 +50,6 @@ public class AdminController {
         return "adminpanel/users";
     }
 
-    @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public String courses() {
-        return "adminpanel/courses";
-    }
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
@@ -124,5 +120,27 @@ public class AdminController {
             e.printStackTrace();
         }
         return "redirect:/dashboard/users/"+id+"/edit";
+    }
+
+
+    @RequestMapping(value = "/course/list", method = RequestMethod.GET)
+    public String coursesList(ModelMap modelMap) {
+
+        Course course = new Course();
+        course.setId(1);
+        course.setName("PHP");
+
+        Course course1 = new Course();
+        course1.setId(2);
+        course1.setName("Java for Web");
+
+        Course course2 = new Course();
+        course2.setId(3);
+        course2.setName("Front-end + CMS");
+
+
+        List<Course> courses = Arrays.asList(course, course1, course2);
+        modelMap.addAttribute("courses", courses);
+        return "dashboard/courses";
     }
 }
