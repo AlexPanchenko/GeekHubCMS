@@ -117,4 +117,10 @@ public class AdminController {
 
         return "adminpanel/user-edit";
     }
+
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    public String questions(ModelMap model) {
+
+        return "adminpanel/questions";
+    }
 }

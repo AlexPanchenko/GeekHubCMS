@@ -78,6 +78,9 @@
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
                     </li>
+                    <li>
+                        <a href="/dashboard/questions"><i class="fa fa-table fa-fw"></i>Base questions</a>
+                    </li>
 
                 </ul>
             </div>
