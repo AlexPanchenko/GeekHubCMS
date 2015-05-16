@@ -20,7 +20,6 @@
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         </http>
 
-
     <authentication-manager>
     <authentication-provider user-service-ref="customUserDetailsService" >
         <password-encoder hash="md5" />

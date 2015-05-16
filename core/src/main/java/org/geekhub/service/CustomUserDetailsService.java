@@ -1,7 +1,7 @@
 package org.geekhub.service;
 
 
-
+import org.geekhub.exception.UserNotFoundException;
 import org.geekhub.hibernate.dao.impl.UserDaoImpl;
 import org.geekhub.hibernate.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -24,12 +25,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
+        if(user == null){
+                throw new UserNotFoundException("User not found");
+        }
         try {
-            org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
+            //validateUser(user);
+                return new User(user.getLogin(),
+                        user.getPassword(),
+                        getAuthorities(user.getRoles()));
 
-            return new User(user.getLogin(),
-                            user.getPassword(),
-                            getAuthorities(user.getRoles()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -44,4 +49,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
+
+    /*private void validateUser(org.geekhub.hibernate.entity.User user) throws UserNotFoundException {
+        if (user.getPassword().equals("")) {
+            throw new UserNotFoundException("User not found");
+        }
+    }*/
 }

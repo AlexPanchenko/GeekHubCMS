@@ -1,15 +1,13 @@
 package org.geekhub.controllers;
 
 
+import org.geekhub.service.CustomUserDetailsService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 
 import java.text.ParseException;
 import java.util.Date;
@@ -22,8 +20,14 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired private CustomUserDetailsService customUserDetailsService;
 
-    @RequestMapping("/auth")
+    @RequestMapping(value = "/auth" , method = RequestMethod.GET)
+    public String loginForm(){
+        return "login";
+    }
+
+    /*@RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ModelAndView loginForm(@RequestParam(value = "error",required = false)String error,
                                   @RequestParam(required = false) String logout  ) {
         ModelAndView model = new ModelAndView("login");
@@ -34,7 +38,7 @@ public class AuthController {
             model.addObject("msg", logout);
         }
         return model;
-    }
+    }*/
 
     @RequestMapping("/index")
      public String indexForm() {

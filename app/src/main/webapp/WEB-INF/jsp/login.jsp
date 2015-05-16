@@ -9,16 +9,12 @@
   <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
 
-  <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-  <script src="<c:url value="/resources/js/forms.js" />"></script>
-  <script src="<c:url value="/resources/js/sign-in.js" />"></script>
-  <script src="<c:url value="http://code.jquery.com/jquery-1.11.3.min.js" />"></script>
 </head>
 <body>
 <h1>LogIn</h1>
-<c:if test="${not empty error}">
-  <div class="error">${error}</div>
-</c:if>
+
+
+
 
 <form class="login-form well" action="/login" method="post">
 
@@ -33,11 +29,13 @@
     <input type="password" class="form-control js-pass" id="password" name="password" placeholder="Password">
   </div>
 
+  <c:if test="${!empty SPRING_SECURITY_LAST_EXCEPTION}">
+      <div class="err-msg">Invalid email or password</div>
+  </c:if>
   <input type="submit" value="Submit">
 
 </form>
 <%--<script src="/resources/js/forms.js"></script>--%>
-<script src="/resources/js/sign-in.js"></script>
 
 </body>
 </html>
