@@ -2,9 +2,28 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.entity.Course;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by helldes on 15.05.2015.
- */
+import java.util.List;
+
+@Repository
 public class CourseDaoImpl extends GenericDaoImpl<Course> implements CourseDao {
+
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Course> getAll() {
+        return sessionFactory.getCurrentSession().createCriteria(Course.class).list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Course> getListCoursesById(List<Integer> listCourseId) {
+        return sessionFactory.getCurrentSession().createQuery("from Course course WHERE course.id in :listCourseId")
+                .setParameterList("listCourseId", listCourseId).list();
+
+    }
 }

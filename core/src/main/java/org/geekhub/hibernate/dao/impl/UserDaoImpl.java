@@ -15,18 +15,13 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     @Override
     public User getUserById(int userId) {
-
         User user = (User) sessionFactory.getCurrentSession().get(User.class, userId);
-
-
         return user;
     }
+
     @Transactional
     public void addUser(User user) {
-
-        sessionFactory.getCurrentSession().save(user);
-
-
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
     @Override
@@ -43,22 +38,15 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
         }
     }
 
-
     @Override
     public User getUserByEmail(String email) throws UsernameNotFoundException {
-
-        User user = (User)sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
-
-
+        User user = (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
         return user;
     }
 
     @Override
     public User getUserByLogin(String login) throws UsernameNotFoundException {
-
-        User user = (User)sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
-
-
+        User user = (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
         return user;
     }
 

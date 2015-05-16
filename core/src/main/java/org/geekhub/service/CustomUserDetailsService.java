@@ -30,8 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 throw new UserNotFoundException("User not found");
         }
         try {
-            //validateUser(user);
-                return new User(user.getLogin(),
+                return new User(user.getEmail(),
                         user.getPassword(),
                         getAuthorities(user.getRoles()));
 
@@ -49,10 +48,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
-
-    /*private void validateUser(org.geekhub.hibernate.entity.User user) throws UserNotFoundException {
-        if (user.getPassword().equals("")) {
-            throw new UserNotFoundException("User not found");
-        }
-    }*/
 }

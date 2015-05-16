@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>registration on courses</title>
@@ -8,40 +10,22 @@
     registr courses
 
     <h2>REGISTRATION COURSES</h2>
+    <form method="post" action="/registrationCourses">
+<c:forEach items="${listCourses}" var="course">
 
-    <form method="post" action="/blabla">
-
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="courseId" value="1"/>
-        </div>
 
         <div>
-            <p>Name: Java2</p>
-            <input type="checkbox" name="courseId" value="2"/>
+            <p>${course.id}</p>
+            <p>${course.name}</p>
+            <p>${course.description}</p>
+            <input type="checkbox" name="courseId" value="${course.id}"/>
+
         </div>
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="courseId" value="3"/>
-        </div>
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="course" value="4"/>
-        </div>
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="courseId" value="5"/>
-        </div>
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="courseId" value="6"/>
-        </div>
-        <div>
-            <p>Name: Java</p>
-            <input type="checkbox" name="courseId" value="7"/>
-        </div>
+
+</c:forEach>
         <button type="submit">Save</button>
     </form>
+
 </div>
 </body>
 </html>

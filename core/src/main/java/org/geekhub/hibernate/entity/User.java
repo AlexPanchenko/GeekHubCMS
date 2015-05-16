@@ -73,11 +73,6 @@ public class User implements Serializable {
 
     public User(){
     }
-    public User (String login, String password, Role userRole) {
-        this.login = login;
-        this.password = password;
-        this.role = userRole;
-    }
 
     public int getId() {
         return id;

@@ -1,11 +1,13 @@
 package org.geekhub.service;
 
+
+import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.entity.Course;
 
-/**
- * Created by use on 15.05.2015.
- */
-public interface RegistrationCoursesService {
+import java.util.List;
 
+public interface RegistrationCoursesService {
+    List<CourseBean> getListCourseBeans();
+    public List<Course> getRegistrationUserByCourses(List<Integer> listCourseId);
 
 }

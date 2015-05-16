@@ -7,12 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by user on 13.05.2015.
- *
- * @Author Odahovskiy V.(Odahovskiy@gmail.com)
- * @Author Palyvoda (jekainfinity@gmail.com)
- */
+
 @Entity
 @Table(name = "COURSES")
 public class Course implements Serializable {
