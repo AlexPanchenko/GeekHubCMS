@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: helldes
+  Date: 16.05.2015
+  Time: 16:47
+  To change this template use File | Settings | File Templates.
+--%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -103,15 +110,24 @@
             <tr>
               <th> ID </th>
               <th> Text question </th>
-              <th> Weigth</th>
+              <th class="text-center"> Members</th>
               <th class="text-center"> Action</th>
             </tr>
             </thead>
-            <c:forEach items="${questions}" var="question">
+            <c:forEach items="${courses}" var="course">
               <tr>
-                <td>${question.id}</td>
-                <td>${question.questionText}</td>
-                <td>${question.questionWeigth}</td>
+                <td>${course.id}</td>
+                <td>${course.name}</td>
+                <td class="text-center">
+                  <c:choose>
+                    <c:when test="${empty course.users}">
+                      0
+                    </c:when>
+                    <c:otherwise>
+                      ${course.users.size()}
+                    </c:otherwise>
+                  </c:choose>
+                </td>
                 <td class="text-center">
                   <a href="#"><i class="fa fa-pencil-square-o"></i></a>
                   <i class="fa fa-times"></i>

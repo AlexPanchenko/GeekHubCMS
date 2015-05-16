@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Service
@@ -49,5 +50,10 @@ public abstract class GenericServiceImpl<T extends Serializable> implements Gene
     @Override
     public void delete(T t) {
         genericDao.delete(t);
+    }
+
+    @Override
+    public List<T> getAll() {
+        return genericDao.getAll();
     }
 }

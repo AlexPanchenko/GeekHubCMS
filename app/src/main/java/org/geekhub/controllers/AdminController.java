@@ -1,8 +1,11 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.QuestionService;
 import org.geekhub.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+    @Autowired
+    QuestionService questionService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -158,7 +164,21 @@ public class AdminController {
 
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
-
+        model.addAttribute("questions", questionService.getAll());
         return "adminpanel/questions";
+    }
+
+    @RequestMapping(value = "/question/create", method = RequestMethod.GET)
+    public String createQuestion(ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
+    public String editQuestion(@PathVariable("questionId") String courseId,
+                               @RequestParam("textQuestion") String name,
+                               @RequestParam("description") String description) {
+        return "redirect:/admin/courses/" + courseId + "/edit";
     }
 }
