@@ -102,7 +102,7 @@ public class AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "redirect:/dashboard/users/"+id+"/edit";
+        return "redirect:/admin/users/"+id+"/edit";
     }
 
 

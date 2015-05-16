@@ -12,7 +12,5 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.connection.autocommit">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="current_session_context_class">thread</property>
-        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
     </session-factory>
 </hibernate-configuration>

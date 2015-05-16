@@ -2,6 +2,7 @@ package org.geekhub.service;
 
 
 
+import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,12 +21,12 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         try {
-            org.geekhub.hibernate.entity.User user = userService.getUserByLogin(userName);
+            org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
 
             return new User(user.getLogin(),
                             user.getPassword(),
