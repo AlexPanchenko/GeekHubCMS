@@ -30,11 +30,11 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public User loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
 
         List<User> list = sessionFactory.getCurrentSession()
                 .createCriteria(User.class)
-                .add(Restrictions.eq("login", userName)).list();
+                .add(Restrictions.eq("email", email)).list();
 
         if (list.size() > 0) {
             return list.get(0);

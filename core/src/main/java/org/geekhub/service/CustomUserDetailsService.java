@@ -24,8 +24,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDaoImpl userDao;
 
     @Transactional
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(email);
         if(user == null){
                 throw new UserNotFoundException("User not found");
         }

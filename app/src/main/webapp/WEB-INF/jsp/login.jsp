@@ -16,12 +16,12 @@
 
 
 
-<form class="login-form well" action="/login" method="post">
+<form class="login-form well" action="/j_spring_security_check" method="post">
 
 
   <div class="form-group">
     <label for="email">Email address</label>
-    <input type="email" class="form-control js-email" id="email" name="login" placeholder="Enter email">
+    <input type="email" class="form-control js-email" id="email" name="email" placeholder="Enter email">
   </div>
 
   <div class="form-group">

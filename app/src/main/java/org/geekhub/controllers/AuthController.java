@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -22,27 +23,27 @@ public class AuthController {
 
     @Autowired private CustomUserDetailsService customUserDetailsService;
 
-    @RequestMapping(value = "/auth" , method = RequestMethod.GET)
+    @RequestMapping("/index")
+    public String indexForm() {
+        return "index";
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public String loginForm(){
         return "login";
     }
 
-    /*@RequestMapping(value = "/auth", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ModelAndView loginForm(@RequestParam(value = "error",required = false)String error,
                                   @RequestParam(required = false) String logout  ) {
         ModelAndView model = new ModelAndView("login");
-        if (error != null) {;
+        if (error != null) {
             model.addObject("error", error);
         }
         if (logout != null) {
             model.addObject("msg", logout);
         }
         return model;
-    }*/
-
-    @RequestMapping("/index")
-     public String indexForm() {
-        return "index";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)

@@ -11,10 +11,12 @@
                 login-page="/auth"
                 default-target-url="/index"
                 authentication-failure-url="/auth?error"
-                username-parameter="login"
+                login-processing-url="/j_spring_security_check"
+                username-parameter="email"
                 password-parameter="password"/>
         <logout logout-success-url="/auth?logout"/>
         <csrf disabled="true"/>
+        <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/student/**" access="hasRole('ROLE_STUDENT')"/>
         <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>

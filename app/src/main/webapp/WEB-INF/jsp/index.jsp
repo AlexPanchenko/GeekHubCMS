@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 14.05.2015
-  Time: 15:57
-  To change this template use File | Settings | File Templates.
---%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title></title>
 </head>
 <body>
 Hello world! It's index page
+<security:authorize access="hasRole('ROLE_STUDENT')">
+    <a href="/logout">Log out</a>
+    <security:authentication property="principal.username"/>
+</security:authorize>
+<security:authorize access="hasRole('ROLE_ANONYMOUS')">
+<a href="/auth">Log In</a>
+    </security:authorize>
 </body>
 </html>

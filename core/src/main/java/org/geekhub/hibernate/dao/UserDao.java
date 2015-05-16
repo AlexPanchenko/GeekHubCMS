@@ -11,7 +11,7 @@ public interface UserDao extends GenericDao<User> {
 
     public void addUser(User user);
 
-    public User loadUserByUsername(String userName) throws UsernameNotFoundException;
+    public User loadUserByUsername(String email) throws UsernameNotFoundException;
     public User getUserByEmail(String email) throws UsernameNotFoundException;
     public User getUserByLogin(String login) throws UsernameNotFoundException;
 }
