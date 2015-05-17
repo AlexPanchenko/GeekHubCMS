@@ -42,7 +42,7 @@
 
         <ul class="nav navbar-top-links navbar-right">
 
-            <a href="#" enabled="false"><i class="fa" style="color:blue"></i>TODO: Principal.name</a>
+            <a href="#" enabled="false"><i class="fa" style="color:blue"></i>${pageContext.request.userPrincipal.name}</a>
             </li>
             <!-- /.dropdown -->
             <li class="dropdown">

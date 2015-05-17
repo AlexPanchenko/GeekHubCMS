@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: helldes
-  Date: 16.05.2015
-  Time: 16:47
+  Date: 17.05.2015
+  Time: 12:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -131,7 +131,7 @@
             </c:when>
             <c:otherwise>
               <h1 class="page-header">Edit ${question.id}</h1>
-              <form data-toggle="validator"  role="form" action="/admin/question/${question.id}"  method="POST" class="form-horizontal">
+              <form data-toggle="validator"  role="form" action="/admin/question"  method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
                     <dt>
@@ -154,7 +154,7 @@
                 </fieldset>
                 <button type="submit" class="btn btn-primary btn-lg">Update question</button>
               </form>
-                 <c:forEach items="${answers}" var="answer">
+              <c:forEach items="${answers}" var="answer">
                 <tr>
                   <td>${answer.id}</td>
                   <td>${answer.answerText}</td>

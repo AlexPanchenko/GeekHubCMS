@@ -111,9 +111,9 @@
               <tr>
                 <td>${question.id}</td>
                 <td>${question.questionText}</td>
-                <td>${question.questionWeigth}</td>
+                <td>${question.questionWeight}</td>
                 <td class="text-center">
-                  <a href="#"><i class="fa fa-pencil-square-o"></i></a>
+                  <a href="/admin/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                   <i class="fa fa-times"></i>
                 </td>
               </tr>

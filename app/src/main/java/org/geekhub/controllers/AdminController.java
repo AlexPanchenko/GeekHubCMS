@@ -1,14 +1,19 @@
 package org.geekhub.controllers;
 
+import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.AnswerService;
 import org.geekhub.service.QuestionService;
 import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -21,6 +26,10 @@ public class AdminController {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    AnswerService answerService;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -162,23 +171,83 @@ public class AdminController {
         return "redirect:/admin/courses/" + courseId + "/edit";
     }
 
+
+    // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
-        model.addAttribute("questions", questionService.getAll());
+        List<Question> list = questionService.getAll();
+        model.addAttribute("questions", list);
         return "adminpanel/questions";
     }
 
     @RequestMapping(value = "/question/create", method = RequestMethod.GET)
-    public String createQuestion(ModelMap model) {
+    public String createQuestionPage(ModelMap model) {
         model.addAttribute("action", "create");
         model.addAttribute("question", new Question());
         return "adminpanel/question-edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
-    public String editQuestion(@PathVariable("questionId") String courseId,
-                               @RequestParam("textQuestion") String name,
-                               @RequestParam("description") String description) {
-        return "redirect:/admin/courses/" + courseId + "/edit";
+    @RequestMapping(value = "/question", method = RequestMethod.POST)
+    public String createQuestion(@RequestParam("questionText") String questionText,
+                                 @RequestParam("questionWeight") byte questionWeight) {
+        Question question = new Question();
+        question.setQuestionText(questionText);
+        question.setQuestionWeight(questionWeight);
+        question.setCourseId(1);
+        questionService.create(question);
+        int questionId = question.getId();
+        System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
+        return "redirect:/admin/question/" + questionId + "/edit";
     }
+
+    @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
+    public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        return "adminpanel/question-edit";
+    }
+
+
+    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @RequestParam("questionText") String questionText,
+                               @RequestParam("questionWeight") byte questionWeight) {
+        Question question = questionService.read(questionId);
+        question.setQuestionText(questionText);
+        question.setQuestionWeight(questionWeight);
+        questionService.update(question);
+        return "redirect:/admin/question/" + questionId + "/edit";
+    }
+
+    // END QUESTION CONTROLLER
+
+    //START ANSWER CONTROLLER
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @RequestParam("answerId") String answerId,
+                             @RequestParam("answerText") String answerText,
+                             @RequestParam("answerRight") String answerRight) {
+        return "redirect:/admin/question/" + questionId + "/answer/" + answerId+ "/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @PathVariable("answerId") int answerId,
+                             ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answer", answerService.read(answerId));
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST)
+    public String createAnswer(@PathVariable("questionId") int questionId,
+                               @RequestParam("answerText") String answerText,
+                               @RequestParam("answerRight") boolean answerRight) {
+        Answer answer = new Answer();
+        answer.setAnswerText(answerText);
+        answer.setAnswerRight(answerRight);
+        answer.setQuestion(questionService.read(questionId));
+        answerService.create(answer);
+        return "redirect:/admin/question/{questionId}/edit";
+    }
+    //END ANSWER CONTROLLER
 }

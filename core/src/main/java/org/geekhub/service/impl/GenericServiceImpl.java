@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class GenericServiceImpl<T extends Serializable> implements GenericService<T> {
 
     @Autowired
-    protected GenericDao<T> genericDao;
+    GenericDao<T> genericDao;
 
     public GenericServiceImpl (GenericDao<T> genericDao){
         this.genericDao = genericDao;
@@ -31,6 +31,7 @@ public abstract class GenericServiceImpl<T extends Serializable> implements Gene
     public void setGenericDao(GenericDao<T> genericDao){
         this.genericDao = genericDao;
     }
+
 
     @Override
     public void create(T t) {

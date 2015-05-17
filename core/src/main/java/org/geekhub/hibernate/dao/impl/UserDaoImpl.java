@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("userDao")
 public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     @Override

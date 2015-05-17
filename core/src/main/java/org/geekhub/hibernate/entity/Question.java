@@ -3,6 +3,7 @@ package org.geekhub.hibernate.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -23,11 +24,11 @@ public class Question implements Serializable{
     private String questionText;
 
     @Column(name = "QUESTION_WEIGTH", nullable = false)
-    @NotBlank(message = "Question weigth should be not empty")
-    private Byte questionWeigth;
+    @NotNull(message = "Question weight should be not empty")
+    private Byte questionWeight;
 
     @Column(name = "COURSE_ID", nullable = false)
-    @NotBlank(message = "COURSE ID should be not empty")
+    @NotNull(message = "COURSE ID should be not empty")
     private int courseId;
 
     @OneToMany(mappedBy="question")
@@ -36,12 +37,12 @@ public class Question implements Serializable{
     public Question() {
     }
 
-    public Byte getQuestionWeigth() {
-        return questionWeigth;
+    public Byte getQuestionWeight() {
+        return questionWeight;
     }
 
-    public void setQuestionWeigth(Byte questionWeigth) {
-        this.questionWeigth = questionWeigth;
+    public void setQuestionWeight(Byte questionWeight) {
+        this.questionWeight = questionWeight;
     }
 
     public int getCourseId() {

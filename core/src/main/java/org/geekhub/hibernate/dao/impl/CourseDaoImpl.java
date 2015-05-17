@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by helldes on 15.05.2015.
  */
-@Repository
+@Repository("courseDao")
 public class CourseDaoImpl extends GenericDaoImpl<Course> implements CourseDao {
 }

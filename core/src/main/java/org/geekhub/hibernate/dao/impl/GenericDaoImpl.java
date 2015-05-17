@@ -3,18 +3,26 @@ package org.geekhub.hibernate.dao.impl;
 import org.geekhub.hibernate.dao.GenericDao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * Created by helldes on 15.05.2015.
  */
-public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
+public abstract class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
+
     private Class<T> clazz;
 
     @Autowired
+    @Qualifier("sessionFactory")
     public SessionFactory sessionFactory;
+
+    public GenericDaoImpl(){
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
     @Override
     public void create(T t) {

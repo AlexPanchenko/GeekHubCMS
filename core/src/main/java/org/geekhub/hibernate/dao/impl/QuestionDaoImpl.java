@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by helldes on 15.05.2015.
  */
-@Repository
+@Repository("questionDao")
 public class QuestionDaoImpl extends GenericDaoImpl<Question> implements QuestionDao{
 }
