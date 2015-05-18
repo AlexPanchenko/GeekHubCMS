@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//hibernate/hibernate Configuration DTD//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.query.plan_cache_max_strong_references">128</property>
@@ -11,6 +11,6 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.connection.autocommit">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
     </session-factory>
 </hibernate-configuration>

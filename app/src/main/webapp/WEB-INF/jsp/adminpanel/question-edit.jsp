@@ -113,7 +113,7 @@
                     </dt>
                     <dd>
                       <div class="form-group">
-                        <textarea class="form-control" id="questionText" name="questionText" placeholder="Enter the question text" rows="5" required></textarea>
+                        <textarea class="form-control" id="questionText" name="questionText" placeholder="Enter the question text" rows="4" required></textarea>
                       </div>
                     </dd>
                     <dt>
@@ -139,7 +139,7 @@
                     </dt>
                     <dd>
                       <div class="form-group">
-                        <textarea class="form-control" id="questionText" name="questionText" placeholder="Enter the question text" rows="5" required>${question.questionText}</textarea>
+                        <textarea class="form-control" id="questionText" name="questionText" placeholder="Enter the question text" rows="4" required>${question.questionText}</textarea>
                       </div>
                     </dd>
                     <dt>
@@ -154,6 +154,7 @@
                 </fieldset>
                 <button type="submit" class="btn btn-primary btn-lg">Update question</button>
               </form>
+              <table class="table">
                  <c:forEach items="${answers}" var="answer">
                 <tr>
                   <td>${answer.id}</td>
@@ -161,11 +162,12 @@
                   <td>${answer.answerRight}</td>
                   <td class="text-center">
                     <a href="/admin/answer/${answer.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                    <i class="fa fa-times"></i>
+                    <a href="/admin/question/${questionId}/answer/${answer.id}/delete"><i class="fa fa-times"></i></a>
                   </td>
                 </tr>
               </c:forEach>
-              <form data-toggle="validator"  role="form" action="/admin/answer/${question.id}"  method="POST" class="form-horizontal">
+              </table>
+              <form data-toggle="validator"  role="form" action="/admin/question/${question.id}/answer/create"  method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
                     <dt>
@@ -173,15 +175,16 @@
                     </dt>
                     <dd>
                       <div class="form-group">
-                        <textarea class="form-control" id="answerText" name="answerText" placeholder="Enter the answer text" rows="3" required>${answer.answerText}</textarea>
+                        <textarea class="form-control" id="answerText" name="answerText" placeholder="Enter the answer text" rows="2" required>${answer.answerText}</textarea>
                       </div>
                     </dd>
                     <dt>
-                      <label class="control-label pull-left" for="answerRight">Answer right?</label>
+                      <label class="control-label pull-left">Answer right?</label>
                     </dt>
                     <dd>
                       <div class="form-group">
-                        <input type="checkbox" id="answerRight" name="answerRight">
+                        <input type="checkbox" id="answerRight" name="answerRight" value="true">
+                        <input type="hidden"  name="answerRight" value="false">
                       </div>
                     </dd>
                   </dl>

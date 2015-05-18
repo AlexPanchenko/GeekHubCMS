@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public abstract class GenericServiceImpl<T extends Serializable> implements GenericService<T> {
 
     @Autowired
@@ -34,6 +33,7 @@ public abstract class GenericServiceImpl<T extends Serializable> implements Gene
 
 
     @Override
+    @Transactional
     public void create(T t) {
         genericDao.create(t);
     }
@@ -44,11 +44,13 @@ public abstract class GenericServiceImpl<T extends Serializable> implements Gene
     }
 
     @Override
+    @Transactional
     public void update(T t) {
         genericDao.update(t);
     }
 
     @Override
+    @Transactional
     public void delete(T t) {
         genericDao.delete(t);
     }

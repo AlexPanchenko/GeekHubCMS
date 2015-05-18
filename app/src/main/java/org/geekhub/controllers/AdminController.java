@@ -7,6 +7,7 @@ import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.AnswerService;
 import org.geekhub.service.QuestionService;
 import org.geekhub.util.CommonUtil;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +24,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Autowired
     QuestionService questionService;
@@ -203,6 +207,7 @@ public class AdminController {
     @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
     public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
         model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answers", answerService.getAll());
         return "adminpanel/question-edit";
     }
 
@@ -247,6 +252,15 @@ public class AdminController {
         answer.setAnswerRight(answerRight);
         answer.setQuestion(questionService.read(questionId));
         answerService.create(answer);
+        return "redirect:/admin/question/{questionId}/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
+    public String deleteAnswer( @PathVariable("questionId") int questionId,
+                                @PathVariable("answerId") int answerId,
+                                ModelMap model) {
+        answerService.delete(answerService.read(answerId));
+        model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/question/{questionId}/edit";
     }
     //END ANSWER CONTROLLER

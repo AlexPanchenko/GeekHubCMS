@@ -3,6 +3,7 @@ package org.geekhub.hibernate.entity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -21,7 +22,7 @@ public class Answer implements Serializable {
     private String answerText;
 
     @Column(name = "ANSWER_RIGHT", nullable = false)
-    @NotBlank(message = "Right answer should be not empty")
+    @NotNull(message = "Right answer should be not empty")
     private Boolean answerRight;
 
     @ManyToOne

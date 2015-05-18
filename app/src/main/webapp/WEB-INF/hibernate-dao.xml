@@ -1,5 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="jmnDataSource"/>
@@ -11,10 +12,11 @@
 	            <value>org.geekhub.hibernate.entity</value>
 	        </list>
 	    </property>
-
 	    <property name="configLocation" value="/WEB-INF/hibernate.cfg.xml" />
 	    <property name="dataSource" ref="jmnDataSource" />
 	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>

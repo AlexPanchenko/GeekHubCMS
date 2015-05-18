@@ -1,9 +1,11 @@
 package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.GenericDao;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -12,6 +14,7 @@ import java.util.List;
 /**
  * Created by helldes on 15.05.2015.
  */
+@Repository
 public abstract class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
 
     private Class<T> clazz;
@@ -19,6 +22,11 @@ public abstract class GenericDaoImpl<T extends Serializable> implements GenericD
     @Autowired
     @Qualifier("sessionFactory")
     public SessionFactory sessionFactory;
+
+    private Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
 
     public GenericDaoImpl(){
         this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -37,11 +45,13 @@ public abstract class GenericDaoImpl<T extends Serializable> implements GenericD
     @Override
     public void update(T t) {
         sessionFactory.getCurrentSession().update(t);
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void delete(T t) {
         sessionFactory.getCurrentSession().delete(t);
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
