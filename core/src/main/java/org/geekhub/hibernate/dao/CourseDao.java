@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface CourseDao extends GenericDao<Course> {
     List<Course> getAll(int page, int recordsPerPage);
+    void updateCourse(Course course);
+    void deleteCourse(int courseId);
 }
