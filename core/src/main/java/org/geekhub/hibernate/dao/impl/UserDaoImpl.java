@@ -2,7 +2,9 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.User;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public User getUserById(int userId) {

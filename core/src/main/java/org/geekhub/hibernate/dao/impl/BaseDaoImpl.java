@@ -12,7 +12,7 @@ import java.util.List;
 public class BaseDaoImpl implements BaseDao {
 
     @Autowired
-    protected SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public void create(BaseEntity obj) {

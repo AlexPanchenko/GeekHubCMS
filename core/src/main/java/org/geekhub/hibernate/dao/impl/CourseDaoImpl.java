@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
 
+    @Autowired
+    private SessionFactory sessionFactory;
 
 
     @Override
