@@ -1,9 +1,14 @@
 package org.geekhub.controllers;
 
+import org.geekhub.hibernate.bean.CourseBean;
+import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.service.CourseService;
 import org.geekhub.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+    @Autowired
+    private CourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -108,23 +116,12 @@ public class AdminController {
 
 
     @RequestMapping(value = "/course/list", method = RequestMethod.GET)
-    public String coursesList(ModelMap modelMap) {
+    public String coursesList( @RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
+                               @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
+                               ModelMap modelMap) {
 
-        Course course = new Course();
-        course.setId(1);
-        course.setName("PHP");
-
-        Course course1 = new Course();
-        course1.setId(2);
-        course1.setName("Java for Web");
-
-        Course course2 = new Course();
-        course2.setId(3);
-        course2.setName("Front-end + CMS");
-
-
-        List<Course> courses = Arrays.asList(course, course1, course2);
-        modelMap.addAttribute("courses", courses);
+        Page<CourseBean> page = courseService.getAll(p, recPerPage);
+        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }
 
@@ -136,24 +133,56 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/course/{courseId}/edit", method = RequestMethod.GET)
-    public String editCourses(@PathVariable("courseId") String courseId, ModelMap model) {
-        Course course = new Course();
-        course.setName("Pony");
-        course.setDescription("Sit and ride");
-        model.addAttribute("course",course);
-        return "course-edit";
+    public String editCourses(@PathVariable("courseId") Integer courseId, ModelMap model) throws Exception {
+        try {
+            CourseBean course = courseService.getById(courseId);
+            model.addAttribute("course",course);
+        }catch (CourseNotFoundException ex){
+
+        }catch (Exception ex) {
+            throw new Exception(ex);
+        }
+        return "adminpanel/course-edit";
     }
 
     @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
-    public String editCourses(@PathVariable("courseId") String courseId,
-                              @RequestParam("name") String name, @RequestParam("description") String description) {
-        return "redirect:/admin/courses/" + courseId + "/edit";
+    public String editCourses(@PathVariable("courseId") Integer courseId,
+                              @RequestParam("name") String name, @RequestParam("description") String description) throws Exception {
+        try {
+            courseService.update(
+                    new CourseBean(courseId, name, description)
+            );
+        }catch (CourseNotFoundException ex){
+
+        }catch (Exception ex) {
+            throw new Exception(ex);
+        }
+
+        return "redirect:/admin/course/" + courseId + "/edit";
     }
 
-    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.PUT)
-    public String createCourse(@PathVariable("courseId") String courseId,
-                               @RequestParam("name") String name, @RequestParam("description") String description) {
-        System.out.println("Name " + name + "   Description " + description );
-        return "redirect:/admin/courses/" + courseId + "/edit";
+    @RequestMapping(value = "/course", method = RequestMethod.POST)
+    public String createCourse(@RequestParam("name") String name,
+                               @RequestParam("description") String description) throws Exception {
+
+        try {
+            courseService.createCourse(name, description);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+
+        return "redirect:/admin/course/list";
+    }
+
+    @RequestMapping(value = "/course-remove/{courseId}", method = RequestMethod.GET)
+    public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
+
+        try {
+            courseService.deleteCourse(courseId);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+
+        return "redirect:/admin/course/list";
     }
 }
