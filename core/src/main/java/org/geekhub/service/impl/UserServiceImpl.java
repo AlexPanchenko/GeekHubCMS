@@ -70,8 +70,8 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 
         return null;
     }
-    public List<UserBean> getUsersAll(){
-        List<User> users = userDao.getAll();
+    public List<UserBean> getUsersOnOnePage(){
+        List<User> users = dao.usersOnPage(3);
         List<UserBean> userBeans = new ArrayList<UserBean>();
         for(User u: users){
             UserBean userBean = new UserBean();

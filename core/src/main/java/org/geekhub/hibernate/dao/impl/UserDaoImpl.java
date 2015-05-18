@@ -61,5 +61,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
         return user;
     }
-
+    @Override
+    public List<User> usersOnPage(int page) throws UsernameNotFoundException {
+//        return sessionFactory.getCurrentSession().createQuery("from User user ORDER BY user.LAST_NAME desc").setFirstResult(3).setMaxResults(3).list();
+        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult(3 * (page - 1)).setMaxResults(3).list();
+    }
 }

@@ -36,13 +36,21 @@ public class AdminController {
 		return mav;
 	}
 
+//    @RequestMapping("/ajax/usersShow")
+//	public ModelAndView usersOnPage(){
+//		ModelAndView mav=new ModelAndView("adminpanel/usersShow");
+//        List<UserBean> users = userService.getUsersAll();
+//		mav.addObject("users",users);
+//		return mav;
+//	}
+
     @RequestMapping("/ajax/usersShow")
-	public ModelAndView usersOnPage(){
-		ModelAndView mav=new ModelAndView("adminpanel/usersShow");
-        List<UserBean> users = userService.getUsersAll();
-		mav.addObject("users",users);
-		return mav;
-	}
+    public ModelAndView usersOnPage(){
+        ModelAndView mav=new ModelAndView("adminpanel/usersShow");
+        List<UserBean> users = userService.getUsersOnOnePage();
+        mav.addObject("users",users);
+        return mav;
+    }
 
 
 //    @RequestMapping(value = "/users", method = RequestMethod.GET)

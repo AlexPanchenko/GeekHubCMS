@@ -44,4 +44,5 @@ public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
     public List<T> getAll(){
         return sessionFactory.getCurrentSession().createCriteria(clazz).list();
     }
+
 }
