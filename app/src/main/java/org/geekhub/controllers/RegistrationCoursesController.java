@@ -24,8 +24,10 @@ public class RegistrationCoursesController {
 
 
     @RequestMapping(value = "/student/registrationCourses", method = RequestMethod.POST)
-    public String registrationCourses(@RequestParam("courseId") List<Integer> id) {
-        registrationCoursesService.getRegistrationUserByCourses(id);
+    public String registrationCourses(@RequestParam(required = false , value = "courseId") List<Integer> id) {
+        if(id != null) {
+            registrationCoursesService.getRegistrationUserByCourses(id);
+        }
         return "redirect:/student/registrationCourses";
     }
 }
