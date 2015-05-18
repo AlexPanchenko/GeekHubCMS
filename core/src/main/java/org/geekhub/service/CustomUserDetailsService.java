@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
                 return new User(user.getEmail(),
                         user.getPassword(),
-                        getAuthorities(user.getRoles()));
+                        getAuthorities(user.getRole()));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

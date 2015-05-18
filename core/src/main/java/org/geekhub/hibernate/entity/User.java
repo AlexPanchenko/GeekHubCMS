@@ -6,14 +6,11 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "USERS")
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
@@ -65,11 +62,9 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_COURSES", joinColumns = {@JoinColumn(name = "USER_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "COURSE_ID")})
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private Set<Course> courses = new HashSet<Course>();
+    @OneToMany
+     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    List<UsersCourses> usersCourses = new ArrayList<>();
 
     public User(){
     }
@@ -178,19 +173,19 @@ public class User implements Serializable {
         this.enable = enable;
     }
 
-    public Role getRoles() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRoles(Role roles) {
+    public void setRole(Role roles) {
         this.role = roles;
     }
 
-    public Set<Course> getCourses() {
-        return courses;
+    public List<UsersCourses> getUsersCourses() {
+        return usersCourses;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    public void setUsersCourses(List<UsersCourses> usersCourses) {
+        this.usersCourses = usersCourses;
     }
 }

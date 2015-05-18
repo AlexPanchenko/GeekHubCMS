@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RegistrationCoursesService {
     List<CourseBean> getListCourseBeans();
-    public List<Course> getRegistrationUserByCourses(List<Integer> listCourseId);
+    public void getRegistrationUserByCourses(List<Integer> listCourseId);
 
 }

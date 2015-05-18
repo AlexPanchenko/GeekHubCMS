@@ -7,7 +7,6 @@
 </head>
 <body>
 <div>
-    registr courses
 
     <h2>REGISTRATION COURSES</h2>
     <form method="post" action="/registrationCourses">
@@ -15,9 +14,9 @@
 
 
         <div>
-            <p>${course.id}</p>
-            <p>${course.name}</p>
-            <p>${course.description}</p>
+            <span>${course.id}</span>
+            <span>${course.name}</span>
+            <span>${course.description}</span>
             <input type="checkbox" name="courseId" value="${course.id}"/>
 
         </div>

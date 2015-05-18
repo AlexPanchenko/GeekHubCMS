@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 /**
  * Created by user on 13.05.2015.
  */
-public interface UserDao extends GenericDao<User> {
+public interface UserDao extends BaseDao {
     User getUserById(int userId);
 
     public void addUser(User user);
