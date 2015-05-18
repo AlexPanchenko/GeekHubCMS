@@ -71,7 +71,7 @@
                     </li>
 
                     <li>
-                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -96,7 +96,7 @@
                         <c:choose>
                             <c:when test="${action eq 'create'}">
                                 <h1 class="page-header">Add new course</h1>
-                                <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
+                                <form data-toggle="validator"  role="form" action="/admin/courses"  method="POST" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>
@@ -122,7 +122,7 @@
                             </c:when>
                             <c:otherwise>
                                 <h1 class="page-header">Edit ${course.id}</h1>
-                                <form data-toggle="validator"  role="form" action="/admin/course/${course.id}"  method="POST" class="form-horizontal">
+                                <form data-toggle="validator"  role="form" action="/admin/courses/${course.id}"  method="POST" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>

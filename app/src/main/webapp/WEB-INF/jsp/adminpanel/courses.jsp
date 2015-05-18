@@ -71,7 +71,7 @@
                     </li>
 
                     <li>
-                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
+                        <a href="/admin/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
-                        <a href="/admin/course/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
+                        <a href="/admin/courses/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
                         <b>Courses manage</b></h1>
                     <table class="table">
                         <thead class="alert alert-success">
@@ -121,18 +121,18 @@
                                     </c:choose>
                                 </td>
                                 <td class="text-center">
-                                    <a href="/admin/course/${course.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/course-remove/${course.id}"> <i class="fa fa-times"></i></a>
+                                    <a href="/admin/courses/${course.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a href="/admin/courses-remove/${course.id}"> <i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </table>
                     <!-- Pagination -->
 
-                    <c:url var="firstUrl" value="/admin/course/list?p=1" />
-                    <c:url var="lastUrl" value="/admin/course/list?=${page.end}" />
-                    <c:url var="prevUrl" value="/admin/course/list?=${page.current - 1}" />
-                    <c:url var="nextUrl" value="/admin/course/list?=${page.current + 1}" />
+                    <c:url var="firstUrl" value="/admin/courses?p=1" />
+                    <c:url var="lastUrl" value="/admin/courses?=${page.end}" />
+                    <c:url var="prevUrl" value="/admin/courses?=${page.current - 1}" />
+                    <c:url var="nextUrl" value="/admin/courses?=${page.current + 1}" />
                     <div align="center">
                         <nav >
                             <ul class="pagination">
@@ -147,7 +147,7 @@
                                     </c:otherwise>
                                 </c:choose>
                                 <c:forEach var="i" begin="${page.begin}" end="${page.end}">
-                                    <c:url var="pageUrl" value="/admin/course/list?p=${i}" />
+                                    <c:url var="pageUrl" value="/admin/courses?p=${i}" />
                                     <c:choose>
                                         <c:when test="${i ==page.current}">
                                             <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
