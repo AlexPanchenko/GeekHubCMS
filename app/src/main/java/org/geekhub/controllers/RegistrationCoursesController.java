@@ -1,6 +1,5 @@
 package org.geekhub.controllers;
 
-import org.geekhub.hibernate.entity.Course;
 import org.geekhub.service.RegistrationCoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@Controller(value = "/student/")
+@Controller//(value = "/student/")
 public class RegistrationCoursesController {
 
     @Autowired
     private RegistrationCoursesService registrationCoursesService;
 
-    @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/registrationCourses", method = RequestMethod.GET)
     public ModelAndView coursesRegistration() {
         ModelAndView modelAndView = new ModelAndView("registrationCourses");
         modelAndView.addObject("listCourses", registrationCoursesService.getListCourseBeans());
@@ -30,5 +29,4 @@ public class RegistrationCoursesController {
      registrationCoursesService.getRegistrationUserByCourses(id);
         System.out.println(id);
     }
-
 }

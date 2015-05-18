@@ -3,7 +3,6 @@ package org.geekhub.hibernate.dao.impl;
 import org.geekhub.hibernate.dao.GenericDao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
