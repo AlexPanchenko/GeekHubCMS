@@ -7,6 +7,7 @@ import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
 
@@ -24,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -185,4 +190,13 @@ public class AdminController {
 
         return "redirect:/admin/course/list";
     }
+
+
+    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid")Integer userid,HttpServletRequest request){
+        String feedback = (String) request.getAttribute("feedback");
+        userService.setFeedback(userid,feedback);
+        return "redirect:/admin/users/" + userid + "/edit";
+    }
+
 }
