@@ -188,4 +188,41 @@ public class AdminController {
         return "redirect:/admin/courses";
     }
 
+    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
+    public String profilePage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
+        try {
+            Course cour = new Course();
+            cour.setId(1);
+            cour.setName("PHP");
+
+            Course c2 = new Course();
+            c2.setId(2);
+            c2.setName("Java Script");
+
+            Set<Course> courses = new HashSet<>();
+            courses.add(c2);
+            courses.add(cour);
+
+            User u = new User();
+
+            u.setBirthDay(new Date());
+            u.setId(userId);
+            u.setFirstName("Test1");
+            u.setEmail("Ivan@mail.ru");
+            u.setIcq("4118377166");
+            u.setLastName("Test");
+            u.setPatronymic("Test");
+            u.setLogin("Ivan123");
+            u.setPassword("1234512");
+            u.setRegistrationDate(new Date());
+            u.setCourses(courses);
+            u.setPhoneNumber("931451514");
+            u.setRoles(Role.ROLE_ADMIN);
+            model.addAttribute("user", u);
+            return "adminpanel/user-profile";
+        }catch (Exception ex) {
+            throw new Exception(ex);
+        }
+    }
+
 }
