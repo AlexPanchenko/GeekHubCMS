@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public interface UserDao extends GenericDao<User> {
     User getUserById(int userId);
 
+
     public void addUser(User user);
 
     public User loadUserByUsername(String userName) throws UsernameNotFoundException;

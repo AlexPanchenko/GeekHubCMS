@@ -1,5 +1,6 @@
 package org.geekhub.controllers;
 
+import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.util.*;
@@ -28,25 +30,40 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(ModelMap model) {
-        List<User> users = new ArrayList<>();
-        User u = new User();
-        u.setBirthDay(new Date());
-        u.setId(1);
-        u.setFirstName("Test1");
-        u.setEmail("Ivan@mail.ru");
-        u.setIcq("4118377166");
-        u.setLastName("Test");
-        u.setPatronymic("Test");
-        u.setLogin("Ivan123");
-        u.setPassword("1234512");
-        u.setRegistrationDate(new Date());
-        u.setPhoneNumber("+380(93)145-1514");
-        for (int i = 0; i < 5; i++) users.add(u);
-        model.addAttribute("users",users);
-        return "adminpanel/users";
-    }
+	@RequestMapping("/users")
+	public ModelAndView users(){
+		ModelAndView mav=new ModelAndView("adminpanel/users");
+		return mav;
+	}
+
+    @RequestMapping("/ajax/usersShow")
+	public ModelAndView usersOnPage(){
+		ModelAndView mav=new ModelAndView("adminpanel/usersShow");
+        List<UserBean> users = userService.getUsersAll();
+		mav.addObject("users",users);
+		return mav;
+	}
+
+
+//    @RequestMapping(value = "/users", method = RequestMethod.GET)
+//    public String users(ModelMap model) {
+//        List<User> users = new ArrayList<>();
+//        User u = new User();
+//        u.setBirthDay(new Date());
+//        u.setId(1);
+//        u.setFirstName("Test1");
+//        u.setEmail("Ivan@mail.ru");
+//        u.setIcq("4118377166");
+//        u.setLastName("Test");
+//        u.setPatronymic("Test");
+//        u.setLogin("Ivan123");
+//        u.setPassword("1234512");
+//        u.setRegistrationDate(new Date());
+//        u.setPhoneNumber("+380(93)145-1514");
+//        for (int i = 0; i < 5; i++) users.add(u);
+//        model.addAttribute("users",users);
+//        return "adminpanel/users";
+//    }
 
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
@@ -91,28 +108,28 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String editUser(@RequestParam("id")String id,
-                           @RequestParam("login")String login,
-                           @RequestParam("first-name")String firstName,
-                           @RequestParam("patronymic")String patronymic,
-                           @RequestParam("last-name")String lastName,
-                           @RequestParam("email")String email,
-                           @RequestParam("skype")String skype,
-                           @RequestParam("phone")String phone,
-                           @RequestParam("birthday")String birthday,
-                           @RequestParam("role")String role,
-                           @RequestParam("courses[]")String[] courses,
-                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
-                           ModelMap model) {
-        try {
-            Date date = CommonUtil.getFormattedDate(birthday);
-            System.out.println(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/dashboard/users/"+id+"/edit";
-    }
+//    @RequestMapping(value = "/users", method = RequestMethod.POST)
+//    public String editUser(@RequestParam("id")String id,
+//                           @RequestParam("login")String login,
+//                           @RequestParam("first-name")String firstName,
+//                           @RequestParam("patronymic")String patronymic,
+//                           @RequestParam("last-name")String lastName,
+//                           @RequestParam("email")String email,
+//                           @RequestParam("skype")String skype,
+//                           @RequestParam("phone")String phone,
+//                           @RequestParam("birthday")String birthday,
+//                           @RequestParam("role")String role,
+//                           @RequestParam("courses[]")String[] courses,
+//                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
+//                           ModelMap model) {
+//        try {
+//            Date date = CommonUtil.getFormattedDate(birthday);
+//            System.out.println(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return "redirect:/dashboard/users/"+id+"/edit";
+//    }
 
 
     @RequestMapping(value = "/course/list", method = RequestMethod.GET)

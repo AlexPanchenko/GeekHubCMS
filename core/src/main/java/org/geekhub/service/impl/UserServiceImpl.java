@@ -1,6 +1,7 @@
 package org.geekhub.service.impl;
 
 
+import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.GenericDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Role;
@@ -14,7 +15,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -66,5 +69,20 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         userDao.create(user);
 
         return null;
+    }
+    public List<UserBean> getUsersAll(){
+        List<User> users = userDao.getAll();
+        List<UserBean> userBeans = new ArrayList<UserBean>();
+        for(User u: users){
+            UserBean userBean = new UserBean();
+            userBean.setLastName(u.getLastName());
+            userBean.setFirstName(u.getFirstName());
+            userBean.setPatronymic(u.getPatronymic());
+            userBean.setEmail(u.getEmail());
+            userBean.setPhoneNumber(u.getPhoneNumber());
+            userBean.setSkype(u.getSkype());
+            userBeans.add(userBean);
+        }
+        return userBeans;
     }
 }

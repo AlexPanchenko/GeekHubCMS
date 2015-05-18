@@ -4,6 +4,9 @@
 
 <html>
 <head>
+    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/jquery-2.1.4.min.js'/>" type="text/javascript"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +20,18 @@
     <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
-
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url:"ajax/usersShow",
+            type:"post",
+            data:'',
+            success:function(data) {
+                $("#rows").html(data);
+            }
+        })
+    });
+</script>
 </head>
 <body>
 
@@ -98,21 +112,9 @@
                                     <th> Action</th>
                                 </tr>
                             </thead>
-                            <c:forEach items="${users}" var="user">
-                                <tr>
-                                    <td>${user.lastName}</td>
-                                    <td>${user.firstName}</td>
-                                    <td>${user.patronymic}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.phoneNumber}</td>
-                                    <td>${user.skype}</td>
-                                    <td align="center">
-                                        <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                        <i class="fa fa-times"></i>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </table>
+                        <tbody id="rows">
+                        </tbody>
+                    </table>
                     <div class="text-center">
                         <nav>
                             <ul class="pagination" >
