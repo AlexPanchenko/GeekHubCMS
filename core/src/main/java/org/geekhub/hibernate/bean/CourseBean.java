@@ -1,16 +1,26 @@
 package org.geekhub.hibernate.bean;
 
 
-import org.geekhub.hibernate.entity.User;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class CourseBean {
+
     private int id;
+
+    @NotBlank(message = "Name should be not empty")
     private String name;
+
+    @NotBlank(message = "Description should be not empty")
     private String description;
-    private Set<User> users = new HashSet<User>();
+
+    private Set<UserBean> users = new HashSet<>();
+
+    public CourseBean(){}
+
 
     public CourseBean(int id, String name, String description) {
         this.id = id;
@@ -42,11 +52,12 @@ public class CourseBean {
         this.description = description;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserBean> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserBean> users) {
         this.users = users;
     }
 }
+

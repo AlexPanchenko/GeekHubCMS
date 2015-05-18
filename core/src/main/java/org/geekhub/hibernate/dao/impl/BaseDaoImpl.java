@@ -6,8 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class BaseDaoImpl implements BaseDao {
 
@@ -29,12 +27,8 @@ public class BaseDaoImpl implements BaseDao {
     }
 
     @Override
-    public BaseEntity read(int id, BaseEntity obj) {
-        return (BaseEntity) sessionFactory.getCurrentSession().get(obj.getClass(),id);
+    public BaseEntity read(int id, Class clazz) {
+        return (BaseEntity) sessionFactory.getCurrentSession().get(clazz,id);
     }
 
-    @Override
-    public List<BaseEntity> getAll(BaseDao obj) {
-        return sessionFactory.getCurrentSession().createCriteria(obj.getClass()).list();
-    }
 }

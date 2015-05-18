@@ -17,12 +17,12 @@
         <logout logout-success-url="/auth?logout"/>
         <csrf disabled="true"/>
         <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
-        <intercept-url pattern="/student/**" access="hasRole('ROLE_STUDENT')"/>
+        <intercept-url pattern="/student/**" access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         </http>
 
-    <authentication-manager id="authMgr">
+    <authentication-manager>
     <authentication-provider user-service-ref="customUserDetailsService" >
         <password-encoder hash="md5" />
     </authentication-provider>

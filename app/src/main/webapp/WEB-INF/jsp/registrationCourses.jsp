@@ -19,7 +19,7 @@
 
     <div>
 
-        <h2>REGISTRATION COURSES</h2>
+        <h2>REGISTRATION ON COURSES</h2>
 
         <form method="post" action="/student/registrationCourses">
             <table class="table table-striped">

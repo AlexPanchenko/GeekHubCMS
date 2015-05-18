@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CourseDao extends BaseDao {
 
-    public List<Course> getAll ();
-
     public List<Course> getListCoursesById(List<Integer> listCourseId);
-
-
+    List<Course> getAll(int page, int recordsPerPage);
+    List<Course> getAll();
+    void updateCourse(Course course);
+    void deleteCourse(int courseId);
 }

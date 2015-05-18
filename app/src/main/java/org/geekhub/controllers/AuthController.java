@@ -1,14 +1,8 @@
 package org.geekhub.controllers;
 
 
-import org.geekhub.service.CustomUserDetailsService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +19,6 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    @Qualifier("authMgr")
-    private AuthenticationManager authMgr;
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
 
     @RequestMapping("/index")
     public String indexForm() {
@@ -76,22 +65,14 @@ public class AuthController {
 
         String errorMessage = userService.addUser(login,password, firstName, lastName,
                 patronymic, email, skype, phoneNumber, confirmPassword, birthDay, new Date());
-        try {
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-            authMgr.authenticate(auth);
 
-            if(auth.isAuthenticated()) {
-                SecurityContextHolder.getContext().setAuthentication(auth);
-                return "redirect:/";
+
+            if(errorMessage == null) {
+                return "redirect:/auth";
             } else{
             model.put("errorMessage", errorMessage);
             return "registration";
         }
-        } catch (Exception e) {
-
-        }
-        return "redirect:/";
     }
 }
 
