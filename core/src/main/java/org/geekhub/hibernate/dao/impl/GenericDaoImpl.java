@@ -45,13 +45,11 @@ public abstract class GenericDaoImpl<T extends Serializable> implements GenericD
     @Override
     public void update(T t) {
         sessionFactory.getCurrentSession().update(t);
-        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public void delete(T t) {
         sessionFactory.getCurrentSession().delete(t);
-        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
