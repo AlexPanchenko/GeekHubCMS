@@ -92,10 +92,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
-                    <c:choose>
+                    <div class="container">
+                        <c:choose>
                             <c:when test="${action eq 'create'}">
-                            <h1 class="page-header">Add new course</h1>
-                            <form data-toggle="validator"  role="form" action="/admin/course"  method="PUT" class="form-horizontal">
+                                <h1 class="page-header">Add new course</h1>
+                                <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>
@@ -116,38 +117,36 @@
                                             </dd>
                                         </dl>
                                     </fieldset>
-                                <button type="submit" class="btn btn-primary btn-lg">Update</button>
-                            </form>
-                        </c:when>
-                        <c:otherwise>
-                            <h1 class="page-header">Edit ${course.id}</h1>
-                            <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
-                                <fieldset>
-                                    <dl class="dl-horizontal">
-                                        <dt>
-                                            <label class="pull-left control-label" for="name">Course name</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <input id="albumName"  minlenght="1" maxlength="25" id="name" name="name" type="text" placeholder="Enter course name" class="form-control pull-left" required>
-                                            </div>
-                                        </dd>
-                                        <dt>
-                                            <label class="control-label pull-left" for="description">Course description</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="description" name="description" placeholder="There should be description of course" rows="5" required></textarea>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                </fieldset>
-                                <button type="submit" class="btn btn-primary btn-lg">Create</button>
-                            </form>
-                        </c:otherwise>
-                    </c:choose>
-                    <div class="container">
-
+                                    <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <h1 class="page-header">Edit ${course.id}</h1>
+                                <form data-toggle="validator"  role="form" action="/admin/course/${course.id}"  method="POST" class="form-horizontal">
+                                    <fieldset>
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                <label class="pull-left control-label" for="name">Course name</label>
+                                            </dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <input value="${course.name}" id="albumName"  minlenght="1" maxlength="25" id="name" name="name" type="text" placeholder="Enter course name" class="form-control pull-left" required>
+                                                </div>
+                                            </dd>
+                                            <dt>
+                                                <label class="control-label pull-left" for="description">Course description</label>
+                                            </dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="description" name="description" placeholder="There should be description of course" rows="5" required>${course.description}</textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </fieldset>
+                                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -159,6 +158,6 @@
 
 </div>
 <!-- /#wrapper -->
-
+</div>
 </body>
 </html>

@@ -3,9 +3,7 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
-import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,9 @@ import java.util.*;
 @RequestMapping(value = "/admin")
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
-
-
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
-        return "redirect:/admin/users";
+        return "adminpanel/index";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -81,8 +75,6 @@ public class AdminController {
             u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
-            List<Role> roles = Arrays.asList(Role.values());
-            model.addAttribute("roleList", roles);
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";
