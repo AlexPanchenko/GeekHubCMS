@@ -83,6 +83,7 @@ public class AdminController {
             u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
+            model.addAttribute("roles", Role.values());
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";
@@ -103,6 +104,7 @@ public class AdminController {
                            @RequestParam("birthday")String birthday,
                            @RequestParam("role")String role,
                            @RequestParam("courses[]")String[] courses,
+                           @RequestParam(value = "active", defaultValue = "off") String active,
                            @RequestParam(value = "avatar", required = false)MultipartFile avatar,
                            ModelMap model) {
         try {
@@ -170,9 +172,10 @@ public class AdminController {
             throw new Exception(ex);
         }
 
-        return "redirect:/admin/courses/list";
+        return "redirect:/admin/courses";
     }
 
+    //change method type after activate put methods in project.
     @RequestMapping(value = "/course-remove/{courseId}", method = RequestMethod.GET)
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
@@ -182,7 +185,7 @@ public class AdminController {
             throw new Exception(ex);
         }
 
-        return "redirect:/admin/courses/list";
+        return "redirect:/admin/courses";
     }
 
 }

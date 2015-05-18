@@ -219,13 +219,11 @@
                                                 <dd>
                                                     <div class="form-group">
                                                         <select id="role" name="role" class="form-control">
-                                                            <c:forEach items="${roleList}" var="role">
+                                                            <c:forEach items="${roles}" var="role">
                                                                 <c:set var="selectRole" value="false"/>
-                                                                <c:forEach items="${user.roles}" var="userRole">
-                                                                    <c:if test="${role eq userRole}">
+                                                                    <c:if test="${role eq user.roles}">
                                                                         <c:set var="selectRole" value="true"/>
                                                                     </c:if>
-                                                                </c:forEach>
                                                                 <c:choose>
                                                                     <c:when test="${selectRole eq true}">
                                                                         <option id="${role}" selected>${role}</option>
@@ -264,6 +262,9 @@
                                                         </select>
                                                     </div>
                                                 </dd>
+                                                <dt><label class="control-label pull-right"
+                                                           for="active">Active?</label></dt>
+                                                <dd><input type="checkbox" class="pull-left form-control profile-check-box" name="active"></dd>
                                             </dl>
                                         </div>
                                         <div class="control-group">
