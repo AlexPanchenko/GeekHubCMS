@@ -3,6 +3,7 @@ package org.geekhub.hibernate.dao.impl;
 import org.geekhub.hibernate.dao.GenericDao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -11,7 +12,8 @@ import java.util.List;
 /**
  * Created by helldes on 15.05.2015.
  */
-public class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
+@Repository
+public abstract class GenericDaoImpl<T extends Serializable> implements GenericDao<T> {
     private Class<T> clazz;
 
     @Autowired
