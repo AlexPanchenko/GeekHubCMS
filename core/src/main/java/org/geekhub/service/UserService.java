@@ -5,7 +5,7 @@ import org.geekhub.hibernate.entity.User;
 import java.text.ParseException;
 import java.util.Date;
 
-public interface UserService extends GenericService<User> {
+public interface UserService  {
     User getUserById(int userId);
 
 

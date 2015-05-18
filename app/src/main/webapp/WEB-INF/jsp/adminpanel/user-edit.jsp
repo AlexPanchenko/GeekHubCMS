@@ -245,19 +245,19 @@
                                                 <dd>
                                                     <div class="form-group">
                                                         <select id="courses[]" name="courses[]"class="form-control" multiple>
-                                                            <c:forEach items="${courseList}" var="course">
+                                                            <c:forEach items="${courseList}" var="coursWrapper">
                                                                 <c:set var="selectCourse" value="false"/>
                                                                 <c:forEach items="${user.courses}" var="userCourse">
-                                                                    <c:if test="${course.id eq userCourse.id}">
+                                                                    <c:if test="${coursWrapper.id eq userCourse.id}">
                                                                         <c:set var="selectCourse" value="true"/>
                                                                     </c:if>
                                                                 </c:forEach>
                                                                 <c:choose>
                                                                     <c:when test="${selectCourse eq true}">
-                                                                        <option id="${course.id}" selected>${course.name}</option>
+                                                                        <option id="${coursWrapper.id}" selected>${coursWrapper.name}</option>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <option id="${course.id}" selected>${course.name}</option>
+                                                                        <option id="${coursWrapper.id}" selected>${coursWrapper.name}</option>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:forEach>

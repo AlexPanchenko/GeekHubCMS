@@ -11,7 +11,7 @@
 Hello world! It's index page
 <security:authorize access="hasRole('ROLE_STUDENT')">
     <a href="/logout">Log out</a>
-    <a href="/registrationCourses">Registration on Courses</a>
+    <a href="/student/registrationCourses">Registration on Courses</a>
     <security:authentication property="principal.username"/>
 </security:authorize>
 <security:authorize access="hasRole('ROLE_ANONYMOUS')">

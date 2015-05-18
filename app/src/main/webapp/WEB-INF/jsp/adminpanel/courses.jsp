@@ -104,17 +104,17 @@
                             <th class="text-center"> Action</th>
                         </tr>
                         </thead>
-                        <c:forEach items="${courses}" var="course">
+                        <c:forEach items="${courses}" var="coursWrapper">
                             <tr>
-                                <td>${course.id}</td>
-                                <td>${course.name}</td>
+                                <td>${coursWrapper.id}</td>
+                                <td>${coursWrapper.name}</td>
                                 <td class="text-center">
                                     <c:choose>
-                                        <c:when test="${empty course.users}">
+                                        <c:when test="${empty coursWrapper.users}">
                                             0
                                         </c:when>
                                         <c:otherwise>
-                                            ${course.users.size()}
+                                            ${coursWrapper.users.size()}
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

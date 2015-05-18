@@ -14,46 +14,64 @@
 
 </head>
 <body>
+
 <div class="coursesRegisTable">
-    <h2>REGISTRATION COURSES</h2>
 
+    <div>
 
-    <form method="post" action="/registrationCourses">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Registration</th>
-            </tr>
-            </thead>
+        <h2>REGISTRATION COURSES</h2>
+
+        <form method="post" action="/student/registrationCourses">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Registration</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${listCourses}" var="courseWrapper">
+
+                <tr>
+                    <td width="50">${courseWrapper.course.id}</td>
+                    <td width="300">${courseWrapper.course.name}</td>
+                    <td>${courseWrapper.course.description}</td>
+                    <td width="50">
+                        <c:choose>
+                            <c:when test="${courseWrapper.isRegistered}">
+                                <div class="col-sm-12">
+                                    <div class="checkbox">
+                                        <label style="font-size: 1.5em">
+                                            <input type="checkbox" checked disabled>
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="col-sm-12">
+                                    <div class="checkbox">
+                                        <label style="font-size: 1.5em">
+                                            <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+                </c:forEach>
+            </table>
             <tbody>
-            <c:forEach items="${listCourses}" var="course">
-
-
-            <tr>
-                <td width="50">${course.id}</td>
-                <td width="300">${course.name}</td>
-                <td>${course.description}</td>
-                <td width="50">
-                    <div class="col-sm-12">
-                        <div class="checkbox">
-                            <label style="font-size: 1.5em">
-                                <input type="checkbox" name="courseId" value="${course.id}" >
-                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                            </label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            </c:forEach>
-        </table>
-        <tbody>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
 </div>
-<td><input type="checkbox" name="courseId" value="${course.id}"/></td>
+
 </body>
 </html>
 

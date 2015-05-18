@@ -72,7 +72,7 @@ public class AdminController {
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
-            u.setCourses(courses);
+          //  u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
             model.addAttribute("courseList", courses);

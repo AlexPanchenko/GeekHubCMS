@@ -4,7 +4,7 @@ import org.geekhub.hibernate.entity.Course;
 
 import java.util.List;
 
-public interface CourseDao extends GenericDao<Course> {
+public interface CourseDao extends BaseDao {
 
     public List<Course> getAll ();
 

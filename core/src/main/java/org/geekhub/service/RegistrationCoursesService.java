@@ -2,12 +2,13 @@ package org.geekhub.service;
 
 
 import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.entity.Course;
+import org.geekhub.wrapper.CourseWrapper;
 
 import java.util.List;
 
 public interface RegistrationCoursesService {
     List<CourseBean> getListCourseBeans();
-    public List<Course> getRegistrationUserByCourses(List<Integer> listCourseId);
+    List<CourseWrapper> getListCourseWrappers();
+    public void getRegistrationUserByCourses(List<Integer> listCourseId);
 
 }

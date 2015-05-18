@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 
     @Override
