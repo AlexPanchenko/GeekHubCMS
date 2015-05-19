@@ -1,41 +1,53 @@
 package org.geekhub.hibernate.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "TEST_ASSIGNMENT")
 public class TestAssignment {
+    @GeneratedValue
+    @Id
+    @JoinColumn(name = "TEST_ASSIGNMENT_ID")
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private int userId;
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "TEST_CONFIG_ID")
-    private int testConfigId;
+    @OneToOne
+    private TestConfig testConfig;
     @JoinColumn(name = "DATE_REGISTRATION")
     private Date dateRegistration;
 
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getTestConfigId() {
-        return testConfigId;
+    public int getId() {
+        return id;
     }
 
-    public void setTestConfigId(int testConfigId) {
-        this.testConfigId = testConfigId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TestConfig getTestConfig() {
+        return testConfig;
+    }
+
+    public void setTestConfig(TestConfig testConfig) {
+        this.testConfig = testConfig;
     }
 
     public Date getDateRegistration() {

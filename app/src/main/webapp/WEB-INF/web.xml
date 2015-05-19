@@ -29,6 +29,7 @@
 
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
+
 		<filter-class>
 			org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
 		</filter-class>
@@ -36,6 +37,11 @@
 			<param-name>singleSession</param-name>
 			<param-value>true</param-value>
 		</init-param>
+        <init-param>
+            <param-name>flushMode</param-name>
+            <param-value>ALWAYS</param-value>
+        </init-param>
+
 		<init-param>
 			<param-name>sessionFactoryBeanName</param-name>
 			<param-value>sessionFactory</param-value>
