@@ -1,5 +1,6 @@
 package org.geekhub.hibernate.dao.impl;
 
+import org.geekhub.hibernate.dao.BaseDao;
 import org.geekhub.hibernate.dao.RoleDao;
 import org.geekhub.hibernate.entity.Role;
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by helldes on 15.05.2015.
  */
-@Repository("roleDao")
-public class RoleDaoImpl extends GenericDaoImpl<Role> implements RoleDao {
+public class RoleDaoImpl extends BaseDaoImpl  implements RoleDao {
 }

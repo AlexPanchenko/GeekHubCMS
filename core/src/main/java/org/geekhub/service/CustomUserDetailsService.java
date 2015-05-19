@@ -1,7 +1,7 @@
 package org.geekhub.service;
 
 
-
+import org.geekhub.exception.UserNotFoundException;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDao userDao;
 
     @Transactional
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(email);
+        if(user == null){
+                throw new UserNotFoundException("User not found");
+        }
         try {
-            org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(userName);
+                return new User(user.getEmail(),
+                        user.getPassword(),
+                        getAuthorities(user.getRole()));
 
-            return new User(user.getLogin(),
-                            user.getPassword(),
-                            getAuthorities(user.getRoles()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

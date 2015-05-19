@@ -1,5 +1,6 @@
 package org.geekhub.service.impl;
 
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Role;
@@ -18,22 +19,21 @@ import java.util.Date;
 
 @Service
 @Transactional
-public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
+public class UserServiceImpl  implements UserService {
+
 
  @Autowired
     UserDao userDao;
 
 
     public User getUserById(int userId) {
-        return userDao.read(userId);
+        return null;
     }
 
-    @Override
     public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
     }
 
-    @Override
     public User getUserByLogin(String login) throws UsernameNotFoundException {
         return getUserByLogin(login);
     }
@@ -67,11 +67,12 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         user.setEmail(email);
         user.setSkype(skype);
         user.setPhoneNumber(phoneNumber);
-        user.setRoles(Role.ROLE_STUDENT);
+        user.setRole(Role.ROLE_STUDENT);
         user.setBirthDay(date);
         user.setRegistrationDate(dataRegistration);
         userDao.create(user);
 
         return null;
     }
+
 }

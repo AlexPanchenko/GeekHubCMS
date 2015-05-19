@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ANSWERS")
-public class Answer implements Serializable {
+public class Answer extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ANSWER_ID", unique = true, nullable = false)

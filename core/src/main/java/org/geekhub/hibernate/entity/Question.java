@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "QUESTIONS")
-public class Question implements Serializable{
+public class Question extends BaseEntity implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "QUESTION_ID", unique = true, nullable = false)
