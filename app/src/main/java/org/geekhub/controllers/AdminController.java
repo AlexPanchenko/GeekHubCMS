@@ -3,7 +3,6 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
@@ -20,7 +19,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class    AdminController {
 
     @Autowired
     private CourseService courseService;

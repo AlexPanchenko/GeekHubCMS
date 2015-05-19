@@ -3,10 +3,15 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.dao.CourseDao;
+import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,12 +30,18 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDao courseDao;
 
+    @Autowired
+    private UsersCoursesDao usersCoursesDao;
+
+    @Autowired
+    private UserDao userDao;
+
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {
         List<CourseBean> courses = convertToCourseBean(courseDao.getAll(page, recordsPerPage));
         int size = getAllBeans().size();
-        int maxPages = (size % recordsPerPage == 0)? (size / recordsPerPage) : (size / recordsPerPage)+1;
-        page = (page > maxPages)?   maxPages : page;
+        int maxPages = (size % recordsPerPage == 0) ? (size / recordsPerPage) : (size / recordsPerPage) + 1;
+        page = (page > maxPages) ? maxPages : page;
         int current = page;
         int begin = Math.max(1, current - recordsPerPage);
         int end = maxPages;
@@ -52,11 +63,12 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * Convert {@link org.geekhub.hibernate.entity.Course} to {@link org.geekhub.hibernate.bean.CourseBean}
+     *
      * @param course object to convert
      * @return {@link }
      */
     private CourseBean toBean(Course course) {
-        CourseBean courseBean = new CourseBean(course.getId(),course.getName(), course.getDescription());
+        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription());
         return courseBean;
     }
 
@@ -78,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseBean getById(int id) throws CourseNotFoundException {
-        Course course = (Course)courseDao.read(id,Course.class);
+        Course course = (Course) courseDao.read(id, Course.class);
         if (null == course) throw new CourseNotFoundException();
         return toBean(course);
     }
@@ -96,4 +108,16 @@ public class CourseServiceImpl implements CourseService {
         getById(courseId);
         courseDao.deleteCourse(courseId);
     }
+
+    @Override
+    public List<CourseBean> getCourseBeenByUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());
+        List<UsersCourses> usersCoursesList = user.getUsersCourses();
+        List<CourseBean> courseList = usersCoursesList.stream().map(usersCourses -> new CourseBean(usersCourses.getCourse().getId(),
+                usersCourses.getCourse().getName(),
+                usersCourses.getCourse().getDescription())).collect(Collectors.toList());
+        return courseList;
+    }
 }
+

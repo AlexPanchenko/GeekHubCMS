@@ -1,8 +1,5 @@
 package org.geekhub.hibernate.entity;
 
-<<<<<<< HEAD
-import javax.persistence.*;
-=======
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
->>>>>>> 0df25c6bb3f76694aef26398a0accaa789979074
 import java.util.Date;
 
 @Entity
@@ -29,10 +25,7 @@ public class TestAssignment {
     @OneToOne
     @JoinColumn(name = "TA_TEST_CONFIG_ID")
     private TestConfig testConfig;
-<<<<<<< HEAD
-=======
 
->>>>>>> 0df25c6bb3f76694aef26398a0accaa789979074
     @Column(name = "DATE_REGISTRATION")
     private Date dateRegistration;
 

@@ -26,12 +26,8 @@ public class TestConfig {
     @Enumerated(EnumType.STRING)
     @Column(name = "TC_STATUS")
     private TestStatus status;
-<<<<<<< HEAD
-    @OneToOne()
-=======
 
     @OneToOne
->>>>>>> 0df25c6bb3f76694aef26398a0accaa789979074
     @JoinColumn(name = "TC_COURSE_ID")
     private Course course;
 
