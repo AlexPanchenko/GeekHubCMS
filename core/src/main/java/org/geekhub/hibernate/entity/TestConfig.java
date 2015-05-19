@@ -18,7 +18,8 @@ public class TestConfig {
     @Enumerated(EnumType.STRING)
     @Column(name = "TC_STATUS")
     private TestStatus status;
-    @OneToOne
+    @OneToOne()
+    @JoinColumn(name = "TC_COURSE_ID")
     private Course course;
 
     public int getId() {
