@@ -21,7 +21,7 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 <script>
-    $(document).ready(function(){
+    $(document).ready(function showNewPage(){
         $.ajax({
             url:"ajax/usersShow",
             type:"post",
@@ -123,7 +123,7 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li><a href="#">1</a></li>
+                                <li><a onclick="showNewPage()" href="${page}">1</a></li>
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
