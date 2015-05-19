@@ -114,7 +114,7 @@
                 <td>${question.questionWeight}</td>
                 <td class="text-center">
                   <a href="/admin/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                  <i class="fa fa-times"></i>
+                  <a href="/admin/question/${question.id}/delete"><i class="fa fa-times"></i></a>
                 </td>
               </tr>
             </c:forEach>

@@ -15,11 +15,11 @@ public interface CourseService {
 
     List<CourseBean> getAllBeans();
 
-    void createCourse(String courseName, String courseDescription);
+    void create(String courseName, String courseDescription);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
     void update(CourseBean courseBean) throws CourseNotFoundException;
 
-    void deleteCourse(int courseId) throws CourseNotFoundException;
+    void delete(int courseId) throws CourseNotFoundException;
 }

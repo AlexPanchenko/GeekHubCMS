@@ -1,7 +1,6 @@
 package org.geekhub.service;
 
 import org.geekhub.hibernate.entity.Answer;
-import org.geekhub.hibernate.entity.Question;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
  */
 @Component
 public interface AnswerService {
-    public List<Answer> getAnswersByQuestion(Question question);
+    public List<Answer> getAnswersByQuestion(int questionId);
     Object read(int answerId);
-    void create(Answer answer);
-    void delete(Object read);
+    void create(int questionId, String answerText, Boolean answerRight);
+    void delete(int answerId);
 }

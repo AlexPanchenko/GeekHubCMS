@@ -11,7 +11,8 @@ import java.util.List;
 @Component
 public interface QuestionService{
     List<Question> getAll();
-    void create(Question question);
     Object read(int questionId);
     void update(Question question);
+    void delete(int questionId);
+    public Question create(String questionText, Byte questionWeight, int courseId);
 }

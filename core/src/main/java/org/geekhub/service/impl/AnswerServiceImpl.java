@@ -1,6 +1,7 @@
 package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.dao.AnswerDao;
+import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.service.AnswerService;
@@ -20,8 +21,12 @@ public class AnswerServiceImpl implements AnswerService{
     @Autowired
     private AnswerDao answerDao;
 
-    public List<Answer> getAnswersByQuestion(Question question){
-        return answerDao.getAnswersByQuestion(question);
+    @Autowired
+    private QuestionDao questionDao;
+
+    public List<Answer> getAnswersByQuestion(int questionId){
+
+        return answerDao.getAnswersByQuestion((Question)answerDao.read(questionId,Question.class));
     }
 
     @Override
@@ -30,12 +35,16 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public void create(Answer obj) {
-        answerDao.create(obj);
+    public void create(int questionId, String answerText, Boolean answerRight) {
+        Answer answer = new Answer();
+        answer.setAnswerText(answerText);
+        answer.setAnswerRight(answerRight);
+        answer.setQuestion((Question)questionDao.read(questionId, Question.class));
+        answerDao.create(answer);
     }
 
     @Override
-    public void delete(Object read) {
-
+    public void delete(int answerId) {
+        answerDao.delete((Answer)answerDao.read(answerId, Answer.class));
     }
 }

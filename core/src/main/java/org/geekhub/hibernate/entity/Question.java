@@ -1,5 +1,6 @@
 package org.geekhub.hibernate.entity;
 
+import org.geekhub.hibernate.bean.CourseBean;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -23,16 +24,33 @@ public class Question extends BaseEntity implements Serializable{
     @NotBlank(message = "Question text should be not empty")
     private String questionText;
 
-    @Column(name = "QUESTION_WEIGTH", nullable = false)
+    @Column(name = "QUESTION_WEIGHT", nullable = false)
     @NotNull(message = "Question weight should be not empty")
     private Byte questionWeight;
 
-    @Column(name = "COURSE_ID", nullable = false)
-    @NotNull(message = "COURSE ID should be not empty")
-    private int courseId;
+    @Column(name = "QUESTION_STATUS")
+    private Boolean questionStatus;
 
-    @OneToMany(mappedBy="question")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COURSE_ID", nullable = false)
+    private Course course;
+
+    @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
     private Set<Answer> answers;
+
+
+
+    public Boolean getQuestionStatus() {
+        return questionStatus;
+    }
+
+    public void setQuestionStatus(Boolean questionStatus) {
+        this.questionStatus = questionStatus;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     public Question() {
     }
@@ -45,12 +63,8 @@ public class Question extends BaseEntity implements Serializable{
         this.questionWeight = questionWeight;
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public Course getCourse() {
+        return course;
     }
 
     public Set<Answer> getAnswers() {

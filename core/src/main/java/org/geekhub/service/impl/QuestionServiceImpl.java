@@ -1,6 +1,8 @@
 package org.geekhub.service.impl;
 
+import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.QuestionDao;
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,20 @@ public class QuestionServiceImpl implements QuestionService{
     @Autowired
     QuestionDao questionDao;
 
+    @Autowired
+    CourseDao courseDao;
+
     public List<Question> getAll() {
-        return questionDao.getAll();
+        return (List<Question>)questionDao.getAll();
     }
 
-    @Override
-    public void create(Question question) {
+    public Question create(String questionText, Byte questionWeight, int courseId) {
+        Question question = new Question();
+        question.setQuestionText(questionText);
+        question.setQuestionWeight(questionWeight);
+        question.setCourse((Course)courseDao.read(courseId, Course.class));
         questionDao.create(question);
+        return question;
     }
 
     @Override
@@ -36,5 +45,10 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public void update(Question question) {
         questionDao.update(question);
+    }
+
+    @Override
+    public void delete(int questionId) {
+        questionDao.delete(questionDao.read(questionId, Question.class));
     }
 }

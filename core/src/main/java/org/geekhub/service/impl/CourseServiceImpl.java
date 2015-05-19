@@ -69,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void createCourse(String courseName, String courseDescription) {
+    public void create(String courseName, String courseDescription) {
         Course course = new Course();
         course.setName(courseName);
         course.setDescription(courseDescription);
@@ -92,7 +92,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteCourse(int courseId) throws CourseNotFoundException {
+    public void delete(int courseId) throws CourseNotFoundException {
         getById(courseId);
         courseDao.deleteCourse(courseId);
     }

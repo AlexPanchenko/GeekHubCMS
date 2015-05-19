@@ -161,7 +161,7 @@
                   <td>${answer.answerText}</td>
                   <td>${answer.answerRight}</td>
                   <td class="text-center">
-                    <a href="/admin/answer/${answer.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                    <a href="/admin/question/${questionId}/answer/${answer.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                     <a href="/admin/question/${questionId}/answer/${answer.id}/delete"><i class="fa fa-times"></i></a>
                   </td>
                 </tr>
@@ -189,7 +189,7 @@
                     </dd>
                   </dl>
                 </fieldset>
-                <button type="submit" class="btn btn-primary btn-lg">Update answer</button>
+                <button type="submit" class="btn btn-primary btn-lg">Create answer</button>
               </form>
             </c:otherwise>
           </c:choose>
