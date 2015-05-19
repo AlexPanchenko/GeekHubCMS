@@ -11,19 +11,20 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping(value = "/student")
 public class RegistrationCoursesController {
 
     @Autowired
     private RegistrationCoursesService registrationCoursesService;
 
-    @RequestMapping(value = "/student/registrationCourses", method = RequestMethod.GET)
+    @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
     public String coursesRegistration(Map<String, Object> model) {
         model.put("listCourses", registrationCoursesService.getListCourseWrappers());
         return "registrationCourses";
     }
 
 
-    @RequestMapping(value = "/student/registrationCourses", method = RequestMethod.POST)
+    @RequestMapping(value = "/registrationCourses", method = RequestMethod.POST)
     public String registrationCourses(@RequestParam("courseId") List<Integer> id) {
         registrationCoursesService.getRegistrationUserByCourses(id);
         return "redirect:/student/registrationCourses";

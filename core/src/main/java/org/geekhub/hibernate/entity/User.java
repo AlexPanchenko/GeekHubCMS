@@ -62,8 +62,7 @@ public class User extends BaseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
     public User(){
