@@ -112,8 +112,8 @@ public class CourseServiceImpl implements CourseService {
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());
         List<UsersCourses> usersCoursesList = user.getUsersCourses();
-        UsersCourses tmp = usersCoursesList.get(0);
-        usersCoursesDao.delete(tmp);
+        usersCoursesList.stream().filter(usersCourses -> usersCourses.getCourse().equals(course) && usersCourses.getUser().equals(user)).forEach(usersCoursesDao::delete);
+
     }
 
     @Override
