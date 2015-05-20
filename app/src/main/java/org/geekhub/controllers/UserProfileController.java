@@ -1,7 +1,10 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
-
+import org.geekhub.hibernate.bean.TestConfigBeen;
+import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.TestConfigService;
 import org.geekhub.service.impl.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +21,17 @@ public class UserProfileController {
     @Autowired
     private CourseServiceImpl courseService;
 
+    @Autowired
+    private TestConfigService testConfigService;
+
+
     @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
     public ModelAndView showUserOfCourses() {
         ModelAndView model = new ModelAndView("userProfile");
         List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
-        model.addObject("coursesList",courseBeanList);
+        model.addObject("coursesList", courseBeanList);
         return model;
     }
+
+
 }
