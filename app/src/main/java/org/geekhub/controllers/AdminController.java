@@ -25,7 +25,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class    AdminController {
 
     @Autowired
     private QuestionService questionService;
@@ -282,4 +282,9 @@ public class AdminController {
         return "redirect:/admin/question/{questionId}/edit";
     }
     //END ANSWER CONTROLLER
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String createCourse(Map<String, Object> model) throws Exception {
+
+        return "adminpanel/userTestResult";
+    }
 }

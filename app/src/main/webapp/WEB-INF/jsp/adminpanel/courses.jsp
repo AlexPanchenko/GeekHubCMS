@@ -81,6 +81,7 @@
                     </li>
                     <li>
                         <a href="/admin/questions"><i class="fa fa-table fa-fw"></i>Base questions</a>
+                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
                     </li>
 
                 </ul>

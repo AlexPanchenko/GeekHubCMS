@@ -1,12 +1,13 @@
 package org.geekhub.hibernate.entity;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -58,12 +59,12 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
-    @Column(name = "ROLE")
+
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
