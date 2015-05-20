@@ -22,13 +22,14 @@ import java.util.Date;
 public class UserServiceImpl  implements UserService {
 
 
- @Autowired
+    @Autowired
     UserDao userDao;
 
 
     public User getUserById(int userId) {
         return null;
     }
+
 
     public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
