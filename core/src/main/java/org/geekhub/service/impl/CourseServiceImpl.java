@@ -55,6 +55,15 @@ public class CourseServiceImpl implements CourseService {
         return convertToCourseBean(courses);
     }
 
+    @Override
+    public void createCourse(String courseName, String courseDescription) {
+        Course course = new Course();
+        course.setName(courseName);
+        course.setDescription(courseDescription);
+        courseDao.create(course);
+
+    }
+
     private List<CourseBean> convertToCourseBean(List<Course> courses) {
         List<CourseBean> courseBeans = new ArrayList<>(Collections.emptyList());
         courseBeans.addAll(courses.stream().map(course -> toBean(course)).collect(Collectors.toList()));
@@ -86,13 +95,7 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-    @Override
-    public void create(String courseName, String courseDescription) {
-        Course course = new Course();
-        course.setName(courseName);
-        course.setDescription(courseDescription);
-        courseDao.create(course);
-    }
+
 
     @Override
     public CourseBean getById(int id) throws CourseNotFoundException {
@@ -110,9 +113,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void delete(int courseId) throws CourseNotFoundException {
+    public void deleteCourse(int courseId) throws CourseNotFoundException {
         courseDao.deleteCourseById(courseId);
     }
+
+
 
     public void unRegisterCourse (int id) {
            Course course = (Course) courseDao.read(id, Course.class);

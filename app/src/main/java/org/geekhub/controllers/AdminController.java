@@ -168,7 +168,7 @@ public class    AdminController {
                                @RequestParam("description") String description) throws Exception {
 
         try {
-            courseService.create(name, description);
+            courseService.createCourse(name, description);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -180,7 +180,7 @@ public class    AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.delete(courseId);
+            courseService.deleteCourse(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }

@@ -25,4 +25,7 @@ public interface CourseService {
 
      List<CourseBean> getCourseBeenByUser();
 
+    public CourseBean toBean(Course course);
+    public void unRegisterCourse (int id);
+
 }
