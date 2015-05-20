@@ -32,6 +32,7 @@ public class UserServiceImpl  implements UserService {
         return null;
     }
 
+    @Override
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException {
 
         RegistrationResponseBean registrationResponseBean = validateForm(userBean);
@@ -52,11 +53,6 @@ public class UserServiceImpl  implements UserService {
         }
 
         return registrationResponseBean;
-    }
-
-    @Override
-    public String addUser(String login, String password, String firstName, String lastName, String patronymic, String email, String skype, String phoneNumber, String confirmPassword, String date, Date dataRegistration) throws ParseException {
-        return null;
     }
 
     public RegistrationResponseBean validateForm(UserBean userBean){
@@ -102,10 +98,5 @@ public class UserServiceImpl  implements UserService {
             registrationResponseBean.setSuccess(true);
             return registrationResponseBean;
         }
-    }
-
-    @Override
-    public User getUserByEmail(String name) {
-        return userDao.getUserByEmail(name);
     }
 }

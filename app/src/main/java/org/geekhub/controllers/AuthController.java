@@ -4,18 +4,14 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.service.UserService;
-import org.geekhub.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +34,7 @@ public class AuthController {
         return "login";
     }
 
-<<<<<<< HEAD
+
 //    @RequestMapping(value = "/UserSessionFilter")
 //    public String login(ModelMap model, HttpSession session) {
 //        org.springframework.security.core.userdetails.User principal =
@@ -50,7 +46,6 @@ public class AuthController {
 //    }
 
 
-=======
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ModelAndView loginForm(@RequestParam(value = "error", required = false) String error,
                                   @RequestParam(required = false) String logout) {
@@ -63,7 +58,7 @@ public class AuthController {
         }
         return model;
     }
->>>>>>> 6af4ba1c4df75b60097b2d6b0adfdc979b1d0915
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Map<String, Object> model) {
@@ -86,15 +81,6 @@ public class AuthController {
             @RequestParam("confirmPassword") String confirmPassword,
             @RequestParam("birthday") String birthDay) throws ParseException {
 
-<<<<<<< HEAD
-        String errorMessage = userService.addUser(login, password, firstName, lastName,
-                patronymic, email, skype, phoneNumber, confirmPassword, birthDay, new Date());
-
-            if(errorMessage == null) {
-                return "redirect:/auth";
-            } else{
-            model.put("errorMessage", errorMessage);
-=======
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
         Date date = new Date();
         if (!birthDay.equals("")){
@@ -106,11 +92,8 @@ public class AuthController {
             return "redirect:/auth";
         } else {
             model.put("errorMessage", registrationResponseBean.getErrorMessage());
->>>>>>> 6af4ba1c4df75b60097b2d6b0adfdc979b1d0915
             return "registration";
         }
     }
 }
-
-
 
