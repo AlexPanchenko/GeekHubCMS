@@ -26,8 +26,10 @@ public class Course extends BaseEntity implements Serializable {
     @Column(name = "COURSE_DESCRIPTION")
     private String description;
 
+
+
     @OneToMany
-    (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "course")
+    (fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "course")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
 

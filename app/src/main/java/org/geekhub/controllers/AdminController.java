@@ -22,7 +22,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class    AdminController {
 
     @Autowired
     private CourseService courseService;
@@ -168,7 +168,7 @@ public class AdminController {
                                @RequestParam("description") String description) throws Exception {
 
         try {
-            courseService.createCourse(name, description);
+            courseService.create(name, description);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -180,7 +180,7 @@ public class AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.deleteCourse(courseId);
+            courseService.delete(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }

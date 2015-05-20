@@ -12,14 +12,13 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 18.05.2015.
- */
+
 @Repository
 public class UsersCoursesDaoImpl extends BaseDaoImpl implements UsersCoursesDao {
     @Autowired
     private SessionFactory sessionFactory;
     @Override
+    @SuppressWarnings("unchecked")
     public List<Course> getAllCoursesByUser(User user) {
         List<UsersCourses> usersCoursesList = sessionFactory.getCurrentSession().createCriteria(UsersCourses.class).add(Restrictions.eq("user", user)).list();
         List<Course> courseList = new ArrayList<>();
