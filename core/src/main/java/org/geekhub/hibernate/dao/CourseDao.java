@@ -4,11 +4,11 @@ import org.geekhub.hibernate.entity.Course;
 
 import java.util.List;
 
-/**
- * Created by helldes on 15.05.2015.
- */
-public interface CourseDao extends GenericDao<Course> {
+public interface CourseDao extends BaseDao {
+
+    public List<Course> getListCoursesById(List<Integer> listCourseId);
     List<Course> getAll(int page, int recordsPerPage);
+    List<Course> getAll();
     void updateCourse(Course course);
     void deleteCourse(int courseId);
 }

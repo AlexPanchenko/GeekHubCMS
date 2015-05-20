@@ -8,11 +8,14 @@ import java.util.List;
 /**
  * Created by user on 13.05.2015.
  */
-public interface UserDao extends GenericDao<User> {
+public interface UserDao extends BaseDao {
     User getUserById(int userId);
+
     public void addUser(User user);
     public List<User> usersOnPage(int page);
     public User loadUserByUsername(String userName) throws UsernameNotFoundException;
+
+//    public User loadUserByUsername(String email) throws UsernameNotFoundException;
     public User getUserByEmail(String email) throws UsernameNotFoundException;
     public User getUserByLogin(String login) throws UsernameNotFoundException;
 }

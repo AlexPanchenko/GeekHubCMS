@@ -21,7 +21,7 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 <script>
-    $(document).ready(function showNewPage(){
+    function showNewPage(){
         $.ajax({
             url:"ajax/usersShow",
             type:"post",
@@ -29,7 +29,10 @@
             success:function(data) {
                 $("#rows").html(data);
             }
-        })
+        });
+    }
+    $(document).ready(function() {
+        showNewPage();
     });
 </script>
 </head>
@@ -124,7 +127,7 @@
                                     </a>
                                 </li>
                                 <li><a href="#" onclick="showNewPage()">1</a></li>
-                                <li><a href="#">2</a></li>
+                                <li><a href="#" onclick="showNewPage()">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
                                 <li><a href="#">5</a></li>
