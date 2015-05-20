@@ -34,14 +34,24 @@
                 <thead>
                 <tr>
                     <th>Name courses</th>
+                    <th>Count question</th>
+                    <th>Due date</th>
                     <th>Status</th>
+                    <th>Time for test</th>
                 </tr>
                 </thead>
                 <c:forEach items="${coursesList}" var="courses">
+
                     <tbody>
                     <tr>
                         <td>${courses.name}</td>
-                        <td><span class="label label-success">Active</span></td>
+
+                        <c:forEach items="${courses.testConfigListBeens}" var="testConfig">
+                            <td>${testConfig.questionCount}</td>
+                            <td>${testConfig.dueDate}</td>
+                            <td><span class="label label-success">${testConfig.status}</span></td>
+                            <td>${testConfig.dateTimeToTest}</td>
+                        </c:forEach>
                     </tr>
                     </tbody>
                 </c:forEach>

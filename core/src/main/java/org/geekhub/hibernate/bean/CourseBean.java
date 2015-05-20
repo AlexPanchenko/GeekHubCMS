@@ -1,9 +1,12 @@
 package org.geekhub.hibernate.bean;
 
 
+import org.geekhub.hibernate.entity.TestConfig;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -17,10 +20,19 @@ public class CourseBean {
     @NotBlank(message = "Description should be not empty")
     private String description;
 
-    private Set<UserBean> users = new HashSet<>();
 
-    public CourseBean(){}
 
+    List<TestConfigBeen> testConfigListBeens = new ArrayList<>();
+
+    public CourseBean() {
+    }
+
+    public CourseBean(int id, String name, String description, List<TestConfigBeen> testConfigListBeens) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.testConfigListBeens = testConfigListBeens;
+    }
 
     public CourseBean(int id, String name, String description) {
         this.id = id;
@@ -52,12 +64,13 @@ public class CourseBean {
         this.description = description;
     }
 
-    public Set<UserBean> getUsers() {
-        return users;
+
+    public List<TestConfigBeen> getTestConfigListBeens() {
+        return testConfigListBeens;
     }
 
-    public void setUsers(Set<UserBean> users) {
-        this.users = users;
+    public void setTestConfigListBeens(List<TestConfigBeen> testConfigListBeens) {
+        this.testConfigListBeens = testConfigListBeens;
     }
 }
 

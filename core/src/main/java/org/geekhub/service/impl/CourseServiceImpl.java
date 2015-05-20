@@ -2,11 +2,12 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
@@ -35,6 +36,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private UserDao userDao;
+
 
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {
@@ -67,8 +69,14 @@ public class CourseServiceImpl implements CourseService {
      * @param course object to convert
      * @return {@link }
      */
-    private CourseBean toBean(Course course) {
-        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription());
+    @Override
+    public CourseBean toBean(Course course) {
+        List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
+        List<TestConfig> testConfigList = course.getTestConfig();
+        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(), testConfigBeenList);
+        for (TestConfig testConfig : testConfigList) {
+            testConfigBeenList.add(new TestConfigBeen(testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), testConfig.getCourse()));
+        }
         return courseBean;
     }
 
@@ -114,10 +122,15 @@ public class CourseServiceImpl implements CourseService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());
         List<UsersCourses> usersCoursesList = user.getUsersCourses();
-        List<CourseBean> courseList = usersCoursesList.stream().map(usersCourses -> new CourseBean(usersCourses.getCourse().getId(),
-                usersCourses.getCourse().getName(),
-                usersCourses.getCourse().getDescription())).collect(Collectors.toList());
-        return courseList;
+        List<CourseBean> courseBeanList = new ArrayList<>();
+        for (UsersCourses usersCourses : usersCoursesList) {
+            if(usersCourses.getCourse().getTestConfig().size() == 0 ) {
+                break;
+            }
+            Course course = usersCourses.getCourse();
+            courseBeanList.add(toBean(course));
+        }
+        return courseBeanList;
     }
 }
 
