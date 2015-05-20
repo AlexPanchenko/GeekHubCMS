@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +40,16 @@ public class Question extends BaseEntity implements Serializable{
     @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
     private Set<Answer> answers;
 
+    @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
+    List<UserResults> userResults = new ArrayList<>();
 
+    public List<UserResults> getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(List<UserResults> userResults) {
+        this.userResults = userResults;
+    }
 
     public Boolean getQuestionStatus() {
         return questionStatus;
