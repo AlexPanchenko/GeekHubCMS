@@ -43,7 +43,10 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void update(Question question) {
+    public void update(int questionId, String questionText, byte questionWeight) {
+        Question question = (Question) questionDao.read(questionId, Question.class);
+        question.setQuestionText(questionText);
+        question.setQuestionWeight(questionWeight);
         questionDao.update(question);
     }
 

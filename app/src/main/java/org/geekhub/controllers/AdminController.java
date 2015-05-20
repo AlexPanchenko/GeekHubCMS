@@ -2,7 +2,6 @@ package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
-import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.User;
@@ -240,10 +239,7 @@ public class AdminController {
     public String editQuestion(@PathVariable("questionId") int questionId,
                                @RequestParam("questionText") String questionText,
                                @RequestParam("questionWeight") byte questionWeight) {
-        Question question = (Question)questionService.read(questionId);
-        question.setQuestionText(questionText);
-        question.setQuestionWeight(questionWeight);
-        questionService.update(question);
+        questionService.update(questionId, questionText, questionWeight);
         return "redirect:/admin/question/" + questionId + "/edit";
     }
 
@@ -274,10 +270,6 @@ public class AdminController {
                                @RequestParam("answerRight") boolean answerRight) {
 
         answerService.create(questionId, answerText, answerRight);
-        Answer answer = new Answer();
-        answer.setAnswerText(answerText);
-        answer.setAnswerRight(answerRight);
-        answer.setQuestion((Question)questionService.read(questionId));
         return "redirect:/admin/question/{questionId}/edit";
     }
 

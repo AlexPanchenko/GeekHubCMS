@@ -1,5 +1,6 @@
 package org.geekhub.hibernate.dao;
 
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface QuestionDao extends BaseDao{
     public List<Question> getAll();
+    public List<Question> getByCourse(Course course);
 }

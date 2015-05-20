@@ -12,7 +12,8 @@ import java.util.List;
 public interface QuestionService{
     List<Question> getAll();
     Object read(int questionId);
-    void update(Question question);
     void delete(int questionId);
     public Question create(String questionText, Byte questionWeight, int courseId);
+
+    void update(int questionId, String questionText, byte questionWeight);
 }
