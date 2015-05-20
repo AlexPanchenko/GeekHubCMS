@@ -18,8 +18,8 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
     <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
     <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
     <script src="<c:url value='/resources/js/validator.js'/>"></script>
@@ -245,7 +245,7 @@
                                                         <select id="courses[]" name="courses[]"class="form-control" multiple>
                                                             <c:forEach items="${courseList}" var="coursWrapper">
                                                                 <c:set var="selectCourse" value="false"/>
-                                                                <c:forEach items="${user.courses}" var="userCourse">
+                                                                <c:forEach items="${user.usersCourses}" var="userCourse">
                                                                     <c:if test="${coursWrapper.id eq userCourse.id}">
                                                                         <c:set var="selectCourse" value="true"/>
                                                                     </c:if>
@@ -267,11 +267,15 @@
                                                 <dd><input type="checkbox" class="pull-left form-control profile-check-box" name="active"></dd>
                                             </dl>
                                         </div>
-                                        <div class="control-group">
-                                            <!-- Button -->
-                                            <div class="controls">
-                                                <button type="submit" class="btn btn-success pull-right">Update Data
-                                                </button>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-1 col-lg-offset-4">
+                                                    <a href="#myModal" class="btn btn-success pull-right" data-toggle="modal">Send FeedBack</a>
+                                                </div>
+                                                <div class="col-lg-1" style="margin-left:15px">
+                                                    <button type="submit" class="btn btn-success pull-right" >Update Data
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -287,9 +291,33 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Write FeedBack</h4>
+            </div>
+            <form action="/admin/createFeedback/${user.id}" id="sendFeedback" method="get">
+                <div class="modal-body">
+                    <textarea type="text" cols="80" rows="5" name="feedback"></textarea>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="javascript: func()"><button type="button" class="btn btn-primary">Save feedback</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function func(){
+        document.getElementById("sendFeedback").submit();
+    }
+</script>
 
 </body>
 </html>

@@ -61,6 +61,8 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(name = "FEEDBACK", nullable = false)
+    private String feedBack;
 
     @OneToMany
      (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
@@ -75,6 +77,14 @@ public class User extends BaseEntity implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack;
     }
 
     public String getLogin() {

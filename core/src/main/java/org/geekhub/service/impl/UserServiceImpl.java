@@ -23,10 +23,15 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-
- @Autowired
+    @Autowired
     UserDao userDao;
 
+    @Override
+    public void setFeedback(int Id, String feedBack) {
+        User user = userDao.getUserById(Id);
+        user.setFeedBack(feedBack);
+        userDao.update(user);
+    }
 
     public User getUserById(int userId) {
         return null;
