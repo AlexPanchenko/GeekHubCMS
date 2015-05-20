@@ -24,6 +24,5 @@ public interface CourseService {
     void deleteCourse(int courseId) throws CourseNotFoundException;
 
      List<CourseBean> getCourseBeenByUser();
-    public CourseBean toBean(Course course);
 
 }

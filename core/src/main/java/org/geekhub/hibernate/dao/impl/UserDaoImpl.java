@@ -1,6 +1,7 @@
 package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +17,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private UsersCoursesDao usersCourses;
 
     @Override
     public User getUserById(int userId) {
@@ -53,5 +57,4 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         User user = (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
         return user;
     }
-
 }

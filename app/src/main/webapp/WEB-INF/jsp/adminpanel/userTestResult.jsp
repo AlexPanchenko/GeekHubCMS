@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -50,10 +51,14 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li>
+                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out fa-fw">
+                            </i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -92,19 +97,79 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Some information</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
+            <h1 class="alert alert-success text-center"><b>Users test result</b></h1>
 
+
+            <table class="table table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>emeil</th>
+                    <th>Course</th>
+                    <th>Date</th>
+                    <th>Mark</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>Bot</td>
+                    <td>Main</td>
+                    <td>bot@ukr.net</td>
+                    <td>Java</td>
+                    <td>11-11-11</td>
+                    <td>90%</td>
+                    <td><span class="label label-success">Accepted</span></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <%--<div align="center">
+        <nav >
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${page.current == 1}">
+                        <li class="disabled"><a href="#">&lt;&lt;</a></li>
+                        <li class="disabled"><a href="#">&lt;</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="${firstUrl}">&lt;&lt;</a></li>
+                        <li><a href="${prevUrl}">&lt;</a></li>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${page.begin}" end="${page.end}">
+                    <c:url var="pageUrl" value="/admin/course/list?p=${i}" />
+                    <c:choose>
+                        <c:when test="${i ==page.current}">
+                            <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:choose>
+                    <c:when test="${page.current == page.end}">
+                        <li class="disabled"><a href="#">&gt;</a></li>
+                        <li class="disabled"><a href="#">&gt;&gt;</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="${nextUrl}">&gt;</a></li>
+                        <li><a href="${lastUrl}">&gt;&gt;</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </nav>
+    </div>--%>
 </div>
+
+
+
 <!-- /#wrapper -->
 </body>
 </html>

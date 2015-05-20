@@ -11,4 +11,5 @@ public interface RegistrationCoursesService {
     List<CourseWrapper> getListCourseWrappers();
     public void getRegistrationUserByCourses(List<Integer> listCourseId);
 
+
 }

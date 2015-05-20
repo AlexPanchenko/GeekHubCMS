@@ -10,7 +10,10 @@ import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -165,7 +168,7 @@ public class    AdminController {
                                @RequestParam("description") String description) throws Exception {
 
         try {
-            courseService.createCourse(name, description);
+            courseService.create(name, description);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -177,11 +180,20 @@ public class    AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.deleteCourse(courseId);
+            courseService.delete(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
 
         return "redirect:/admin/course/list";
     }
+
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String createCourse(Map<String, Object> model) throws Exception {
+
+
+
+        return "adminpanel/userTestResult";
+    }
+
 }

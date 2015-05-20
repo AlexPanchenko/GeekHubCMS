@@ -10,5 +10,5 @@ public interface CourseDao extends BaseDao {
     List<Course> getAll(int page, int recordsPerPage);
     List<Course> getAll();
     void updateCourse(Course course);
-    void deleteCourse(int courseId);
+    void deleteCourseById(int courseId);
 }
