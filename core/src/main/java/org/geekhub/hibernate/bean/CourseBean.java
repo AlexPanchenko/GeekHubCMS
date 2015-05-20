@@ -1,16 +1,12 @@
 package org.geekhub.hibernate.bean;
 
+
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Aleksander on 15.05.2015.
- *
- * @Author Aleksander
- * @Author odahovskiy
- */
+
 public class CourseBean {
 
     private int id;
@@ -24,6 +20,7 @@ public class CourseBean {
     private Set<UserBean> users = new HashSet<>();
 
     public CourseBean(){}
+
 
     public CourseBean(int id, String name, String description) {
         this.id = id;
@@ -63,3 +60,4 @@ public class CourseBean {
         this.users = users;
     }
 }
+

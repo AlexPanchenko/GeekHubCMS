@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class CourseServiceImpl extends GenericServiceImpl<Course> implements CourseService {
+public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseDao courseDao;
@@ -28,7 +28,7 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {
         List<CourseBean> courses = convertToCourseBean(courseDao.getAll(page, recordsPerPage));
-        int size = getAll().size();
+        int size = getAllBeans().size();
         int maxPages = (size % recordsPerPage == 0)? (size / recordsPerPage) : (size / recordsPerPage)+1;
         page = (page > maxPages)?   maxPages : page;
         int current = page;
@@ -39,8 +39,8 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     }
 
     @Override
-    public List<CourseBean> getAll() {
-        List<Course> courses = genericDao.getAll();
+    public List<CourseBean> getAllBeans() {
+        List<Course> courses = courseDao.getAll();
         return convertToCourseBean(courses);
     }
 
@@ -73,12 +73,12 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
         Course course = new Course();
         course.setName(courseName);
         course.setDescription(courseDescription);
-        create(course);
+        courseDao.create(course);
     }
 
     @Override
     public CourseBean getById(int id) throws CourseNotFoundException {
-        Course course = genericDao.read(id);
+        Course course = (Course)courseDao.read(id,Course.class);
         if (null == course) throw new CourseNotFoundException();
         return toBean(course);
     }

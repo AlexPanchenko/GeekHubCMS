@@ -10,7 +10,10 @@ import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
+import org.geekhub.util.MailSend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,9 @@ public class AdminController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private MailSend mailSend;
 
     @Autowired
     UserService userService;
@@ -109,7 +115,7 @@ public class AdminController {
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
-            u.setCourses(courses);
+          //  u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
             model.addAttribute("roles", Role.values());
@@ -121,28 +127,28 @@ public class AdminController {
         }
     }
 
-//    @RequestMapping(value = "/users", method = RequestMethod.POST)
-//    public String editUser(@RequestParam("id")String id,
-//                           @RequestParam("login")String login,
-//                           @RequestParam("first-name")String firstName,
-//                           @RequestParam("patronymic")String patronymic,
-//                           @RequestParam("last-name")String lastName,
-//                           @RequestParam("email")String email,
-//                           @RequestParam("skype")String skype,
-//                           @RequestParam("phone")String phone,
-//                           @RequestParam("birthday")String birthday,
-//                           @RequestParam("role")String role,
-//                           @RequestParam("courses[]")String[] courses,
-//                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
-//                           ModelMap model) {
-//        try {
-//            Date date = CommonUtil.getFormattedDate(birthday);
-//            System.out.println(date);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return "redirect:/dashboard/users/"+id+"/edit";
-//    }
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public String editUser(@RequestParam("id")String id,
+                           @RequestParam("login")String login,
+                           @RequestParam("first-name")String firstName,
+                           @RequestParam("patronymic")String patronymic,
+                           @RequestParam("last-name")String lastName,
+                           @RequestParam("email")String email,
+                           @RequestParam("skype")String skype,
+                           @RequestParam("phone")String phone,
+                           @RequestParam("birthday")String birthday,
+                           @RequestParam("role")String role,
+                           @RequestParam("courses[]")String[] courses,
+                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
+                           ModelMap model) {
+        try {
+            Date date = CommonUtil.getFormattedDate(birthday);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/dashboard/users/"+id+"/edit";
+    }
 
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public String coursesList( @RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
@@ -243,14 +249,13 @@ public class AdminController {
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
-            u.setCourses(courses);
+//            u.setCourses(courses);
             u.setPhoneNumber("931451514");
-            u.setRoles(Role.ROLE_ADMIN);
+//            u.setRoles(Role.ROLE_ADMIN);
             model.addAttribute("user", u);
             return "adminpanel/user-profile";
         }catch (Exception ex) {
             throw new Exception(ex);
         }
     }
-
 }

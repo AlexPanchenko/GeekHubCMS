@@ -4,18 +4,15 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Created by user on 13.05.2015.
- *
- * @Author Odahovskiy V.(Odahovskiy@gmail.com)
- * @Author Palyvoda (jekainfinity@gmail.com)
- */
+
 @Entity
 @Table(name = "COURSES")
-public class Course implements Serializable {
+public class Course extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
@@ -29,8 +26,10 @@ public class Course implements Serializable {
     @Column(name = "COURSE_DESCRIPTION")
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
-    private Set<User> users = new HashSet<User>();
+    @OneToMany
+    (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "course")
+    List<UsersCourses> usersCourses = new ArrayList<>();
+
 
     public Course() {
     }
@@ -59,11 +58,11 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public List<UsersCourses> getUsersCourses() {
+        return usersCourses;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUsersCourses(List<UsersCourses> usersCourses) {
+        this.usersCourses = usersCourses;
     }
 }

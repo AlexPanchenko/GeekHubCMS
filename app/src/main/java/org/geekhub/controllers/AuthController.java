@@ -4,11 +4,10 @@ package org.geekhub.controllers;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -21,15 +20,27 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/index")
+    public String indexForm() {
+        return "index";
+    }
 
-    @RequestMapping("/auth")
-    public String loginForm() {
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public String loginForm(){
         return "login";
     }
 
-    @RequestMapping("/index")
-     public String indexForm() {
-        return "index";
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public ModelAndView loginForm(@RequestParam(value = "error",required = false)String error,
+                                  @RequestParam(required = false) String logout  ) {
+        ModelAndView model = new ModelAndView("login");
+        if (error != null) {
+            model.addObject("error", error);
+        }
+        if (logout != null) {
+            model.addObject("msg", logout);
+        }
+        return model;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -54,9 +65,11 @@ public class AuthController {
 
         String errorMessage = userService.addUser(login,password, firstName, lastName,
                 patronymic, email, skype, phoneNumber, confirmPassword, birthDay, new Date());
-        if(errorMessage == null){
-            return "redirect:/index";
-        } else{
+
+
+            if(errorMessage == null) {
+                return "redirect:/auth";
+            } else{
             model.put("errorMessage", errorMessage);
             return "registration";
         }

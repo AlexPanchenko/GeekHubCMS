@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-public interface UserService extends GenericService<User> {
+public interface UserService  {
     User getUserById(int userId);
 
 

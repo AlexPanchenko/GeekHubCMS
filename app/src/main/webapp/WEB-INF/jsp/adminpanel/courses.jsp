@@ -105,6 +105,7 @@
                             <th class="text-center"> Action</th>
                         </tr>
                         </thead>
+
                         <c:forEach items="${page.list}" var="course">
                             <tr>
                                 <td>${course.id}</td>
@@ -112,11 +113,11 @@
                                 <td>${course.description}</td>
                                 <td class="text-center">
                                     <c:choose>
-                                        <c:when test="${empty course.users}">
+                                        <c:when test="${empty coursWrapper.users}">
                                             0
                                         </c:when>
                                         <c:otherwise>
-                                            ${course.users.size()}
+                                            ${coursWrapper.users.size()}
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
