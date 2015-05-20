@@ -2,6 +2,7 @@ package org.geekhub.service.impl;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
@@ -20,9 +21,11 @@ import java.util.Date;
 @Transactional
 public class UserServiceImpl  implements UserService {
 
+//
 
- @Autowired
-    UserDao userDao;
+
+    @Autowired
+    private UserDao userDao;
 
 
     public User getUserById(int userId) {
@@ -66,4 +69,8 @@ public class UserServiceImpl  implements UserService {
         return null;
     }
 
+    @Override
+    public User getUserByEmail(String name) {
+        return userDao.getUserByEmail(name);
+    }
 }

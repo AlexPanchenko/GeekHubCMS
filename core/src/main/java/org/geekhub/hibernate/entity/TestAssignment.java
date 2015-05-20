@@ -1,13 +1,6 @@
 package org.geekhub.hibernate.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -26,8 +19,19 @@ public class TestAssignment {
     @JoinColumn(name = "TA_TEST_CONFIG_ID")
     private TestConfig testConfig;
 
-    @Column(name = "DATE_REGISTRATION")
-    private Date dateRegistration;
+    @Column(name = "TA_DUE_DATE")
+    private Date DueDate;
+
+    @Column(name = "TA_TEST_START")
+    private Date testStart;
+
+    @Column(name = "TA_TEST_FINISH")
+    private Date testFinish;
+    @Column(name = "TA_PASSED")
+    private boolean passed;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
+    private TestStatusAssignment testStatusAssignment;
 
 
     public User getUser() {
@@ -54,11 +58,43 @@ public class TestAssignment {
         this.testConfig = testConfig;
     }
 
-    public Date getDateRegistration() {
-        return dateRegistration;
+    public Date getDueDate() {
+        return DueDate;
     }
 
-    public void setDateRegistration(Date dateRegistration) {
-        this.dateRegistration = dateRegistration;
+    public void setDueDate(Date dueDate) {
+        DueDate = dueDate;
+    }
+
+    public Date getTestStart() {
+        return testStart;
+    }
+
+    public void setTestStart(Date testStart) {
+        this.testStart = testStart;
+    }
+
+    public Date getTestFinish() {
+        return testFinish;
+    }
+
+    public void setTestFinish(Date testFinish) {
+        this.testFinish = testFinish;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
+    }
+
+    public TestStatusAssignment getTestStatusAssignment() {
+        return testStatusAssignment;
+    }
+
+    public void setTestStatusAssignment(TestStatusAssignment testStatusAssignment) {
+        this.testStatusAssignment = testStatusAssignment;
     }
 }

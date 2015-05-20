@@ -13,9 +13,6 @@
 <body>
 <h1>LogIn</h1>
 
-
-
-
 <form class="login-form well" action="/j_spring_security_check" method="post">
 
 
