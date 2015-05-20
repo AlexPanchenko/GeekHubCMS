@@ -9,7 +9,7 @@
 </head>
 <body>
 Hello world! It's index page
-<security:authorize access="hasanyrole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')">
+<security:authorize access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')">
     <a href="/logout">Log out</a>
     <a href="/student/registrationCourses">Registration on Courses</a>
     <security:authentication property="principal.username"/>

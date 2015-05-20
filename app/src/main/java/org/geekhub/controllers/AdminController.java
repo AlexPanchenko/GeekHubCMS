@@ -3,7 +3,6 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
@@ -11,7 +10,10 @@ import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -185,4 +187,13 @@ public class AdminController {
 
         return "redirect:/admin/course/list";
     }
+
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String createCourse(Map<String, Object> model) throws Exception {
+
+
+
+        return "adminpanel/userTestResult";
+    }
+
 }

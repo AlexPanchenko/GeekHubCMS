@@ -28,4 +28,14 @@ public class UsersCoursesDaoImpl extends BaseDaoImpl implements UsersCoursesDao 
         }
         return courseList;
     }
+
+    @Override
+    public List<User> getAllUsersByCourse(Course course) {
+        List<UsersCourses> usersCoursesList = sessionFactory.getCurrentSession().createCriteria(UsersCourses.class).add(Restrictions.eq("course", course)).list();
+        List<User> userList = new ArrayList<>();
+        for(UsersCourses usersCourses: usersCoursesList){
+            userList.add(usersCourses.getUser());
+        }
+        return userList;
+    }
 }

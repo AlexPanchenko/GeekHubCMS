@@ -79,6 +79,9 @@
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
                     </li>
+                    <li>
+                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
+                    </li>
 
                 </ul>
             </div>
