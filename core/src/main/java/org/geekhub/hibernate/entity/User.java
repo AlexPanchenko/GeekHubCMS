@@ -66,6 +66,17 @@ public class User extends BaseEntity implements Serializable {
      (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<UserResults> userResults = new ArrayList<>();
+
+    public List<UserResults> getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(List<UserResults> userResults) {
+        this.userResults = userResults;
+    }
+
     public User(){
     }
 
