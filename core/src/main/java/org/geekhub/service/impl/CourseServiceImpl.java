@@ -20,9 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by user on 18.05.2015.
- */
+
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
@@ -81,7 +79,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void createCourse(String courseName, String courseDescription) {
+    public void create(String courseName, String courseDescription) {
         Course course = new Course();
         course.setName(courseName);
         course.setDescription(courseDescription);
@@ -100,13 +98,22 @@ public class CourseServiceImpl implements CourseService {
         CourseBean course = getById(courseBean.getId());
         course.setName(courseBean.getName());
         course.setDescription(courseBean.getDescription());
-        courseDao.updateCourse(toEntity(course));
+        courseDao.update(toEntity(course));
     }
 
     @Override
-    public void deleteCourse(int courseId) throws CourseNotFoundException {
-        getById(courseId);
-        courseDao.deleteCourse(courseId);
+    public void delete(int courseId) throws CourseNotFoundException {
+        courseDao.deleteCourseById(courseId);
+    }
+
+    public void unRegisterCourse (int id) {
+           Course course = (Course) courseDao.read(id, Course.class);
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());
+        List<UsersCourses> usersCoursesList = user.getUsersCourses();
+        UsersCourses tmp = usersCoursesList.get(0);
+        usersCoursesDao.delete(tmp);
     }
 
     @Override

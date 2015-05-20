@@ -1,21 +1,27 @@
 package org.geekhub.controllers;
 
+import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/student")
-public class RegistrationCoursesController {
+public class CoursesController {
 
     @Autowired
     private RegistrationCoursesService registrationCoursesService;
+    @Autowired
+    private CourseService courseService;
 
     @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
     public String coursesRegistration(Map<String, Object> model) {
@@ -28,5 +34,12 @@ public class RegistrationCoursesController {
     public String registrationCourses(@RequestParam("courseId") List<Integer> id) {
         registrationCoursesService.getRegistrationUserByCourses(id);
         return "redirect:/student/registrationCourses";
+    }
+
+    @RequestMapping(value ="/deleteCourse/{courseId}")
+    public ModelAndView deleteCourse(@PathVariable int courseId){
+        ModelAndView model = new ModelAndView("redirect:/student/userProfile");
+        courseService.unRegisterCourse(courseId);
+        return model;
     }
 }

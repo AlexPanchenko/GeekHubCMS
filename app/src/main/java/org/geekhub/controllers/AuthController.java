@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
@@ -51,6 +51,7 @@ public class AuthController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String addNewUser(
+            HttpServletResponse response,
             Map<String, Object> model,
             @RequestParam("login") String login,
             @RequestParam("password") String password,
@@ -65,7 +66,6 @@ public class AuthController {
 
         String errorMessage = userService.addUser(login,password, firstName, lastName,
                 patronymic, email, skype, phoneNumber, confirmPassword, birthDay, new Date());
-
 
             if(errorMessage == null) {
                 return "redirect:/auth";

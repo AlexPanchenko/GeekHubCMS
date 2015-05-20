@@ -11,18 +11,19 @@ import java.util.List;
 
 public interface CourseService {
 
-    Page<CourseBean> getAll(int page, int recordsPerPage);
+    public Page<CourseBean> getAll(int page, int recordsPerPage);
 
-    List<CourseBean> getAllBeans();
+    public List<CourseBean> getAllBeans();
 
-    void createCourse(String courseName, String courseDescription);
+    public void create(String courseName, String courseDescription);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
-    void update(CourseBean courseBean) throws CourseNotFoundException;
+    public void update(CourseBean courseBean) throws CourseNotFoundException;
 
-    void deleteCourse(int courseId) throws CourseNotFoundException;
+    public void delete(int courseId) throws CourseNotFoundException;
 
-     List<CourseBean> getCourseBeenByUser();
+    public List<CourseBean> getCourseBeenByUser();
 
+    public void unRegisterCourse (int id);
 }

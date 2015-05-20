@@ -22,7 +22,6 @@
 <p>   ${coursesList.name}<p>
 <p>  ${coursesList.description} </p>
 </div>
-
 </c:forEach>
 --%>
 
@@ -35,6 +34,7 @@
                 <tr>
                     <th>Name courses</th>
                     <th>Status</th>
+                    <th>Action  </th>
                 </tr>
                 </thead>
                 <c:forEach items="${coursesList}" var="courses">
@@ -42,6 +42,9 @@
                     <tr>
                         <td>${courses.name}</td>
                         <td><span class="label label-success">Active</span></td>
+                        <td><span class="label label-danger">
+                            <a href="/student/deleteCourse/${courses.id}">Delete </a>
+                            </span></td>
                     </tr>
                     </tbody>
                 </c:forEach>
