@@ -81,6 +81,10 @@
 			<param-name>forceEncoding</param-name>
 			<param-value>true</param-value>
 		</init-param>
+        <init-param>
+            <param-name>flushMode</param-name>
+            <param-value>ALWAYS</param-value>
+        </init-param>
 	</filter>
 
 	<!--<filter>

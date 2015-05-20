@@ -17,6 +17,7 @@
     <context:annotation-config />
     <context:component-scan base-package="org.geekhub" />
     <mvc:annotation-driven />
+    <context:property-placeholder location="classpath:mailConfig.properties" />
 
     <import resource="data-source.xml"/>
     <import resource="hibernate-dao.xml"/>
@@ -59,6 +60,26 @@
         <!--<property name="prefix" value="/WEB-INF/jsp/" />-->
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}" />
+        <property name="port" value="#{new Integer.parseInt('${mail.port}')}" />
+        <property name="username" value="${mail.username}" />
+        <property name="password" value="${mail.password}" />
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+                <prop key="mail.smtp.ssl.trust">${mail.smtp.ssl.trust}</prop>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="preConfigMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.username}"></property>
     </bean>
 
 </beans>
