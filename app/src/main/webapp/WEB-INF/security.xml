@@ -18,7 +18,7 @@
         <csrf disabled="true"/>
         <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/student/**" access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+        <intercept-url pattern="/teacher/**" access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         </http>
 

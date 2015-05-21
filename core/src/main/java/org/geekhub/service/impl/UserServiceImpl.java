@@ -2,6 +2,7 @@ package org.geekhub.service.impl;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.CourseDao;
@@ -18,8 +19,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -131,6 +132,40 @@ public class UserServiceImpl  implements UserService {
             userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
         }
         return userTestResultWrapperList;
+    }
+
+    @Override
+    public Page<UserTestResultWrapper> getPageUserTestResultWrapperListByCourseName(String courseName, int page, int recordsPerPage) {
+
+        List<UserTestResultWrapper> list = getUserTestResultWrapperListByCourseName(courseName);
+        int firstRecord;
+        int lastRecord;
+        int size = list.size();
+        int maxPages = (size % recordsPerPage == 0) ? (size / recordsPerPage) : (size / recordsPerPage) + 1;
+        page = (page > maxPages) ? maxPages : page;
+        int current = page;
+        int begin = Math.max(1, current - recordsPerPage);
+        int end = maxPages;
+
+        firstRecord = page*recordsPerPage-recordsPerPage;
+        if(page == maxPages){
+            lastRecord = page*recordsPerPage - (page*recordsPerPage - size);
+        } else {
+            lastRecord = page*recordsPerPage;
+        }
+        if(recordsPerPage < size){
+            list = list.subList(firstRecord, lastRecord);
+        }
+        Page<UserTestResultWrapper> resultPage = new Page<UserTestResultWrapper>(list, begin, current, size, maxPages, recordsPerPage, end);
+
+        List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
+        Course course =  courseDao.getCourseByName(courseName);
+        List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
+
+        for(User user: userList){
+            userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
+        }
+        return resultPage;
     }
 
 }

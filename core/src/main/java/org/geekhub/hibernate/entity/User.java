@@ -47,9 +47,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "SKYPE", length = 40)
     private String skype;
 
-    @Column(name = "ICQ", length = 40)
-    private String icq;
-
     @Column(name = "PHONE_NUMBER", length = 40, nullable = false)
     private String phoneNumber;
 
@@ -153,13 +150,6 @@ public class User extends BaseEntity implements Serializable {
         this.skype = skype;
     }
 
-    public String getIcq() {
-        return icq;
-    }
-
-    public void setIcq(String icq) {
-        this.icq = icq;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;

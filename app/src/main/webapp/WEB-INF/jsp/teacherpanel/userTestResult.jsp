@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AdminPanel</title>
+    <title>TeacherPanel</title>
 
     <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
@@ -31,71 +31,6 @@
 
 <div id="wrapper">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-
-            </button>
-            <a class="navbar-brand" href="/admin">Admin Panel</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right">
-
-            <a href="#" enabled="false"><i class="fa" style="color:blue"></i>TODO: Principal.name</a>
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li>
-                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="login.html">
-                            <i class="fa fa-sign-out fa-fw">
-                            </i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
-                    </li>
-
-                    <li>
-                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
-                    </li>
-                    <li>
-                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-    </nav>
-
-    <!-- Page Content -->
 
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -106,7 +41,7 @@
                 <div class="js-slide">
                     <ul>
                         <c:forEach items="${coursesList}" var="course">
-                            <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
+                            <li><a href="/teacher/userTestResult/${course.name}">${course.name}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -142,12 +77,11 @@
         </div>
     </div>
 
-
     <c:if test="${not empty page}">
-        <c:url var="firstUrl" value="/admin/userTestResult/${courseName}?p=1"/>
-        <c:url var="lastUrl" value="/admin/userTestResult/${courseName}?p=${page.end}"/>
-        <c:url var="prevUrl" value="/admin/userTestResult/${courseName}?p=${page.current - 1}"/>
-        <c:url var="nextUrl" value="/admin/userTestResult/${courseName}?p=${page.current + 1}"/>
+        <c:url var="firstUrl" value="/teacher/userTestResult/${courseName}?p=1"/>
+        <c:url var="lastUrl" value="/teacher/userTestResult/${courseName}?p=${page.end}"/>
+        <c:url var="prevUrl" value="/teacher/userTestResult/${courseName}?p=${page.current - 1}"/>
+        <c:url var="nextUrl" value="/teacher/userTestResult/${courseName}?p=${page.current + 1}"/>
         <div align="center">
             <nav>
                 <ul class="pagination">
@@ -162,7 +96,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:forEach var="i" begin="${page.begin}" end="${page.end}">
-                        <c:url var="pageUrl" value="/admin/userTestResult/java?p=${i}"/>
+                        <c:url var="pageUrl" value="/teacher/userTestResult/java?p=${i}"/>
                         <c:choose>
                             <c:when test="${i ==page.current}">
                                 <li class="active"><a href="${pageUrl}"><c:out value="${i}"/></a></li>
@@ -187,6 +121,5 @@
         </div>
     </c:if>
 </div>
-<!-- /#wrapper -->
 </body>
 </html>

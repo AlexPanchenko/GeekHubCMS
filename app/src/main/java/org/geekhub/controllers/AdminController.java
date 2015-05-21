@@ -11,6 +11,7 @@ import org.geekhub.service.CourseService;
 import org.geekhub.service.QuestionService;
 import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
+import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,7 +54,6 @@ public class    AdminController {
         u.setId(1);
         u.setFirstName("Test1");
         u.setEmail("Ivan@mail.ru");
-        u.setIcq("4118377166");
         u.setLastName("Test");
         u.setPatronymic("Test");
         u.setLogin("Ivan123");
@@ -89,7 +89,6 @@ public class    AdminController {
             u.setId(userId);
             u.setFirstName("Test1");
             u.setEmail("Ivan@mail.ru");
-            u.setIcq("4118377166");
             u.setLastName("Test");
             u.setPatronymic("Test");
             u.setLogin("Ivan123");
@@ -209,10 +208,12 @@ public class    AdminController {
 
     @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
     public String getUserTestResultWithCourse(@RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
-                                              @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
+                                              @RequestParam(value = "results",defaultValue = "4",required = false) Integer recPerPage,
                                               @PathVariable String course, Map<String, Object> model) throws Exception {
         model.put("coursesList", courseService.getAllBeans());
-        model.put("userTestResultWrapperList", userService.getUserTestResultWrapperListByCourseName(course));
+        model.put("courseName", course);
+        Page<UserTestResultWrapper> page = userService.getPageUserTestResultWrapperListByCourseName(course, p, recPerPage);
+        model.put("page", page);
         return "adminpanel/userTestResult";
     }
     // START QUESTION CONTROLLER
