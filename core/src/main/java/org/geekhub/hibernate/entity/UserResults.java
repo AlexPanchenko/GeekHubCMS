@@ -30,6 +30,10 @@ public class UserResults extends BaseEntity implements Serializable {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEST_ASSIGNMENT_ID")
+    private TestAssignment testAssignment;
+
     public Question getQuestion() {
         return question;
     }
@@ -40,6 +44,14 @@ public class UserResults extends BaseEntity implements Serializable {
 //
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userResult")
 //    List<UserAnswer> UserAnswer = new ArrayList<>();
+
+    public TestAssignment getTestAssignment() {
+        return testAssignment;
+    }
+
+    public void setTestAssignment(TestAssignment testAssignment) {
+        this.testAssignment = testAssignment;
+    }
 
     public UserResults() {
     }
