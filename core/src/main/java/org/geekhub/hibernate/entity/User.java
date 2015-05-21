@@ -58,7 +58,7 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
-    @Column(name = "ROLE")
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column(name = "FEEDBACK", nullable = false)

@@ -21,7 +21,6 @@
 
     <import resource="data-source.xml"/>
     <import resource="hibernate-dao.xml"/>
-    <import resource="spring-mail.xml"/>
 
     <bean id="flyWayDBUpdater" class="org.geekhub.util.FlyWayDBUpdater" init-method="updaterDB">
         <constructor-arg ref="dataSource"/>

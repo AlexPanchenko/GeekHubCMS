@@ -13,10 +13,10 @@ public interface UserDao extends BaseDao {
 
     public void addUser(User user);
     public Long usersCount();
+    public List<User> readAllUsers();
     public List<User> usersOnPage(int page);
     public User loadUserByUsername(String userName) throws UsernameNotFoundException;
-
-//    public User loadUserByUsername(String email) throws UsernameNotFoundException;
+    //    public User loadUserByUsername(String email) throws UsernameNotFoundException;
     public User getUserByEmail(String email) throws UsernameNotFoundException;
     public User getUserByLogin(String login) throws UsernameNotFoundException;
 }

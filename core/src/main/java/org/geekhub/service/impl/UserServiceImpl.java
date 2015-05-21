@@ -91,4 +91,23 @@ public class UserServiceImpl implements UserService {
     public Long getUsersCount(){
         return userDao.usersCount();
     }
+
+    @Override
+    public List<UserBean> getAllTeachers(){
+        List<UserBean> allTeachers = new ArrayList<UserBean>();
+        List<User> users = userDao.readAllUsers();
+        for(User u: users){
+            if(u.getRole().equals(Role.ROLE_TEACHER)) {
+                UserBean teacher = new UserBean();
+                teacher.setLastName(u.getLastName());
+                teacher.setFirstName(u.getFirstName());
+                teacher.setPatronymic(u.getPatronymic());
+                teacher.setEmail(u.getEmail());
+                teacher.setPhoneNumber(u.getPhoneNumber());
+                teacher.setSkype(u.getSkype());
+                allTeachers.add(teacher);
+            }
+        }
+        return allTeachers;
+    }
 }

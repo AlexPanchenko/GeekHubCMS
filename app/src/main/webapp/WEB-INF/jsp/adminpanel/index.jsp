@@ -73,7 +73,7 @@
                         <a href="/admin/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
+                        <a href="/admin/createClassrom"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>

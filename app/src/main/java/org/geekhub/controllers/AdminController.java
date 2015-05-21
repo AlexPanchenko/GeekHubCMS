@@ -10,7 +10,7 @@ import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
-import org.geekhub.util.MailSend;
+import org.geekhub.util.JavaSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +31,7 @@ public class AdminController {
     private CourseService courseService;
 
     @Autowired
-    private MailSend mailSend;
+    private JavaSender javaSender;
 
     @Autowired
     private UserService userService;
@@ -59,24 +59,25 @@ public class AdminController {
 		return mav;
 	}
 
-//    @RequestMapping("/ajax/usersShow")
-//	public ModelAndView usersOnPage(){
-//		ModelAndView mav=new ModelAndView("adminpanel/usersShow");
-//        List<UserBean> users = userService.getUsersAll();
-//		mav.addObject("users",users);
-//		return mav;
-//	}
     @RequestMapping("/ajax/countUsers")
 	public @ResponseBody Long usersCount() {
         return userService.getUsersCount();
 	}
-
 
     @RequestMapping("/ajax/usersShow")
     public ModelAndView usersOnPage(@RequestParam int page){
         ModelAndView mav=new ModelAndView("adminpanel/usersShow");
         List<UserBean> users = userService.getUsersOnOnePage(page);
         mav.addObject("users",users);
+        return mav;
+    }
+    @RequestMapping("/createClassrom")
+    public ModelAndView coursesDropDown(){
+        ModelAndView mav=new ModelAndView("adminpanel/createClassroom");
+        List<CourseBean> courses = courseService.getAllBeans();
+        List<UserBean> teachers = userService.getAllTeachers();
+        mav.addObject("courses",courses);
+        mav.addObject("teachers",teachers);
         return mav;
     }
 

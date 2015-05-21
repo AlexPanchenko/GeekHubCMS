@@ -15,6 +15,7 @@ public interface UserService  {
 
     public Long getUsersCount();
     public List<UserBean> getUsersOnOnePage(int page);
+    public List<UserBean> getAllTeachers();
 
 }
 
