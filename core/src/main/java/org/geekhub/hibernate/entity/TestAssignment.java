@@ -1,7 +1,9 @@
 package org.geekhub.hibernate.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TEST_ASSIGNMENT")
@@ -19,6 +21,9 @@ public class TestAssignment {
     @JoinColumn(name = "TA_TEST_CONFIG_ID")
     private TestConfig testConfig;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testAssignment")
+    List<UserResults> userResults = new ArrayList<>();
+
     @Column(name = "TA_DUE_DATE")
     private Date DueDate;
 
@@ -33,6 +38,13 @@ public class TestAssignment {
     @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
     private TestStatusAssignment testStatusAssignment;
 
+    public List<UserResults> getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(List<UserResults> userResults) {
+        this.userResults = userResults;
+    }
 
     public User getUser() {
         return user;
