@@ -40,6 +40,11 @@ public class CourseBean {
         this.description = description;
     }
 
+    public CourseBean(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

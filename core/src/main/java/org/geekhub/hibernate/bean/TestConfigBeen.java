@@ -14,17 +14,18 @@ public class TestConfigBeen {
     private Date dueDate;
     private Date dateTimeToTest;
     private TestStatus status;
-    private Course course;
+    private CourseBean courseBean;
 
     public TestConfigBeen() {
     }
 
-    public TestConfigBeen(int questionCount, Date dueDate, Date dateTimeToTest, TestStatus status, Course course) {
+    public TestConfigBeen(int questionCount, Date dueDate, Date dateTimeToTest, TestStatus status, CourseBean courseBean) {
+
         this.questionCount = questionCount;
         this.dueDate = dueDate;
         this.dateTimeToTest = dateTimeToTest;
         this.status = status;
-        this.course = course;
+        this.courseBean = courseBean;
     }
 
     public int getId() {
@@ -59,12 +60,12 @@ public class TestConfigBeen {
         this.status = status;
     }
 
-    public Course getCourse() {
-        return course;
+    public CourseBean getCourseBean() {
+        return courseBean;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseBean(CourseBean courseBean) {
+        this.courseBean = courseBean;
     }
 
     public Date getDateTimeToTest() {

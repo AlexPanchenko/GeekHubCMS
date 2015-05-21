@@ -2,13 +2,16 @@ package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.TestStatus;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.QuestionService;
+import org.geekhub.service.TestConfigService;
 import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
 @Controller
 @RequestMapping(value = "/admin")
-public class    AdminController {
+public class AdminController {
 
     @Autowired
     private QuestionService questionService;
@@ -35,6 +40,8 @@ public class    AdminController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private TestConfigService testConfigService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -57,13 +64,13 @@ public class    AdminController {
         u.setRegistrationDate(new Date());
         u.setPhoneNumber("+380(93)145-1514");
         for (int i = 0; i < 5; i++) users.add(u);
-        model.addAttribute("users",users);
+        model.addAttribute("users", users);
         return "adminpanel/users";
     }
 
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
-    public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
+    public String getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) throws Exception {
         try {
 
 
@@ -91,30 +98,30 @@ public class    AdminController {
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
-          //  u.setCourses(courses);
+            //  u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception(ex);
         }
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String editUser(@RequestParam("id")String id,
-                           @RequestParam("login")String login,
-                           @RequestParam("first-name")String firstName,
-                           @RequestParam("patronymic")String patronymic,
-                           @RequestParam("last-name")String lastName,
-                           @RequestParam("email")String email,
-                           @RequestParam("skype")String skype,
-                           @RequestParam("phone")String phone,
-                           @RequestParam("birthday")String birthday,
-                           @RequestParam("role")String role,
-                           @RequestParam("courses[]")String[] courses,
-                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
+    public String editUser(@RequestParam("id") String id,
+                           @RequestParam("login") String login,
+                           @RequestParam("first-name") String firstName,
+                           @RequestParam("patronymic") String patronymic,
+                           @RequestParam("last-name") String lastName,
+                           @RequestParam("email") String email,
+                           @RequestParam("skype") String skype,
+                           @RequestParam("phone") String phone,
+                           @RequestParam("birthday") String birthday,
+                           @RequestParam("role") String role,
+                           @RequestParam("courses[]") String[] courses,
+                           @RequestParam(value = "avatar", required = false) MultipartFile avatar,
                            ModelMap model) {
         try {
             Date date = CommonUtil.getFormattedDate(birthday);
@@ -122,14 +129,14 @@ public class    AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/users/"+id+"/edit";
+        return "redirect:/admin/users/" + id + "/edit";
     }
 
 
     @RequestMapping(value = "/course/list", method = RequestMethod.GET)
-    public String coursesList( @RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
-                               @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
-                               ModelMap modelMap) {
+    public String coursesList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
+                              @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,
+                              ModelMap modelMap) {
 
         Page<CourseBean> page = courseService.getAll(p, recPerPage);
         modelMap.addAttribute("page", page);
@@ -137,35 +144,47 @@ public class    AdminController {
     }
 
     @RequestMapping(value = "/course/create", method = RequestMethod.GET)
-    public String createPage(ModelMap model) {
-        model.addAttribute("action", "create");
-        model.addAttribute("course", new Course());
-        return "adminpanel/course-edit";
+    public ModelAndView createPage() throws CourseNotFoundException {
+        ModelAndView model = new ModelAndView("adminpanel/course-edit");
+        model.addObject("enumStatus", TestStatus.values());
+        model.addObject("action", "create");
+        model.addObject("course", new Course());
+        return model;
     }
 
     @RequestMapping(value = "/course/{courseId}/edit", method = RequestMethod.GET)
-    public String editCourses(@PathVariable("courseId") Integer courseId, ModelMap model) throws Exception {
+    public ModelAndView editCourses(@PathVariable("courseId") Integer courseId) throws Exception {
+        ModelAndView model = new ModelAndView("adminpanel/course-edit");
         try {
-            CourseBean course = courseService.getById(courseId);
-            model.addAttribute("course",course);
-        }catch (CourseNotFoundException ex){
 
-        }catch (Exception ex) {
+            CourseBean course = courseService.getById(courseId);
+            model.addObject("course", course);
+            model.addObject("enumStatus", TestStatus.values());
+            return model;
+        } catch (CourseNotFoundException ex) {
+
+        } catch (Exception ex) {
             throw new Exception(ex);
         }
-        return "adminpanel/course-edit";
+        return model;
     }
 
     @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
     public String editCourses(@PathVariable("courseId") Integer courseId,
-                              @RequestParam("name") String name, @RequestParam("description") String description) throws Exception {
+                              @RequestParam("name") String name,
+                              @RequestParam("description") String description,
+                              @RequestParam("questionCount") int questionCount,
+                              @RequestParam("dueDate") Date dueDate,
+                              @RequestParam("dateTimeToTest") Date dateTimeToTest,
+                              @RequestParam("status") TestStatus status) throws Exception {
         try {
-            courseService.update(
-                    new CourseBean(courseId, name, description)
-            );
-        }catch (CourseNotFoundException ex){
 
-        }catch (Exception ex) {
+            CourseBean courseBean = new CourseBean(courseId, name, description);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dueDate, dateTimeToTest, status, courseBean);
+            courseService.update(courseBean);
+        } catch (CourseNotFoundException ex) {
+
+        } catch (Exception ex) {
             throw new Exception(ex);
         }
 
@@ -174,10 +193,31 @@ public class    AdminController {
 
     @RequestMapping(value = "/course", method = RequestMethod.POST)
     public String createCourse(@RequestParam("name") String name,
-                               @RequestParam("description") String description) throws Exception {
+                               @RequestParam("description") String description,
+                               @RequestParam("questionCount") int questionCount,
+                             @RequestParam("dueDate") String dueDate,
+                              @RequestParam("dateTimeToTest") String dateTimeToTest,
+                               @RequestParam("status") TestStatus status) throws Exception {
+
+
 
         try {
-            courseService.create(name, description);
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            Date dateDueDate = new Date();
+            if (!dueDate.equals("")){
+                dateDueDate = dt.parse(dueDate);
+            }
+            Date dateTime = new Date();
+            if (!dueDate.equals("")){
+                dateTime = dt.parse(dateTimeToTest);
+            }
+            CourseBean courseBean = new CourseBean(name, description);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dateDueDate, dateTime, status, courseBean);
+            courseBean.getTestConfigListBeens().add(testConfigBeen);
+            courseService.create(courseBean, testConfigBeen);
+
+
+
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -214,7 +254,7 @@ public class    AdminController {
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
-                                 @RequestParam("course") int courseId)  {
+                                 @RequestParam("course") int courseId) {
 
         Question question = questionService.create(questionText, questionWeight, courseId);
         int questionId = question.getId();
@@ -251,7 +291,7 @@ public class    AdminController {
                              @RequestParam("answerId") String answerId,
                              @RequestParam("answerText") String answerText,
                              @RequestParam("answerRight") String answerRight) {
-        return "redirect:/admin/question/" + questionId + "/answer/" + answerId+ "/edit";
+        return "redirect:/admin/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
     @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
@@ -274,13 +314,14 @@ public class    AdminController {
     }
 
     @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
-    public String deleteAnswer( @PathVariable("questionId") int questionId,
-                                @PathVariable("answerId") int answerId,
-                                ModelMap model) {
+    public String deleteAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("answerId") int answerId,
+                               ModelMap model) {
         answerService.delete(answerId);
         model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/question/{questionId}/edit";
     }
+
     //END ANSWER CONTROLLER
     @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
     public String createCourse(Map<String, Object> model) throws Exception {

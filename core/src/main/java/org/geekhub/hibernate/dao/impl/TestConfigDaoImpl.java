@@ -19,7 +19,7 @@ public class TestConfigDaoImpl implements TestConfigDao {
 
     @Override
     public void create(BaseEntity obj) {
-
+        sessionFactory.getCurrentSession().save(obj);
     }
 
     @Override
