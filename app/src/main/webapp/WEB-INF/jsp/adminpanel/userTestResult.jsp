@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -111,7 +112,7 @@
                     </ul>
                 </div>
             </div>
-            <h1>${courseName}</h1>
+            <h1>${fn:toUpperCase(courseName)}</h1>
             <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
