@@ -34,7 +34,7 @@ public class AdminController {
     private MailSend mailSend;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -274,4 +274,13 @@ public class AdminController {
             throw new Exception(ex);
         }
     }
+
+
+    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid")Integer userid,HttpServletRequest request){
+        String feedback = (String) request.getAttribute("feedback");
+        userService.setFeedback(userid,feedback);
+        return "redirect:/admin/users/" + userid + "/edit";
+    }
+
 }
