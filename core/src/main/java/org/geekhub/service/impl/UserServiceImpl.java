@@ -69,6 +69,7 @@ public class UserServiceImpl  implements UserService {
     public RegistrationResponseBean validateForm(UserBean userBean){
         RegistrationResponseBean registrationResponseBean = new RegistrationResponseBean();
 
+        System.out.println(userBean.getEmail());
         if (userDao.getUserByEmail(userBean.getEmail()) != null) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Email already in use");
