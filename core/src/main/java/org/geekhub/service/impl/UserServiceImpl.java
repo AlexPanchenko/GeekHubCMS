@@ -68,8 +68,8 @@ public class UserServiceImpl implements UserService {
 
         return null;
     }
-    public List<UserBean> getUsersOnOnePage(){
-        List<User> users = userDao.usersOnPage(3);
+    public List<UserBean> getUsersOnOnePage(int page){
+        List<User> users = userDao.usersOnPage(page);
         List<UserBean> userBeans = new ArrayList<UserBean>();
         for(User u: users){
             UserBean userBean = new UserBean();
@@ -83,5 +83,7 @@ public class UserServiceImpl implements UserService {
         }
         return userBeans;
     }
-
+    public Long getUsersCount(){
+        return userDao.usersCount();
+    }
 }

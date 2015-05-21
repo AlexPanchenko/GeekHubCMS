@@ -21,18 +21,28 @@
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 <script>
-    function showNewPage(){
+    function showNewPage(page){
         $.ajax({
             url:"ajax/usersShow",
             type:"post",
-            data:'',
+            data:{page:page},
             success:function(data) {
                 $("#rows").html(data);
             }
         });
     }
+    function countUsers(){
+        $.ajax({
+            url:"ajax/countUsers",
+            type:"post",
+            data:'',
+            success:function(data) {
+            }
+        });
+    }
     $(document).ready(function() {
-        showNewPage();
+        countUsers();
+        showNewPage(1);
     });
 </script>
 </head>
@@ -126,11 +136,9 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li><a href="#" onclick="showNewPage()">1</a></li>
-                                <li><a href="#" onclick="showNewPage()">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <c:forEach items="${pageNumbers}" var="number">
+                                    <li><a href="#" onclick="showNewPage(${number})">${number}</a></li>
+                                </c:forEach>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>

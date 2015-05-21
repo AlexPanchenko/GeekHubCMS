@@ -12,6 +12,7 @@ public interface UserDao extends BaseDao {
     User getUserById(int userId);
 
     public void addUser(User user);
+    public Long usersCount();
     public List<User> usersOnPage(int page);
     public User loadUserByUsername(String userName) throws UsernameNotFoundException;
 

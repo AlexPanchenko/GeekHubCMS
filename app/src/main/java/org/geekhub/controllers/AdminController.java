@@ -12,14 +12,13 @@ import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.util.MailSend;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
 
@@ -45,6 +44,18 @@ public class AdminController {
 	@RequestMapping("/users")
 	public ModelAndView users(){
 		ModelAndView mav=new ModelAndView("adminpanel/users");
+        Long usersCount = userService.getUsersCount();
+        Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE>0)
+            pagesCount++;
+        List<Integer> pageNumbers = new ArrayList<Integer>();
+        int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
+        if(pagesCount < k)
+            k = pagesCount.intValue();
+        for(int i = 1; i<=k; i++)
+            pageNumbers.add(i);
+        mav.addObject("pageNumbers",pageNumbers);
+
 		return mav;
 	}
 
@@ -55,11 +66,16 @@ public class AdminController {
 //		mav.addObject("users",users);
 //		return mav;
 //	}
+    @RequestMapping("/ajax/countUsers")
+	public @ResponseBody Long usersCount() {
+        return userService.getUsersCount();
+	}
+
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(){
+    public ModelAndView usersOnPage(@RequestParam int page){
         ModelAndView mav=new ModelAndView("adminpanel/usersShow");
-        List<UserBean> users = userService.getUsersOnOnePage();
+        List<UserBean> users = userService.getUsersOnOnePage(page);
         mav.addObject("users",users);
         return mav;
     }

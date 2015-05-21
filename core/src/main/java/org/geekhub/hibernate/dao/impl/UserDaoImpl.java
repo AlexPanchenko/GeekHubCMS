@@ -1,8 +1,10 @@
 package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.LongSummaryStatistics;
+
+import static org.geekhub.hibernate.entity.Page.*;
 
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
@@ -54,8 +59,14 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return user;
     }
     @Override
+    public Long usersCount() throws UsernameNotFoundException {
+        return  (Long) sessionFactory.getCurrentSession().createCriteria(User.class)
+        .setProjection(Projections.rowCount())
+        .uniqueResult();
+    }
+
+    @Override
     public List<User> usersOnPage(int page) throws UsernameNotFoundException {
-//        return sessionFactory.getCurrentSession().createQuery("from User user ORDER BY user.LAST_NAME desc").setFirstResult(3).setMaxResults(3).list();
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult(3 * (page - 1)).setMaxResults(3).list();
+        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult(USERS_ON_PAGE * (page - 1)).setMaxResults(USERS_ON_PAGE).list();
     }
 }

@@ -14,7 +14,8 @@ public interface UserService  {
     public String addUser(String login, String password, String firstName, String lastName,
                           String patronymic, String email, String skype, String phoneNumber, String confirmPassword, String date, Date dataRegistration) throws ParseException;
 
-    public List<UserBean> getUsersOnOnePage();
+    public Long getUsersCount();
+    public List<UserBean> getUsersOnOnePage(int page);
 
 }
 
