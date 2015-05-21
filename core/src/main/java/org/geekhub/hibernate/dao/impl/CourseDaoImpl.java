@@ -29,7 +29,6 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
                 .setParameterList("listCourseId", listCourseId).list();
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public List<Course> getAll(int page, int recordsPerPage) {

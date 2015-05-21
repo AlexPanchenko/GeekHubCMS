@@ -23,9 +23,10 @@
         </http>
 
     <authentication-manager>
-    <authentication-provider user-service-ref="customUserDetailsService" >
+    <authentication-provider user-service-ref="CustomUserDetailsService" >
         <password-encoder hash="md5" />
     </authentication-provider>
 </authentication-manager>
 
+    <beans:bean id="CustomUserDetailsService" class="org.geekhub.service.CustomUserDetailsService"/>
 </beans:beans>

@@ -3,10 +3,13 @@ package org.geekhub.controllers;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
-import org.geekhub.service.impl.UserServiceImpl;
+import org.geekhub.service.QuestionService;
+import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,10 +29,16 @@ import java.util.*;
 public class    AdminController {
 
     @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private AnswerService answerService;
+
+    @Autowired
     private CourseService courseService;
 
     @Autowired
-    private UserServiceImpl userServiceImp;
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -117,7 +126,7 @@ public class    AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "redirect:/dashboard/users/"+id+"/edit";
+        return "redirect:/admin/users/"+id+"/edit";
     }
 
 
@@ -188,9 +197,9 @@ public class    AdminController {
         } catch (Exception ex) {
             throw new Exception(ex);
         }
-
         return "redirect:/admin/course/list";
     }
+
 
     @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
     public String getUserTestResult(Map<String, Object> model) throws Exception {
@@ -203,8 +212,92 @@ public class    AdminController {
                                               @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
                                               @PathVariable String course, Map<String, Object> model) throws Exception {
         model.put("coursesList", courseService.getAllBeans());
-        model.put("userTestResultWrapperList", userServiceImp.getUserTestResultWrapperListByCourseName(course));
+        model.put("userTestResultWrapperList", userService.getUserTestResultWrapperListByCourseName(course));
         return "adminpanel/userTestResult";
     }
+    // START QUESTION CONTROLLER
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    public String questions(ModelMap model) {
+        List<Question> list = questionService.getAll();
+        model.addAttribute("questions", list);
+        return "adminpanel/questions";
+    }
 
+    @RequestMapping(value = "/question/create", method = RequestMethod.GET)
+    public String createQuestionPage(ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question", method = RequestMethod.POST)
+    public String createQuestion(@RequestParam("questionText") String questionText,
+                                 @RequestParam("questionWeight") byte questionWeight,
+                                 @RequestParam("course") int courseId)  {
+
+        Question question = questionService.create(questionText, questionWeight, courseId);
+        int questionId = question.getId();
+        System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
+        return "redirect:/admin/question/" + questionId + "/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
+    public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/delete", method = RequestMethod.GET)
+    public String deleteQuestion(@PathVariable("questionId") int questionId) {
+        questionService.delete(questionId);
+        return "redirect:/admin/questions";
+    }
+
+    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @RequestParam("questionText") String questionText,
+                               @RequestParam("questionWeight") byte questionWeight) {
+        questionService.update(questionId, questionText, questionWeight);
+        return "redirect:/admin/question/" + questionId + "/edit";
+    }
+
+    // END QUESTION CONTROLLER
+
+    //START ANSWER CONTROLLER
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @RequestParam("answerId") String answerId,
+                             @RequestParam("answerText") String answerText,
+                             @RequestParam("answerRight") String answerRight) {
+        return "redirect:/admin/question/" + questionId + "/answer/" + answerId+ "/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @PathVariable("answerId") int answerId,
+                             ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        model.addAttribute("answerSelect", answerService.read(answerId));
+        return "adminpanel/answer-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST)
+    public String createAnswer(@PathVariable("questionId") int questionId,
+                               @RequestParam("answerText") String answerText,
+                               @RequestParam("answerRight") boolean answerRight) {
+
+        answerService.create(questionId, answerText, answerRight);
+        return "redirect:/admin/question/{questionId}/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
+    public String deleteAnswer( @PathVariable("questionId") int questionId,
+                                @PathVariable("answerId") int answerId,
+                                ModelMap model) {
+        answerService.delete(answerId);
+        model.addAttribute("question", questionService.read(questionId));
+        return "redirect:/admin/question/{questionId}/edit";
+    }
 }

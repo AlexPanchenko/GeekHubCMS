@@ -7,13 +7,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Timer;
 
 @Entity
 @Table(name = "TEST_CONFIG")
-public class TestConfig {
+public class  TestConfig {
 
     @GeneratedValue
     @Id
@@ -22,12 +24,17 @@ public class TestConfig {
     @Column(name = "TC_QUESTION_COUNT")
     private int questionCount;
     @Column(name = "TC_DUE_DATE")
+
     private Date dueDate;
+
+    @Column(name = "TC_TIME_TO_TEST")
+    private Date dateTimeToTest;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "TC_STATUS")
     private TestStatus status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "TC_COURSE_ID")
     private Course course;
 
@@ -69,5 +76,21 @@ public class TestConfig {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Date getDateTimeToTest() {
+        return dateTimeToTest;
+    }
+
+    public void setDateTimeToTest(Date dateTimeToTest) {
+        this.dateTimeToTest = dateTimeToTest;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

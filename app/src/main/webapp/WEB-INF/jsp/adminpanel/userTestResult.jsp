@@ -110,7 +110,6 @@
                         </c:forEach>
                     </ul>
                 </div>
-
             </div>
 
             <table class="table table-striped table-condensed">
@@ -181,8 +180,6 @@
         </nav>
     </div>--%>
 </div>
-
-
 <!-- /#wrapper -->
 </body>
 </html>

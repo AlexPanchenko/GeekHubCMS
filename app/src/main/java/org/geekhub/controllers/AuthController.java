@@ -6,10 +6,12 @@ import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +35,18 @@ public class AuthController {
         return "login";
     }
 
+
+//    @RequestMapping(value = "/UserSessionFilter")
+//    public String login(ModelMap model, HttpSession session) {
+//        org.springframework.security.core.userdetails.User principal =
+//                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        session.setAttribute(UserServiceImpl.USER_ATTRIBUTE_SESSION, userService.getUserByEmail(principal.getUsername()));
+//
+//        return  "index";
+//    }
+
+
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ModelAndView loginForm(@RequestParam(value = "error", required = false) String error,
                                   @RequestParam(required = false) String logout) {
@@ -45,6 +59,7 @@ public class AuthController {
         }
         return model;
     }
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Map<String, Object> model) {
@@ -82,6 +97,4 @@ public class AuthController {
         }
     }
 }
-
-
 

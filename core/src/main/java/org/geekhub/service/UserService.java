@@ -7,7 +7,8 @@ import org.geekhub.hibernate.entity.User;
 import java.text.ParseException;
 
 public interface UserService  {
-    User getUserById(int userId);
+    public User getUserById(int userId);
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException;
 
+    Object getUserTestResultWrapperListByCourseName(String course);
 }

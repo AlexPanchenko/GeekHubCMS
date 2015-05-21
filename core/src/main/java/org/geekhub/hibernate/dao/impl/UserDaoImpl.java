@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -27,7 +26,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return user;
     }
 
-    @Transactional
     public void addUser(User user) {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
@@ -35,8 +33,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        List<User> list = sessionFactory.getCurrentSession()
-                .createCriteria(User.class)
+        List<User> list = sessionFactory.getCurrentSession().createCriteria(User.class)
                 .add(Restrictions.eq("email", email)).list();
 
         if (list.size() > 0) {

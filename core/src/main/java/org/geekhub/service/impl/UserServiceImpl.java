@@ -13,11 +13,13 @@ import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,20 +28,32 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl  implements UserService {
 
-
     @Autowired
     UserDao userDao;
-
     @Autowired
     CourseDao courseDao;
 
     @Autowired
     UsersCoursesDao usersCoursesDao;
 
+
     public User getUserById(int userId) {
         return null;
     }
 
+
+
+    public User getUserByEmail(String email) throws UsernameNotFoundException {
+        return userDao.getUserByEmail(email);
+    }
+
+    public User getUserByLogin(String login) throws UsernameNotFoundException {
+        return getUserByLogin(login);
+    }
+
+    public static final SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+
+    @Override
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException {
 
         RegistrationResponseBean registrationResponseBean = validateForm(userBean);

@@ -10,7 +10,6 @@ import java.util.Date;
  * Created by Aleksander on 15.05.2015.
  */
 public class UserBean {
-
     private int id;
     private String login;
     private String password;
@@ -69,6 +68,14 @@ public class UserBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public Date getRegistrationDate() {
@@ -157,13 +164,5 @@ public class UserBean {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 }
