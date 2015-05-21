@@ -6,6 +6,7 @@ import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.impl.UserServiceImpl;
 import org.geekhub.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class    AdminController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private UserServiceImpl userServiceImp;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
@@ -189,10 +193,17 @@ public class    AdminController {
     }
 
     @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
-    public String createCourse(Map<String, Object> model) throws Exception {
+    public String getUserTestResult(Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        return "adminpanel/userTestResult";
+    }
 
-
-
+    @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
+    public String getUserTestResultWithCourse(@RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
+                                              @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
+                                              @PathVariable String course, Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        model.put("userTestResultWrapperList", userServiceImp.getUserTestResultWrapperListByCourseName(course));
         return "adminpanel/userTestResult";
     }
 

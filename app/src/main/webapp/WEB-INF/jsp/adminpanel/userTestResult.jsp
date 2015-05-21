@@ -24,6 +24,7 @@
     <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/userTestResultScript.js'/>" type="text/javascript"></script>
 
 </head>
 <body>
@@ -95,10 +96,22 @@
     </nav>
 
     <!-- Page Content -->
+
     <div id="page-wrapper">
         <div class="container-fluid">
             <h1 class="alert alert-success text-center"><b>Users test result</b></h1>
 
+            <div>
+                <button class="courses btn">Change course</button>
+                <div class="js-slide">
+                    <ul>
+                        <c:forEach items="${coursesList}" var="course">
+                            <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+
+            </div>
 
             <table class="table table-striped table-condensed">
                 <thead>
@@ -114,16 +127,17 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>Bot</td>
-                    <td>Main</td>
-                    <td>bot@ukr.net</td>
-                    <td>Java</td>
-                    <td>11-11-11</td>
-                    <td>90%</td>
-                    <td><span class="label label-success">Accepted</span></td>
-                </tr>
-
+                <c:forEach items="${userTestResultWrapperList}" var="wrap">
+                    <tr>
+                        <td>${wrap.user.firstName}</td>
+                        <td>${wrap.user.lastName}</td>
+                        <td>${wrap.user.email}</td>
+                        <td>${wrap.course.name}</td>
+                        <td>11-11-11</td>
+                        <td>90%</td>
+                        <td><span class="label label-success">Accepted</span></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -167,7 +181,6 @@
         </nav>
     </div>--%>
 </div>
-
 
 
 <!-- /#wrapper -->

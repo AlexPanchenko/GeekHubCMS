@@ -4,17 +4,22 @@ package org.geekhub.service.impl;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
+import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -26,8 +31,10 @@ public class UserServiceImpl  implements UserService {
     UserDao userDao;
 
     @Autowired
-    UsersCoursesDao usersCoursesDao;
+    CourseDao courseDao;
 
+    @Autowired
+    UsersCoursesDao usersCoursesDao;
 
     public User getUserById(int userId) {
         return null;
@@ -36,6 +43,7 @@ public class UserServiceImpl  implements UserService {
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException {
 
         RegistrationResponseBean registrationResponseBean = validateForm(userBean);
+
         if(registrationResponseBean.isSuccess()) {
             User user = new User();
             user.setLogin(userBean.getLogin());
@@ -51,7 +59,6 @@ public class UserServiceImpl  implements UserService {
             user.setRegistrationDate(new Date());
             userDao.create(user);
         }
-
         return registrationResponseBean;
     }
 
@@ -98,6 +105,17 @@ public class UserServiceImpl  implements UserService {
             registrationResponseBean.setSuccess(true);
             return registrationResponseBean;
         }
+    }
+
+    public List<UserTestResultWrapper> getUserTestResultWrapperListByCourseName(String courseName){
+        List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
+        Course course =  courseDao.getCourseByName(courseName);
+        List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
+
+        for(User user: userList){
+            userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
+        }
+        return userTestResultWrapperList;
     }
 
 }
