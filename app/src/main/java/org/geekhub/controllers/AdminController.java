@@ -176,32 +176,10 @@ public class AdminController {
     @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
     public String editCourses(@PathVariable("courseId") Integer courseId,
                               @RequestParam("name") String name,
-                              @RequestParam("description") String description,
-                              @RequestParam("title") String title,
-                              @RequestParam("questionCount") int questionCount,
-                              @RequestParam("dateStart") String dateStart,
-                              @RequestParam("dateFinish") String dateFinish,
-                              @RequestParam("timeToTest") int timeToTest,
-                              @RequestParam("status") TestStatus status) throws Exception {
-        try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
-            Date startDate = new Date();
-            if (!startDate.equals("")) {
-                startDate = dt.parse(dateStart);
-            }
-            Date finishDate = new Date();
-            if (!finishDate.equals("")) {
-                finishDate = dt.parse(dateFinish);
-            }
-            CourseBean courseBean = new CourseBean(courseId, name, description);
-            TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
-            courseService.update(courseBean);
-        } catch (CourseNotFoundException ex) {
+                              @RequestParam("description") String description) throws Exception {
 
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
-
+        CourseBean courseBean = new CourseBean(courseId, name, description);
+        courseService.update(courseBean);
         return "redirect:/admin/course/" + courseId + "/edit";
     }
 
