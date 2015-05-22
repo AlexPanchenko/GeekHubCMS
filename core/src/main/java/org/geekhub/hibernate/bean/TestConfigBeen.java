@@ -28,6 +28,8 @@ public class TestConfigBeen {
         this.courseBean = courseBean;
     }
 
+
+
     public int getId() {
         return id;
     }

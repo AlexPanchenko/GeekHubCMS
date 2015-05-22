@@ -1,58 +1,41 @@
-package org.geekhub.hibernate.entity;
+package org.geekhub.hibernate.bean;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.TestStatusAssignment;
+import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.UserResults;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "TEST_ASSIGNMENT")
-public class TestAssignment extends BaseEntity implements Serializable {
-    @GeneratedValue
-    @Id
-    @Column(name = "TEST_ASSIGNMENT_ID")
+/**
+ * Created by helldes on 21.05.2015.
+ */
+public class TestAssignmentBean {
     private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "TA_USER_ID")
     private User user;
-
-    @OneToOne
-    @JoinColumn(name = "TA_TEST_CONFIG_ID")
     private TestConfig testConfig;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testAssignment")
-    List<UserResults> userResults = new ArrayList<>();
-
-    @Column(name = "TA_DUE_DATE")
+    private List<UserResults> userResults = new ArrayList<>();
     private Date dueDate;
-
-    @Column(name = "TA_TEST_START")
     private Date testStart;
-
-    @Column(name = "TA_TEST_FINISH")
     private Date testFinish;
-    @Column(name = "TA_PASSED")
     private boolean passed;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
     private TestStatusAssignment testStatusAssignment;
 
-    public List<UserResults> getUserResults() {
-        return userResults;
-    }
+    public TestAssignmentBean(){
+    };
 
-    public void setUserResults(List<UserResults> userResults) {
-        this.userResults = userResults;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public TestAssignmentBean(int id, User user, TestConfig testConfig, List<UserResults> userResults, Date dueDate, Date testStart, Date testFinish, boolean passed, TestStatusAssignment testStatusAssignment) {
+        this.id = id;
         this.user = user;
+        this.testConfig = testConfig;
+        this.userResults = userResults;
+        this.dueDate = dueDate;
+        this.testStart = testStart;
+        this.testFinish = testFinish;
+        this.passed = passed;
+        this.testStatusAssignment = testStatusAssignment;
     }
 
     public int getId() {
@@ -63,12 +46,28 @@ public class TestAssignment extends BaseEntity implements Serializable {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public TestConfig getTestConfig() {
         return testConfig;
     }
 
     public void setTestConfig(TestConfig testConfig) {
         this.testConfig = testConfig;
+    }
+
+    public List<UserResults> getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(List<UserResults> userResults) {
+        this.userResults = userResults;
     }
 
     public Date getDueDate() {

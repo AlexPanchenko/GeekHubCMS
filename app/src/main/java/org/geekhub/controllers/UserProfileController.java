@@ -29,6 +29,4 @@ public class UserProfileController {
         model.addObject("coursesList", courseBeanList);
         return model;
     }
-
-
 }
