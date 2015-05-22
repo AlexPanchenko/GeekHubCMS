@@ -10,3 +10,9 @@
 .form-horizontal .controls {
     margin-top: 5px;
 }
+
+.updateCourse{
+    background-color: #DFF0D8;
+    padding: 30px;
+    padding-right: 300px;
+}

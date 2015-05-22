@@ -1,5 +1,6 @@
 package org.geekhub.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
@@ -145,9 +146,8 @@ public class AdminController {
 
     @RequestMapping(value = "/course/create", method = RequestMethod.GET)
     public ModelAndView createPage() throws CourseNotFoundException {
-        ModelAndView model = new ModelAndView("adminpanel/course-edit");
+        ModelAndView model = new ModelAndView("adminpanel/course-create");
         model.addObject("enumStatus", TestStatus.values());
-        model.addObject("action", "create");
         model.addObject("course", new Course());
         return model;
     }
@@ -322,7 +322,42 @@ public class AdminController {
         return "redirect:/admin/question/{questionId}/edit";
     }
 
-    //END ANSWER CONTROLLER
+
+    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.GET)
+    public ModelAndView editTestConfig (@PathVariable int testConfigId) {
+        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
+        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
+        model.addObject("testConfigBeen",testConfigBeen);
+        model.addObject("enumStatus",TestStatus.values());
+        return model;
+    }
+    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.POST)
+    public ModelAndView editTestConfig (@PathVariable int testConfigId,
+                                        @RequestParam("questionCount") int questionCount,
+                                        @RequestParam("dueDate") String dueDate,
+                                        @RequestParam("dateTimeToTest") String dateTimeToTest,
+                                        @RequestParam("status") TestStatus status) {
+
+        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            Date dateDueDate = new Date();
+            if (!dueDate.equals("")) {
+                dateDueDate = dt.parse(dueDate);
+            }
+            Date dateTime = new Date();
+            if (!dueDate.equals("")) {
+                dateTime = dt.parse(dateTimeToTest);
+            }
+            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,questionCount, dateDueDate, dateTime, status);
+            testConfigService.update(testConfigBeen);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+        //END ANSWER CONTROLLER
     @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
     public String createCourse(Map<String, Object> model) throws Exception {
 

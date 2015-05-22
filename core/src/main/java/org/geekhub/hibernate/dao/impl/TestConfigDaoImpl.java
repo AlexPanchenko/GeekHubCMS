@@ -12,29 +12,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TestConfigDaoImpl implements TestConfigDao {
-
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @Override
-    public void create(BaseEntity obj) {
-        sessionFactory.getCurrentSession().save(obj);
-    }
-
-    @Override
-    public void update(BaseEntity obj) {
-
-    }
-
-    @Override
-    public void delete(BaseEntity obj) {
-
-    }
-
-    @Override
-    public BaseEntity read(int id, Class clazz) {
-        return null;
-    }
-
+public class TestConfigDaoImpl extends BaseDaoImpl implements TestConfigDao {
 }

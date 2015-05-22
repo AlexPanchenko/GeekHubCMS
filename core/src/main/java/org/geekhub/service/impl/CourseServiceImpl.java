@@ -85,7 +85,7 @@ public class CourseServiceImpl implements CourseService {
         List<TestConfig> testConfigList = course.getTestConfig();
         CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(), testConfigBeenList);
         for (TestConfig testConfig : testConfigList) {
-            testConfigBeenList.add(new TestConfigBeen(testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), courseBean));
+            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), courseBean));
         }
         return courseBean;
     }

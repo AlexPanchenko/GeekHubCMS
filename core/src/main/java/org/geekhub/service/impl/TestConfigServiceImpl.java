@@ -11,18 +11,32 @@ import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class TestConfigServiceImpl implements TestConfigService {
     @Autowired
     private CourseDao courseDao;
     @Autowired
     private CourseService courseService;
+    @Autowired TestConfigDao testConfigDao;
+
+    @Override
+    public TestConfigBeen getTestConfigById(int testConfigId) {
+        TestConfig testConfig =(TestConfig)testConfigDao.read(testConfigId,TestConfig.class);
+
+        return toBeen(testConfig);
+    }
+
+    private TestConfigBeen toBeen (TestConfig testConfig) {
+        TestConfigBeen testConfigBeen = new TestConfigBeen(testConfig.getId(),testConfig.getQuestionCount(),testConfig.getDueDate(),testConfig.getDateTimeToTest(),testConfig.getStatus());
+      return testConfigBeen;
+    }
 
     public List<TestConfigBeen> getTestConfigBeens (int courseId) {
             Course course = (Course)courseDao.read(courseId,Course.class);
@@ -35,8 +49,15 @@ public class TestConfigServiceImpl implements TestConfigService {
         return testConfigBeenList;
     }
 
-
-
+    @Override
+    public void update(TestConfigBeen testConfigBeen) {
+        TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigBeen.getId(), TestConfig.class);
+        testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
+        testConfig.setDateTimeToTest(testConfigBeen.getDateTimeToTest());
+        testConfig.setDate(testConfigBeen.getDueDate());
+        testConfig.setStatus(testConfig.getStatus());
+        testConfigDao.update(testConfig);
+    }
 
 
 }

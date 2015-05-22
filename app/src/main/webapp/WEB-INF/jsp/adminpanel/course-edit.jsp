@@ -94,175 +94,99 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-10">
-                    <div class="container">
-                        <c:choose>
-                            <c:when test="${action eq 'create'}">
-                                <h1 class="page-header">Add new course</h1>
+                <div class="container">
 
-                                <form data-toggle="validator" role="form" action="/admin/course" method="POST"
-                                      class="form-horizontal">
-                                    <fieldset>
-                                        <dl class="dl-horizontal">
-                                            <dt>
-                                                <label class="pull-left control-label" for="name">Course name</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input  minlenght="1" maxlength="25" id="name"
-                                                           name="name" type="text" placeholder="Enter course name"
-                                                           class="form-control pull-left" required>
-                                                </div>
-                                            </dd>
-                                            <dt>
-                                                <label class="control-label pull-left" for="description">Course
-                                                    description</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" id="description" name="description"
-                                                              placeholder="There should be description of course"
-                                                              rows="5" required></textarea>
-                                                </div>
-                                            </dd>
+                    <h1 class="page-header">Edit ${course.name}</h1>
 
-                                            <dt>
-                                                <label class="pull-left control-label" for="questionCount">Question count</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="number" id="questionCount" min="0" name="questionCount">
-                                                </div>
-                                            </dd>
 
-                                            <dt>
-                                                <label class="pull-left control-label" for="dueDate">Due date</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="date" id="dueDate" class="form-control" name="dueDate">
-                                                </div>
-                                            </dd>
+                </div>
 
-                                            <dt>
-                                                <label class="pull-left control-label" for="dateTimeToTest">Date time to
-                                                    test</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="date" id ="dateTimeToTest" class="form-control" name="dateTimeToTest">
-                                                </div>
-                                            </dd>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="alert alert-success text-center">
+                                <a href="/admin/course/create"><i class="glyphicon glyphicon-pencil pull-left"
+                                                                  title="Create new course"></i></a>
+                                <b>Test config manage</b></h1>
+                            <table class="table">
+                                <thead class="alert alert-success">
+                                <tr>
+                                    <th> ID</th>
+                                    <th> QuestionCount</th>
+                                    <th> Due date</th>
+                                    <th>Date time to test</th>
+                                    <th> Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
 
-                                            <dt>
-                                                <label class="pull-left control-label" for="status">status</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <div class="btn-group">
-                                                        <select name="status" class="btn btn-default dropdown-toggle"
-                                                                data-toggle="dropdown" aria-expanded="false" id="status">
-                                                        <c:forEach items="${enumStatus}" var="status">
-                                                            <option><a href="#">${status}</a></option>
-                                                        </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </fieldset>
-                                    <button type="submit" class="btn btn-primary btn-lg">Create</button>
-                                </form>
-                            </c:when>
-                            <c:otherwise>
-                                <h1 class="page-header">Edit ${course.id}</h1>
 
-                                <form data-toggle="validator" role="form" action="/admin/course/${course.id}"
-                                      method="POST" class="form-horizontal">
-                                    <fieldset>
-                                        <dl class="dl-horizontal">
-                                            <dt>
-                                                <label class="pull-left control-label" for="name">Course name</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input value="${course.name}" id="albumName" minlenght="1"
-                                                           maxlength="25" id="name" name="name" type="text"
-                                                           placeholder="Enter course name"
-                                                           class="form-control pull-left" required>
-                                                </div>
-                                            </dd>
-                                            <dt>
-                                                <label class="control-label pull-left" for="description">Course
-                                                    description</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
+                                <c:forEach items="${course.testConfigListBeens}" var="testConfig">
+
+
+                                    <tr>
+                                        <td>${testConfig.id}</td>
+                                        <td>${testConfig.questionCount}</td>
+                                        <td>${testConfig.dueDate}</td>
+                                        <td>${testConfig.dateTimeToTest}</td>
+                                        <td>${testConfig.status}</td>
+
+                                        <td class="text-center">
+                                            <a href="/admin//testConfig/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="/admin/course-remove"> <i class="fa fa-times"></i></a>
+                                        </td>
+
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                            <!-- Pagination -->
+
+
+                        </div>
+                    </div>
+                    <div class="updateCourse">
+                        <form data-toggle="validator" role="form" action="/admin/course/${course.id}"
+                              method="POST" class="form-horizontal">
+                            <fieldset>
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        <label class="pull-left control-label" for="name">Course name</label>
+                                    </dt>
+                                    <dd>
+                                        <div class="form-group">
+                                            <input value="${course.name}" id="albumName" minlenght="1"
+                                                   maxlength="25" id="name" name="name" type="text"
+                                                   placeholder="Enter course name"
+                                                   class="form-control pull-left" required>
+                                        </div>
+                                    </dd>
+                                    <dt>
+                                        <label class="control-label pull-left" for="description">Course
+                                            description</label>
+                                    </dt>
+                                    <dd>
+                                        <div class="form-group">
                                                     <textarea class="form-control" id="description" name="description"
                                                               placeholder="There should be description of course"
                                                               rows="5" required>${course.description}</textarea>
-                                                </div>
-                                            </dd>
-                                            <dt>
-                                                <label class="pull-left control-label" for="questionCount">Question count</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="number" id="questionCount" min="0" name="questionCount">
-                                                </div>
-                                            </dd>
-
-                                            <dt>
-                                                <label class="pull-left control-label" for="dueDate">Due date</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="date" id="dueDate" class="form-control" name="dueDate">
-                                                </div>
-                                            </dd>
-
-                                            <dt>
-                                                <label class="pull-left control-label" for="dateTimeToTest">Date time to
-                                                    test</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <input type="date" id ="dateTimeToTest" class="form-control" name="dateTimeToTest">
-                                                </div>
-                                            </dd>
-
-                                            <dt>
-                                                <label class="pull-left control-label" for="status">status</label>
-                                            </dt>
-                                            <dd>
-                                                <div class="form-group">
-                                                    <div class="btn-group">
-                                                        <select name="status" class="btn btn-default dropdown-toggle"
-                                                                data-toggle="dropdown" aria-expanded="false" id="status">
-                                                            <c:forEach items="${enumStatus}" var="status">
-                                                                <option><a href="#">${status}</a></option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </fieldset>
-                                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
-                                </form>
-                            </c:otherwise>
-                        </c:choose>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </fieldset>
+                            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                        </form>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.row -->
         </div>
-        <!-- /#page-wrapper -->
-
+        <!-- /.container-fluid -->
     </div>
-    <!-- /#wrapper -->
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
 </div>
 </body>
 </html>

@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface TestConfigService {
 
+    public TestConfigBeen getTestConfigById (int testConfigId);
     public List<TestConfigBeen> getTestConfigBeens (int courseId);
+    public void update (TestConfigBeen testConfigBeen);
 
 }
