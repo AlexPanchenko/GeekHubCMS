@@ -63,7 +63,7 @@ public class AdminController {
         u.setFirstName("Test1");
         u.setEmail("Ivan@mail.ru");
         u.setLastName("Test");
-        u.setPatronymic("Test");
+
         u.setLogin("Ivan123");
         u.setPassword("1234512");
         u.setRegistrationDate(new Date());
@@ -98,7 +98,7 @@ public class AdminController {
             u.setFirstName("Test1");
             u.setEmail("Ivan@mail.ru");
             u.setLastName("Test");
-            u.setPatronymic("Test");
+
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());

@@ -37,9 +37,6 @@ public class User extends BaseEntity implements Serializable {
     @NotBlank(message = "Surname should be not empty")
     private String lastName;
 
-    @Column(name = "PATRONYMIC", length = 25, nullable = false)
-    @NotBlank(message = "Patronymic should be not empty")
-    private String patronymic;
 
     @Column(name = "E_MAIL", length = 40, nullable = false)
     private String email;
@@ -126,13 +123,6 @@ public class User extends BaseEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
 
     public String getEmail() {
         return email;

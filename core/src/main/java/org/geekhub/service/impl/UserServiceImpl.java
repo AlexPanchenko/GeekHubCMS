@@ -65,7 +65,7 @@ public class UserServiceImpl  implements UserService {
             user.setPassword(DigestUtils.md5Hex(userBean.getPassword()));
             user.setFirstName(userBean.getFirstName());
             user.setLastName(userBean.getLastName());
-            user.setPatronymic(userBean.getPatronymic());
+
             user.setEmail(userBean.getEmail());
             user.setSkype(userBean.getSkype());
             user.setPhoneNumber(userBean.getPhoneNumber());
