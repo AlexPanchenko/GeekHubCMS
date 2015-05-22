@@ -28,10 +28,7 @@
         <span class="must">*</span><label for="lastName">Last Name</label>
         <input type="text" maxlength="24" class="form-control js-name" id="lastName" name="lastName" placeholder="Enter your last name">
     </div>
-    <div class="form-group">
-        <span class="must">*</span><label for="patronymic">Patronymic</label>
-        <input type="text" maxlength="24" class="form-control js-lastName" id="patronymic"  name="patronymic" placeholder="Enter your patronymic">
-    </div>
+
     <div class="form-group">
         <span class="must">*</span><label for="password">Password</label>
         <input type="password" maxlength="50" class="form-control js-pass" id="password" name="password" placeholder="Password">
@@ -40,10 +37,6 @@
         <span class="must">*</span><label for="password">Confirm password</label>
         <input type="password" maxlength="50" class="form-control js-confirm-pass" id="confirmPassword"  name="confirmPassword"
                placeholder="Repeat your password">
-    </div>
-    <div class="form-group ">
-        <span class="must">*</span><label for="login">Login</label>
-        <input type="text" maxlength="24" class="form-control js-name" id="login"  name="login" placeholder="Enter your login">
     </div>
 
     <div class="form-group ">
