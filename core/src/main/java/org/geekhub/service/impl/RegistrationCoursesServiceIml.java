@@ -6,6 +6,7 @@ import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.UsersCourses;
+import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
 import org.geekhub.wrapper.CourseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
     private UserDao userDao;
     @Autowired
     private UsersCoursesDao usersCoursesDao;
+    @Autowired
+    private CourseService courseService;
 
 
     public List<CourseBean> getListCourseBeans() {
@@ -36,8 +39,8 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
         List<Course> listCourses = courseDao.getAll();
         List<CourseBean> listCourseBeans = new ArrayList<>();
         for (Course course : listCourses) {
-            CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription());
-            listCourseBeans.add(courseBean);
+            listCourseBeans.add(courseService.toBean(course));
+
         }
         return listCourseBeans;
     }

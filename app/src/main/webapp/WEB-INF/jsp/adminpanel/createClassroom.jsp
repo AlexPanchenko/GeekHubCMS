@@ -25,23 +25,33 @@
   <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
   <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
   <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
+  <script>
+    function showUsers(course){
+      $.ajax({
+        url:"ajax/usersOnCourse",
+        type:"post",
+        data:{course:course},
+        success:function(data) {
+          $("#users").html(data);
+        }
+      });
+    }
+  </script>
 </head>
 <body>
-<form action='showUsers' method = 'post'>
   <p>Course name</p>
-  <select size='1' name = "course">
+  <select size='1' id="course">
     <c:forEach items="${courses}" var="s">
       <option value="${s.id}">${s.name}</option>
     </c:forEach>
   </select>
   <p>Teacher name</p>
-  <select size='1' name = "teacher">
+  <select size='1' id="teacher">
     <c:forEach items="${teachers}" var="t">
       <option value="${t.id}">${t.lastName}</option>
     </c:forEach>
   </select>
-
-  <p><input type='button' value='Show users' onclick = ''/></p>
-</form>
+  <p><input type='button' value='Show users' onclick = 'showUsers($("#course").val());'/></p>
+  <div id="users">  </div>
 </body>
 </html>

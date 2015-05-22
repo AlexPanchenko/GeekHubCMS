@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class BaseDaoImpl implements BaseDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     @Override
     public void create(BaseEntity obj) {
@@ -28,7 +28,7 @@ public class BaseDaoImpl implements BaseDao {
 
     @Override
     public BaseEntity read(int id, Class clazz) {
-        return (BaseEntity) sessionFactory.getCurrentSession().get(clazz,id);
+        return (BaseEntity) sessionFactory.getCurrentSession().get(clazz, id);
     }
 
 }

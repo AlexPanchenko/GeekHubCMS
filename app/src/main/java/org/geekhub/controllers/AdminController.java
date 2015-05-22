@@ -4,11 +4,13 @@ import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Role;
+import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.UserService;
+import org.geekhub.service.QuestionService;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.util.JavaSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,13 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class    AdminController {
+
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private AnswerService answerService;
 
     @Autowired
     private CourseService courseService;
@@ -60,7 +68,8 @@ public class AdminController {
 	}
 
     @RequestMapping("/ajax/countUsers")
-	public @ResponseBody Long usersCount() {
+	public @ResponseBody
+    Long usersCount() {
         return userService.getUsersCount();
 	}
 
@@ -81,26 +90,13 @@ public class AdminController {
         return mav;
     }
 
-
-//    @RequestMapping(value = "/users", method = RequestMethod.GET)
-//    public String users(ModelMap model) {
-//        List<User> users = new ArrayList<>();
-//        User u = new User();
-//        u.setBirthDay(new Date());
-//        u.setId(1);
-//        u.setFirstName("Test1");
-//        u.setEmail("Ivan@mail.ru");
-//        u.setIcq("4118377166");
-//        u.setLastName("Test");
-//        u.setPatronymic("Test");
-//        u.setLogin("Ivan123");
-//        u.setPassword("1234512");
-//        u.setRegistrationDate(new Date());
-//        u.setPhoneNumber("+380(93)145-1514");
-//        for (int i = 0; i < 5; i++) users.add(u);
-//        model.addAttribute("users",users);
-//        return "adminpanel/users";
-//    }
+    @RequestMapping("/ajax/usersOnCourse")
+    public ModelAndView usersOnCourse(@RequestParam("course") int course){
+        ModelAndView mav=new ModelAndView("adminpanel/usersOnCourse");
+        List<User> users= courseService.getUserFromCourse(course);
+        mav.addObject("users", users);
+        return mav;
+    }
 
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
@@ -126,7 +122,7 @@ public class AdminController {
             u.setId(userId);
             u.setFirstName("Test1");
             u.setEmail("Ivan@mail.ru");
-            u.setIcq("4118377166");
+//            u.setIcq("4118377166");
             u.setLastName("Test");
             u.setPatronymic("Test");
             u.setLogin("Ivan123");
@@ -135,7 +131,7 @@ public class AdminController {
           //  u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
-            model.addAttribute("roles", Role.values());
+            model.addAttribute("roles", org.geekhub.hibernate.entity.Role.values());
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
             return "adminpanel/user-edit";
@@ -164,7 +160,7 @@ public class AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "redirect:/dashboard/users/"+id+"/edit";
+        return "redirect:/admin/users/"+id+"/edit";
     }
 
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
@@ -218,7 +214,7 @@ public class AdminController {
                                @RequestParam("description") String description) throws Exception {
 
         try {
-            courseService.createCourse(name, description);
+            courseService.create(name, description);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -231,12 +227,104 @@ public class AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.deleteCourse(courseId);
+            courseService.delete(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
+        return "redirect:/admin/course/list";
+    }
 
-        return "redirect:/admin/courses";
+    // START QUESTION CONTROLLER
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    public String questions(ModelMap model) {
+        List<Question> list = questionService.getAll();
+        model.addAttribute("questions", list);
+        return "adminpanel/questions";
+    }
+
+    @RequestMapping(value = "/question/create", method = RequestMethod.GET)
+    public String createQuestionPage(ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question", method = RequestMethod.POST)
+    public String createQuestion(@RequestParam("questionText") String questionText,
+                                 @RequestParam("questionWeight") byte questionWeight,
+                                 @RequestParam("course") int courseId)  {
+
+        Question question = questionService.create(questionText, questionWeight, courseId);
+        int questionId = question.getId();
+        System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
+        return "redirect:/admin/question/" + questionId + "/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
+    public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        return "adminpanel/question-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/delete", method = RequestMethod.GET)
+    public String deleteQuestion(@PathVariable("questionId") int questionId) {
+        questionService.delete(questionId);
+        return "redirect:/admin/questions";
+    }
+
+    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @RequestParam("questionText") String questionText,
+                               @RequestParam("questionWeight") byte questionWeight) {
+        questionService.update(questionId, questionText, questionWeight);
+        return "redirect:/admin/question/" + questionId + "/edit";
+    }
+
+    // END QUESTION CONTROLLER
+
+    //START ANSWER CONTROLLER
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @RequestParam("answerId") String answerId,
+                             @RequestParam("answerText") String answerText,
+                             @RequestParam("answerRight") String answerRight) {
+        return "redirect:/admin/question/" + questionId + "/answer/" + answerId+ "/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
+    public String editAnswer(@PathVariable("questionId") int questionId,
+                             @PathVariable("answerId") int answerId,
+                             ModelMap model) {
+        model.addAttribute("question", questionService.read(questionId));
+        model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        model.addAttribute("answerSelect", answerService.read(answerId));
+        return "adminpanel/answer-edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST)
+    public String createAnswer(@PathVariable("questionId") int questionId,
+                               @RequestParam("answerText") String answerText,
+                               @RequestParam("answerRight") boolean answerRight) {
+
+        answerService.create(questionId, answerText, answerRight);
+        return "redirect:/admin/question/{questionId}/edit";
+    }
+
+    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
+    public String deleteAnswer( @PathVariable("questionId") int questionId,
+                                @PathVariable("answerId") int answerId,
+                                ModelMap model) {
+        answerService.delete(answerId);
+        model.addAttribute("question", questionService.read(questionId));
+        return "redirect:/admin/question/{questionId}/edit";
+    }
+    //END ANSWER CONTROLLER
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String createCourse(Map<String, Object> model) throws Exception {
+
+        return "adminpanel/userTestResult";
+
     }
 
     @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
@@ -260,7 +348,7 @@ public class AdminController {
             u.setId(userId);
             u.setFirstName("Test1");
             u.setEmail("Ivan@mail.ru");
-            u.setIcq("4118377166");
+//            u.setIcq("4118377166");
             u.setLastName("Test");
             u.setPatronymic("Test");
             u.setLogin("Ivan123");

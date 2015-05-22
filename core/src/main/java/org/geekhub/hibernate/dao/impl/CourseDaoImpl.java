@@ -28,7 +28,6 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
                 .setParameterList("listCourseId", listCourseId).list();
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public List<Course> getAll(int page, int recordsPerPage) {
@@ -44,16 +43,16 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
     public void updateCourse(Course course) {
         sessionFactory.getCurrentSession().createSQLQuery("UPDATE courses SET course_name = :course_name, course_description = :course_description where course_id = :course_id")
                 .setParameter("course_name", course.getName())
-                .setParameter("course_description", course.getDescription())
-                .setParameter("course_id", course.getId())
-                .executeUpdate();
-    }
+        .setParameter("course_description", course.getDescription())
+        .setParameter("course_id", course.getId())
+        .executeUpdate();
+        }
 
-    @Override
-    public void deleteCourse(int courseId) {
+@Override
+public void deleteCourseById(int courseId) {
         sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM courses WHERE course_id = :course_id")
-                .setParameter("course_id", courseId)
-                .executeUpdate();
+        .setParameter("course_id", courseId)
+        .executeUpdate();
 
-    }
-}
+        }
+        }

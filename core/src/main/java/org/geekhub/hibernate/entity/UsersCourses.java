@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS_COURSES")
-public class UsersCourses extends BaseEntity{
+public class UsersCourses extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -17,7 +17,7 @@ public class UsersCourses extends BaseEntity{
     @JoinColumn(name = "UC_USER_ID")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "UC_COURSE_ID")
     private Course course;
 

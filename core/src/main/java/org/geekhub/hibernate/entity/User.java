@@ -6,7 +6,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -45,9 +47,9 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "SKYPE", length = 40)
     private String skype;
-
-    @Column(name = "ICQ", length = 40)
-    private String icq;
+//
+//    @Column(name = "ICQ", length = 40)
+//    private String icq;
 
     @Column(name = "PHONE_NUMBER", length = 40, nullable = false)
     private String phoneNumber;
@@ -64,9 +66,19 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "FEEDBACK", nullable = false)
     private String feedBack;
 
-    @OneToMany
-     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<UserResults> userResults = new ArrayList<>();
+
+    public List<UserResults> getUserResults() {
+        return userResults;
+    }
+
+    public void setUserResults(List<UserResults> userResults) {
+        this.userResults = userResults;
+    }
 
     public User(){
     }
@@ -151,13 +163,13 @@ public class User extends BaseEntity implements Serializable {
         this.skype = skype;
     }
 
-    public String getIcq() {
-        return icq;
-    }
-
-    public void setIcq(String icq) {
-        this.icq = icq;
-    }
+//    public String getIcq() {
+//        return icq;
+//    }
+//
+//    public void setIcq(String icq) {
+//        this.icq = icq;
+//    }
 
     public String getPhoneNumber() {
         return phoneNumber;

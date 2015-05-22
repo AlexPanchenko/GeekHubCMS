@@ -2,24 +2,32 @@ package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 
 import java.util.List;
 
-/**
- * Created by user on 18.05.2015.
- */
+
 public interface CourseService {
 
     Page<CourseBean> getAll(int page, int recordsPerPage);
 
     List<CourseBean> getAllBeans();
+    public List<User> getUserFromCourse(int id);
 
-    void createCourse(String courseName, String courseDescription);
+    void create(String courseName, String courseDescription);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
     void update(CourseBean courseBean) throws CourseNotFoundException;
 
+    void delete(int courseId) throws CourseNotFoundException;
     void deleteCourse(int courseId) throws CourseNotFoundException;
+
+     List<CourseBean> getCourseBeenByUser();
+
+    public CourseBean toBean(Course course);
+    public void unRegisterCourse (int id);
+
 }

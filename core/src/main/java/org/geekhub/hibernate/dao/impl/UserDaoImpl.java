@@ -3,6 +3,7 @@ package org.geekhub.hibernate.dao.impl;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.Role;
+import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
@@ -23,6 +24,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private UsersCoursesDao usersCourses;
 
     @Override
     public User getUserById(int userId) {

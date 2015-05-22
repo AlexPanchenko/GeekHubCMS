@@ -25,7 +25,6 @@
     <bean id="flyWayDBUpdater" class="org.geekhub.util.FlyWayDBUpdater" init-method="updaterDB">
         <constructor-arg ref="dataSource"/>
     </bean>
-
     <!--<context:property-placeholder />
 
  <aop:aspectj-autoproxy />
