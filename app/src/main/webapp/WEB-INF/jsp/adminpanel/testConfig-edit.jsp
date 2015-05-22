@@ -98,7 +98,7 @@
           <div class="container">
             <h1 class="page-header">Edit test config</h1>
 
-            <form data-toggle="validator" role="form" action="/testConfig/${testConfigBeen.id}/edit" method="POST"
+            <form data-toggle="validator" role="form" action="/admin/testConfig/${testConfigBeen.id}/edit" method="POST"
                   class="form-horizontal">
               <fieldset>
                 <dl class="dl-horizontal">

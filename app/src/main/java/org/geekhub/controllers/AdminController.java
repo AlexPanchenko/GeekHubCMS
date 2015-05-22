@@ -12,8 +12,10 @@ import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.QuestionService;
+import org.geekhub.service.UserService;
 import org.geekhub.service.TestConfigService;
 import org.geekhub.util.CommonUtil;
+import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,6 +46,9 @@ public class AdminController {
     @Autowired
     private TestConfigService testConfigService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "adminpanel/index";
@@ -57,7 +62,6 @@ public class AdminController {
         u.setId(1);
         u.setFirstName("Test1");
         u.setEmail("Ivan@mail.ru");
-        u.setIcq("4118377166");
         u.setLastName("Test");
         u.setPatronymic("Test");
         u.setLogin("Ivan123");
@@ -93,7 +97,6 @@ public class AdminController {
             u.setId(userId);
             u.setFirstName("Test1");
             u.setEmail("Ivan@mail.ru");
-            u.setIcq("4118377166");
             u.setLastName("Test");
             u.setPatronymic("Test");
             u.setLogin("Ivan123");
@@ -236,21 +239,63 @@ public class AdminController {
         return "redirect:/admin/course/list";
     }
 
+
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String getUserTestResult(Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        return "adminpanel/userTestResult";
+    }
+
+    @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
+    public String getUserTestResultWithCourse(@RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
+                                              @RequestParam(value = "results",defaultValue = "4",required = false) Integer recPerPage,
+                                              @PathVariable String course, Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        model.put("courseName", course);
+        Page<UserTestResultWrapper> page = userService.getPageUserTestResultWrapperListByCourseName(course, p, recPerPage);
+        model.put("page", page);
+        return "adminpanel/userTestResult";
+    }
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
         List<Question> list = questionService.getAll();
         model.addAttribute("questions", list);
+        List<CourseBean> listCourse = courseService.getAllBeans();
+        model.addAttribute("courses", listCourse);
         return "adminpanel/questions";
     }
-
+//////////////////////////////////////////////////////////////////
+//    @RequestMapping(value = "/questions/{courseId}", method = RequestMethod.GET)
+//    public String questionsByCourse(@PathVariable("courseId") int courseId,ModelMap model) throws CourseNotFoundException {
+//        CourseBean courseBean = courseService.getById(courseId);
+//        List<Question> list = questionService.getByCourse(courseBean);
+////        model.addAttribute("questions", list);
+//
+//        List<CourseBean> listCourse = courseService.getAllBeans();
+//        model.addAttribute("courses", listCourse);
+//        return "adminpanel/questions";
+//}
+///////////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question/create", method = RequestMethod.GET)
     public String createQuestionPage(ModelMap model) {
         model.addAttribute("action", "create");
         model.addAttribute("question", new Question());
         return "adminpanel/question-edit";
     }
-
+//////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
+    public String createQuestionPageByCourse(@PathVariable("courseId") int courseId,ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        model.addAttribute("courseId", courseId);
+        try {
+        model.addAttribute("courseName", courseService.getById(courseId).getName());
+        }catch (CourseNotFoundException ex){
+        }
+        return "adminpanel/question-edit";
+    }
+//////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
@@ -323,6 +368,7 @@ public class AdminController {
     }
 
 
+
     @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.GET)
     public ModelAndView editTestConfig (@PathVariable int testConfigId) {
         ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
@@ -338,7 +384,7 @@ public class AdminController {
                                         @RequestParam("dateTimeToTest") String dateTimeToTest,
                                         @RequestParam("status") TestStatus status) {
 
-        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
+        ModelAndView model = new ModelAndView("redirect:/admin/course-edit");
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
             Date dateDueDate = new Date();
@@ -357,10 +403,5 @@ public class AdminController {
         }
         return model;
     }
-        //END ANSWER CONTROLLER
-    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
-    public String createCourse(Map<String, Object> model) throws Exception {
 
-        return "adminpanel/userTestResult";
-    }
 }
