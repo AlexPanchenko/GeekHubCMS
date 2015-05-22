@@ -59,7 +59,7 @@
         <input type="date" name="birthday" id="birthday" name="birthday" class="form-control js-birthday">
     </div>
     <p class="err-msg">${errorMessage}</p>
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" class="btn btn-primary">
 
 </form>
 <%--<script src="/resources/js/forms.js"></script>--%>

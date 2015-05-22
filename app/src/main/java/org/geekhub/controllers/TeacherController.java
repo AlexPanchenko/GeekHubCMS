@@ -42,4 +42,10 @@ public class TeacherController {
         model.put("page", page);
         return "teacherpanel/userTestResult";
     }
+
+    @RequestMapping(value = "/checkUserAnswers/{}/{id}", method = RequestMethod.GET)
+    public String checkUserAnswers(@PathVariable String id, Map<String, Object> model) throws Exception {
+
+        return "teacherpanel/checkUserAnswers";
+    }
 }
