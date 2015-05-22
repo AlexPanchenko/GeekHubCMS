@@ -27,7 +27,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
@@ -43,14 +43,11 @@ public class UserServiceImpl  implements UserService {
     }
 
 
-
     public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
     }
 
-    public User getUserByLogin(String login) throws UsernameNotFoundException {
-        return getUserByLogin(login);
-    }
+
 
     public static final SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
 
@@ -59,9 +56,8 @@ public class UserServiceImpl  implements UserService {
 
         RegistrationResponseBean registrationResponseBean = validateForm(userBean);
 
-        if(registrationResponseBean.isSuccess()) {
+        if (registrationResponseBean.isSuccess()) {
             User user = new User();
-            user.setLogin(userBean.getLogin());
             user.setPassword(DigestUtils.md5Hex(userBean.getPassword()));
             user.setFirstName(userBean.getFirstName());
             user.setLastName(userBean.getLastName());
@@ -77,7 +73,7 @@ public class UserServiceImpl  implements UserService {
         return registrationResponseBean;
     }
 
-    public RegistrationResponseBean validateForm(UserBean userBean){
+    public RegistrationResponseBean validateForm(UserBean userBean) {
         RegistrationResponseBean registrationResponseBean = new RegistrationResponseBean();
 
         System.out.println(userBean.getEmail());
@@ -85,35 +81,24 @@ public class UserServiceImpl  implements UserService {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Email already in use");
             return registrationResponseBean;
-        } else if (userDao.getUserByLogin(userBean.getLogin()) != null) {
-            registrationResponseBean.setSuccess(false);
-            registrationResponseBean.setErrorMessage("Login already in use");
-            return registrationResponseBean;
-        } else if(userBean.getEmail().equals("")){
+
+        } else if (userBean.getEmail().equals("")) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Email is empty");
             return registrationResponseBean;
-        } else if(userBean.getFirstName().equals("")){
+        } else if (userBean.getFirstName().equals("")) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("First name is empty");
             return registrationResponseBean;
-        } else if(userBean.getLastName().equals("")){
+        } else if (userBean.getLastName().equals("")) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Last name is empty");
             return registrationResponseBean;
-        } else if(userBean.getPatronymic().equals("")) {
-            registrationResponseBean.setSuccess(false);
-            registrationResponseBean.setErrorMessage("Patronymic is empty");
-            return registrationResponseBean;
-        } else if(userBean.getLogin().equals("")) {
-            registrationResponseBean.setSuccess(false);
-            registrationResponseBean.setErrorMessage("Login is empty");
-            return registrationResponseBean;
-        }else if(userBean.getPassword().length()<6){
+        } else if (userBean.getPassword().length() < 6) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Password length should be more than 6 characters");
             return registrationResponseBean;
-        } else if(!userBean.getPassword().equals(userBean.getConfirmPassword())){
+        } else if (!userBean.getPassword().equals(userBean.getConfirmPassword())) {
             registrationResponseBean.setSuccess(false);
             registrationResponseBean.setErrorMessage("Password doesn't match");
             return registrationResponseBean;
@@ -123,12 +108,12 @@ public class UserServiceImpl  implements UserService {
         }
     }
 
-    public List<UserTestResultWrapper> getUserTestResultWrapperListByCourseName(String courseName){
+    public List<UserTestResultWrapper> getUserTestResultWrapperListByCourseName(String courseName) {
         List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
-        Course course =  courseDao.getCourseByName(courseName);
+        Course course = courseDao.getCourseByName(courseName);
         List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
 
-        for(User user: userList){
+        for (User user : userList) {
             userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
         }
         return userTestResultWrapperList;
@@ -147,22 +132,22 @@ public class UserServiceImpl  implements UserService {
         int begin = Math.max(1, current - recordsPerPage);
         int end = maxPages;
 
-        firstRecord = page*recordsPerPage-recordsPerPage;
-        if(page == maxPages){
-            lastRecord = page*recordsPerPage - (page*recordsPerPage - size);
+        firstRecord = page * recordsPerPage - recordsPerPage;
+        if (page == maxPages) {
+            lastRecord = page * recordsPerPage - (page * recordsPerPage - size);
         } else {
-            lastRecord = page*recordsPerPage;
+            lastRecord = page * recordsPerPage;
         }
-        if(recordsPerPage < size){
+        if (recordsPerPage < size) {
             list = list.subList(firstRecord, lastRecord);
         }
         Page<UserTestResultWrapper> resultPage = new Page<UserTestResultWrapper>(list, begin, current, size, maxPages, recordsPerPage, end);
 
         List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
-        Course course =  courseDao.getCourseByName(courseName);
+        Course course = courseDao.getCourseByName(courseName);
         List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
 
-        for(User user: userList){
+        for (User user : userList) {
             userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
         }
         return resultPage;

@@ -13,6 +13,4 @@ public interface UserDao extends BaseDao {
     public void addUser(User user);
     public User loadUserByUsername(String email) throws UsernameNotFoundException;
     public User getUserByEmail(String email) throws UsernameNotFoundException;
-    public User getUserByLogin(String login) throws UsernameNotFoundException;
-
 }

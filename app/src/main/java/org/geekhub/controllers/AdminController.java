@@ -1,6 +1,5 @@
 package org.geekhub.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
@@ -12,8 +11,8 @@ import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.QuestionService;
-import org.geekhub.service.UserService;
 import org.geekhub.service.TestConfigService;
+import org.geekhub.service.UserService;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @Controller
@@ -64,7 +68,7 @@ public class AdminController {
         u.setEmail("Ivan@mail.ru");
         u.setLastName("Test");
 
-        u.setLogin("Ivan123");
+
         u.setPassword("1234512");
         u.setRegistrationDate(new Date());
         u.setPhoneNumber("+380(93)145-1514");
@@ -99,7 +103,7 @@ public class AdminController {
             u.setEmail("Ivan@mail.ru");
             u.setLastName("Test");
 
-            u.setLogin("Ivan123");
+
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
             //  u.setCourses(courses);
@@ -115,7 +119,6 @@ public class AdminController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String editUser(@RequestParam("id") String id,
-                           @RequestParam("login") String login,
                            @RequestParam("first-name") String firstName,
                            @RequestParam("patronymic") String patronymic,
                            @RequestParam("last-name") String lastName,
@@ -198,27 +201,25 @@ public class AdminController {
     public String createCourse(@RequestParam("name") String name,
                                @RequestParam("description") String description,
                                @RequestParam("questionCount") int questionCount,
-                             @RequestParam("dueDate") String dueDate,
-                              @RequestParam("dateTimeToTest") String dateTimeToTest,
+                               @RequestParam("dueDate") String dueDate,
+                               @RequestParam("dateTimeToTest") String dateTimeToTest,
                                @RequestParam("status") TestStatus status) throws Exception {
-
 
 
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
             Date dateDueDate = new Date();
-            if (!dueDate.equals("")){
+            if (!dueDate.equals("")) {
                 dateDueDate = dt.parse(dueDate);
             }
             Date dateTime = new Date();
-            if (!dueDate.equals("")){
+            if (!dueDate.equals("")) {
                 dateTime = dt.parse(dateTimeToTest);
             }
             CourseBean courseBean = new CourseBean(name, description);
             TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dateDueDate, dateTime, status, courseBean);
             courseBean.getTestConfigListBeens().add(testConfigBeen);
             courseService.create(courseBean, testConfigBeen);
-
 
 
         } catch (Exception ex) {
@@ -247,8 +248,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
-    public String getUserTestResultWithCourse(@RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
-                                              @RequestParam(value = "results",defaultValue = "4",required = false) Integer recPerPage,
+    public String getUserTestResultWithCourse(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
+                                              @RequestParam(value = "results", defaultValue = "4", required = false) Integer recPerPage,
                                               @PathVariable String course, Map<String, Object> model) throws Exception {
         model.put("coursesList", courseService.getAllBeans());
         model.put("courseName", course);
@@ -256,6 +257,7 @@ public class AdminController {
         model.put("page", page);
         return "adminpanel/userTestResult";
     }
+
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
@@ -265,7 +267,8 @@ public class AdminController {
         model.addAttribute("courses", listCourse);
         return "adminpanel/questions";
     }
-//////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////
 //    @RequestMapping(value = "/questions/{courseId}", method = RequestMethod.GET)
 //    public String questionsByCourse(@PathVariable("courseId") int courseId,ModelMap model) throws CourseNotFoundException {
 //        CourseBean courseBean = courseService.getById(courseId);
@@ -283,19 +286,21 @@ public class AdminController {
         model.addAttribute("question", new Question());
         return "adminpanel/question-edit";
     }
-//////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////
     @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
-    public String createQuestionPageByCourse(@PathVariable("courseId") int courseId,ModelMap model) {
+    public String createQuestionPageByCourse(@PathVariable("courseId") int courseId, ModelMap model) {
         model.addAttribute("action", "create");
         model.addAttribute("question", new Question());
         model.addAttribute("courseId", courseId);
         try {
-        model.addAttribute("courseName", courseService.getById(courseId).getName());
-        }catch (CourseNotFoundException ex){
+            model.addAttribute("courseName", courseService.getById(courseId).getName());
+        } catch (CourseNotFoundException ex) {
         }
         return "adminpanel/question-edit";
     }
-//////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
@@ -368,21 +373,21 @@ public class AdminController {
     }
 
 
-
     @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.GET)
-    public ModelAndView editTestConfig (@PathVariable int testConfigId) {
+    public ModelAndView editTestConfig(@PathVariable int testConfigId) {
         ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
-        model.addObject("testConfigBeen",testConfigBeen);
-        model.addObject("enumStatus",TestStatus.values());
+        model.addObject("testConfigBeen", testConfigBeen);
+        model.addObject("enumStatus", TestStatus.values());
         return model;
     }
+
     @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.POST)
-    public ModelAndView editTestConfig (@PathVariable int testConfigId,
-                                        @RequestParam("questionCount") int questionCount,
-                                        @RequestParam("dueDate") String dueDate,
-                                        @RequestParam("dateTimeToTest") String dateTimeToTest,
-                                        @RequestParam("status") TestStatus status) {
+    public ModelAndView editTestConfig(@PathVariable int testConfigId,
+                                       @RequestParam("questionCount") int questionCount,
+                                       @RequestParam("dueDate") String dueDate,
+                                       @RequestParam("dateTimeToTest") String dateTimeToTest,
+                                       @RequestParam("status") TestStatus status) {
 
         ModelAndView model = new ModelAndView("redirect:/admin/course-edit");
         try {
@@ -395,7 +400,7 @@ public class AdminController {
             if (!dueDate.equals("")) {
                 dateTime = dt.parse(dateTimeToTest);
             }
-            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,questionCount, dateDueDate, dateTime, status);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId, questionCount, dateDueDate, dateTime, status);
             testConfigService.update(testConfigBeen);
 
         } catch (ParseException e) {

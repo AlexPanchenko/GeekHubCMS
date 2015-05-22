@@ -18,8 +18,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "USER_ID")
     private int id;
 
-    @Column(name = "U_LOGIN", unique = true, nullable = false, length = 25)
-    private String login;
 
     @Column(name = "U_PASSWORD", unique = false, nullable = false, length = 100)
     private String password;
@@ -83,13 +81,6 @@ public class User extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getPassword() {
         return password;
