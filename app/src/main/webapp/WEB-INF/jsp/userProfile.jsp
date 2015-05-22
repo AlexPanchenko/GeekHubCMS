@@ -31,15 +31,15 @@
             <table class="table table-striped table-condensed">
 
                 <thead>
-                <tr>
-                    <th>Name courses</th>
-                    <th>Count question</th>
-                    <th>Due date</th>
-                    <th>Status</th>
-
-                    <th>Time for test</th>
-
-                    <th>Action  </th>
+                <>
+                <th>Name courses</th>
+                <th>Title</th>
+                <th>Count question</th>
+                <th>Date start</th>
+                <th>Date finish</th>
+                <th>Time to test</th>
+                <th>Status</th>
+                <th>Action</th>
 
                 </tr>
                 </thead>
@@ -51,16 +51,17 @@
 
 
                         <c:forEach items="${courses.testConfigListBeens}" var="testConfig">
-                            <td>${testConfig.questionCount}</td>
-                            <td>${testConfig.dueDate}</td>
+                            <td>${testConfig.tittle}</td>
+                            <td align="center">${testConfig.questionCount}</td>
+                            <td>${testConfig.dateStart}</td>
+                            <td>${testConfig.dateFinish}</td>
+                            <td align="center">${testConfig.timeToTest}</td>
                             <td><span class="label label-success">${testConfig.status}</span></td>
-                            <td>${testConfig.dateTimeToTest}</td>
+                            <td><span class="label label-danger"><a href="/student/deleteCourse/${courses.id}">Unregister </a>
+                            </span></td>
                         </c:forEach>
 
 
-                        <td><span class="label label-danger">
-                            <a href="/student/deleteCourse/${courses.id}">Unregister </a>
-                            </span></td>
 
                     </tr>
                     </tbody>

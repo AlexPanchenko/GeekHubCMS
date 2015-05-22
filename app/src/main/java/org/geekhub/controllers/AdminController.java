@@ -214,8 +214,7 @@ public class AdminController {
                                @RequestParam("dateStart") String dateStart,
                                @RequestParam("dateFinish") String dateFinish,
                                @RequestParam("timeToTest") int timeToTest,
-                               @RequestParam("dateTimeToTest") String dateTimeToTest,
-                               @RequestParam("status") TestStatus status) throws Exception {
+                                   @RequestParam("status") TestStatus status) throws Exception {
 
 
         try {
