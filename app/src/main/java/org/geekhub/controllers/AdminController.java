@@ -176,14 +176,24 @@ public class AdminController {
     public String editCourses(@PathVariable("courseId") Integer courseId,
                               @RequestParam("name") String name,
                               @RequestParam("description") String description,
+                              @RequestParam("title") String title,
                               @RequestParam("questionCount") int questionCount,
-                              @RequestParam("dueDate") Date dueDate,
-                              @RequestParam("dateTimeToTest") Date dateTimeToTest,
+                              @RequestParam("dateStart") String dateStart,
+                              @RequestParam("dateFinish") String dateFinish,
+                              @RequestParam("timeToTest") int timeToTest,
                               @RequestParam("status") TestStatus status) throws Exception {
         try {
-
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            Date startDate = new Date();
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
+            }
+            Date finishDate = new Date();
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
+            }
             CourseBean courseBean = new CourseBean(courseId, name, description);
-            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dueDate, dateTimeToTest, status, courseBean);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
             courseService.update(courseBean);
         } catch (CourseNotFoundException ex) {
 
@@ -197,25 +207,28 @@ public class AdminController {
     @RequestMapping(value = "/course", method = RequestMethod.POST)
     public String createCourse(@RequestParam("name") String name,
                                @RequestParam("description") String description,
+                               @RequestParam("title") String title,
                                @RequestParam("questionCount") int questionCount,
-                             @RequestParam("dueDate") String dueDate,
-                              @RequestParam("dateTimeToTest") String dateTimeToTest,
+                               @RequestParam("dateStart") String dateStart,
+                               @RequestParam("dateFinish") String dateFinish,
+                               @RequestParam("timeToTest") int timeToTest,
                                @RequestParam("status") TestStatus status) throws Exception {
 
 
 
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
-            Date dateDueDate = new Date();
-            if (!dueDate.equals("")){
-                dateDueDate = dt.parse(dueDate);
+            Date startDate = new Date();
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
             }
-            Date dateTime = new Date();
-            if (!dueDate.equals("")){
-                dateTime = dt.parse(dateTimeToTest);
+            Date finishDate = new Date();
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
             }
+
             CourseBean courseBean = new CourseBean(name, description);
-            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dateDueDate, dateTime, status, courseBean);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
             courseBean.getTestConfigListBeens().add(testConfigBeen);
             courseService.create(courseBean, testConfigBeen);
 
@@ -379,23 +392,25 @@ public class AdminController {
     }
     @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.POST)
     public ModelAndView editTestConfig (@PathVariable int testConfigId,
+                                        @RequestParam("title") String title,
                                         @RequestParam("questionCount") int questionCount,
-                                        @RequestParam("dueDate") String dueDate,
-                                        @RequestParam("dateTimeToTest") String dateTimeToTest,
+                                        @RequestParam("dateStart") String dateStart,
+                                        @RequestParam("dateFinish") String dateFinish,
+                                        @RequestParam("timeToTest") int timeToTest,
                                         @RequestParam("status") TestStatus status) {
 
         ModelAndView model = new ModelAndView("redirect:/admin/course-edit");
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
-            Date dateDueDate = new Date();
-            if (!dueDate.equals("")) {
-                dateDueDate = dt.parse(dueDate);
+            Date startDate = new Date();
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
             }
-            Date dateTime = new Date();
-            if (!dueDate.equals("")) {
-                dateTime = dt.parse(dateTimeToTest);
+            Date finishDate = new Date();
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
             }
-            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,questionCount, dateDueDate, dateTime, status);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,title, questionCount,startDate,finishDate,timeToTest, status);
             testConfigService.update(testConfigBeen);
 
         } catch (ParseException e) {
