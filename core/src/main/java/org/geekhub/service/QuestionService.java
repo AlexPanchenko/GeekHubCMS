@@ -14,8 +14,8 @@ public interface QuestionService{
     List<Question> getAll();
     Object read(int questionId);
     void delete(int questionId);
-    //public Question create(String questionText, Byte questionWeight, int courseId);
-    Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId);
+    public Question create(String questionText, Byte questionWeight, int courseId);
+   // Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId);
 
     void update(int questionId, String questionText, byte questionWeight);
 }

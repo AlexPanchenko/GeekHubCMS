@@ -36,18 +36,18 @@ public class QuestionServiceImpl implements QuestionService{
 //        questionDao.create(question);
 //        return question;
 //    }
-
-    @Override
-    public Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId) {
-        Question question = new Question();
-        question.setQuestionWeight(questionWeight);
-        question.setQuestionStatus(questionStatus);
-        question.setMyAnswer(myAnswer);
-        question.setManyAnswers(manyAnswers);
-        question.setCourse((Course) courseDao.read(courseId, Course.class));
-        questionDao.create(question);
-        return question;
-    }
+//
+//    @Override
+//    public Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId) {
+//        Question question = new Question();
+//        question.setQuestionWeight(questionWeight);
+//        question.setQuestionStatus(questionStatus);
+//        question.setMyAnswer(myAnswer);
+//        question.setManyAnswers(manyAnswers);
+//        question.setCourse((Course) courseDao.read(courseId, Course.class));
+//        questionDao.create(question);
+//        return question;
+//    }
 
     @Override
     public Object read(int questionId) {
@@ -65,5 +65,15 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public void delete(int questionId) {
         questionDao.delete(questionDao.read(questionId, Question.class));
+    }
+
+    @Override
+    public Question create(String questionText, Byte questionWeight, int courseId) {
+        Question question = new Question();
+        question.setQuestionText(questionText);
+        question.setQuestionWeight(questionWeight);
+        question.setCourse((Course)courseDao.read(courseId, Course.class));
+        questionDao.create(question);
+        return question;
     }
 }
