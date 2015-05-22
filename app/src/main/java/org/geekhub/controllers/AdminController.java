@@ -201,16 +201,41 @@ public class    AdminController {
     public String questions(ModelMap model) {
         List<Question> list = questionService.getAll();
         model.addAttribute("questions", list);
+        List<CourseBean> listCourse = courseService.getAllBeans();
+        model.addAttribute("courses", listCourse);
         return "adminpanel/questions";
     }
-
+//////////////////////////////////////////////////////////////////
+//    @RequestMapping(value = "/questions/{courseId}", method = RequestMethod.GET)
+//    public String questionsByCourse(@PathVariable("courseId") int courseId,ModelMap model) throws CourseNotFoundException {
+//        CourseBean courseBean = courseService.getById(courseId);
+//        List<Question> list = questionService.getByCourse(courseBean);
+////        model.addAttribute("questions", list);
+//
+//        List<CourseBean> listCourse = courseService.getAllBeans();
+//        model.addAttribute("courses", listCourse);
+//        return "adminpanel/questions";
+//}
+///////////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question/create", method = RequestMethod.GET)
     public String createQuestionPage(ModelMap model) {
         model.addAttribute("action", "create");
         model.addAttribute("question", new Question());
         return "adminpanel/question-edit";
     }
-
+//////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
+    public String createQuestionPageByCourse(@PathVariable("courseId") int courseId,ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        model.addAttribute("courseId", courseId);
+        try {
+        model.addAttribute("courseName", courseService.getById(courseId).getName());
+        }catch (CourseNotFoundException ex){
+        }
+        return "adminpanel/question-edit";
+    }
+//////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,

@@ -104,12 +104,15 @@
         <div class="col-lg-10">
           <c:choose>
             <c:when test="${action eq 'create'}">
-              <h1 class="page-header">Add new question</h1>
+              <h1 class="page-header">Add new question for course ${courseName}</h1>
               <form data-toggle="validator"  role="form" action="/admin/question"  method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
                     <dt>
                       <label class="pull-left control-label" for="questionText">Question text</label>
+                    </dt>
+                    <dt>
+                      <input id="course" name="course" type="hidden" value=${courseId} >
                     </dt>
                     <dd>
                       <div class="form-group">
