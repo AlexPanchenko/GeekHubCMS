@@ -6,7 +6,6 @@ import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,11 +70,9 @@ public class AuthController {
     public String addNewUser(
             HttpServletResponse response,
             Map<String, Object> model,
-            @RequestParam("login") String login,
             @RequestParam("password") String password,
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
-            @RequestParam("patronymic") String patronymic,
             @RequestParam("email") String email,
             @RequestParam("skype") String skype,
             @RequestParam("phoneNumber") String phoneNumber,
@@ -84,10 +81,10 @@ public class AuthController {
 
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
         Date date = new Date();
-        if (!birthDay.equals("")){
+        if (!birthDay.equals("")) {
             date = dt.parse(birthDay);
         }
-        UserBean userBean = new UserBean(login, password, firstName, lastName, patronymic, email, skype, phoneNumber, date, confirmPassword);
+        UserBean userBean = new UserBean(password, firstName, lastName, email, skype, phoneNumber, date, confirmPassword);
         RegistrationResponseBean registrationResponseBean = userService.addUser(userBean);
         if (registrationResponseBean.isSuccess()) {
             return "redirect:/auth";

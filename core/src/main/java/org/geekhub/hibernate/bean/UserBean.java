@@ -6,12 +6,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * Created by Aleksander on 15.05.2015.
- */
+
 public class UserBean {
     private int id;
-    private String login;
     private String password;
     @NotNull(message = "Registration date should be not null")
     private String confirmPassword;
@@ -20,11 +17,8 @@ public class UserBean {
     private String firstName;
     @NotBlank(message = "Surname should be not empty")
     private String lastName;
-    @NotBlank(message = "Patronymic should be not empty")
-    private String patronymic;
     private String email;
     private String skype;
-    private String icq;
     private String phoneNumber;
     private Date birthDay;
     private byte enable;
@@ -33,12 +27,11 @@ public class UserBean {
     public UserBean() {
     }
 
-    public UserBean(String login, String password, String firstName, String lastName, String patronymic, String email, String skype, String phoneNumber, Date birthDay, String confirmPassword) {
-        this.login = login;
+    public UserBean(String password, String firstName, String lastName, String email, String skype, String phoneNumber, Date birthDay, String confirmPassword) {
+
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.patronymic = patronymic;
         this.email = email;
         this.skype = skype;
         this.phoneNumber = phoneNumber;
@@ -52,14 +45,6 @@ public class UserBean {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -102,14 +87,6 @@ public class UserBean {
         this.lastName = lastName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -124,14 +101,6 @@ public class UserBean {
 
     public void setSkype(String skype) {
         this.skype = skype;
-    }
-
-    public String getIcq() {
-        return icq;
-    }
-
-    public void setIcq(String icq) {
-        this.icq = icq;
     }
 
     public String getPhoneNumber() {

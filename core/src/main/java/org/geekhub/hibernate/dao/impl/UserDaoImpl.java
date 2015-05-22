@@ -49,9 +49,4 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return user;
     }
 
-    @Override
-    public User getUserByLogin(String login) throws UsernameNotFoundException {
-        User user = (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
-        return user;
-    }
 }
