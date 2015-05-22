@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -420,6 +421,13 @@ public class AdminController {
             e.printStackTrace();
         }
         return model;
+    }
+
+    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+        String feedback = request.getParameter("feedback");
+        userService.setFeedback(userid,feedback);
+        return "redirect:/admin/users/" + userid + "/edit";
     }
 
 }
