@@ -10,20 +10,12 @@ import java.util.Set;
  * Created by helldes on 19.05.2015.
  */
 public class QuestionBean {
+
     private int id;
-
-    @NotBlank(message = "Text should be not empty")
     private String questionText;
-
-    @NotNull(message = "Weight should be not empty")
     private Byte questionWeight;
-
-    @NotBlank(message = "Title should be not empty")
     private String questionTitle;
-
-    @NotNull(message = "Status should be not empty")
     private Boolean questionStatus;
-
     private Set<AnswerBean> answers = new HashSet<>();
 
     public QuestionBean(){}
