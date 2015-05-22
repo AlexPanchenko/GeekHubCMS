@@ -95,40 +95,28 @@
             <div class="row">
                 <div class="col-lg-10">
                     <h1 class="page-header">User <b>${user.id}</b> profile</h1>
-                    <form action="/admin/users" data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="multipart/form-data">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="control-group">
-                                    <div class="form-horizontal">
-                                        <img class="profile-avatar img-thumbnail"
-                                             src="http://www.w3schools.com/bootstrap/cinqueterre.jpg"/>
-                                        <input type="file" name="avatar" id="avatar" class="btn btn-sm btn-default avatar-upload"
-                                               data-input="false">
+
+                    <form action="/admin/users" data-toggle="validator" role="form" class="form-horizontal"
+                          method="post" enctype="multipart/form-data">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="control-group">
+                                        <div class="form-horizontal">
+                                            <img class="profile-avatar img-thumbnail"
+                                                 src="http://www.w3schools.com/bootstrap/cinqueterre.jpg"/>
+                                            <input type="file" name="avatar" id="avatar"
+                                                   class="btn btn-sm btn-default avatar-upload"
+                                                   data-input="false">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
+                                <div class="col-md-6">
                                     <fieldset>
                                         <div class="control-group">
                                             <dl class="dl-horizontal">
                                                 <input hidden="hidden" name="id" value="${user.id}"/>
-                                                <dt>
-                                                    <label class="control-label pull-left" for="login">Login</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input value="${user.login}" data-minlength="4"
-                                                               pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){4,}$" maxlength="25"
-                                                               type="text" id="login" name="login"
-                                                               placeholder="Enter login" class="form-control input-lg"
-                                                               required>
-                                                        <small class="help-block with-errors">Login should be between
-                                                            4-25 symbols
-                                                        </small>
-                                                    </div>
-                                                </dd>
 
                                                 <dt>
                                                     <label class="control-label pull-left" for="first-name">First
@@ -140,20 +128,6 @@
                                                                pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){2,}$" maxlength="25"
                                                                type="text" id="first-name" name="first-name"
                                                                placeholder="Enter first name"
-                                                               class="form-control input-lg" required>
-                                                    </div>
-                                                </dd>
-
-                                                <dt>
-                                                    <label class="control-label pull-left"
-                                                           for="patronymic">Patronymic</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input value="${user.patronymic}" data-minlength="2"
-                                                               pattern="^([_a-zA-ZА-Яа-яїЇёЁ]){2,}$" type="text"
-                                                               id="patronymic" name="patronymic"
-                                                               placeholder="Enter patronymic"
                                                                class="form-control input-lg" required>
                                                     </div>
                                                 </dd>
@@ -199,7 +173,8 @@
                                                 <dd>
                                                     <div class="form-group">
                                                         <input value="${user.phoneNumber}" type="tel" id="phone"
-                                                               name="phone" placeholder="Enter phone number" pattern="^([0-9]){9,9}$"
+                                                               name="phone" placeholder="Enter phone number"
+                                                               pattern="^([0-9]){9,9}$"
                                                                class="form-control input-lg" required>
                                                     </div>
                                                 </dd>
@@ -221,7 +196,7 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <select id="role" name="role"class="form-control">
+                                                        <select id="role" name="role" class="form-control">
                                                             <c:forEach items="${roleList}" var="role">
                                                                 <c:set var="selectRole" value="false"/>
                                                                 <c:forEach items="${user.roles}" var="userRole">
@@ -231,10 +206,12 @@
                                                                 </c:forEach>
                                                                 <c:choose>
                                                                     <c:when test="${selectRole eq true}">
-                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                        <option id="${role.id}"
+                                                                                selected>${role.name}</option>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <option id="${role.id}" selected>${role.name}</option>
+                                                                        <option id="${role.id}"
+                                                                                selected>${role.name}</option>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:forEach>
@@ -243,11 +220,13 @@
                                                 </dd>
 
                                                 <dt>
-                                                    <label class="control-label pull-left" for="last-name">Courses</label>
+                                                    <label class="control-label pull-left"
+                                                           for="last-name">Courses</label>
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <select id="courses[]" name="courses[]"class="form-control" multiple>
+                                                        <select id="courses[]" name="courses[]" class="form-control"
+                                                                multiple>
                                                             <c:forEach items="${courseList}" var="coursWrapper">
                                                                 <c:set var="selectCourse" value="false"/>
                                                                 <c:forEach items="${user.courses}" var="userCourse">
@@ -257,10 +236,12 @@
                                                                 </c:forEach>
                                                                 <c:choose>
                                                                     <c:when test="${selectCourse eq true}">
-                                                                        <option id="${coursWrapper.id}" selected>${coursWrapper.name}</option>
+                                                                        <option id="${coursWrapper.id}"
+                                                                                selected>${coursWrapper.name}</option>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <option id="${coursWrapper.id}" selected>${coursWrapper.name}</option>
+                                                                        <option id="${coursWrapper.id}"
+                                                                                selected>${coursWrapper.name}</option>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:forEach>
@@ -277,9 +258,9 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </form>
                 </div>
                 <!-- /.col-lg-12 -->

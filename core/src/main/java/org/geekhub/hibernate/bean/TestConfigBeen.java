@@ -10,42 +10,48 @@ import java.util.Timer;
 public class TestConfigBeen {
 
     private int id;
+    private String tittle;
     private int questionCount;
-    private Date dueDate;
-    private Date dateTimeToTest;
+    private Date dateStart;
+    private Date dateFinish;
+    private int timeToTest;
     private TestStatus status;
     private CourseBean courseBean;
+
 
     public TestConfigBeen() {
     }
 
-    public TestConfigBeen(int id, int questionCount, Date dueDate, Date dateTimeToTest, TestStatus status) {
+    public TestConfigBeen(int id, String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, CourseBean courseBean) {
         this.id = id;
+        this.tittle = tittle;
         this.questionCount = questionCount;
-        this.dueDate = dueDate;
-        this.dateTimeToTest = dateTimeToTest;
-        this.status = status;
-    }
-
-    public TestConfigBeen(int id, int questionCount, Date dueDate, Date dateTimeToTest, TestStatus status, CourseBean courseBean) {
-        this.id = id;
-        this.questionCount = questionCount;
-        this.dueDate = dueDate;
-        this.dateTimeToTest = dateTimeToTest;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
+        this.timeToTest = timeToTest;
         this.status = status;
         this.courseBean = courseBean;
     }
 
-    public TestConfigBeen(int questionCount, Date dueDate, Date dateTimeToTest, TestStatus status, CourseBean courseBean) {
-
+    public TestConfigBeen(String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, CourseBean courseBean) {
+        this.tittle = tittle;
         this.questionCount = questionCount;
-        this.dueDate = dueDate;
-        this.dateTimeToTest = dateTimeToTest;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
+        this.timeToTest = timeToTest;
         this.status = status;
         this.courseBean = courseBean;
     }
 
-
+    public TestConfigBeen(int id, String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status) {
+        this.id = id;
+        this.tittle = tittle;
+        this.questionCount = questionCount;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
+        this.timeToTest = timeToTest;
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -53,6 +59,14 @@ public class TestConfigBeen {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTittle() {
+        return tittle;
+    }
+
+    public void setTittle(String tittle) {
+        this.tittle = tittle;
     }
 
     public int getQuestionCount() {
@@ -63,12 +77,28 @@ public class TestConfigBeen {
         this.questionCount = questionCount;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getDateStart() {
+        return dateStart;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateFinish() {
+        return dateFinish;
+    }
+
+    public void setDateFinish(Date dateFinish) {
+        this.dateFinish = dateFinish;
+    }
+
+    public int getTimeToTest() {
+        return timeToTest;
+    }
+
+    public void setTimeToTest(int timeToTest) {
+        this.timeToTest = timeToTest;
     }
 
     public TestStatus getStatus() {
@@ -85,13 +115,5 @@ public class TestConfigBeen {
 
     public void setCourseBean(CourseBean courseBean) {
         this.courseBean = courseBean;
-    }
-
-    public Date getDateTimeToTest() {
-        return dateTimeToTest;
-    }
-
-    public void setDateTimeToTest(Date dateTimeToTest) {
-        this.dateTimeToTest = dateTimeToTest;
     }
 }
