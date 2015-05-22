@@ -16,7 +16,8 @@ Hello world! It's index page
     <security:authentication property="principal.username"/>
 </security:authorize>
 <security:authorize access="hasRole('ROLE_ANONYMOUS')">
-<a href="/auth">Log In</a>
+    <a href="/auth">Log In</a>
+    <a href="/registration">Registration</a>
     </security:authorize>
 </body>
 </html>

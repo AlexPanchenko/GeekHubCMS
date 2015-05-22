@@ -214,8 +214,7 @@ public class AdminController {
                                @RequestParam("dateStart") String dateStart,
                                @RequestParam("dateFinish") String dateFinish,
                                @RequestParam("timeToTest") int timeToTest,
-                               @RequestParam("dateTimeToTest") String dateTimeToTest,
-                               @RequestParam("status") TestStatus status) throws Exception {
+                                   @RequestParam("status") TestStatus status) throws Exception {
 
 
         try {
@@ -314,9 +313,11 @@ public class AdminController {
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
+                                 @RequestParam("questionStatus") boolean questionStatus,
+                                 @RequestParam("myAnswer") boolean myAnswer,
                                  @RequestParam("course") int courseId) {
 
-        Question question = questionService.create(questionText, questionWeight, courseId);
+        Question question = questionService.create(questionText, questionWeight, questionStatus, myAnswer, false, courseId);
         int questionId = question.getId();
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
         return "redirect:/admin/question/" + questionId + "/edit";
