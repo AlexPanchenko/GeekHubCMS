@@ -9,6 +9,7 @@ import org.geekhub.wrapper.UserTestResultWrapper;
 import java.text.ParseException;
 
 public interface UserService  {
+    public void setFeedback(int Id, String feedBack);
     public User getUserById(int userId);
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException;
 

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -311,9 +312,11 @@ public class AdminController {
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
+                                 @RequestParam("questionStatus") boolean questionStatus,
+                                 @RequestParam("myAnswer") boolean myAnswer,
                                  @RequestParam("course") int courseId) {
 
-        Question question = questionService.create(questionText, questionWeight, courseId);
+        Question question = questionService.create(questionText, questionWeight, questionStatus, myAnswer, false, courseId);
         int questionId = question.getId();
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
         return "redirect:/admin/question/" + questionId + "/edit";
@@ -462,6 +465,13 @@ public class AdminController {
         TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,title, questionCount,startDate,finishDate,timeToTest, status);
         testConfigService.update(testConfigBeen);
         return model;
+    }
+
+    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+        String feedback = request.getParameter("feedback");
+        userService.setFeedback(userid,feedback);
+        return "redirect:/admin/users/" + userid + "/edit";
     }
 
 }
