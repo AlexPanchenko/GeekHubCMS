@@ -18,7 +18,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "USER_ID")
     private int id;
 
-
     @Column(name = "U_PASSWORD", unique = false, nullable = false, length = 100)
     private String password;
 
@@ -34,7 +33,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "LAST_NAME", length = 25, nullable = false)
     @NotBlank(message = "Surname should be not empty")
     private String lastName;
-
 
     @Column(name = "E_MAIL", length = 40, nullable = false)
     private String email;
@@ -55,6 +53,9 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    List<TestAssignment> testAssignments = new ArrayList<>();
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
@@ -170,5 +171,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setUsersCourses(List<UsersCourses> usersCourses) {
         this.usersCourses = usersCourses;
+    }
+
+    public List<TestAssignment> getTestAssignments() {
+        return testAssignments;
+    }
+
+    public void setTestAssignments(List<TestAssignment> testAssignments) {
+        this.testAssignments = testAssignments;
     }
 }

@@ -10,6 +10,7 @@ import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
@@ -114,7 +115,10 @@ public class UserServiceImpl implements UserService {
         List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
 
         for (User user : userList) {
-            userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
+            List<TestAssignment> list = user.getTestAssignments();
+            for(TestAssignment tA: list){
+                userTestResultWrapperList.add(new UserTestResultWrapper(user, course, tA, tA.getTestConfig()));
+            }
         }
         return userTestResultWrapperList;
     }

@@ -1,6 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -120,6 +121,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Course</th>
+                    <th>Test</th>
                     <th>Date</th>
                     <th>Mark</th>
                     <th>Status</th>
@@ -133,8 +135,10 @@
                         <td>${wrap.user.lastName}</td>
                         <td>${wrap.user.email}</td>
                         <td>${wrap.course.name}</td>
-                        <td>11-11-11</td>
-                        <td>90%</td>
+                        <td>${wrap.testConfig.title}</td>
+                        <td><fmt:formatDate type="both"
+                                            value="${wrap.testAssignmnt.datePassed}" /></td>
+                        <td>${(wrap.testAssignment.countTrueAnswers / wrap.testConfig.questionCount)*100}%</td>
                         <td><span class="label label-success">Accepted</span></td>
                     </tr>
                 </c:forEach>

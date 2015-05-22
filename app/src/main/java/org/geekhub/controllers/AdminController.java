@@ -47,6 +47,7 @@ public class AdminController {
 
     @Autowired
     private CourseService courseService;
+
     @Autowired
     private TestConfigService testConfigService;
 
@@ -67,8 +68,6 @@ public class AdminController {
         u.setFirstName("Test1");
         u.setEmail("Ivan@mail.ru");
         u.setLastName("Test");
-
-
         u.setPassword("1234512");
         u.setRegistrationDate(new Date());
         u.setPhoneNumber("+380(93)145-1514");
