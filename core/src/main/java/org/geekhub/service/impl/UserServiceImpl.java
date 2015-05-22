@@ -1,13 +1,17 @@
 package org.geekhub.service.impl;
 
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.geekhub.hibernate.bean.UserBean;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.dao.PasswordDao;
 import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.PasswordLink;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
 import org.geekhub.util.FormValidator;
+import org.geekhub.util.JavaSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +21,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-
     @Autowired
     UserDao userDao;
 
+    /*Get user and set new feedback*/
     @Override
     public void setFeedback(int Id, String feedBack) {
         User user = userDao.getUserById(Id);
         user.setFeedBack(feedBack);
         userDao.update(user);
-    }
-
-    public User getUserById(int userId) {
-        return null;
     }
 
     public static final SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
@@ -88,5 +90,7 @@ public class UserServiceImpl implements UserService {
         }
         return userBeans;
     }
+
+
 
 }

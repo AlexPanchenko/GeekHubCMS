@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface UserService  {
-    User getUserById(int userId);
     public void setFeedback(int Id, String feedBack);
     public String addUser(String login, String password, String firstName, String lastName,
                           String patronymic, String email, String skype, String phoneNumber, String confirmPassword, String date, Date dataRegistration) throws ParseException;
