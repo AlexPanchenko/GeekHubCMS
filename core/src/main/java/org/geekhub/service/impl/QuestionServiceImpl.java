@@ -1,8 +1,8 @@
 package org.geekhub.service.impl;
 
+import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.QuestionDao;
-import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +28,11 @@ public class QuestionServiceImpl implements QuestionService{
         return (List<Question>)questionDao.getAll();
     }
 
-    @Override
-    public Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId) {
-        Question question = new Question();
-        question.setQuestionWeight(questionWeight);
-        question.setQuestionStatus(questionStatus);
-       question.setMyAnswer(myAnswer);
-        question.setManyAnswers(manyAnswers);
-       question.setCourse((Course) courseDao.read(courseId, Course.class));
-        questionDao.create(question);
-        return question;
-    }
 
     @Override
-    public Object read(int questionId) {
-        return questionDao.read(questionId, Question.class);
+    public Question read(int questionId) {
+        Question question = (Question)questionDao.read(questionId, Question.class);
+        return question;
     }
 
     @Override
@@ -56,6 +46,18 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public void delete(int questionId) {
         questionDao.delete(questionDao.read(questionId, Question.class));
+    }
+
+    @Override
+    public int create(QuestionBean questionBean) {
+        Question question = new Question();
+        question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionWeight(questionBean.getQuestionWeight());
+        question.setCourse(courseDao.getCourseById(questionBean.getCourseBean().getId()));
+        question.setMyAnswer(questionBean.getMyAnswer());
+        question.setQuestionStatus(questionBean.getQuestionStatus());
+        questionDao.create(question);
+        return 0;
     }
 
 }

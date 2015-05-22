@@ -139,6 +139,9 @@
               <th> ID </th>
               <th> Text question </th>
               <th> Weigth</th>
+              <th> Status</th>
+              <th> Your answer</th>
+              <th> Many answer</th>
               <th class="text-center"> Action</th>
             </tr>
             </thead>
@@ -149,6 +152,9 @@
                 <td>${question.id}</td>
                 <td>${question.questionText}</td>
                 <td>${question.questionWeight}</td>
+                <td>${question.questionStatus}</td>
+                <td>${question.myAnswer}</td>
+                <td>${question.manyAnswers}</td>
                 <td class="text-center">
                   <a href="/admin/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                   <a href="/admin/question/${question.id}/delete"><i class="fa fa-times"></i></a>

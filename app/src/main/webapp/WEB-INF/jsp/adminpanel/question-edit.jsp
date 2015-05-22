@@ -127,6 +127,24 @@
                         <input id="questionWeight"  minlenght="1" maxlength="25" name="questionWeight" type="text" placeholder="enter the weight question" class="form-control pull-left" required>
                       </div>
                     </dd>
+                    <dt>
+                      <label class="control-label pull-left">Status question</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="questionStatus" name="questionStatus" value="true">
+                        <input type="hidden"  name="questionStatus" value="false">
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Your answer</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="myAnswer" name="myAnswer" value="true">
+                        <input type="hidden"  name="myAnswer" value="false">
+                      </div>
+                    </dd>
                   </dl>
                 </fieldset>
                 <button type="submit" class="btn btn-primary btn-lg">Create</button>
@@ -151,6 +169,24 @@
                     <dd>
                       <div class="form-group">
                         <input id="questionWeight" minlenght="1" maxlength="25" name="questionWeight" type="text" value="${question.questionWeight}" placeholder="enter the weight question" class="form-control pull-left" required>
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Status question</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="questionStatus" name="questionStatus" value="true">
+                        <input type="hidden"  name="questionStatus" value="false">
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Your answer</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="myAnswer" name="myAnswer" value="true">
+                        <input type="hidden"  name="myAnswer" value="false">
                       </div>
                     </dd>
                   </dl>

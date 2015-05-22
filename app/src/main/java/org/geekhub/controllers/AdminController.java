@@ -2,17 +2,14 @@ package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestStatus;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
-import org.geekhub.service.AnswerService;
-import org.geekhub.service.CourseService;
-import org.geekhub.service.QuestionService;
-import org.geekhub.service.TestConfigService;
-import org.geekhub.service.UserService;
+import org.geekhub.service.*;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Controller
@@ -309,7 +301,7 @@ public class AdminController {
         return "adminpanel/question-edit";
     }
 
-    //////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
@@ -317,11 +309,13 @@ public class AdminController {
                                  @RequestParam("myAnswer") boolean myAnswer,
                                  @RequestParam("course") int courseId) {
 
-        Question question = questionService.create(questionText, questionWeight, questionStatus, myAnswer, false, courseId);
-        int questionId = question.getId();
+        CourseBean courseBean = new CourseBean(courseId);
+        QuestionBean questionBean = new QuestionBean(questionText, questionWeight, questionStatus, myAnswer, courseBean);
+        int questionId = questionService.create(questionBean);
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
         return "redirect:/admin/question/" + questionId + "/edit";
     }
+
 
     @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
     public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
