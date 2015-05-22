@@ -35,7 +35,7 @@ public class CoursesController {
             registrationCoursesService.getRegistrationUserByCourses(id);
         }
 
-        return "redirect:/student/registrationCourses";
+        return "redirect:/student/userProfile";
     }
 
     @RequestMapping(value ="/deleteCourse/{courseId}")
