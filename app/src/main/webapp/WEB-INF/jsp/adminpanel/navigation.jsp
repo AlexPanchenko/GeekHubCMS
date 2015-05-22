@@ -42,7 +42,7 @@
                 </li>
 
                 <li>
-                    <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
+                    <a href="/admin/courses"><i class="fa fa-table fa-fw"></i> Courses</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
