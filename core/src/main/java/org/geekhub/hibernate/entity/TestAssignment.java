@@ -25,16 +25,15 @@ public class TestAssignment extends BaseEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "testAssignment")
     List<UserResults> userResults = new ArrayList<>();
 
-    @Column(name = "TA_DUE_DATE")
-    private Date dueDate;
+    @Column(name = "DATE_PASSED")
+    private Date datePassed;
 
-    @Column(name = "TA_TEST_START")
-    private Date testStart;
+    @Column(name = "COUNT_RIGHT_ANSWERS")
+    private int countTrueAnswers;
 
-    @Column(name = "TA_TEST_FINISH")
-    private Date testFinish;
     @Column(name = "TA_PASSED")
     private boolean passed;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
     private TestStatusAssignment testStatusAssignment;
@@ -71,30 +70,6 @@ public class TestAssignment extends BaseEntity implements Serializable {
         this.testConfig = testConfig;
     }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        dueDate = dueDate;
-    }
-
-    public Date getTestStart() {
-        return testStart;
-    }
-
-    public void setTestStart(Date testStart) {
-        this.testStart = testStart;
-    }
-
-    public Date getTestFinish() {
-        return testFinish;
-    }
-
-    public void setTestFinish(Date testFinish) {
-        this.testFinish = testFinish;
-    }
-
     public boolean isPassed() {
         return passed;
     }
@@ -109,5 +84,21 @@ public class TestAssignment extends BaseEntity implements Serializable {
 
     public void setTestStatusAssignment(TestStatusAssignment testStatusAssignment) {
         this.testStatusAssignment = testStatusAssignment;
+    }
+
+    public Date getDatePassed() {
+        return datePassed;
+    }
+
+    public void setDatePassed(Date datePassed) {
+        this.datePassed = datePassed;
+    }
+
+    public int getCountTrueAnswers() {
+        return countTrueAnswers;
+    }
+
+    public void setCountTrueAnswers(int countTrueAnswers) {
+        this.countTrueAnswers = countTrueAnswers;
     }
 }
