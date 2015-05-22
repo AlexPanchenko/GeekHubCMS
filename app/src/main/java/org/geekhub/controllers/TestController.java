@@ -1,10 +1,8 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.service.CourseService;
-import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +24,6 @@ public class TestController {
     private CourseService courseService;
 
     @Autowired
-    private TestAssignmentService testAssignmentService;
-
-    @Autowired
     private TestConfigService testConfigService;
 
     @RequestMapping(value = "/selectCourse", method = RequestMethod.GET)
@@ -46,8 +41,8 @@ public class TestController {
     @RequestMapping(value = "/course/{courseId}/selectTest", method = RequestMethod.GET)
     public String selectTest( @PathVariable("courseId") int courseId,
                             ModelMap model) {
-        List<TestAssignmentBean> listTestAssignmentBean = testAssignmentService.getTAByUserAndCourse(courseId);
-        model.addAttribute("testList", testAssignmentService);
+        List<TestConfigBeen> listTestConfigBeen = testConfigService.getTestConfigBeensEnable(courseId);
+        model.addAttribute("testList", listTestConfigBeen);
         return "test-page/selectTest";
     }
 
