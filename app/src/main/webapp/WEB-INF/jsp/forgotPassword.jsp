@@ -17,13 +17,13 @@
                             <p>If you have forgotten your password - reset it here.</p>
                             <div class="panel-body">
 
-                                <form class="form" action="/forgotPassword" method="post"><!--start form--><!--add form action as needed-->
+                                <form class="form" action="/recoverPassword" method="post"><!--start form--><!--add form action as needed-->
                                     <fieldset>
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
                                                 <!--EMAIL ADDRESS-->
-                                                <input id="emailInput" placeholder="email address" class="form-control" type="email" oninvalid="setCustomValidity('Please enter a valid email address!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                                                <input id="emailInput" placeholder="email address" class="form-control" type="email" name="forgotMail" oninvalid="setCustomValidity('Please enter a valid email address!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
                                             </div>
                                         </div>
                                         <div class="form-group">

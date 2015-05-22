@@ -5,12 +5,15 @@ import org.geekhub.hibernate.bean.UserBean;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.dao.PasswordDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
+import org.geekhub.hibernate.entity.PasswordLink;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
 import org.geekhub.util.FormValidator;
+import org.geekhub.util.JavaSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -30,6 +35,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
+    /*Get user and set new feedback*/
     @Override
     public void setFeedback(int Id, String feedBack) {
         User user = userDao.getUserById(Id);
@@ -77,6 +83,23 @@ public class UserServiceImpl implements UserService {
             user.setRegistrationDate(new Date());
             userDao.create(user);
         }
+//        Date date = new Date();
+//        if (!birthDay.equals("")) {
+//            date = dt.parse(birthDay);
+//        }
+//        User user = new User();
+//        user.setLogin(login);
+//        user.setPassword(DigestUtils.md5Hex(password));
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setPatronymic(patronymic);
+//        user.setEmail(email);
+//        user.setSkype(skype);
+//        user.setPhoneNumber(phoneNumber);
+//        user.setRole(Role.ROLE_STUDENT);
+//        user.setBirthDay(date);
+//        user.setRegistrationDate(dataRegistration);
+//        userDao.create(user);
 
         return registrationResponseBean;
     }

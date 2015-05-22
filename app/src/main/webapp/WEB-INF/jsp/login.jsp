@@ -25,6 +25,9 @@
     <label for="password">Password</label>
     <input type="password" class="form-control js-pass" id="password" name="password" placeholder="Password">
   </div>
+    <div class="form-group">
+        <a href="/forgotPassword" >Forgot Password</a>
+    </div>
 
   <c:if test="${!empty SPRING_SECURITY_LAST_EXCEPTION}">
       <div class="err-msg">Invalid email or password</div>
@@ -32,6 +35,7 @@
   <input type="submit" value="Submit">
 
 </form>
+
 <%--<script src="/resources/js/forms.js"></script>--%>
 
 </body>

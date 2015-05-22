@@ -57,7 +57,7 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <span id="login" class="form-control">${user.firstName}</span>
+                                                        <span id="first-name" class="form-control">${user.firstName}</span>
 
                                                     </div>
                                                 </dd>
@@ -116,7 +116,7 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <span id="phone" class="form-control"><fmt:formatDate type="date" value="${user.birthDay}" pattern="yyyy-MM-dd" /></span>
+                                                        <span id="date" class="form-control"><fmt:formatDate type="date" value="${user.birthDay}" pattern="yyyy-MM-dd" /></span>
                                                     </div>
                                                 </dd>
 
@@ -125,7 +125,7 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <span id="phone" class="form-control">${user.roles}</span>
+                                                        <span id="role" class="form-control">${user.role}</span>
                                                     </div>
                                                 </dd>
 

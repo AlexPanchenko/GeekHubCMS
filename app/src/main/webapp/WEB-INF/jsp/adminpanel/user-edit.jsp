@@ -12,13 +12,13 @@
 
     <title>User edit page</title>
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="source.jsp"/>
 </head>
 <body>
 
 <div id="wrapper">
 
-    <jsp:include page="navigation.jsp"></jsp:include>
+    <jsp:include page="navigation.jsp"/>
 
             </button>
             <a class="navbar-brand" href="/admin">Admin Panel</a>
@@ -209,7 +209,7 @@
                                                         <select id="role" name="role" class="form-control">
                                                             <c:forEach items="${roles}" var="role">
                                                                 <c:set var="selectRole" value="false"/>
-                                                                    <c:if test="${role eq user.roles}">
+                                                                    <c:if test="${role eq user.role}">
                                                                         <c:set var="selectRole" value="true"/>
                                                                     </c:if>
                                                                 </c:forEach>
@@ -253,7 +253,7 @@
                                                 </dd>
                                                 <dt><label class="control-label pull-right"
                                                            for="active">Active?</label></dt>
-                                                <dd><input type="checkbox" class="pull-left form-control profile-check-box" name="active"></dd>
+                                                <dd><input type="checkbox" id="active" class="pull-left form-control profile-check-box" name="active"></dd>
                                             </dl>
                                         </div>
                                         <div class="container">
@@ -298,11 +298,12 @@
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="javascript: func()"><button type="button" class="btn btn-primary">Save feedback</button></a>
+                <a href="javascript:func()"><button type="button" class="btn btn-primary">Save feedback</button></a>
             </div>
         </div>
     </div>
 </div>
+
 <script>
     function func(){
         document.getElementById("sendFeedback").submit();

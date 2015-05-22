@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "PasswordLink")
+@Table(name = "passwordlink")
 public class PasswordLink extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue
@@ -14,8 +14,16 @@ public class PasswordLink extends BaseEntity implements Serializable {
     @Column(name = "USER_ID")
     private int userId;
 
-    @Column(name = "PASSWORD_LINK")
-    private int passwordLink;
+    @Column(name = "UNIQUE_LINK")
+    private String passwordLink;
+
+    public PasswordLink() {
+    }
+
+    public PasswordLink(int userId, String passwordLink) {
+        this.userId = userId;
+        this.passwordLink = passwordLink;
+    }
 
     public int getId() {
         return id;
@@ -33,11 +41,8 @@ public class PasswordLink extends BaseEntity implements Serializable {
         this.userId = userId;
     }
 
-    public int getPasswordLink() {
-        return passwordLink;
-    }
-
-    public void setPasswordLink(int passwordLink) {
+    public void setPasswordLink(String passwordLink) {
         this.passwordLink = passwordLink;
     }
+
 }

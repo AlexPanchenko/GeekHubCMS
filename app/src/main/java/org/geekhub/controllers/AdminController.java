@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
+import java.util.jar.JarEntry;
 
 
 @Controller
@@ -102,8 +103,6 @@ public class    AdminController {
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
         try {
-
-
             Course cour = new Course();
             cour.setId(1);
             cour.setName("PHP");
@@ -134,6 +133,7 @@ public class    AdminController {
             model.addAttribute("roles", org.geekhub.hibernate.entity.Role.values());
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
+
             return "adminpanel/user-edit";
         }catch (Exception ex) {
             throw new Exception(ex);
@@ -358,6 +358,7 @@ public class    AdminController {
             u.setPhoneNumber("931451514");
 //            u.setRoles(Role.ROLE_ADMIN);
             model.addAttribute("user", u);
+
             return "adminpanel/user-profile";
         }catch (Exception ex) {
             throw new Exception(ex);
@@ -366,10 +367,12 @@ public class    AdminController {
 
 
     @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
-    public String createFeedback(@PathVariable("userid")Integer userid,HttpServletRequest request){
-        String feedback = (String) request.getAttribute("feedback");
+    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+        String feedback = request.getParameter("feedback");
         userService.setFeedback(userid,feedback);
         return "redirect:/admin/users/" + userid + "/edit";
     }
+
+    /*Create and edit classrooms*/
 
 }
