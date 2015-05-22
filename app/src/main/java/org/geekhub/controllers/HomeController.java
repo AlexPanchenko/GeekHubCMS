@@ -11,7 +11,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public ModelAndView defaultPage() throws IOException {
-        return new ModelAndView("index");
+        return new ModelAndView("adminpanel/navigation");
     }
 
 }

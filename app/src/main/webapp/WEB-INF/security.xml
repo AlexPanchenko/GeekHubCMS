@@ -16,11 +16,11 @@
                 password-parameter="password"/>
         <logout logout-success-url="/auth?logout"/>
         <csrf disabled="true"/>
-        <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
+        <!--<intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/student/**" access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        </http>
+        --></http>
 
     <authentication-manager>
     <authentication-provider user-service-ref="customUserDetailsService" >

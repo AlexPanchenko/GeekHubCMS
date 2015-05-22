@@ -46,7 +46,7 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "SKYPE", length = 40)
     private String skype;
 
-    @Column(name = "ICQ", length = 40)
+    @Column(name = "ISQ", length = 40)
     private String icq;
 
     @Column(name = "PHONE_NUMBER", length = 40, nullable = false)
@@ -58,15 +58,24 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
-    @Column(name = "ROLE")
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Column(name = "FEEDBACK", nullable = false)
+    @Column(name = "FEEDBACK")
     private String feedBack;
 
     @OneToMany
      (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "CLASSROOM_ID")
+    private Classroom classroomTeacher;
+
+    @ManyToOne
+    @JoinColumn(name = "CLASSROOM_ID")
+    private Classroom classroomStudents;
+
 
     public User(){
     }
@@ -197,5 +206,21 @@ public class User extends BaseEntity implements Serializable {
 
     public void setUsersCourses(List<UsersCourses> usersCourses) {
         this.usersCourses = usersCourses;
+    }
+
+    public Classroom getClassroomTeacher() {
+        return classroomTeacher;
+    }
+
+    public void setClassroomTeacher(Classroom classroomTeacher) {
+        this.classroomTeacher = classroomTeacher;
+    }
+
+    public Classroom getClassroomStudents() {
+        return classroomStudents;
+    }
+
+    public void setClassroomStudents(Classroom classroomStudents) {
+        this.classroomStudents = classroomStudents;
     }
 }

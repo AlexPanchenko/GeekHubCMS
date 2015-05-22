@@ -30,6 +30,9 @@ public class Course extends BaseEntity implements Serializable {
     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "course")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "courseId")
+    private List<Classroom> classrooms = new ArrayList<>();
+
 
     public Course() {
     }
@@ -64,5 +67,13 @@ public class Course extends BaseEntity implements Serializable {
 
     public void setUsersCourses(List<UsersCourses> usersCourses) {
         this.usersCourses = usersCourses;
+    }
+
+    public List<Classroom> getClassrooms() {
+        return classrooms;
+    }
+
+    public void setClassrooms(List<Classroom> classrooms) {
+        this.classrooms = classrooms;
     }
 }

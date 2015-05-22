@@ -14,7 +14,6 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
     @SuppressWarnings("unchecked")
     public List<Course> getAll() {
