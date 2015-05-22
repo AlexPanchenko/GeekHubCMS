@@ -120,7 +120,6 @@ public class AdminController {
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String editUser(@RequestParam("id") String id,
                            @RequestParam("first-name") String firstName,
-                           @RequestParam("patronymic") String patronymic,
                            @RequestParam("last-name") String lastName,
                            @RequestParam("email") String email,
                            @RequestParam("skype") String skype,

@@ -95,7 +95,6 @@
                                 <tr>
                                     <th> Last name <input class="input-sm" placeholder="Place for filthering"> </th>
                                     <th> Name <input class="input-sm" placeholder="Place for filthering"></th>
-                                    <th>Patronymic <input class="input-sm" placeholder="Place for filthering"></th>
                                     <th> Email <input class="input-sm" placeholder="Place for filthering"></th>
                                     <th> Phone <input class="input-sm" placeholder="Place for filthering"></th>
                                     <th> Skype <input class="input-sm" placeholder="Place for filthering"></th>
@@ -106,7 +105,6 @@
                                 <tr>
                                     <td>${user.lastName}</td>
                                     <td>${user.firstName}</td>
-                                    <td>${user.patronymic}</td>
                                     <td>${user.email}</td>
                                     <td>${user.phoneNumber}</td>
                                     <td>${user.skype}</td>
