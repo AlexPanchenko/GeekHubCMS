@@ -105,17 +105,19 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
-                                <a href="/admin/course/create"><i class="glyphicon glyphicon-pencil pull-left"
-                                                                  title="Create new course"></i></a>
+                                <a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"
+                                                                  title="Create new test config"></i></a>
                                 <b>Test config manage</b></h1>
                             <table class="table">
                                 <thead class="alert alert-success">
                                 <tr>
                                     <th> ID</th>
-                                    <th> QuestionCount</th>
-                                    <th> Due date</th>
-                                    <th>Date time to test</th>
-                                    <th> Status</th>
+                                    <th>Title</th>
+                                    <th>Question count</th>
+                                    <th>Date start</th>
+                                    <th>Date finish</th>
+                                    <th>Time to test</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -126,14 +128,16 @@
 
                                     <tr>
                                         <td>${testConfig.id}</td>
+                                        <td>${testConfig.tittle}</td>
                                         <td>${testConfig.questionCount}</td>
-                                        <td>${testConfig.dueDate}</td>
-                                        <td>${testConfig.dateTimeToTest}</td>
+                                        <td>${testConfig.dateStart}</td>
+                                        <td>${testConfig.dateFinish}</td>
+                                        <td>${testConfig.timeToTest}</td>
                                         <td>${testConfig.status}</td>
 
                                         <td class="text-center">
-                                            <a href="/admin//testConfig/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="/admin/course-remove"> <i class="fa fa-times"></i></a>
+                                            <a href="/admin//testConfig/${course.id}/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="/admin/testConfig/${course.id}/${testConfig.id}/delete"> <i class="fa fa-times"></i></a>
                                         </td>
 
                                     </tr>

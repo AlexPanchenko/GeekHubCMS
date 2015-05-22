@@ -31,7 +31,6 @@
             <table class="table table-striped table-condensed">
 
                 <thead>
-                <>
                 <th>Name courses</th>
                 <th>Title</th>
                 <th>Count question</th>
@@ -40,29 +39,21 @@
                 <th>Time to test</th>
                 <th>Status</th>
                 <th>Action</th>
-
-                </tr>
                 </thead>
                 <c:forEach items="${coursesList}" var="courses">
-
-                    <tbody>
-                    <tr>
-                        <td>${courses.name}</td>
-
-
                         <c:forEach items="${courses.testConfigListBeens}" var="testConfig">
+                            <tbody>
+                            <tr>
+                            <td>${courses.name}</td>
                             <td>${testConfig.tittle}</td>
                             <td align="center">${testConfig.questionCount}</td>
                             <td>${testConfig.dateStart}</td>
                             <td>${testConfig.dateFinish}</td>
                             <td align="center">${testConfig.timeToTest}</td>
                             <td><span class="label label-success">${testConfig.status}</span></td>
-                            <td><span class="label label-danger"><a href="/student/deleteCourse/${courses.id}">Unregister </a>
-                            </span></td>
+                            <td><span class="label label-danger"><a href="/student/deleteCourse/${courses.id}">Unregister </a></span></td>
+
                         </c:forEach>
-
-
-
                     </tr>
                     </tbody>
                 </c:forEach>
