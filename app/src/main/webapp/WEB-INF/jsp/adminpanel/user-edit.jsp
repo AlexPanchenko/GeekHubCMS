@@ -12,82 +12,13 @@
 
     <title>User edit page</title>
 
-    <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
-
-    <script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-    <script src="<c:url value='/resources/js/metisMenu.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>"></script>
-
+    <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
 
 <div id="wrapper">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-
-            </button>
-            <a class="navbar-brand" href="/admin">Admin Panel</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right">
-
-            <a href="#" enabled="false"><i class="fa" style="color:blue"></i>TODO: Principal.name</a>
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
-                    </li>
-
-                    <li>
-                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
-                    </li>
-                    <li>
-                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-    </nav>
+    <jsp:include page="navigation.jsp"></jsp:include>
 
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -229,7 +160,7 @@
                                                                 multiple>
                                                             <c:forEach items="${courseList}" var="coursWrapper">
                                                                 <c:set var="selectCourse" value="false"/>
-                                                                <c:forEach items="${user.courses}" var="userCourse">
+                                                                <c:forEach items="${user.usersCourses}" var="userCourse">
                                                                     <c:if test="${coursWrapper.id eq userCourse.id}">
                                                                         <c:set var="selectCourse" value="true"/>
                                                                     </c:if>
@@ -250,11 +181,15 @@
                                                 </dd>
                                             </dl>
                                         </div>
-                                        <div class="control-group">
-                                            <!-- Button -->
-                                            <div class="controls">
-                                                <button type="submit" class="btn btn-success pull-right">Update Data
-                                                </button>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-1 col-lg-offset-4">
+                                                    <a href="#myModal" class="btn btn-success pull-right" data-toggle="modal">Send FeedBack</a>
+                                                </div>
+                                                <div class="col-lg-1" style="margin-left:15px">
+                                                    <button type="submit" class="btn btn-success pull-right" >Update Data
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -273,6 +208,31 @@
 
 </div>
 <!-- /#wrapper -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Write FeedBack</h4>
+            </div>
+            <form action="/admin/createFeedback/${user.id}" id="sendFeedback" method="get">
+                <div class="modal-body">
+                    <textarea type="text" cols="80" rows="5" name="feedback"></textarea>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="javascript:func()"><button type="button" class="btn btn-primary">Save feedback</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function func(){
+        document.getElementById("sendFeedback").submit();
+    }
+</script>
 
 </body>
 </html>

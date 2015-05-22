@@ -13,83 +13,13 @@
 
     <title>User edit page</title>
 
-    <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
-
-    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
-
+    <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
 
 <div id="wrapper">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-
-            </button>
-            <a class="navbar-brand" href="index.html">Admin Panel</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right">
-
-            <a href="#" enabled="false"><i class="fa" style="color:blue"></i>TODO: Principal.name</a>
-            </li>
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-        <!-- /.navbar-top-links -->
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
-                    </li>
-
-                    <li>
-                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
-                    </li>
-                    <li>
-                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-    </nav>
-
+    <jsp:include page="navigation.jsp"></jsp:include>
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -105,17 +35,19 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
-                                <a href="/admin/course/create"><i class="glyphicon glyphicon-pencil pull-left"
-                                                                  title="Create new course"></i></a>
+                                <a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"
+                                                                  title="Create new test config"></i></a>
                                 <b>Test config manage</b></h1>
                             <table class="table">
                                 <thead class="alert alert-success">
                                 <tr>
                                     <th> ID</th>
-                                    <th> QuestionCount</th>
-                                    <th> Due date</th>
-                                    <th>Date time to test</th>
-                                    <th> Status</th>
+                                    <th>Title</th>
+                                    <th>Question count</th>
+                                    <th>Date start</th>
+                                    <th>Date finish</th>
+                                    <th>Time to test</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -126,14 +58,16 @@
 
                                     <tr>
                                         <td>${testConfig.id}</td>
+                                        <td>${testConfig.tittle}</td>
                                         <td>${testConfig.questionCount}</td>
-                                        <td>${testConfig.dueDate}</td>
-                                        <td>${testConfig.dateTimeToTest}</td>
+                                        <td>${testConfig.dateStart}</td>
+                                        <td>${testConfig.dateFinish}</td>
+                                        <td>${testConfig.timeToTest}</td>
                                         <td>${testConfig.status}</td>
 
                                         <td class="text-center">
-                                            <a href="/admin//testConfig/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="/admin/course-remove"> <i class="fa fa-times"></i></a>
+                                            <a href="/admin//testConfig/${course.id}/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="/admin/testConfig/${course.id}/${testConfig.id}/delete"> <i class="fa fa-times"></i></a>
                                         </td>
 
                                     </tr>
