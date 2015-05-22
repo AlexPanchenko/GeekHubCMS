@@ -33,6 +33,12 @@ public class Question extends BaseEntity implements Serializable{
     @Column(name = "QUESTION_STATUS")
     private Boolean questionStatus;
 
+    @Column(name = "MY_ANSWER")
+    private Boolean myAnswer;
+
+    @Column(name = "MANY_ANSWERS")
+    private Boolean manyAnswers;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COURSE_ID", nullable = false)
     private Course course;
@@ -42,6 +48,31 @@ public class Question extends BaseEntity implements Serializable{
 
     @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
     List<UserResults> userResults = new ArrayList<>();
+
+    public Question(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Course course) {
+        this.questionText = questionText;
+        this.questionWeight = questionWeight;
+        this.questionStatus = questionStatus;
+        this.myAnswer = myAnswer;
+        this.manyAnswers = manyAnswers;
+        this.course = course;
+    }
+
+    public Boolean getMyAnswer() {
+        return myAnswer;
+    }
+
+    public void setMyAnswer(Boolean myAnswer) {
+        this.myAnswer = myAnswer;
+    }
+
+    public Boolean getManyAnswers() {
+        return manyAnswers;
+    }
+
+    public void setManyAnswers(Boolean manyAnswers) {
+        this.manyAnswers = manyAnswers;
+    }
 
     public List<UserResults> getUserResults() {
         return userResults;
