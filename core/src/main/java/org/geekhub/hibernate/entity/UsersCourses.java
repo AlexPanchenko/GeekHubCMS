@@ -17,7 +17,7 @@ public class UsersCourses extends BaseEntity {
     @JoinColumn(name = "UC_USER_ID")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "UC_COURSE_ID")
     private Course course;
 
