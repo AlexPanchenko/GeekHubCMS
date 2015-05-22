@@ -25,10 +25,10 @@ public class TestAssignment extends BaseEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "testAssignment")
     List<UserResults> userResults = new ArrayList<>();
 
-    @Column(name = "DATE_PASSED")
+    @Column(name = "TA_DATE_PASSED")
     private Date datePassed;
 
-    @Column(name = "COUNT_RIGHT_ANSWERS")
+    @Column(name = "TA_COUNT_RIGHT_ANSWERS")
     private int countTrueAnswers;
 
     @Column(name = "TA_PASSED")

@@ -85,7 +85,14 @@ public class CourseServiceImpl implements CourseService {
         List<TestConfig> testConfigList = course.getTestConfig();
         CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(), testConfigBeenList);
         for (TestConfig testConfig : testConfigList) {
-            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), courseBean));
+            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
+                    testConfig.getTitle(),
+                    testConfig.getQuestionCount(),
+                    testConfig.getDateStart(),
+                    testConfig.getDateFinish(),
+                    testConfig.getTimeToTest(),
+                    testConfig.getStatus(),
+                    courseBean));
         }
         return courseBean;
     }
@@ -105,11 +112,13 @@ public class CourseServiceImpl implements CourseService {
         course.setName(courseBean.getName());
         course.setDescription(courseBean.getDescription());
         course.getTestConfig().add(testConfig);
-        testConfig.setCourse(course);
-        testConfig.setDate(testConfigBeen.getDueDate());
-        testConfig.setDateTimeToTest(testConfigBeen.getDateTimeToTest());
+        testConfig.setTitle(testConfigBeen.getTittle());
+        testConfig.setDateStart(testConfigBeen.getDateStart());
+        testConfig.setDateFinish(testConfigBeen.getDateFinish());
+        testConfig.setTimeToTest(testConfigBeen.getTimeToTest());
         testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
         testConfig.setStatus(testConfigBeen.getStatus());
+        testConfig.setCourse(course);
         courseDao.create(course);
         testConfigDao.create(testConfig);
     }
