@@ -111,6 +111,7 @@ public class AdminController {
 
             model.addAttribute("courseList", courses);
             model.addAttribute("user", u);
+            model.addAttribute("userCourses", userService.getAllCoursesByUser(u));
             return "adminpanel/user-edit";
         } catch (Exception ex) {
             throw new Exception(ex);

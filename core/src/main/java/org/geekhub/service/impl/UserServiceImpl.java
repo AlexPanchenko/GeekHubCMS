@@ -153,4 +153,10 @@ public class UserServiceImpl implements UserService {
         return resultPage;
     }
 
+    @Override
+    public List<Course> getAllCoursesByUser(User user) {
+        return usersCoursesDao.getAllCoursesByUser(user);
+    }
+
+
 }
