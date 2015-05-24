@@ -30,11 +30,6 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
     }
 
     @Override
-    public Course getCourseById(int courseId) {
-        return (Course)sessionFactory.getCurrentSession().createCriteria(Course.class).add(Restrictions.eq("id", courseId)).uniqueResult();
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     public List<Course> getAll(int page, int recordsPerPage) {
         page = page * recordsPerPage - recordsPerPage;

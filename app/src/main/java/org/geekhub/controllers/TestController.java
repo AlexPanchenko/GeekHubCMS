@@ -4,6 +4,7 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
+import org.geekhub.service.GeneratorRandomQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +19,12 @@ import java.util.List;
  * Created by helldes on 21.05.2015.
  */
 @Controller
-@RequestMapping(value = "/student/test")
+@RequestMapping(value = "/student/testing")
 public class TestController {
+
+    @Autowired
+    private GeneratorRandomQuestions generatorRandomQuestions;
+
     @Autowired
     private CourseService courseService;
 
@@ -35,7 +40,7 @@ public class TestController {
 
     @RequestMapping(value = "/selectCourse", method = RequestMethod.POST)
     public String selectCourse(@RequestParam("courseId")String courseId) {
-        return "redirect:/student/test/course/" + courseId;
+        return "redirect:/student/testing/course/" + courseId;
     }
 
     @RequestMapping(value = "/course/{courseId}/selectTest", method = RequestMethod.GET)
@@ -47,9 +52,18 @@ public class TestController {
     }
 
     @RequestMapping(value = "/course/{courseId}/selectTest/{testId}", method = RequestMethod.POST)
-    public String selectTest(@RequestParam("courseId")String courseId,
-                             @RequestParam("testId")String testId) {
-        return "redirect:/student/test/course/" + courseId + "/test/" + testId;
+    public String selectTest(@PathVariable("courseId")int courseId,
+                             @PathVariable("testId")int testId) {
+        return "redirect:/student/testing/course/" + courseId + "/test/" + testId;
+    }
+
+    @RequestMapping(value = "/course/{courseId}/test/{testId}", method = RequestMethod.GET)
+    public String selectTest(@PathVariable("courseId") int courseId,
+                             @PathVariable("testId") int testId,
+                             ModelMap model) {
+        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testId);
+        model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
+        return "test-page/testPage";
     }
 
 }

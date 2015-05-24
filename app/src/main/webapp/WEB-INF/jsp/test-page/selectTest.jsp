@@ -39,18 +39,26 @@
         <tr>
           <th>ID</th>
           <th>Title</th>
+          <th>Start Date</th>
+          <th>Finish Date</th>
+          <th>Count question</th>
+          <th>Select</th>
+
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${testList}" var="test">
           <tr>
             <td width="300">${test.id}</td>
-            <td>test №${test.id}</td>
+            <td>${test.tittle}</td>
+            <td>${test.dateStart}</td>
+            <td>${test.dateFinish}</td>
+            <td>${test.questionCount}</td>
             <td width="50">
               <div class="col-sm-12">
                 <div class="radio">
                   <label style="font-size: 1.5em">
-                    <input type="radio" name="courseId"  onclick="changeHref('/student/test/course/${course.id}/test/${test.id}')">
+                    <input type="radio" name="courseId"  onclick="changeHref('/student/testing/course/${test.courseBean.id}/test/${test.id}')">
                     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                   </label>
                 </div>

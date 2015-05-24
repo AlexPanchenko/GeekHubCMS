@@ -101,12 +101,14 @@ public class TestConfigServiceImpl implements TestConfigService {
         List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
         for (TestConfig testConfig : testConfigList) {
             if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
-                testConfigBeenList.add(new TestConfigBeen(testConfig.getTitle(),
+                testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
+                        testConfig.getTitle(),
                         testConfig.getQuestionCount(),
                         testConfig.getDateStart(),
                         testConfig.getDateFinish(),
                         testConfig.getTimeToTest(),
-                        testConfig.getStatus(), courseBean));
+                        testConfig.getStatus(),
+                        courseBean));
             }
         }
         return testConfigBeenList;
