@@ -15,6 +15,5 @@ public interface QuestionService{
     Object read(int questionId);
     void delete(int questionId);
     int create(QuestionBean questionBean);
-
-    void update(int questionId, String questionText, byte questionWeight);
+    void update(QuestionBean questionBean);
 }

@@ -36,10 +36,13 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void update(int questionId, String questionText, byte questionWeight) {
-        Question question = (Question) questionDao.read(questionId, Question.class);
-        question.setQuestionText(questionText);
-        question.setQuestionWeight(questionWeight);
+    public void update(QuestionBean questionBean) {
+        Question question = (Question) questionDao.read(questionBean.getId(), Question.class);
+        question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionWeight(questionBean.getQuestionWeight());
+        question.setCourse(courseDao.getCourseById(questionBean.getCourse()));
+        question.setMyAnswer(questionBean.getMyAnswer());
+        question.setQuestionStatus(questionBean.getQuestionStatus());
         questionDao.update(question);
     }
 
@@ -53,11 +56,11 @@ public class QuestionServiceImpl implements QuestionService{
         Question question = new Question();
         question.setQuestionText(questionBean.getQuestionText());
         question.setQuestionWeight(questionBean.getQuestionWeight());
-        question.setCourse(courseDao.getCourseById(questionBean.getCourseBean().getId()));
+        question.setCourse(courseDao.getCourseById(questionBean.getCourse()));
         question.setMyAnswer(questionBean.getMyAnswer());
         question.setQuestionStatus(questionBean.getQuestionStatus());
         questionDao.create(question);
-        return 0;
+        return question.getId();
     }
 
 }

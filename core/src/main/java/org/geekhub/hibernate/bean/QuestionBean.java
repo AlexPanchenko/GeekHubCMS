@@ -16,24 +16,35 @@ public class QuestionBean {
     private Boolean myAnswer;
     private Boolean manyAnswers;
     private Set<AnswerBean> answers = new HashSet<>();
-    private CourseBean courseBean;
+    private int course;
 
-    public CourseBean getCourseBean() {
-        return courseBean;
+    public QuestionBean(int id, String questionText, Byte questionWeight, String questionTitle, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Set<AnswerBean> answers, int course) {
+        this.id = id;
+        this.questionText = questionText;
+        this.questionWeight = questionWeight;
+        this.questionTitle = questionTitle;
+        this.questionStatus = questionStatus;
+        this.myAnswer = myAnswer;
+        this.manyAnswers = manyAnswers;
+        this.answers = answers;
+        this.course = course;
     }
 
-    public void setCourseBean(CourseBean courseBean) {
-        this.courseBean = courseBean;
-    }
-
-    public QuestionBean(){}
-
-    public QuestionBean(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, CourseBean courseBean) {
+    public QuestionBean(int id, String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, int course) {
+        this.id = id;
         this.questionText = questionText;
         this.questionWeight = questionWeight;
         this.questionStatus = questionStatus;
         this.myAnswer = myAnswer;
-        this.courseBean = courseBean;
+        this.course = course;
+    }
+
+    public QuestionBean(String questionText, byte questionWeight, boolean questionStatus, boolean myAnswer, int course) {
+        this.questionText = questionText;
+        this.questionStatus = questionStatus;
+        this.questionWeight = questionWeight;
+        this.myAnswer = myAnswer;
+        this.course = course;
     }
 
     public int getId() {
@@ -98,5 +109,13 @@ public class QuestionBean {
 
     public void setAnswers(Set<AnswerBean> answers) {
         this.answers = answers;
+    }
+
+    public int getCourse() {
+        return course;
+    }
+
+    public void setCourse(int course) {
+        this.course = course;
     }
 }

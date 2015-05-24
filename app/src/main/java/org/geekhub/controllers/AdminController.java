@@ -4,19 +4,18 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.hibernate.entity.*;
+import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.TestStatus;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.*;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -279,55 +278,64 @@ public class AdminController {
     }
 
     ////////////////////////////////////////////////////////////
-    @RequestMapping(value = "/question", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
                                  @RequestParam("questionStatus") boolean questionStatus,
                                  @RequestParam("myAnswer") boolean myAnswer,
-                                 @RequestParam("course") int courseId) {
-
-        CourseBean courseBean = new CourseBean(courseId);
-        QuestionBean questionBean = new QuestionBean(questionText, questionWeight, questionStatus, myAnswer, courseBean);
+                                 @PathVariable("courseId") int courseId) {
+        QuestionBean questionBean = new QuestionBean(questionText, questionWeight, questionStatus, myAnswer, courseId);
         int questionId = questionService.create(questionBean);
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
-        return "redirect:/admin/question/" + questionId + "/edit";
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
 
-    @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
-    public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
+
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.GET)
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
+                               ModelMap model) {
         model.addAttribute("question", questionService.read(questionId));
         model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        model.addAttribute("courseId", courseId);
         return "adminpanel/question-edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/delete", method = RequestMethod.GET)
     public String deleteQuestion(@PathVariable("questionId") int questionId) {
         questionService.delete(questionId);
         return "redirect:/admin/questions";
     }
 
-    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
-    public String editQuestion(@PathVariable("questionId") int questionId,
-                               @RequestParam("questionText") String questionText,
-                               @RequestParam("questionWeight") byte questionWeight) {
-        questionService.update(questionId, questionText, questionWeight);
-        return "redirect:/admin/question/" + questionId + "/edit";
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.POST)
+    public String editQuestion(@RequestParam("questionText") String questionText,
+                               @RequestParam("questionWeight") byte questionWeight,
+                               @RequestParam("questionStatus") boolean questionStatus,
+                               @RequestParam("myAnswer") boolean myAnswer,
+                               @PathVariable("courseId") int courseId) {
+        QuestionBean questionBean = new QuestionBean(courseId, questionText, questionWeight, questionStatus, myAnswer, courseId);
+        questionService.update(questionBean);
+        return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }
 
     // END QUESTION CONTROLLER
 
     //START ANSWER CONTROLLER
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
     public String editAnswer(@PathVariable("questionId") int questionId,
                              @RequestParam("answerId") String answerId,
+                             @PathVariable("courseId") int courseId,
                              @RequestParam("answerText") String answerText,
                              @RequestParam("answerRight") String answerRight) {
-        return "redirect:/admin/question/" + questionId + "/answer/" + answerId + "/edit";
+
+      //  answerService.update()
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
     public String editAnswer(@PathVariable("questionId") int questionId,
+                             @PathVariable("courseId") int courseId,
                              @PathVariable("answerId") int answerId,
                              ModelMap model) {
         model.addAttribute("question", questionService.read(questionId));
@@ -336,23 +344,29 @@ public class AdminController {
         return "adminpanel/answer-edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/create", method = RequestMethod.POST)
     public String createAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
                                @RequestParam("answerText") String answerText,
                                @RequestParam("answerRight") boolean answerRight) {
 
         answerService.create(questionId, answerText, answerRight);
-        return "redirect:/admin/question/{questionId}/edit";
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
     public String deleteAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
                                @PathVariable("answerId") int answerId,
                                ModelMap model) {
         answerService.delete(answerId);
         model.addAttribute("question", questionService.read(questionId));
-        return "redirect:/admin/question/{questionId}/edit";
+        return "redirect:/admin/course/"+ courseId + "/question/" + questionId + "/edit";
     }
+
+    // END ANSWER CONTROLLER
+
+
     @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.GET)
     public ModelAndView createTestConfig (@PathVariable int courseId) {
         ModelAndView model = new ModelAndView("adminpanel/testConfig-create");

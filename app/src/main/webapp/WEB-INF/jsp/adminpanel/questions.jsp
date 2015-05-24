@@ -52,7 +52,7 @@
         <div class="col-lg-12">
           <h1 class="alert alert-success text-center">
 
-            <a id="linkCreateQuestionByCourse" href="/admin/question/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
+            <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
             <!-- /////////////////////////////////////////////////////////-->
 
             <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
@@ -88,8 +88,8 @@
                 <td>${question.myAnswer}</td>
                 <td>${question.manyAnswers}</td>
                 <td class="text-center">
-                  <a href="/admin/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                  <a href="/admin/question/${question.id}/delete"><i class="fa fa-times"></i></a>
+                  <a href="/admin/course/${question.course.id}/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                  <a href="/admin/course/${question.course.id}/question/${question.id}/delete"><i class="fa fa-times"></i></a>
                 </td>
               </tr>
               <%--</c:if>--%>
