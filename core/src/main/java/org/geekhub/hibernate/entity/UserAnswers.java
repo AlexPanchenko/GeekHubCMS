@@ -21,19 +21,7 @@ public class UserAnswers extends BaseEntity implements Serializable {
     @JoinColumn(name = "USER_RESULTS_ID")
     private UserResults userResults;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ANSWER_ID")
-    private Answer answer;
-
     public UserAnswers() {
-    }
-
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
     }
 
     public int getId() {

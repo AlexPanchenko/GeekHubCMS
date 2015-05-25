@@ -43,7 +43,6 @@ public class UserAnswersServiceImpl implements UserAnswersService {
     public UserAnswers create(int userResultId, int answerId) {
         UserAnswers userAnswers = new UserAnswers();
         userAnswers.setUserResults((UserResults)userResultsDao.read(userResultId, UserResults.class));
-        userAnswers.setAnswer((Answer)answerDao.read(answerId, Answer.class));
         userAnswersDao.create(userAnswers);
         return userAnswers;
     }
