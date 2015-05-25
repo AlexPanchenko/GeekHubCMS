@@ -1,17 +1,16 @@
 package org.geekhub.controllers;
 
+import com.google.gson.Gson;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
+import org.geekhub.hibernate.bean.TestInfo;
 import org.geekhub.service.CourseService;
-import org.geekhub.service.TestConfigService;
 import org.geekhub.service.GeneratorRandomQuestions;
+import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -63,7 +62,21 @@ public class TestController {
                              ModelMap model) {
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testId);
         model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
+        model.addAttribute("testId", testId);
         return "test-page/testPage";
     }
 
+    @RequestMapping(value = "/course/comletetest/{testId}", method = RequestMethod.POST)
+    public String completeTest(
+                             @PathVariable("testId") int testId,
+                             @RequestBody String jsonStr) {
+        System.out.println(jsonStr);
+        Gson gson = new Gson();
+        TestInfo[] w = gson.fromJson(jsonStr, TestInfo[].class);
+        System.out.println(w);
+        //TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testId);
+        //model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
+
+        return "test-page/testPage";
+    }
 }
