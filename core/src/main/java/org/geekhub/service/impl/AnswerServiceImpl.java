@@ -47,4 +47,14 @@ public class AnswerServiceImpl implements AnswerService{
     public void delete(int answerId) {
         answerDao.delete((Answer)answerDao.read(answerId, Answer.class));
     }
+
+    @Override
+    public void update(int answerId, String answerText, Boolean answerRight) {
+        Answer answer = (Answer)answerDao.read(answerId,Answer.class);
+        answer.setAnswerText(answerText);
+        answer.setAnswerRight(answerRight);
+        answerDao.update(answer);
+    }
+
+
 }

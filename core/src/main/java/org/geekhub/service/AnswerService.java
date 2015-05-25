@@ -14,4 +14,5 @@ public interface AnswerService {
     Object read(int answerId);
     void create(int questionId, String answerText, Boolean answerRight);
     void delete(int answerId);
+    void update(int answerId, String answerText, Boolean answerRight);
 }

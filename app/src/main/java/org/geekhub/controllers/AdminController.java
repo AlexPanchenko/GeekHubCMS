@@ -324,12 +324,12 @@ public class AdminController {
     //START ANSWER CONTROLLER
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
     public String editAnswer(@PathVariable("questionId") int questionId,
-                             @RequestParam("answerId") String answerId,
+                             @RequestParam("answerId") int answerId,
                              @PathVariable("courseId") int courseId,
                              @RequestParam("answerText") String answerText,
-                             @RequestParam("answerRight") String answerRight) {
+                             @RequestParam("answerRight") boolean answerRight) {
 
-      //  answerService.update()
+        answerService.update(answerId, answerText, answerRight);
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
