@@ -460,4 +460,17 @@ public class AdminController {
         return "redirect:/admin/users/" + userid + "/edit";
     }
 
+    /*Pagination for classroom*/
+    @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
+    public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
+                               @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,
+                               ModelMap modelMap) {
+
+//        Page<Classroom> page =  courseService.getAll(p, recPerPage);
+//        modelMap.addAttribute("page", page);
+        return "adminpanel/courses";
+    }
+
+
+
 }
