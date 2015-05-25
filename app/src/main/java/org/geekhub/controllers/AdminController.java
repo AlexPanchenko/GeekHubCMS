@@ -2,37 +2,27 @@ package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestStatus;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
-import org.geekhub.service.AnswerService;
-import org.geekhub.service.CourseService;
-import org.geekhub.service.QuestionService;
-import org.geekhub.service.TestConfigService;
-import org.geekhub.service.UserService;
+import org.geekhub.service.*;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Controller
@@ -177,32 +167,10 @@ public class AdminController {
     @RequestMapping(value = "/course/{courseId}", method = RequestMethod.POST)
     public String editCourses(@PathVariable("courseId") Integer courseId,
                               @RequestParam("name") String name,
-                              @RequestParam("description") String description,
-                              @RequestParam("title") String title,
-                              @RequestParam("questionCount") int questionCount,
-                              @RequestParam("dateStart") String dateStart,
-                              @RequestParam("dateFinish") String dateFinish,
-                              @RequestParam("timeToTest") int timeToTest,
-                              @RequestParam("status") TestStatus status) throws Exception {
-        try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
-            Date startDate = new Date();
-            if (!startDate.equals("")) {
-                startDate = dt.parse(dateStart);
-            }
-            Date finishDate = new Date();
-            if (!finishDate.equals("")) {
-                finishDate = dt.parse(dateFinish);
-            }
-            CourseBean courseBean = new CourseBean(courseId, name, description);
-            TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
-            courseService.update(courseBean);
-        } catch (CourseNotFoundException ex) {
+                              @RequestParam("description") String description) throws Exception {
 
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
-
+        CourseBean courseBean = new CourseBean(courseId, name, description);
+        courseService.update(courseBean);
         return "redirect:/admin/course/" + courseId + "/edit";
     }
 
@@ -309,54 +277,65 @@ public class AdminController {
         return "adminpanel/question-edit";
     }
 
-    //////////////////////////////////////////////////////////////
-    @RequestMapping(value = "/question", method = RequestMethod.POST)
+    ////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
                                  @RequestParam("questionStatus") boolean questionStatus,
                                  @RequestParam("myAnswer") boolean myAnswer,
-                                 @RequestParam("course") int courseId) {
-
-        Question question = questionService.create(questionText, questionWeight, questionStatus, myAnswer, false, courseId);
-        int questionId = question.getId();
+                                 @PathVariable("courseId") int courseId) {
+        QuestionBean questionBean = new QuestionBean(questionText, questionWeight, questionStatus, myAnswer, courseId);
+        int questionId = questionService.create(questionBean);
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
-        return "redirect:/admin/question/" + questionId + "/edit";
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/edit", method = RequestMethod.GET)
-    public String editQuestion(@PathVariable("questionId") int questionId, ModelMap model) {
+
+
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.GET)
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
+                               ModelMap model) {
         model.addAttribute("question", questionService.read(questionId));
         model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
+        model.addAttribute("courseId", courseId);
         return "adminpanel/question-edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/delete", method = RequestMethod.GET)
     public String deleteQuestion(@PathVariable("questionId") int questionId) {
         questionService.delete(questionId);
         return "redirect:/admin/questions";
     }
 
-    @RequestMapping(value = "/question/{questionId}", method = RequestMethod.POST)
-    public String editQuestion(@PathVariable("questionId") int questionId,
-                               @RequestParam("questionText") String questionText,
-                               @RequestParam("questionWeight") byte questionWeight) {
-        questionService.update(questionId, questionText, questionWeight);
-        return "redirect:/admin/question/" + questionId + "/edit";
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.POST)
+    public String editQuestion(@RequestParam("questionText") String questionText,
+                               @RequestParam("questionWeight") byte questionWeight,
+                               @RequestParam("questionStatus") boolean questionStatus,
+                               @RequestParam("myAnswer") boolean myAnswer,
+                               @PathVariable("courseId") int courseId) {
+        QuestionBean questionBean = new QuestionBean(courseId, questionText, questionWeight, questionStatus, myAnswer, courseId);
+        questionService.update(questionBean);
+        return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }
 
     // END QUESTION CONTROLLER
 
     //START ANSWER CONTROLLER
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
     public String editAnswer(@PathVariable("questionId") int questionId,
                              @RequestParam("answerId") String answerId,
+                             @PathVariable("courseId") int courseId,
                              @RequestParam("answerText") String answerText,
                              @RequestParam("answerRight") String answerRight) {
-        return "redirect:/admin/question/" + questionId + "/answer/" + answerId + "/edit";
+
+      //  answerService.update()
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
     public String editAnswer(@PathVariable("questionId") int questionId,
+                             @PathVariable("courseId") int courseId,
                              @PathVariable("answerId") int answerId,
                              ModelMap model) {
         model.addAttribute("question", questionService.read(questionId));
@@ -365,44 +344,46 @@ public class AdminController {
         return "adminpanel/answer-edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/create", method = RequestMethod.POST)
     public String createAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
                                @RequestParam("answerText") String answerText,
                                @RequestParam("answerRight") boolean answerRight) {
 
         answerService.create(questionId, answerText, answerRight);
-        return "redirect:/admin/question/{questionId}/edit";
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
-    @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
     public String deleteAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("courseId") int courseId,
                                @PathVariable("answerId") int answerId,
                                ModelMap model) {
         answerService.delete(answerId);
         model.addAttribute("question", questionService.read(questionId));
-        return "redirect:/admin/question/{questionId}/edit";
+        return "redirect:/admin/course/"+ courseId + "/question/" + questionId + "/edit";
     }
 
+    // END ANSWER CONTROLLER
 
-    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.GET)
-    public ModelAndView editTestConfig(@PathVariable int testConfigId) {
-        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
-        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
-        model.addObject("testConfigBeen", testConfigBeen);
+
+    @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.GET)
+    public ModelAndView createTestConfig (@PathVariable int courseId) {
+        ModelAndView model = new ModelAndView("adminpanel/testConfig-create");
         model.addObject("enumStatus", TestStatus.values());
+        model.addObject("courseId", courseId);
         return model;
     }
 
-    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.POST)
-    public ModelAndView editTestConfig (@PathVariable int testConfigId,
-                                        @RequestParam("title") String title,
-                                        @RequestParam("questionCount") int questionCount,
-                                        @RequestParam("dateStart") String dateStart,
-                                        @RequestParam("dateFinish") String dateFinish,
-                                        @RequestParam("timeToTest") int timeToTest,
-                                        @RequestParam("status") TestStatus status) {
-
-        ModelAndView model = new ModelAndView("redirect:/admin/course-edit");
+    @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.POST)
+    public ModelAndView createTestConfig (@PathVariable int courseId,
+                                          @RequestParam("title") String title,
+                                          @RequestParam("questionCount") int questionCount,
+                                          @RequestParam("dateStart") String dateStart,
+                                          @RequestParam("dateFinish") String dateFinish,
+                                          @RequestParam("timeToTest") int timeToTest,
+                                          @RequestParam("status") TestStatus status) throws Exception {
+        ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
             Date startDate = new Date();
@@ -412,14 +393,71 @@ public class AdminController {
             Date finishDate = new Date();
             if (!finishDate.equals("")) {
                 finishDate = dt.parse(dateFinish);
+                CourseBean courseBean = courseService.getById(courseId);
+                TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount, startDate, finishDate, timeToTest, status,courseBean);
+                testConfigService.createTestConfig(testConfigBeen);
             }
-            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,title, questionCount,startDate,finishDate,timeToTest, status);
-            testConfigService.update(testConfigBeen);
+        } catch (CourseNotFoundException ex) {
 
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+        return model;
+    }
+
+    @RequestMapping(value = "/testConfig/{courseId}/{testConfigId}/edit", method = RequestMethod.GET)
+    public ModelAndView editTestConfig(@PathVariable int testConfigId,
+                                       @PathVariable int courseId) {
+        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
+        model.addObject("courseId",courseId);
+        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
+        model.addObject("testConfigBeen", testConfigBeen);
+        model.addObject("enumStatus", TestStatus.values());
+        return model;
+    }
+
+    @RequestMapping(value ="/testConfig/{courseId}/{testConfigId}/delete")
+    public ModelAndView deleteTestConfig(@PathVariable int testConfigId,
+                                         @PathVariable int courseId) {
+        ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
+        TestConfigBeen testConfigBeen = (TestConfigBeen) testConfigService.getTestConfigById(testConfigId);
+        testConfigService.delete(testConfigBeen);
+        return model;
+    }
+    @RequestMapping(value = "/testConfig/{courseId}/{testConfigId}/edit", method = RequestMethod.POST)
+    public ModelAndView editTestConfig (@PathVariable int testConfigId,
+                                        @PathVariable int courseId,
+                                        @RequestParam("title") String title,
+                                        @RequestParam("questionCount") int questionCount,
+                                        @RequestParam("dateStart") String dateStart,
+                                        @RequestParam("dateFinish") String dateFinish,
+                                        @RequestParam("timeToTest") int timeToTest,
+                                        @RequestParam("status") TestStatus status) {
+
+        ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
+        Date startDate = new Date();
+        Date finishDate = new Date();
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
+            }
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,title, questionCount,startDate,finishDate,timeToTest, status);
+        testConfigService.update(testConfigBeen);
         return model;
+    }
+
+    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+        String feedback = request.getParameter("feedback");
+        userService.setFeedback(userid,feedback);
+        return "redirect:/admin/users/" + userid + "/edit";
     }
 
 }

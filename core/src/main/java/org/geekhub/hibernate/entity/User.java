@@ -54,6 +54,9 @@ public class User extends BaseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "FEEDBACK")
+    private String feedback;
+
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<TestAssignment> testAssignments = new ArrayList<>();
 
@@ -173,11 +176,20 @@ public class User extends BaseEntity implements Serializable {
         this.usersCourses = usersCourses;
     }
 
+
     public List<TestAssignment> getTestAssignments() {
         return testAssignments;
     }
 
     public void setTestAssignments(List<TestAssignment> testAssignments) {
         this.testAssignments = testAssignments;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 }

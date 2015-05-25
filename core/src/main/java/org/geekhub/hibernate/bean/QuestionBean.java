@@ -1,8 +1,5 @@
 package org.geekhub.hibernate.bean;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,16 +13,38 @@ public class QuestionBean {
     private Byte questionWeight;
     private String questionTitle;
     private Boolean questionStatus;
+    private Boolean myAnswer;
+    private Boolean manyAnswers;
     private Set<AnswerBean> answers = new HashSet<>();
+    private int course;
 
-    public QuestionBean(){}
-
-    public QuestionBean(int id, String questionText, Byte questionWeight, String questionTitle, Boolean questionStatus) {
+    public QuestionBean(int id, String questionText, Byte questionWeight, String questionTitle, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Set<AnswerBean> answers, int course) {
         this.id = id;
         this.questionText = questionText;
         this.questionWeight = questionWeight;
         this.questionTitle = questionTitle;
         this.questionStatus = questionStatus;
+        this.myAnswer = myAnswer;
+        this.manyAnswers = manyAnswers;
+        this.answers = answers;
+        this.course = course;
+    }
+
+    public QuestionBean(int id, String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, int course) {
+        this.id = id;
+        this.questionText = questionText;
+        this.questionWeight = questionWeight;
+        this.questionStatus = questionStatus;
+        this.myAnswer = myAnswer;
+        this.course = course;
+    }
+
+    public QuestionBean(String questionText, byte questionWeight, boolean questionStatus, boolean myAnswer, int course) {
+        this.questionText = questionText;
+        this.questionStatus = questionStatus;
+        this.questionWeight = questionWeight;
+        this.myAnswer = myAnswer;
+        this.course = course;
     }
 
     public int getId() {
@@ -68,11 +87,35 @@ public class QuestionBean {
         this.questionStatus = questionStatus;
     }
 
-    public Set<AnswerBean> getUsers() {
+    public Boolean getMyAnswer() {
+        return myAnswer;
+    }
+
+    public void setMyAnswer(Boolean myAnswer) {
+        this.myAnswer = myAnswer;
+    }
+
+    public Boolean getManyAnswers() {
+        return manyAnswers;
+    }
+
+    public void setManyAnswers(Boolean manyAnswers) {
+        this.manyAnswers = manyAnswers;
+    }
+
+    public Set<AnswerBean> getAnswers() {
         return answers;
     }
 
-    public void setUsers(Set<AnswerBean> users) {
+    public void setAnswers(Set<AnswerBean> answers) {
         this.answers = answers;
+    }
+
+    public int getCourse() {
+        return course;
+    }
+
+    public void setCourse(int course) {
+        this.course = course;
     }
 }

@@ -48,7 +48,13 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByEmail(email);
     }
 
-
+    /*Get user and set new feedback*/
+    @Override
+    public void setFeedback(int Id, String feedBack) {
+        User user = userDao.getUserById(Id);
+        user.setFeedback(feedBack);
+        userDao.update(user);
+    }
 
     public static final SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
 

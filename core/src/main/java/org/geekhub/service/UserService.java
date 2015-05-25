@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface UserService  {
+    public void setFeedback(int Id, String feedBack);
     public User getUserById(int userId);
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException;
 

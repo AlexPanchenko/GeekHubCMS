@@ -30,10 +30,18 @@
           <div class="container">
             <h1 class="page-header">Edit test config</h1>
 
-            <form data-toggle="validator" role="form" action="/admin/testConfig/${testConfigBeen.id}/edit" method="POST"
+            <form data-toggle="validator" role="form" action="/admin/testConfig/${courseId}/${testConfigBeen.id}/edit" method="POST"
                   class="form-horizontal">
               <fieldset>
                 <dl class="dl-horizontal">
+                  <dt>
+                    <label class="pull-left control-label" for="title">Title</label>
+                  </dt>
+                  <dd>
+                    <div class="form-group">
+                      <input type="text" id="title" min="0" name="title" value="${testConfigBeen.tittle}">
+                    </div>
+                  </dd>
                   <dt>
                     <label class="pull-left control-label" for="questionCount">Question count</label>
                   </dt>
@@ -44,21 +52,29 @@
                   </dd>
 
                   <dt>
-                    <label class="pull-left control-label" for="dueDate">Due date</label>
+                    <label class="pull-left control-label" for="dateStart">Date start</label>
                   </dt>
                   <dd>
                     <div class="form-group">
-                      <input type="date" id="dueDate" class="form-control" name="dueDate" value="${testConfigBeen.dueDate}">
+                      <input type="date" id="dateStart" class="form-control" name="dateStart" value="${testConfigBeen.dateStart}">
+                    </div>
+                  </dd>
+                  <dt>
+                    <label class="pull-left control-label" for="dateStart">Date finish</label>
+                  </dt>
+                  <dd>
+                    <div class="form-group">
+                      <input type="date" id="dateFinish" class="form-control" name="dateFinish" value="${testConfigBeen.dateFinish}">
                     </div>
                   </dd>
 
                   <dt>
-                    <label class="pull-left control-label" for="dateTimeToTest">Date time to
+                    <label class="pull-left control-label" for="timeToTest">Date time to
                       test</label>
                   </dt>
                   <dd>
                     <div class="form-group">
-                      <input type="date" id ="dateTimeToTest" class="form-control" name="dateTimeToTest" value="${testConfigBeen.dateTimeToTest}">
+                      <input type="number" min="0" id ="timeToTest"  name="timeToTest" value="${testConfigBeen.timeToTest}">
                     </div>
                   </dd>
 

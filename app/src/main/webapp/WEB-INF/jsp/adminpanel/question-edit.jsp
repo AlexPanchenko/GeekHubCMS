@@ -23,7 +23,25 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
+<script>
+  $("form").submit(function () {
 
+    var this_master = $(this);
+
+    this_master.find('input[type="checkbox"]').each( function () {
+      var checkbox_this = $(this);
+
+
+      if( checkbox_this.is(":checked") == true ) {
+        checkbox_this.attr('value','true');
+      } else {
+        checkbox_this.prop('checked',true);
+        //DONT' ITS JUST CHECK THE CHECKBOX TO SUBMIT FORM DATA
+        checkbox_this.attr('value','false');
+      }
+    })
+  })
+</script>
 <div id="wrapper">
 
     <jsp:include page="navigation.jsp"></jsp:include>
@@ -36,14 +54,11 @@
           <c:choose>
             <c:when test="${action eq 'create'}">
               <h1 class="page-header">Add new question for course ${courseName}</h1>
-              <form data-toggle="validator"  role="form" action="/admin/question"  method="POST" class="form-horizontal">
+              <form data-toggle="validator" name="create" id="create" role="form" action="/admin/course/${courseId}/question/create"  method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
                     <dt>
                       <label class="pull-left control-label" for="questionText">Question text</label>
-                    </dt>
-                    <dt>
-                      <input id="course" name="course" type="hidden" value=${courseId} >
                     </dt>
                     <dd>
                       <div class="form-group">
@@ -58,6 +73,24 @@
                         <input id="questionWeight"  minlenght="1" maxlength="25" name="questionWeight" type="text" placeholder="enter the weight question" class="form-control pull-left" required>
                       </div>
                     </dd>
+                    <dt>
+                      <label class="control-label pull-left">Status question</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="questionStatus" name="questionStatus" value="true">
+                        <input type="hidden" name="questionStatus" value="false">
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Your answer</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <input type="checkbox" id="myAnswer" name="myAnswer" value="true">
+                        <input type="hidden" name="myAnswer" value="false">
+                      </div>
+                    </dd>
                   </dl>
                 </fieldset>
                 <button type="submit" class="btn btn-primary btn-lg">Create</button>
@@ -65,9 +98,13 @@
             </c:when>
             <c:otherwise>
               <h1 class="page-header">Edit ${question.id}</h1>
-              <form data-toggle="validator"  role="form" action="/admin/question/${question.id}"  method="POST" class="form-horizontal">
+              <form data-toggle="validator"  name="edit" id="edit" role="form" action="/admin/course/${question.course.id}/question/${question.id}/edit" method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
+                    <div class="form-group">
+                      <input class="form-control" id="id" name="id" type="hidden" value="${question.id}">
+                      <input class="form-control" id="course" name="course" type="hidden" value="${question.course.id}">
+                    </div>
                     <dt>
                       <label class="pull-left control-label" for="questionText1">Question text</label>
                     </dt>
@@ -82,6 +119,40 @@
                     <dd>
                       <div class="form-group">
                         <input id="questionWeight1" minlenght="1" maxlength="25" name="questionWeight" type="text" value="${question.questionWeight}" placeholder="enter the weight question" class="form-control pull-left" required>
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Status question</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <c:choose>
+                          <c:when test="${question.questionStatus eq true}">
+                            <input type="checkbox" id="questionStatusTrue" name="questionStatus" checked>
+                            <input type="hidden" name="questionStatus" value="false">
+                          </c:when>
+                          <c:otherwise>
+                            <input type="checkbox" id="questionStatusFalse" name="questionStatus" >
+                            <input type="hidden" name="questionStatus" value="false">
+                          </c:otherwise>
+                        </c:choose>
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="control-label pull-left">Your answer</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <c:choose>
+                          <c:when test="${question.myAnswer eq true}">
+                            <input type="checkbox" id="myAnswerTrue" name="myAnswer"  checked>
+                            <input type="hidden" name="myAnswer" value="false">
+                          </c:when>
+                          <c:otherwise>
+                            <input type="checkbox" id="myAnswerFalse" name="myAnswer">
+                            <input type="hidden" name="myAnswer" value="false">
+                          </c:otherwise>
+                        </c:choose>
                       </div>
                     </dd>
                   </dl>
@@ -101,7 +172,7 @@
                 </tr>
               </c:forEach>
               </table>
-              <form data-toggle="validator"  role="form" action="/admin/question/${question.id}/answer/create"  method="POST" class="form-horizontal">
+              <form data-toggle="validator"  role="form" action="/admin/course/${question.course.id}/question/${question.id}/answer/create"  method="POST" class="form-horizontal">
                 <fieldset>
                   <dl class="dl-horizontal">
                     <dt>
@@ -117,7 +188,7 @@
                     </dt>
                     <dd>
                       <div class="form-group">
-                        <input type="checkbox" id="answerRight" name="answerRight" value="true">
+                        <input type="checkbox" id="answerRight" name="answerRight">
                         <input type="hidden"  name="answerRight" value="false">
                       </div>
                     </dd>

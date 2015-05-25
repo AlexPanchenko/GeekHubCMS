@@ -134,10 +134,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void update(CourseBean courseBean) throws CourseNotFoundException {
 
-        CourseBean course = getById(courseBean.getId());
+        Course course = (Course)courseDao.read(courseBean.getId(),Course.class);
         course.setName(courseBean.getName());
         course.setDescription(courseBean.getDescription());
-        courseDao.update(toEntity(course));
+        courseDao.update(course);
     }
 
     @Override

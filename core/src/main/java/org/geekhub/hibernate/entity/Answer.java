@@ -31,18 +31,8 @@ public class Answer extends BaseEntity implements Serializable {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @OneToMany(mappedBy="answer",cascade = CascadeType.ALL)
-    List<UserAnswers> userAnswers = new ArrayList<>();
 
     public Answer(){
-    }
-
-    public List<UserAnswers> getUserAnswers() {
-        return userAnswers;
-    }
-
-    public void setUserAnswers(List<UserAnswers> userAnswers) {
-        this.userAnswers = userAnswers;
     }
 
     public Boolean getAnswerRight() {
