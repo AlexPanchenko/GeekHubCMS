@@ -17,6 +17,8 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
 <form>
@@ -29,13 +31,13 @@
     <tbody>
     <c:forEach items="${questions}" var="question">
       <tr>
-        <td style="background-color: lightblue">${question.questionText}<input type="hidden" name="question${question.id}" value="${question.id}"></td>
+        <td style="background-color: lightblue">${question.questionText}<input type="hidden" id="${question.id}"  class="question" name="question${question.id}" value="${question.id}"></td>
       </tr>
       <tr>
       <c:forEach items="${question.answers}" var="answer">
         <table>
           <tr>
-            <td width="30"><input type="checkbox" name="answer${answer.id}"></td>
+            <td width="30"><input type="checkbox" class="answer" id="${answer.id}" checked name="answer${answer.id}"></td>
             <td>${answer.answerText}</td>
           </tr>
         </table>
@@ -46,5 +48,6 @@
   </table>
   <input type="submit" value="Submit" >
 </form>
+<script src="/resources/js/testing.js" type="text/javascript"></script>
 </body>
 </html>
