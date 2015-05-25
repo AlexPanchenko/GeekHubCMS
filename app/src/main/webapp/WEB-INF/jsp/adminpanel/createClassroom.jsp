@@ -35,12 +35,24 @@
           $("#users").html(data);
         }
       });
+    };
+    function writeUsers(course,teacher){
+      var users = $('.inlineCheckbox1:checked');
+      var idUsers = [];
+      for (var i=0; i<users.length;i++)
+        idUsers.push(users[i].value);
+      $.ajax({
+        url:"ajax/test",
+        type:"post",
+        data:{idUsers:idUsers,idCourse:course,idTeacher:teacher}
+       });
     }
+
   </script>
 </head>
 <body>
   <p>Course name</p>
-  <select size='1' id="course">
+  <select size='1' id="course" onchange='showUsers($("#course").val())'>
     <c:forEach items="${courses}" var="s">
       <option value="${s.id}">${s.name}</option>
     </c:forEach>

@@ -18,10 +18,11 @@
 </head>
 <body>
   <p>Users on course</p>
-  <label class="checkbox-inline">
+  <label id="checkbox" class="checkbox-inline">
     <c:forEach items="${users}" var="u">
-      <p><input type="checkbox" id="inlineCheckbox1" value="${u.id}"> ${u.lastName}&nbsp${u.firstName}</p>
+      <p><input type="checkbox" class="inlineCheckbox1" value="${u.id}"> ${u.lastName}&nbsp${u.firstName}</p>
     </c:forEach>
   </label>
+  <p><input type='button' value='Write result' onclick='writeUsers($("#course").val(),$("#teacher").val());'/></p>
 </body>
 </html>

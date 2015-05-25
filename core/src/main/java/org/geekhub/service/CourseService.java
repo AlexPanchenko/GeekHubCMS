@@ -2,6 +2,7 @@ package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
@@ -16,18 +17,20 @@ public interface CourseService {
     List<CourseBean> getAllBeans();
     public List<User> getUserFromCourse(int id);
 
-    void create(String courseName, String courseDescription);
+    void create(CourseBean courseBean, TestConfigBeen testConfigBeen);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
     void update(CourseBean courseBean) throws CourseNotFoundException;
 
     void delete(int courseId) throws CourseNotFoundException;
+
     void deleteCourse(int courseId) throws CourseNotFoundException;
 
      List<CourseBean> getCourseBeenByUser();
 
     public CourseBean toBean(Course course);
+
     public void unRegisterCourse (int id);
 
 }

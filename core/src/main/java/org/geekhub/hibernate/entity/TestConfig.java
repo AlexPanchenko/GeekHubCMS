@@ -1,5 +1,7 @@
 package org.geekhub.hibernate.entity;
 
+import org.geekhub.hibernate.dao.BaseDao;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +17,7 @@ import java.util.Timer;
 
 @Entity
 @Table(name = "TEST_CONFIG")
-public class  TestConfig {
+public class  TestConfig extends BaseEntity {
 
     @GeneratedValue
     @Id
@@ -26,7 +28,6 @@ public class  TestConfig {
     @Column(name = "TC_DUE_DATE")
 
     private Date dueDate;
-
     @Column(name = "TC_TIME_TO_TEST")
     private Date dateTimeToTest;
 

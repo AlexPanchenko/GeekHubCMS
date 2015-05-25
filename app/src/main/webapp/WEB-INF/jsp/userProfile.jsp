@@ -59,7 +59,7 @@
 
 
                         <td><span class="label label-danger">
-                            <a href="/student/deleteCourse/${courses.id}">Delete </a>
+                            <a href="/student/deleteCourse/${courses.id}">Unregister </a>
                             </span></td>
 
                     </tr>

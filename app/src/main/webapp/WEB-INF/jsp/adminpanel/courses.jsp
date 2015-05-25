@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
-                        <a href="/admin/courses/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
+                        <a href="/admin/course/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
                         <b>Courses manage</b></h1>
                     <table class="table">
                         <thead class="alert alert-success">
@@ -95,6 +95,12 @@
                         </tr>
                         </thead>
 
+                    <c:forEach items="${page.list}" var="course">
+                        <tr>
+                            <td>${course.id}</td>
+                            <td>${course.name}</td>
+                            <td>${course.description}</td>
+                            <td class="text-center">
                         <c:forEach items="${page.list}" var="course">
                             <tr>
                                 <td>${course.id}</td>
@@ -127,15 +133,42 @@
                         <nav >
                             <ul class="pagination">
                                 <c:choose>
-                                    <c:when test="${page.current == 1}">
-                                        <li class="disabled"><a href="#">&lt;&lt;</a></li>
-                                        <li class="disabled"><a href="#">&lt;</a></li>
+                                    <c:when test="${empty coursWrapper.users}">
+                                        0
                                     </c:when>
                                     <c:otherwise>
-                                        <li><a href="${firstUrl}">&lt;&lt;</a></li>
-                                        <li><a href="${prevUrl}">&lt;</a></li>
+                                        ${coursWrapper.users.size()}
                                     </c:otherwise>
                                 </c:choose>
+                            </td>
+                            <td class="text-center">
+                                <a href="/admin/course/${course.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="/admin/course-remove/${course.id}"> <i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <!-- Pagination -->
+
+                <c:url var="firstUrl" value="/admin/course/list?p=1" />
+                <c:url var="lastUrl" value="/admin/course/list?=${page.end}" />
+                <c:url var="prevUrl" value="/admin/course/list?=${page.current - 1}" />
+                <c:url var="nextUrl" value="/admin/course/list?=${page.current + 1}" />
+                <div align="center">
+                    <nav >
+                        <ul class="pagination">
+                            <c:choose>
+                                <c:when test="${page.current == 1}">
+                                    <li class="disabled"><a href="#">&lt;&lt;</a></li>
+                                    <li class="disabled"><a href="#">&lt;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="${firstUrl}">&lt;&lt;</a></li>
+                                    <li><a href="${prevUrl}">&lt;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:forEach var="i" begin="${page.begin}" end="${page.end}">
+                                <c:url var="pageUrl" value="/admin/course/list?p=${i}" />
                                 <c:forEach var="i" begin="${page.begin}" end="${page.end}">
                                     <c:url var="pageUrl" value="/admin/courses?p=${i}" />
                                     <c:choose>
@@ -148,22 +181,31 @@
                                     </c:choose>
                                 </c:forEach>
                                 <c:choose>
-                                    <c:when test="${page.current == page.end}">
-                                        <li class="disabled"><a href="#">&gt;</a></li>
-                                        <li class="disabled"><a href="#">&gt;&gt;</a></li>
+                                    <c:when test="${i ==page.current}">
+                                        <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li><a href="${nextUrl}">&gt;</a></li>
-                                        <li><a href="${lastUrl}">&gt;&gt;</a></li>
+                                        <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
                                     </c:otherwise>
                                 </c:choose>
-                            </ul>
-                        </nav>
-                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${page.current == page.end}">
+                                    <li class="disabled"><a href="#">&gt;</a></li>
+                                    <li class="disabled"><a href="#">&gt;&gt;</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="${nextUrl}">&gt;</a></li>
+                                    <li><a href="${lastUrl}">&gt;&gt;</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
             <!-- /.col-lg-12 -->

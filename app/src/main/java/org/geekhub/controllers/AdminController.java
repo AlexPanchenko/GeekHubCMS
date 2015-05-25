@@ -1,18 +1,24 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.UserBean;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.TestStatus;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.AnswerService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.UserService;
 import org.geekhub.service.QuestionService;
+import org.geekhub.service.UserService;
+import org.geekhub.service.TestConfigService;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.util.JavaSender;
+import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,13 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.jar.JarEntry;
 
 
 @Controller
 @RequestMapping(value = "/admin")
-public class    AdminController {
+public class AdminController {
 
     @Autowired
     private QuestionService questionService;
@@ -38,6 +45,8 @@ public class    AdminController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private TestConfigService testConfigService;
 
     @Autowired
     private JavaSender javaSender;
@@ -99,10 +108,11 @@ public class    AdminController {
         return mav;
     }
 
-
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
-    public String getEditUserPage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
+    public String getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) throws Exception {
         try {
+
+
             Course cour = new Course();
             cour.setId(1);
             cour.setName("PHP");
@@ -127,7 +137,7 @@ public class    AdminController {
             u.setLogin("Ivan123");
             u.setPassword("1234512");
             u.setRegistrationDate(new Date());
-          //  u.setCourses(courses);
+            //  u.setCourses(courses);
             u.setPhoneNumber("931451514");
 
             model.addAttribute("roles", org.geekhub.hibernate.entity.Role.values());
@@ -135,44 +145,49 @@ public class    AdminController {
             model.addAttribute("user", u);
 
             return "adminpanel/user-edit";
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception(ex);
         }
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String editUser(@RequestParam("id")String id,
-                           @RequestParam("login")String login,
-                           @RequestParam("first-name")String firstName,
-                           @RequestParam("patronymic")String patronymic,
-                           @RequestParam("last-name")String lastName,
-                           @RequestParam("email")String email,
-                           @RequestParam("skype")String skype,
-                           @RequestParam("phone")String phone,
-                           @RequestParam("birthday")String birthday,
-                           @RequestParam("role")String role,
-                           @RequestParam("courses[]")String[] courses,
-                           @RequestParam(value = "avatar", required = false)MultipartFile avatar,
-                           ModelMap model) {
-        try {
-            Date date = CommonUtil.getFormattedDate(birthday);
-            System.out.println(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/admin/users/"+id+"/edit";
-    }
-
+//    @RequestMapping(value = "/users", method = RequestMethod.POST)
+//    public String editUser(@RequestParam("id") String id,
+//                           @RequestParam("login") String login,
+//                           @RequestParam("first-name") String firstName,
+//                           @RequestParam("patronymic") String patronymic,
+//                           @RequestParam("last-name") String lastName,
+//                           @RequestParam("email") String email,
+//                           @RequestParam("skype") String skype,
+//                           @RequestParam("phone") String phone,
+//                           @RequestParam("birthday") String birthday,
+//                           @RequestParam("role") String role,
+//                           @RequestParam("courses[]") String[] courses,
+//                           @RequestParam(value = "avatar", required = false) MultipartFile avatar,
+//                           ModelMap model) {
+//        try {
+//            Date date = CommonUtil.getFormattedDate(birthday);
+//            System.out.println(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return "redirect:/admin/users/" + id + "/edit";
+//    }
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public String coursesList( @RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
                                @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
-                               ModelMap modelMap) {
+                               ModelMap modelMap){
 
         Page<CourseBean> page = courseService.getAll(p, recPerPage);
         modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }
 
+//    @RequestMapping(value = "/course/create", method = RequestMethod.GET)
+//    public ModelAndView createPage() throws CourseNotFoundException {
+//        ModelAndView model = new ModelAndView("adminpanel/course-create");
+//        model.addObject("enumStatus", TestStatus.values());
+//        model.addObject("course", new Course());
+//        return model;
     @RequestMapping(value = "/courses/create", method = RequestMethod.GET)
     public String createPage(ModelMap model) {
         model.addAttribute("action", "create");
@@ -180,29 +195,46 @@ public class    AdminController {
         return "adminpanel/course-edit";
     }
 
-    @RequestMapping(value = "/courses/{courseId}/edit", method = RequestMethod.GET)
-    public String editCourses(@PathVariable("courseId") Integer courseId, ModelMap model) throws Exception {
-        try {
-            CourseBean course = courseService.getById(courseId);
-            model.addAttribute("course",course);
-        }catch (CourseNotFoundException ex){
-
-        }catch (Exception ex) {
-            throw new Exception(ex);
-        }
-        return "adminpanel/course-edit";
-    }
+//    @RequestMapping(value = "/course/{courseId}/edit", method = RequestMethod.GET)
+//    public ModelAndView editCourses(@PathVariable("courseId") Integer courseId) throws Exception {
+//        ModelAndView model = new ModelAndView("adminpanel/course-edit");
+//    @RequestMapping(value = "/courses/{courseId}/edit", method = RequestMethod.GET)
+//    public String editCourses(@PathVariable("courseId") Integer courseId, ModelMap model) throws Exception {
+//        try {
+//            CourseBean course = courseService.getById(courseId);
+//            model.addObject("course", course);
+//            model.addObject("enumStatus", TestStatus.values());
+//            return model;
+//        } catch (CourseNotFoundException ex) {
+//
+//        } catch (Exception ex) {
+//            throw new Exception(ex);
+//        }
+//        return model;
+//    }
 
     @RequestMapping(value = "/courses/{courseId}", method = RequestMethod.POST)
     public String editCourses(@PathVariable("courseId") Integer courseId,
-                              @RequestParam("name") String name, @RequestParam("description") String description) throws Exception {
+                              @RequestParam("name") String name,
+                              @RequestParam("description") String description,
+                              @RequestParam("questionCount") int questionCount,
+                              @RequestParam("dueDate") Date dueDate,
+                              @RequestParam("dateTimeToTest") Date dateTimeToTest,
+                              @RequestParam("status") TestStatus status) throws Exception {
         try {
             courseService.update(
                     new CourseBean(courseId, name, description)
             );
         }catch (CourseNotFoundException ex){
 
-        }catch (Exception ex) {
+            CourseBean courseBean = new CourseBean(courseId, name, description);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dueDate, dateTimeToTest, status, courseBean);
+            courseService.update(courseBean);
+        }
+//        catch (CourseNotFoundException ex) {
+
+//        }
+    catch (Exception ex) {
             throw new Exception(ex);
         }
 
@@ -211,10 +243,31 @@ public class    AdminController {
 
     @RequestMapping(value = "/courses", method = RequestMethod.POST)
     public String createCourse(@RequestParam("name") String name,
-                               @RequestParam("description") String description) throws Exception {
+                               @RequestParam("description") String description,
+                               @RequestParam("questionCount") int questionCount,
+                             @RequestParam("dueDate") String dueDate,
+                              @RequestParam("dateTimeToTest") String dateTimeToTest,
+                               @RequestParam("status") TestStatus status) throws Exception {
+
+
 
         try {
-            courseService.create(name, description);
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            Date dateDueDate = new Date();
+            if (!dueDate.equals("")){
+                dateDueDate = dt.parse(dueDate);
+            }
+            Date dateTime = new Date();
+            if (!dueDate.equals("")){
+                dateTime = dt.parse(dateTimeToTest);
+            }
+            CourseBean courseBean = new CourseBean(name, description);
+            TestConfigBeen testConfigBeen = new TestConfigBeen(questionCount, dateDueDate, dateTime, status, courseBean);
+            courseBean.getTestConfigListBeens().add(testConfigBeen);
+            courseService.create(courseBean, testConfigBeen);
+
+
+
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -234,11 +287,30 @@ public class    AdminController {
         return "redirect:/admin/course/list";
     }
 
+
+    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+    public String getUserTestResult(Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        return "adminpanel/userTestResult";
+    }
+
+    @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
+    public String getUserTestResultWithCourse(@RequestParam(value = "p",required = true,defaultValue = "1")Integer p,
+                                              @RequestParam(value = "results",defaultValue = "4",required = false) Integer recPerPage,
+                                              @PathVariable String course, Map<String, Object> model) throws Exception {
+        model.put("coursesList", courseService.getAllBeans());
+        model.put("courseName", course);
+        Page<UserTestResultWrapper> page = userService.getPageUserTestResultWrapperListByCourseName(course, p, recPerPage);
+        model.put("page", page);
+        return "adminpanel/userTestResult";
+    }
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
         List<Question> list = questionService.getAll();
         model.addAttribute("questions", list);
+        List<CourseBean> listCourse = courseService.getAllBeans();
+        model.addAttribute("courses", listCourse);
         return "adminpanel/questions";
     }
 
@@ -248,11 +320,23 @@ public class    AdminController {
         model.addAttribute("question", new Question());
         return "adminpanel/question-edit";
     }
-
+//////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
+    public String createQuestionPageByCourse(@PathVariable("courseId") int courseId,ModelMap model) {
+        model.addAttribute("action", "create");
+        model.addAttribute("question", new Question());
+        model.addAttribute("courseId", courseId);
+        try {
+        model.addAttribute("courseName", courseService.getById(courseId).getName());
+        }catch (CourseNotFoundException ex){
+        }
+        return "adminpanel/question-edit";
+    }
+//////////////////////////////////////////////////////////////
     @RequestMapping(value = "/question", method = RequestMethod.POST)
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionWeight") byte questionWeight,
-                                 @RequestParam("course") int courseId)  {
+                                 @RequestParam("course") int courseId) {
 
         Question question = questionService.create(questionText, questionWeight, courseId);
         int questionId = question.getId();
@@ -289,7 +373,7 @@ public class    AdminController {
                              @RequestParam("answerId") String answerId,
                              @RequestParam("answerText") String answerText,
                              @RequestParam("answerRight") String answerRight) {
-        return "redirect:/admin/question/" + questionId + "/answer/" + answerId+ "/edit";
+        return "redirect:/admin/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
     @RequestMapping(value = "/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
@@ -312,67 +396,103 @@ public class    AdminController {
     }
 
     @RequestMapping(value = "/question/{questionId}/answer/{answerId}/delete", method = RequestMethod.GET)
-    public String deleteAnswer( @PathVariable("questionId") int questionId,
-                                @PathVariable("answerId") int answerId,
-                                ModelMap model) {
+    public String deleteAnswer(@PathVariable("questionId") int questionId,
+                               @PathVariable("answerId") int answerId,
+                               ModelMap model) {
         answerService.delete(answerId);
         model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/question/{questionId}/edit";
     }
     //END ANSWER CONTROLLER
-    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
-    public String createCourse(Map<String, Object> model) throws Exception {
+//    @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
+//    public String createCourse(Map<String, Object> model) throws Exception {
+//
+//        return "adminpanel/userTestResult";
 
-        return "adminpanel/userTestResult";
 
-    }
+//    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.GET)
+//    public ModelAndView editTestConfig(@PathVariable int testConfigId){
+//        ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
+//        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
+//        model.addObject("testConfigBeen",testConfigBeen);
+//        model.addObject("enumStatus",TestStatus.values());
+//        return model;
+//    }
 
-    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String profilePage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
-        try {
-            Course cour = new Course();
-            cour.setId(1);
-            cour.setName("PHP");
-
-            Course c2 = new Course();
-            c2.setId(2);
-            c2.setName("Java Script");
-
-            Set<Course> courses = new HashSet<>();
-            courses.add(c2);
-            courses.add(cour);
-
-            User u = new User();
-
-            u.setBirthDay(new Date());
-            u.setId(userId);
-            u.setFirstName("Test1");
-            u.setEmail("Ivan@mail.ru");
+//    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
+//    public String profilePage(@PathVariable("userId")Integer userId, ModelMap model) throws Exception {
+//        try {
+//            Course cour = new Course();
+//            cour.setId(1);
+//            cour.setName("PHP");
+//
+//            Course c2 = new Course();
+//            c2.setId(2);
+//            c2.setName("Java Script");
+//
+//            Set<Course> courses = new HashSet<>();
+//            courses.add(c2);
+//            courses.add(cour);
+//
+//            User u = new User();
+//
+//            u.setBirthDay(new Date());
+//            u.setId(userId);
+//            u.setFirstName("Test1");
+//            u.setEmail("Ivan@mail.ru");
 //            u.setIcq("4118377166");
-            u.setLastName("Test");
-            u.setPatronymic("Test");
-            u.setLogin("Ivan123");
-            u.setPassword("1234512");
-            u.setRegistrationDate(new Date());
+//            u.setLastName("Test");
+//            u.setPatronymic("Test");
+//            u.setLogin("Ivan123");
+//            u.setPassword("1234512");
+//            u.setRegistrationDate(new Date());
 //            u.setCourses(courses);
-            u.setPhoneNumber("931451514");
+//            u.setPhoneNumber("931451514");
 //            u.setRoles(Role.ROLE_ADMIN);
-            model.addAttribute("user", u);
+//            model.addAttribute("user", u);
+//
+//            return "adminpanel/user-profile";
+//        }catch (Exception ex) {
+//            throw new Exception(ex);
+//        }
+//    }
 
-            return "adminpanel/user-profile";
-        }catch (Exception ex) {
-            throw new Exception(ex);
-        }
-    }
 
-
-    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
-    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
-        String feedback = request.getParameter("feedback");
-        userService.setFeedback(userid,feedback);
-        return "redirect:/admin/users/" + userid + "/edit";
-    }
+//    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+//    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+//        String feedback = request.getParameter("feedback");
+//        userService.setFeedback(userid,feedback);
+//        return "redirect:/admin/users/" + userid + "/edit";
+//    }
 
     /*Create and edit classrooms*/
+
+//    @RequestMapping(value = "/testConfig/{testConfigId}/edit", method = RequestMethod.POST)
+//    public ModelAndView editTestConfig (@PathVariable int testConfigId,
+//                                        @RequestParam("questionCount") int questionCount,
+//                                        @RequestParam("dueDate") String dueDate,
+//                                        @RequestParam("dateTimeToTest") String dateTimeToTest,
+//                                        @RequestParam("status") TestStatus status) {
+//
+//        ModelAndView model = new ModelAndView("redirect:/admin/course-edit");
+//        try {
+//            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+//            Date dateDueDate = new Date();
+//            if (!dueDate.equals("")) {
+//                dateDueDate = dt.parse(dueDate);
+//            }
+//            Date dateTime = new Date();
+//            if (!dueDate.equals("")) {
+//                dateTime = dt.parse(dateTimeToTest);
+//            }
+//            TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,questionCount, dateDueDate, dateTime, status);
+//            testConfigService.update(testConfigBeen);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return model;
+//    }
+
 
 }

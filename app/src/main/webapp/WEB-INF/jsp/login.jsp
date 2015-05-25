@@ -32,7 +32,7 @@
   <c:if test="${!empty SPRING_SECURITY_LAST_EXCEPTION}">
       <div class="err-msg">Invalid email or password</div>
   </c:if>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" class="btn btn-primary">
 
 </form>
 

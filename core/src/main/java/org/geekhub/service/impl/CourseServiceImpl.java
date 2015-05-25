@@ -4,12 +4,10 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.dao.CourseDao;
+import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
-import org.geekhub.hibernate.entity.UsersCourses;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private TestConfigDao testConfigDao;
 
 
     @Override
@@ -82,7 +83,7 @@ public class CourseServiceImpl implements CourseService {
         List<TestConfig> testConfigList = course.getTestConfig();
         CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(), testConfigBeenList);
         for (TestConfig testConfig : testConfigList) {
-            testConfigBeenList.add(new TestConfigBeen(testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), testConfig.getCourse()));
+            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),testConfig.getQuestionCount(), testConfig.getDueDate(), testConfig.getDateTimeToTest(), testConfig.getStatus(), courseBean));
         }
         return courseBean;
     }
@@ -96,11 +97,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void create(String courseName, String courseDescription) {
+    public void create(CourseBean courseBean, TestConfigBeen testConfigBeen) {
         Course course = new Course();
-        course.setName(courseName);
-        course.setDescription(courseDescription);
+        TestConfig testConfig = new TestConfig();
+        course.setName(courseBean.getName());
+        course.setDescription(courseBean.getDescription());
+        course.getTestConfig().add(testConfig);
+        testConfig.setCourse(course);
+        testConfig.setDate(testConfigBeen.getDueDate());
+        testConfig.setDateTimeToTest(testConfigBeen.getDateTimeToTest());
+        testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
+        testConfig.setStatus(testConfigBeen.getStatus());
         courseDao.create(course);
+        testConfigDao.create(testConfig);
     }
 
 
@@ -115,14 +124,25 @@ public class CourseServiceImpl implements CourseService {
     public List<User> getUserFromCourse(int id){
         Course course = (Course) courseDao.read(id, Course.class);
         List<UsersCourses> usersCourses = course.getUsersCourses();
+        List<User> allUsers = new ArrayList<User>();
         List<User> users = new ArrayList<User>();
         for(UsersCourses u: usersCourses)
-            users.add(u.getUser());
+            allUsers.add(u.getUser());
+            List<TestAssignment> testAssignments = new ArrayList<TestAssignment>();
+            for(User user: allUsers) {
+                testAssignments = user.getTestAssignments();
+                for(TestAssignment t: testAssignments){
+                    if(t.isPassed()){
+                        users.add(user);
+                    }
+                }
+            }
         return users;
     }
 
     @Override
     public void update(CourseBean courseBean) throws CourseNotFoundException {
+
         CourseBean course = getById(courseBean.getId());
         course.setName(courseBean.getName());
         course.setDescription(courseBean.getDescription());
@@ -147,7 +167,11 @@ public class CourseServiceImpl implements CourseService {
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());
         List<UsersCourses> usersCoursesList = user.getUsersCourses();
-        usersCoursesList.stream().filter(usersCourses -> usersCourses.getCourse().equals(course) && usersCourses.getUser().equals(user)).forEach(usersCoursesDao::delete);
+        for (UsersCourses usersCourses : usersCoursesList) {
+            if(usersCourses.getUser().equals(user) && usersCourses.getCourse().equals(course)) {
+                usersCoursesDao.delete(usersCourses);
+            }
+        }
 
     }
 
@@ -158,11 +182,11 @@ public class CourseServiceImpl implements CourseService {
         List<UsersCourses> usersCoursesList = user.getUsersCourses();
         List<CourseBean> courseBeanList = new ArrayList<>();
         for (UsersCourses usersCourses : usersCoursesList) {
-            if(usersCourses.getCourse().getTestConfig().size() == 0 ) {
-                break;
+           if(usersCourses.getCourse().getTestConfig().size() == 0 ) {
+                continue;
             }
-            Course course = usersCourses.getCourse();
-            courseBeanList.add(toBean(course));
+               Course course = usersCourses.getCourse();
+               courseBeanList.add(toBean(course));
         }
         return courseBeanList;
     }

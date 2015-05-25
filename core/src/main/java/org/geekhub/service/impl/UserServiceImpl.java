@@ -3,16 +3,20 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.bean.UserBean;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.PasswordDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.PasswordLink;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.UserService;
-import org.geekhub.util.FormValidator;
+import org.geekhub.wrapper.UserTestResultWrapper;
+//import org.geekhub.util.FormValidator;
 import org.geekhub.util.JavaSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,18 +39,17 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+    @Autowired
+    CourseDao courseDao;
 
+    @Autowired
+    UsersCoursesDao usersCoursesDao;
     /*Get user and set new feedback*/
     @Override
     public void setFeedback(int Id, String feedBack) {
         User user = userDao.getUserById(Id);
         user.setFeedBack(feedBack);
         userDao.update(user);
-    }
-
-    @Override
-    public String addUser(String login, String password, String firstName, String lastName, String patronymic, String email, String skype, String phoneNumber, String confirmPassword, String date, Date dataRegistration) throws ParseException {
-        return null;
     }
 
     public User getUserById(int userId) {
@@ -83,23 +87,6 @@ public class UserServiceImpl implements UserService {
             user.setRegistrationDate(new Date());
             userDao.create(user);
         }
-//        Date date = new Date();
-//        if (!birthDay.equals("")) {
-//            date = dt.parse(birthDay);
-//        }
-//        User user = new User();
-//        user.setLogin(login);
-//        user.setPassword(DigestUtils.md5Hex(password));
-//        user.setFirstName(firstName);
-//        user.setLastName(lastName);
-//        user.setPatronymic(patronymic);
-//        user.setEmail(email);
-//        user.setSkype(skype);
-//        user.setPhoneNumber(phoneNumber);
-//        user.setRole(Role.ROLE_STUDENT);
-//        user.setBirthDay(date);
-//        user.setRegistrationDate(dataRegistration);
-//        userDao.create(user);
 
         return registrationResponseBean;
     }
@@ -187,4 +174,50 @@ public class UserServiceImpl implements UserService {
             return registrationResponseBean;
         }
     }
+
+    public List<UserTestResultWrapper> getUserTestResultWrapperListByCourseName(String courseName){
+        List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
+        Course course =  courseDao.getCourseByName(courseName);
+        List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
+
+        for(User user: userList){
+            userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
+        }
+        return userTestResultWrapperList;
+    }
+
+    @Override
+    public Page<UserTestResultWrapper> getPageUserTestResultWrapperListByCourseName(String courseName, int page, int recordsPerPage) {
+
+        List<UserTestResultWrapper> list = getUserTestResultWrapperListByCourseName(courseName);
+        int firstRecord;
+        int lastRecord;
+        int size = list.size();
+        int maxPages = (size % recordsPerPage == 0) ? (size / recordsPerPage) : (size / recordsPerPage) + 1;
+        page = (page > maxPages) ? maxPages : page;
+        int current = page;
+        int begin = Math.max(1, current - recordsPerPage);
+        int end = maxPages;
+
+        firstRecord = page*recordsPerPage-recordsPerPage;
+        if(page == maxPages){
+            lastRecord = page*recordsPerPage - (page*recordsPerPage - size);
+        } else {
+            lastRecord = page*recordsPerPage;
+        }
+        if(recordsPerPage < size){
+            list = list.subList(firstRecord, lastRecord);
+        }
+        Page<UserTestResultWrapper> resultPage = new Page<UserTestResultWrapper>(list, begin, current, size, maxPages, recordsPerPage, end);
+
+        List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
+        Course course =  courseDao.getCourseByName(courseName);
+        List<User> userList = usersCoursesDao.getAllUsersByCourse(course);
+
+        for(User user: userList){
+            userTestResultWrapperList.add(new UserTestResultWrapper(user, course));
+        }
+        return resultPage;
+    }
+
 }

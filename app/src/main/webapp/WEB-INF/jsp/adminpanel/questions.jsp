@@ -25,6 +25,29 @@
   <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
   <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
 
+  <script>
+    function selectCource(){
+      if ($('#selectCourse option:selected').attr('id') == 0) {
+        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
+      } else {
+        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
+        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
+      }
+
+    }
+
+    $(document).ready(function () {
+      if ($('#selectCourse option:selected').attr('id') == 0) {
+        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
+      } else {
+        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
+        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
+      }
+    });
+
+  </script>
+
+
 </head>
 <body>
 
@@ -96,7 +119,19 @@
       <div class="row">
         <div class="col-lg-12">
           <h1 class="alert alert-success text-center">
-            <a href="/admin/question/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
+
+            <a id="linkCreateQuestionByCourse" href="/admin/question/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
+            <!-- /////////////////////////////////////////////////////////-->
+
+            <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
+              <option id="0">All Courses</option>
+              <c:forEach items="${courses}" var="course">
+                <option id=${course.id} >${course.name}</option>
+              </c:forEach>
+            </select>
+
+            <!-- /////////////////////////////////////////////////////////-->
+
             <b>Questions manage</b></h1>
           <table class="table">
             <thead class="alert alert-success">
@@ -107,7 +142,9 @@
               <th class="text-center"> Action</th>
             </tr>
             </thead>
+            <%--<c:set var="courseIdNow" value="2"/>--%>
             <c:forEach items="${questions}" var="question">
+              <%--<c:if test="${question.course.id == courseIdNow}">--%>
               <tr>
                 <td>${question.id}</td>
                 <td>${question.questionText}</td>
@@ -117,6 +154,7 @@
                   <a href="/admin/question/${question.id}/delete"><i class="fa fa-times"></i></a>
                 </td>
               </tr>
+              <%--</c:if>--%>
             </c:forEach>
           </table>
           <div class="text-center">

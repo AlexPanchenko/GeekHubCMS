@@ -89,7 +89,7 @@
                         <c:choose>
                             <c:when test="${action eq 'create'}">
                                 <h1 class="page-header">Add new course</h1>
-                                <form data-toggle="validator"  role="form" action="/admin/courses"  method="POST" class="form-horizontal">
+                                <form data-toggle="validator"  role="form" action="/admin/course"  method="POST" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>
@@ -115,7 +115,7 @@
                             </c:when>
                             <c:otherwise>
                                 <h1 class="page-header">Edit ${course.id}</h1>
-                                <form data-toggle="validator"  role="form" action="/admin/courses/${course.id}"  method="POST" class="form-horizontal">
+                                <form data-toggle="validator"  role="form" action="/admin/course/${course.id}"  method="POST" class="form-horizontal">
                                     <fieldset>
                                         <dl class="dl-horizontal">
                                             <dt>

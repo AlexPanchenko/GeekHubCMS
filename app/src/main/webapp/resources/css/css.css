@@ -11,6 +11,12 @@
     margin-top: 5px;
 }
 
+.updateCourse{
+    background-color: #DFF0D8;
+    padding: 30px;
+    padding-right: 300px;
+}
+
 .profile-check-box{
     width: 25px;
 }

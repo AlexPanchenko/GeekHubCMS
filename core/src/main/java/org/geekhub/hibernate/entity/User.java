@@ -60,6 +60,7 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private byte enable;
+
     @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -71,6 +72,10 @@ public class User extends BaseEntity implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<UserResults> userResults = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<TestAssignment> testAssignments = new ArrayList<>();
+
 
     public List<UserResults> getUserResults() {
         return userResults;
@@ -172,13 +177,6 @@ public class User extends BaseEntity implements Serializable {
         this.skype = skype;
     }
 
-//    public String getIcq() {
-//        return icq;
-//    }
-//
-//    public void setIcq(String icq) {
-//        this.icq = icq;
-//    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -220,7 +218,14 @@ public class User extends BaseEntity implements Serializable {
         this.usersCourses = usersCourses;
     }
 
-//    public Classroom getClassroomTeacher() {
+    public List<TestAssignment> getTestAssignments() {
+        return testAssignments;
+    }
+
+    public void setTestAssignments(List<TestAssignment> testAssignments) {
+        this.testAssignments = testAssignments;
+    }
+    //    public Classroom getClassroomTeacher() {
 //        return classroomTeacher;
 //    }
 //

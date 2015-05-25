@@ -3,6 +3,7 @@ package org.geekhub.hibernate.dao.impl;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.entity.Course;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,16 +43,21 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
     public void updateCourse(Course course) {
         sessionFactory.getCurrentSession().createSQLQuery("UPDATE courses SET course_name = :course_name, course_description = :course_description where course_id = :course_id")
                 .setParameter("course_name", course.getName())
-        .setParameter("course_description", course.getDescription())
-        .setParameter("course_id", course.getId())
-        .executeUpdate();
-        }
+                .setParameter("course_description", course.getDescription())
+                .setParameter("course_id", course.getId())
+                .executeUpdate();
+    }
 
-@Override
-public void deleteCourseById(int courseId) {
+    @Override
+    public void deleteCourseById(int courseId) {
         sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM courses WHERE course_id = :course_id")
-        .setParameter("course_id", courseId)
-        .executeUpdate();
+                .setParameter("course_id", courseId)
+                .executeUpdate();
 
-        }
-        }
+    }
+
+    @Override
+    public Course getCourseByName(String name) {
+        return (Course)sessionFactory.getCurrentSession().createCriteria(Course.class).add(Restrictions.eq("name", name)).uniqueResult();
+    }
+}
