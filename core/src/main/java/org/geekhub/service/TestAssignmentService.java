@@ -1,6 +1,9 @@
 package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.TestAssignmentBean;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.User;
 
 import java.util.List;
 
@@ -9,4 +12,5 @@ import java.util.List;
  */
 public interface TestAssignmentService {
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId);
+    public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user);
 }

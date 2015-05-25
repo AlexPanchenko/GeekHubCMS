@@ -25,8 +25,7 @@ public class UserAnswers extends BaseEntity implements Serializable {
     @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
-    public UserAnswers() {
-    }
+    public UserAnswers() {}
 
     public Answer getAnswer() {
         return answer;

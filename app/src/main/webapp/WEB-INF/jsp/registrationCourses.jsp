@@ -43,11 +43,11 @@
                             <c:when test="${courseWrapper.isRegistered}">
                                 <div class="col-sm-12">
                                     <div class="checkbox">
-                                        <label style="font-size: 1.5em">
-                                            <input type="checkbox" checked disabled>
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
+                                    <label style="font-size: 1.5em">
+                                        <input type="checkbox" checked disabled>
+                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    </label>
+                                </div>
                                 </div>
                             </c:when>
                             <c:otherwise>

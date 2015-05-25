@@ -1,7 +1,11 @@
 package org.geekhub.controllers;
 
 import org.geekhub.hibernate.bean.Page;
+import org.geekhub.hibernate.dao.TestConfigDao;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,12 @@ public class TeacherController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TestConfigDao testConfigDao;
+
+    @Autowired
+    TestAssignmentService testAssignmentService;
+
     @RequestMapping(value = "/userTestResult", method = RequestMethod.GET)
     public String getUserTestResult(Map<String, Object> model) throws Exception {
         //model.put("coursesList", courseService.getAllBeans());
@@ -43,9 +53,13 @@ public class TeacherController {
         return "teacherpanel/userTestResult";
     }
 
-    @RequestMapping(value = "/checkUserAnswers/{}/{id}", method = RequestMethod.GET)
-    public String checkUserAnswers(@PathVariable String id, Map<String, Object> model) throws Exception {
-
+    @RequestMapping(value = "/checkUserAnswers/{testConfigId}/{userId}", method = RequestMethod.GET)
+    public String checkUserAnswers(@PathVariable int testConfigId, @PathVariable int userId, Map<String, Object> model) throws Exception {
+        User user = userService.getUserById(userId);
+        TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigId, TestConfig.class);
+        model.put("testConfig", testConfig);
+        model.put("testAssignment", testAssignmentService.getTestAssignmentByTestConfigAdnUser(testConfig, user));
+        model.put("user", user);
         return "teacherpanel/checkUserAnswers";
     }
 }
