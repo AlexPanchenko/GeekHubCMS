@@ -135,7 +135,9 @@ public class AdminController {
                               ModelMap modelMap) {
 
         Page<CourseBean> page = courseService.getAll(p, recPerPage);
+        //List<CourseBean> courseBeanList = courseService.getAllBeans();
         modelMap.addAttribute("page", page);
+        //modelMap.addAttribute("page", courseBeanList);
         return "adminpanel/courses";
     }
 
@@ -186,7 +188,7 @@ public class AdminController {
 
 
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
@@ -198,7 +200,8 @@ public class AdminController {
 
             CourseBean courseBean = new CourseBean(name, description);
             TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
-            courseBean.getTestConfigListBeens().add(testConfigBeen);
+            //courseBean.getTestConfigListBeens().add(testConfigBeen);
+            courseBean.getTestConfigBeen();
             courseService.create(courseBean, testConfigBeen);
         } catch (Exception ex) {
             throw new Exception(ex);
@@ -210,7 +213,7 @@ public class AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.delete(courseId);
+            courseService.deleteCourse(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -385,7 +388,7 @@ public class AdminController {
                                           @RequestParam("status") TestStatus status) throws Exception {
         ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
@@ -438,7 +441,7 @@ public class AdminController {
         Date startDate = new Date();
         Date finishDate = new Date();
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
             }

@@ -2,6 +2,7 @@ package org.geekhub.controllers;
 
 import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
+import org.geekhub.service.TestAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,8 @@ public class CoursesController {
     private RegistrationCoursesService registrationCoursesService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private TestAssignmentService testAssignmentService;
 
     @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
     public String coursesRegistration(Map<String, Object> model) {
@@ -34,6 +37,7 @@ public class CoursesController {
         if(id != null) {
             registrationCoursesService.getRegistrationUserByCourses(id);
         }
+
 
         return "redirect:/student/userProfile";
     }
