@@ -1,5 +1,6 @@
 package org.geekhub.service.impl;
 
+import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Course;
@@ -28,34 +29,39 @@ public class QuestionServiceImpl implements QuestionService{
         return (List<Question>)questionDao.getAll();
     }
 
+
     @Override
-    public Question create(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, int courseId) {
-        Question question = new Question();
-        question.setQuestionWeight(questionWeight);
-        question.setQuestionStatus(questionStatus);
-       question.setMyAnswer(myAnswer);
-        question.setManyAnswers(manyAnswers);
-       question.setCourse((Course) courseDao.read(courseId, Course.class));
-        questionDao.create(question);
+    public Question read(int questionId) {
+        Question question = (Question)questionDao.read(questionId, Question.class);
         return question;
     }
 
     @Override
-    public Object read(int questionId) {
-        return questionDao.read(questionId, Question.class);
-    }
-
-    @Override
-    public void update(int questionId, String questionText, byte questionWeight) {
-        Question question = (Question) questionDao.read(questionId, Question.class);
-        question.setQuestionText(questionText);
-        question.setQuestionWeight(questionWeight);
+    public void update(QuestionBean questionBean) {
+        Question question = (Question) questionDao.read(questionBean.getId(), Question.class);
+        question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionWeight(questionBean.getQuestionWeight());
+        question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
+        question.setMyAnswer(questionBean.getMyAnswer());
+        question.setQuestionStatus(questionBean.getQuestionStatus());
         questionDao.update(question);
     }
 
     @Override
     public void delete(int questionId) {
         questionDao.delete(questionDao.read(questionId, Question.class));
+    }
+
+    @Override
+    public int create(QuestionBean questionBean) {
+        Question question = new Question();
+        question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionWeight(questionBean.getQuestionWeight());
+        question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
+        question.setMyAnswer(questionBean.getMyAnswer());
+        question.setQuestionStatus(questionBean.getQuestionStatus());
+        questionDao.create(question);
+        return question.getId();
     }
 
 }

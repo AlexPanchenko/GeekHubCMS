@@ -2,6 +2,9 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.TestAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +25,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     @Override
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId) {
         return null;
+    }
+
+    @Override
+    public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user) {
+        return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, user);
     }
 }

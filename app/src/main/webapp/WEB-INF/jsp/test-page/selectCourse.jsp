@@ -51,7 +51,7 @@
                 <div class="col-sm-12">
                   <div class="radio">
                     <label style="font-size: 1.5em">
-                      <input type="radio" name="courseId"  onclick="changeHref('/student/test/course/${course.id}/selectTest')">
+                      <input type="radio" name="courseId"  onclick="changeHref('/student/testing/course/${course.id}/selectTest')">
                       <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                     </label>
                   </div>

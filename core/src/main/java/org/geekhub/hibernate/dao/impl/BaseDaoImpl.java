@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class BaseDaoImpl implements BaseDao {
 
     @Autowired
-    public SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     @Override
     public void create(BaseEntity obj) {

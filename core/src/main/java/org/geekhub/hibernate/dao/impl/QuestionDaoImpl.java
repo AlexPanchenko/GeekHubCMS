@@ -16,7 +16,7 @@ public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
 
     @Override
     public List<Question> getByCourse(Course course) {
-        return (List<Question>)sessionFactory.getCurrentSession().createCriteria(Question.class).add(Restrictions.eq("course", course));
+        return sessionFactory.getCurrentSession().createCriteria(Question.class).add(Restrictions.eq("course", course)).list();
     }
 
     @Override

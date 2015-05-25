@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.geekhub.hibernate.entity.UserAnswers;
-
+import org.geekhub.hibernate.entity.Question;
 /**
  * Created by user on 19.05.2015.
  */
@@ -27,7 +27,7 @@ public class UserResults extends BaseEntity implements Serializable {
     List<UserAnswers> userAnswerses = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "QUESTION_ID")
+    @JoinColumn(name ="QUESTION_ID")
     private Question question;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,9 +41,6 @@ public class UserResults extends BaseEntity implements Serializable {
     public void setQuestion(Question question) {
         this.question = question;
     }
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userResult")
-//    List<UserAnswer> UserAnswer = new ArrayList<>();
 
     public TestAssignment getTestAssignment() {
         return testAssignment;

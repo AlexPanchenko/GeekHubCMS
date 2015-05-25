@@ -61,6 +61,22 @@ public class TestConfigServiceImpl implements TestConfigService {
     }
 
     @Override
+    public void createTestConfig(TestConfigBeen testConfigBeen) {
+        TestConfig testConfig = new TestConfig();
+        testConfig.setTitle(testConfigBeen.getTittle());
+        testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
+        testConfig.setDateStart(testConfigBeen.getDateStart());
+        testConfig.setDateFinish(testConfigBeen.getDateFinish());
+        testConfig.setTimeToTest(testConfigBeen.getTimeToTest());
+        testConfig.setStatus(testConfigBeen.getStatus());
+        Course course = (Course)courseDao.read(testConfigBeen.getCourseBean().getId(),Course.class);
+        testConfig.setCourse(course);
+        testConfigDao.create(testConfig);
+        course.getTestConfig().add(testConfig);
+        courseDao.update(course);
+    }
+
+    @Override
     public void update(TestConfigBeen testConfigBeen) {
         TestConfig testConfig = (TestConfig) testConfigDao.read(testConfigBeen.getId(), TestConfig.class);
         testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
@@ -72,6 +88,12 @@ public class TestConfigServiceImpl implements TestConfigService {
         testConfigDao.update(testConfig);
     }
 
+    @Override
+    public void delete(TestConfigBeen testConfigBeen) {
+        TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigBeen.getId(), TestConfig.class);
+        testConfigDao.delete(testConfig);
+    }
+
     public List<TestConfigBeen> getTestConfigBeensEnable(int courseId) {
         Course course = (Course) courseDao.read(courseId, Course.class);
         CourseBean courseBean = courseService.toBean(course);
@@ -79,12 +101,14 @@ public class TestConfigServiceImpl implements TestConfigService {
         List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
         for (TestConfig testConfig : testConfigList) {
             if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
-                testConfigBeenList.add(new TestConfigBeen(testConfig.getTitle(),
+                testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
+                        testConfig.getTitle(),
                         testConfig.getQuestionCount(),
                         testConfig.getDateStart(),
                         testConfig.getDateFinish(),
                         testConfig.getTimeToTest(),
-                        testConfig.getStatus(), courseBean));
+                        testConfig.getStatus(),
+                        courseBean));
             }
         }
         return testConfigBeenList;

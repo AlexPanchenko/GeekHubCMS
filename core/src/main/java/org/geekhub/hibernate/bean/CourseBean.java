@@ -1,13 +1,10 @@
 package org.geekhub.hibernate.bean;
 
 
-import org.geekhub.hibernate.entity.TestConfig;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class CourseBean {
@@ -38,6 +35,10 @@ public class CourseBean {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public CourseBean(int id) {
+        this.id = id;
     }
 
     public CourseBean(String name, String description) {

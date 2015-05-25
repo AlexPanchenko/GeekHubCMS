@@ -47,7 +47,8 @@ public class Question extends BaseEntity implements Serializable{
     private Set<Answer> answers;
 
     @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
-    List<UserResults> userResults = new ArrayList<>();
+    List<UserResults>  UserResults = new ArrayList<>();
+
 
     public Question(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Course course) {
         this.questionText = questionText;
@@ -75,11 +76,11 @@ public class Question extends BaseEntity implements Serializable{
     }
 
     public List<UserResults> getUserResults() {
-        return userResults;
+        return UserResults;
     }
 
-    public void setUserResults(List<UserResults> userResults) {
-        this.userResults = userResults;
+    public void setUserResults(List<org.geekhub.hibernate.entity.UserResults> userResults) {
+        UserResults = userResults;
     }
 
     public Boolean getQuestionStatus() {

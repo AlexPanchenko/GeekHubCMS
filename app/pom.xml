@@ -43,6 +43,12 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.geekhub</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>

@@ -1,6 +1,8 @@
 package org.geekhub.wrapper;
 
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.User;
 
 /**
@@ -9,10 +11,19 @@ import org.geekhub.hibernate.entity.User;
 public class UserTestResultWrapper {
     private User user;
     private Course course;
+    private TestAssignment testAssignment;
+    private TestConfig testConfig;
 
     public UserTestResultWrapper(User user, Course course) {
         this.user = user;
         this.course = course;
+    }
+
+    public UserTestResultWrapper(User user, Course course, TestAssignment testAssignment, TestConfig testConfig) {
+        this.user = user;
+        this.course = course;
+        this.testAssignment = testAssignment;
+        this.testConfig = testConfig;
     }
 
     public User getUser() {
@@ -29,5 +40,21 @@ public class UserTestResultWrapper {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public TestConfig getTestConfig() {
+        return testConfig;
+    }
+
+    public void setTestConfig(TestConfig testConfig) {
+        this.testConfig = testConfig;
+    }
+
+    public TestAssignment getTestAssignment() {
+        return testAssignment;
+    }
+
+    public void setTestAssignment(TestAssignment testAssignment) {
+        this.testAssignment = testAssignment;
     }
 }
