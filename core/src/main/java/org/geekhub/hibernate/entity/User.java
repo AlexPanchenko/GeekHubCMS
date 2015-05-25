@@ -75,7 +75,7 @@ public class User extends BaseEntity implements Serializable {
     }
 
     public User(){
-    }
+}
 
     public int getId() {
         return id;
