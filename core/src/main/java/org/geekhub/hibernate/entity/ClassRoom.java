@@ -7,21 +7,19 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "CLASSROOM")
 public class ClassRoom extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "CLASSROOM_ID")
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classroomTeacher")
-    private List<User> teachers = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classroom")
+    private List<User> users = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "COURSE_ID")
-    private int courseId;
-
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classroomStudents")
-    private List<User> students = new ArrayList<>();
+    private Course courseId;
 
     public int getId() {
         return id;
@@ -31,27 +29,19 @@ public class ClassRoom extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public List<User> getTeachers() {
-        return teachers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setTeachers(List<User> teachers) {
-        this.teachers = teachers;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
-    public int getCourseId() {
+    public Course getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Course courseId) {
         this.courseId = courseId;
-    }
-
-    public List<User> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<User> students) {
-        this.students = students;
     }
 }

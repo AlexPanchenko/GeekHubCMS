@@ -7,9 +7,7 @@ import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.UsersCourses;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +37,25 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private TestConfigDao testConfigDao;
 
+    @Override
+    public List<User> getUserFromCourse(int id){
+        Course course = (Course) courseDao.read(id, Course.class);
+        List<UsersCourses> usersCourses = course.getUsersCourses();
+        List<User> allUsers = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
+        for(UsersCourses u: usersCourses)
+            allUsers.add(u.getUser());
+        List<TestAssignment> testAssignments = new ArrayList<TestAssignment>();
+        for(User user: allUsers) {
+            testAssignments = user.getTestAssignments();
+            for(TestAssignment t: testAssignments){
+                if(t.isPassed()){
+                    users.add(user);
+                }
+            }
+        }
+        return users;
+    }
 
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {

@@ -1,13 +1,8 @@
 package org.geekhub.controllers;
 
-import org.geekhub.hibernate.bean.CourseBean;
+import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.bean.Page;
-import org.geekhub.hibernate.bean.QuestionBean;
-import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Question;
-import org.geekhub.hibernate.entity.TestStatus;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.*;
 import org.geekhub.util.CommonUtil;
@@ -40,6 +35,9 @@ public class AdminController {
 
     @Autowired
     private TestConfigService testConfigService;
+
+    @Autowired
+    private ClassroomService classroomService;
 
     @Autowired
     private UserService userService;
@@ -460,7 +458,55 @@ public class AdminController {
         return "redirect:/admin/users/" + userid + "/edit";
     }
 
-    /*Pagination for classroom*/
+    /*classRoom controllers*/
+    @RequestMapping("/ajax/countUsers")
+    public @ResponseBody
+    Long usersCount() {
+        return userService.getUsersCount();
+    }
+
+    @RequestMapping("/ajax/usersShow")
+    public ModelAndView usersOnPage(@RequestParam int page){
+        ModelAndView mav=new ModelAndView("adminpanel/usersShow");
+        List<UserBean> users = userService.getUsersOnOnePage(page);
+        mav.addObject("users",users);
+        return mav;
+    }
+    @RequestMapping("/createClassrom")
+    public ModelAndView coursesDropDown(){
+        ModelAndView mav=new ModelAndView("adminpanel/createClassroom");
+        List<CourseBean> courses = courseService.getAllBeans();
+        List<UserBean> teachers = userService.getAllTeachers();
+        mav.addObject("courses",courses);
+        mav.addObject("teachers",teachers);
+        return mav;
+    }
+
+    @RequestMapping("/ajax/usersOnCourse")
+    public ModelAndView usersOnCourse(@RequestParam("course") int course){
+        ModelAndView mav=new ModelAndView("adminpanel/usersOnCourse");
+        List<User> users= courseService.getUserFromCourse(course);
+        mav.addObject("users", users);
+        return mav;
+    }
+
+    @RequestMapping("/ajax/createClassroom")
+    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
+                                      @RequestParam("CourseId") int courseId,
+                                      @RequestParam("TeacherId") int teacherId){
+        classroomService.createClassroom(usersId,courseId,teacherId);
+        return "redirect: admin/classRoomList ";
+    }
+
+    @RequestMapping("/adminpanel/classRoomList")
+    public String classroomList(@RequestParam("UsersId") Integer[] usersId,
+                                @RequestParam("CourseId") int courseId,
+                                @RequestParam("TeacherId") int teacherId){
+        classroomService.createClassroom(usersId,courseId,teacherId);
+        return "redirect: adminpanel/classRoomList ";
+    }
+
+/*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
                                @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,
@@ -469,7 +515,7 @@ public class AdminController {
 //        Page<Classroom> page =  courseService.getAll(p, recPerPage);
 //        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
-    }
+    }*/
 
 
 

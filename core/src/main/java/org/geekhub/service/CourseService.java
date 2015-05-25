@@ -4,6 +4,7 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface CourseService {
 
     Page<CourseBean> getAll(int page, int recordsPerPage);
+
+    public List<User> getUserFromCourse(int id);
 
     List<CourseBean> getAllBeans();
 

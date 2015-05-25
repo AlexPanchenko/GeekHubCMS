@@ -48,6 +48,44 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByEmail(email);
     }
 
+    @Override
+    public List<UserBean> getUsersOnOnePage(int page){
+        List<User> users = userDao.usersOnPage(page);
+        List<UserBean> userBeans = new ArrayList<UserBean>();
+        for(User u: users){
+            UserBean userBean = new UserBean();
+            userBean.setLastName(u.getLastName());
+            userBean.setFirstName(u.getFirstName());
+            userBean.setEmail(u.getEmail());
+            userBean.setPhoneNumber(u.getPhoneNumber());
+            userBean.setSkype(u.getSkype());
+            userBeans.add(userBean);
+        }
+        return userBeans;
+    }
+    public Long getUsersCount(){
+        return userDao.usersCount();
+    }
+
+    @Override
+    public List<UserBean> getAllTeachers() {
+        List<UserBean> allTeachers = new ArrayList<UserBean>();
+        List<User> users = userDao.readAllUsers();
+        for (User u : users) {
+            if (u.getRole().equals(Role.ROLE_TEACHER)) {
+                UserBean teacher = new UserBean();
+                teacher.setId(u.getId());
+                teacher.setLastName(u.getLastName());
+                teacher.setFirstName(u.getFirstName());
+                teacher.setEmail(u.getEmail());
+                teacher.setPhoneNumber(u.getPhoneNumber());
+                teacher.setSkype(u.getSkype());
+                allTeachers.add(teacher);
+            }
+        }
+        return allTeachers;
+    }
+
     /*Get user and set new feedback*/
     @Override
     public void setFeedback(int Id, String feedBack) {
