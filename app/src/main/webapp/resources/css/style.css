@@ -168,3 +168,9 @@ h1{
 .coursesRegisTable{
     margin: 100px;
 }
+
+.question{
+    font-size: 30px;
+    color: #444444;
+    font: 'Open Sans', Arial, Helvetica, Sans-Serif;
+}

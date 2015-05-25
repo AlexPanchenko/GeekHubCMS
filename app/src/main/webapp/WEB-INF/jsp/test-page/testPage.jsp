@@ -22,30 +22,39 @@
 </head>
 <body>
 <form>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-
-    </tr>
-    </thead>
-    <tbody>
     <c:forEach items="${questions}" var="question">
-      <tr>
-        <td style="background-color: lightblue">${question.questionText}<input type="hidden" id="${question.id}"  class="question" name="question${question.id}" value="${question.id}"></td>
-      </tr>
-      <tr>
+
+      <div class="question">
+        <pre>
+       ${question.questionText}
+        </pre>
+      </div>
       <c:forEach items="${question.answers}" var="answer">
-        <table>
-          <tr>
-            <td width="30"><input type="checkbox" class="answer" id="${answer.id}" checked name="answer${answer.id}"></td>
-            <td>${answer.answerText}</td>
-          </tr>
-        </table>
+              <c:choose>
+                <c:when test="${question.manyAnswers eq true}">
+                  <div class="col-sm-12">
+                    <div class="checkbox">
+                      <label style="font-size: 1.5em">
+                        <input type="checkbox">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
+                      </label>
+                    </div>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <div class="col-sm-12">
+                    <div class="radio">
+                      <label style="font-size: 1.5em">
+                        <input type="radio" name="${question.id}">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
+                      </label>
+                    </div>
+                  </div>
+                </c:otherwise>
+              </c:choose>
+
       </c:forEach>
-      </tr>
     </c:forEach>
-    </tbody>
-  </table>
   <input type="submit" value="Submit" >
 </form>
 <script src="/resources/js/testing.js" type="text/javascript"></script>
