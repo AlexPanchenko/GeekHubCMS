@@ -58,6 +58,9 @@ public class User extends BaseEntity implements Serializable {
     private String feedback;
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    List<TestAssignment> testAssignments = new ArrayList<>();
+
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -171,6 +174,15 @@ public class User extends BaseEntity implements Serializable {
 
     public void setUsersCourses(List<UsersCourses> usersCourses) {
         this.usersCourses = usersCourses;
+    }
+
+
+    public List<TestAssignment> getTestAssignments() {
+        return testAssignments;
+    }
+
+    public void setTestAssignments(List<TestAssignment> testAssignments) {
+        this.testAssignments = testAssignments;
     }
 
     public String getFeedback() {
