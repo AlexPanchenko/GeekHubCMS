@@ -5,6 +5,8 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.bean.TestInfo;
 import org.geekhub.hibernate.entity.TestStatusAssignment;
+import org.geekhub.hibernate.entity.TestAssignment;
+
 import org.geekhub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +54,10 @@ public class TestController {
                             ModelMap model) {
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigBeenEnable(courseId);
         model.addAttribute("courseId", courseId);
+        TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByTestConfigAdnUser(testConfigBeen.getId());
+        model.addAttribute("courseId",courseId);
         model.addAttribute("testConfig", testConfigBeen);
+        model.addAttribute("testAssignment", testAssignment);
         return "test-page/selectTest";
     }
 

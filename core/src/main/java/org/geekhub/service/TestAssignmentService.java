@@ -19,4 +19,5 @@ public interface TestAssignmentService {
     int create(TestAssignmentBean testAssignmentBean);
     void update(TestAssignmentBean testAssignmentBean);
     public void setStatus(TestConfig testConfig, TestStatusAssignment testStatusAssignment);
+    TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId);
 }

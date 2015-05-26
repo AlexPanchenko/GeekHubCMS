@@ -3,6 +3,11 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.entity.*;
+import org.geekhub.hibernate.dao.TestConfigDao;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.TestStatusAssignment;
+import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +27,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     private TestAssignmentDao testAssignmentDao;
 
     @Autowired
-    private UserService userService;
+    TestConfigDao testConfigDao;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId) {
@@ -62,9 +70,18 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     }
 
+
     @Override
-    public void setStatus(TestConfig testConfig, TestStatusAssignment testStatusAssignment){
+    public void setStatus(TestConfig testConfig, TestStatusAssignment testStatusAssignment) {
         TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, userService.getLogInUser());
         testAssignment.setTestStatusAssignment(testStatusAssignment);
+    }
+
+
+    public TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId) {
+        TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigId, TestConfig.class);
+
+        return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, userService.getLogInUser());
+
     }
 }
