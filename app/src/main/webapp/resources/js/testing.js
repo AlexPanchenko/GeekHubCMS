@@ -18,7 +18,7 @@
                 console.log(answers);
                 var tmp = [];
                 [].forEach.call(answers, function (itemAnswer, i, answers) {
-                    if ($(itemAnswer).attr('checked', true)) {
+                    if ($(itemAnswer).prop('checked')) {
                         tmp.push($(itemAnswer).attr('id'));
                     }
                 });
