@@ -2,7 +2,6 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
-import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
@@ -39,16 +38,17 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     @Override
     public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user) {
-        return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, user);
+        return testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user);
     }
 
     @Override
     public Object read(int testAssignmentId) {
-        return null;
+        return testAssignmentDao.read(testAssignmentId, TestAssignment.class);
     }
 
     @Override
     public void delete(int testAssignmentId) {
+        testAssignmentDao.delete(testAssignmentDao.read(testAssignmentId, TestAssignment.class));
 
     }
 
@@ -73,7 +73,7 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     @Override
     public void setStatus(TestConfig testConfig, TestStatusAssignment testStatusAssignment) {
-        TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, userService.getLogInUser());
+        TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, userService.getLogInUser());
         testAssignment.setTestStatusAssignment(testStatusAssignment);
     }
 
@@ -81,7 +81,7 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     public TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId) {
         TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigId, TestConfig.class);
 
-        return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, userService.getLogInUser());
+        return testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, userService.getLogInUser());
 
     }
 }

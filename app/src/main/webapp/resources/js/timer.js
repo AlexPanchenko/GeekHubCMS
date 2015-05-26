@@ -12,7 +12,6 @@ function startTimer() {
         if (m == 0) {
             if (h == 0) {
                 sendAnswers();
-                alert("Время вышло");
                 return;
             }
             h--;

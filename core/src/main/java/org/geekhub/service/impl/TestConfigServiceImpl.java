@@ -118,4 +118,14 @@ public class TestConfigServiceImpl implements TestConfigService {
         }
         return testConfigBeen;
     }
+
+    @Override
+    public TestConfigBeen getTestConfigBeensEnable(int courseId) {
+        return null;
+    }
+
+    @Override
+    public TestConfig getTestConfigByCource(Course course) {
+        return testConfigDao.getTestConfigByCourse(course);
+    }
 }

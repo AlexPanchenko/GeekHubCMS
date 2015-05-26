@@ -46,6 +46,7 @@ public class CoursesController {
     public ModelAndView deleteCourse(@PathVariable int courseId){
         ModelAndView model = new ModelAndView("redirect:/student/userProfile");
         courseService.unRegisterCourse(courseId);
+
         return model;
     }
 }
