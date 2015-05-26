@@ -1,0 +1,4 @@
+/**
+ * Created by helldes on 25.05.2015.
+ */
+ALTER TABLE QUESTIONS ADD QUESTION_CODE TEXT;

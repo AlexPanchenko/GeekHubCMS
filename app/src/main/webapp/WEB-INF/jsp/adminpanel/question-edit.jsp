@@ -66,6 +66,14 @@
                       </div>
                     </dd>
                     <dt>
+                      <label class="pull-left">Code text</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <textarea class="form-control" id="questionCode" name="questionCode" rows="4"></textarea>
+                      </div>
+                    </dd>
+                    <dt>
                       <label class="control-label pull-left" for="questionWeight">Weigth question</label>
                     </dt>
                     <dd>
@@ -111,6 +119,14 @@
                     <dd>
                       <div class="form-group">
                         <textarea class="form-control" id="questionText1" name="questionText" placeholder="Enter the question text" rows="4" required>${question.questionText}</textarea>
+                      </div>
+                    </dd>
+                    <dt>
+                      <label class="pull-left control-label">Code text</label>
+                    </dt>
+                    <dd>
+                      <div class="form-group">
+                        <textarea class="form-control" name="questionCode" rows="4" required>${question.questionCode}</textarea>
                       </div>
                     </dd>
                     <dt>

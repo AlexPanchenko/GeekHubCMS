@@ -14,7 +14,7 @@ $(document).ready(function () {
             this.questionId = $(item).attr('id');
             this.answerArray = [];
 
-            var answers = $('#this.questionId').find('.answer');
+            var answers = $('#'+this.questionId).find('.answer');
             console.log(answers);
 
             [].forEach.call(answers, function(itemAnswer, i, answers) {

@@ -7,56 +7,61 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-  <title>Test</title>
-  <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-  <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
-  <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-
+    <title>Test</title>
+    <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 align="center">Test     <small>Course name:${questions.get(0).course.name}</small></h1>
+            </div>
+        </div>
 <form>
     <c:forEach items="${questions}" var="question">
-
-      <div class="question">
-        <pre>
-       ${question.questionText}
-        </pre>
-      </div>
-      <c:forEach items="${question.answers}" var="answer">
-              <c:choose>
-                <c:when test="${question.manyAnswers eq true}">
-                  <div class="col-sm-12">
-                    <div class="checkbox">
-                      <label style="font-size: 1.5em">
-                        <input type="checkbox">
-                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
-                      </label>
-                    </div>
-                  </div>
-                </c:when>
-                <c:otherwise>
-                  <div class="col-sm-12">
-                    <div class="radio">
-                      <label style="font-size: 1.5em">
-                        <input type="radio" name="${question.id}">
-                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
-                      </label>
-                    </div>
-                  </div>
-                </c:otherwise>
-              </c:choose>
-
-      </c:forEach>
+        <div class="radius">
+            <div class="question">
+                    ${question.questionText}
+                <div class="questionCode">
+                    <pre><b>${question.questionCode}</b></pre>
+                </div>
+            </div>
+            <div class="answer" id="question${question.id}">
+                <c:forEach items="${question.answers}" var="answer">
+                    <c:choose>
+                        <c:when test="${question.manyAnswers eq true}">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="${answer.id}">
+                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
+                                    </label>
+                                </div>
+                        </c:when>
+                        <c:otherwise>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="${question.id}" id="${answer.id}">
+                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
+                                    </label>
+                                </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </div>
     </c:forEach>
-  <input type="submit" value="Submit" >
 </form>
+<input type="submit" value="Submit">
 <script src="/resources/js/testing.js" type="text/javascript"></script>
+</div>
 </body>
 </html>

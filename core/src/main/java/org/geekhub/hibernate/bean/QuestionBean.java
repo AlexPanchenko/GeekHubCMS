@@ -11,6 +11,7 @@ public class QuestionBean {
     private int id;
     private String questionText;
     private Byte questionWeight;
+    private String questionCode;
     private String questionTitle;
     private Boolean questionStatus;
     private Boolean myAnswer;
@@ -30,9 +31,10 @@ public class QuestionBean {
         this.course = course;
     }
 
-    public QuestionBean(int id, String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, int course) {
+    public QuestionBean(int id, String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, int course, String questionCode) {
         this.id = id;
         this.questionText = questionText;
+        this.questionCode = questionCode;
         this.questionWeight = questionWeight;
         this.questionStatus = questionStatus;
         this.myAnswer = myAnswer;
@@ -45,6 +47,14 @@ public class QuestionBean {
         this.questionWeight = questionWeight;
         this.myAnswer = myAnswer;
         this.course = course;
+    }
+
+    public String getQuestionCode() {
+        return questionCode;
+    }
+
+    public void setQuestionCode(String questionCode) {
+        this.questionCode = questionCode;
     }
 
     public int getId() {
