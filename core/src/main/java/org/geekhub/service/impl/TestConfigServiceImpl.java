@@ -13,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @Transactional
 public class TestConfigServiceImpl implements TestConfigService {
@@ -39,7 +36,8 @@ public class TestConfigServiceImpl implements TestConfigService {
                 testConfig.getQuestionCount(),
                 testConfig.getDateStart(),
                 testConfig.getDateFinish(),
-                testConfig.getTimeToTest(), testConfig.getStatus());
+                testConfig.getTimeToTest(),
+                testConfig.getStatus());
         return testConfigBeen;
     }
 
@@ -97,14 +95,14 @@ public class TestConfigServiceImpl implements TestConfigService {
 //        return
 //    }
 
-    public TestConfigBeen getTestConfigBeensEnable(int courseId) {
+    public TestConfigBeen getTestConfigBeenEnable(int courseId) {
         Course course = (Course) courseDao.read(courseId, Course.class);
         CourseBean courseBean = courseService.toBean(course);
         TestConfig testConfig = course.getTestConfig();
 
         TestConfigBeen testConfigBeen = new TestConfigBeen();
         if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
-                        new TestConfigBeen(testConfig.getId(),
+            testConfigBeen= new TestConfigBeen(testConfig.getId(),
                         testConfig.getTitle(),
                         testConfig.getQuestionCount(),
                         testConfig.getDateStart(),
@@ -112,7 +110,6 @@ public class TestConfigServiceImpl implements TestConfigService {
                         testConfig.getTimeToTest(),
                         testConfig.getStatus(),
                         courseBean);
-           // }
         }
         return testConfigBeen;
     }

@@ -49,9 +49,9 @@ public class TestController {
     @RequestMapping(value = "/course/{courseId}/selectTest", method = RequestMethod.GET)
     public String selectTest( @PathVariable("courseId") int courseId,
                             ModelMap model) {
-        TestConfigBeen listTestConfigBeen = testConfigService.getTestConfigBeensEnable(courseId);
-        testConfigService.getTestConfigBeensEnable(courseId);
-        model.addAttribute("testList", listTestConfigBeen);
+        TestConfigBeen testConfigBeen = testConfigService.getTestConfigBeenEnable(courseId);
+        model.addAttribute("courseId",courseId);
+        model.addAttribute("testConfig", testConfigBeen);
         return "test-page/selectTest";
     }
 
