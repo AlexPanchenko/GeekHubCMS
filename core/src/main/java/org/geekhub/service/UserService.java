@@ -20,4 +20,6 @@ public interface UserService  {
     Page<UserTestResultWrapper> getPageUserTestResultWrapperListByCourseName(String course, int p, int i);
 
     public List<Course> getAllCoursesByUser(User user);
+
+    public User getLogInUser();
 }
