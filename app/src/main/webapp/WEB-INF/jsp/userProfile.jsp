@@ -41,19 +41,19 @@
                 <th>Action</th>
                 </thead>
                 <c:forEach items="${coursesList}" var="courses">
-                        <c:forEach items="${courses.testConfigListBeens}" var="testConfig">
+                        <%--<c:forEach items="${courses.testConfigListBeens}" var="testConfig">--%>
                             <tbody>
                             <tr>
                             <td>${courses.name}</td>
-                            <td>${testConfig.tittle}</td>
-                            <td align="center">${testConfig.questionCount}</td>
-                            <td>${testConfig.dateStart}</td>
-                            <td>${testConfig.dateFinish}</td>
-                            <td align="center">${testConfig.timeToTest}</td>
-                            <td><span class="label label-success">${testConfig.status}</span></td>
+                            <td>${courses.testConfigBeen.tittle}</td>
+                            <td align="center">${courses.testConfigBeen.questionCount}</td>
+                            <td>${courses.testConfigBeen.dateStart}</td>
+                            <td>${courses.testConfigBeen.dateFinish}</td>
+                            <td align="center">${courses.testConfigBeen.timeToTest}</td>
+                            <td><span class="label label-success">${courses.testConfigBeen.status}</span></td>
                             <td><span class="label label-danger"><a href="/student/deleteCourse/${courses.id}">Unregister </a></span></td>
 
-                        </c:forEach>
+                        <%--</c:forEach>--%>
                     </tr>
                     </tbody>
                 </c:forEach>

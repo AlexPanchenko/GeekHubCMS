@@ -33,7 +33,7 @@ public class TestConfigServiceImpl implements TestConfigService {
         return toBeen(testConfig);
     }
 
-    private TestConfigBeen toBeen(TestConfig testConfig) {
+    public TestConfigBeen toBeen(TestConfig testConfig) {
         TestConfigBeen testConfigBeen = new TestConfigBeen(testConfig.getId(),
                 testConfig.getTitle(),
                 testConfig.getQuestionCount(),
@@ -43,21 +43,19 @@ public class TestConfigServiceImpl implements TestConfigService {
         return testConfigBeen;
     }
 
-    public List<TestConfigBeen> getTestConfigBeens(int courseId) {
+    public TestConfigBeen getTestConfigBeen(int courseId) {
         Course course = (Course) courseDao.read(courseId, Course.class);
         CourseBean courseBean = courseService.toBean(course);
-        List<TestConfig> testConfigList = course.getTestConfig();
-        List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
-        for (TestConfig testConfig : testConfigList) {
-            testConfigBeenList.add(new TestConfigBeen(testConfig.getTitle(),
+        TestConfig testConfig = course.getTestConfig();
+
+        TestConfigBeen testConfigBeen = (new TestConfigBeen(testConfig.getTitle(),
                     testConfig.getQuestionCount(),
                     testConfig.getDateStart(),
                     testConfig.getDateFinish(),
                     testConfig.getTimeToTest(),
                     testConfig.getStatus(),
                     courseBean));
-        }
-        return testConfigBeenList;
+        return testConfigBeen;
     }
 
     @Override
@@ -72,7 +70,7 @@ public class TestConfigServiceImpl implements TestConfigService {
         Course course = (Course)courseDao.read(testConfigBeen.getCourseBean().getId(),Course.class);
         testConfig.setCourse(course);
         testConfigDao.create(testConfig);
-        course.getTestConfig().add(testConfig);
+        //course.getTestConfig().add(testConfig);
         courseDao.update(course);
     }
 
@@ -94,23 +92,28 @@ public class TestConfigServiceImpl implements TestConfigService {
         testConfigDao.delete(testConfig);
     }
 
-    public List<TestConfigBeen> getTestConfigBeensEnable(int courseId) {
+//    public TestConfig getTestConfigByCourse (Course course){
+//
+//        return
+//    }
+
+    public TestConfigBeen getTestConfigBeensEnable(int courseId) {
         Course course = (Course) courseDao.read(courseId, Course.class);
         CourseBean courseBean = courseService.toBean(course);
-        List<TestConfig> testConfigList = course.getTestConfig();
-        List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
-        for (TestConfig testConfig : testConfigList) {
-            if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
-                testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
+        TestConfig testConfig = course.getTestConfig();
+
+        TestConfigBeen testConfigBeen = new TestConfigBeen();
+        if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
+                        new TestConfigBeen(testConfig.getId(),
                         testConfig.getTitle(),
                         testConfig.getQuestionCount(),
                         testConfig.getDateStart(),
                         testConfig.getDateFinish(),
                         testConfig.getTimeToTest(),
                         testConfig.getStatus(),
-                        courseBean));
-            }
+                        courseBean);
+           // }
         }
-        return testConfigBeenList;
+        return testConfigBeen;
     }
 }

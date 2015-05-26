@@ -1,14 +1,6 @@
 package org.geekhub.hibernate.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -32,7 +24,7 @@ public class  TestConfig extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "TC_STATUS")
     private TestStatus status;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "TC_COURSE_ID")
     private Course course;
 

@@ -34,9 +34,31 @@ public class TestAssignment extends BaseEntity implements Serializable {
     @Column(name = "TA_PASSED")
     private boolean passed;
 
+    @Column(name = "TA_DATE_START")
+    private Date dateStart;
+
+    @Column(name = "TA_DATE_FINISH")
+    private Date dateFinish;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
     private TestStatusAssignment testStatusAssignment;
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateFinish() {
+        return dateFinish;
+    }
+
+    public void setDateFinish(Date dateFinish) {
+        this.dateFinish = dateFinish;
+    }
 
     public List<UserResults> getUserResults() {
         return userResults;

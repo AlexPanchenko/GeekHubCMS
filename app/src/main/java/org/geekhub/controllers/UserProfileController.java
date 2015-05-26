@@ -25,7 +25,7 @@ public class UserProfileController {
     @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
     public ModelAndView showUserOfCourses() {
         ModelAndView model = new ModelAndView("userProfile");
-        List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
+            List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
         model.addObject("coursesList", courseBeanList);
         return model;
     }
