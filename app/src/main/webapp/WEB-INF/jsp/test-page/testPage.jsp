@@ -13,7 +13,6 @@
     <title>Test</title>
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -27,9 +26,10 @@
             </div>
         </div>
 <form>
+    <input type="hidden" class="testId" id="${testId}">
     <c:forEach items="${questions}" var="question">
         <div class="radius">
-            <div class="question">
+            <div class="question" id="${question.id}">
                     ${question.questionText}
                 <div class="questionCode">
                     <pre><b>${question.questionCode}</b></pre>
@@ -41,7 +41,7 @@
                         <c:when test="${question.manyAnswers eq true}">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="${answer.id}">
+                                        <input type="checkbox" id="${answer.id}" class="answer">
                                         <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
                                     </label>
                                 </div>
@@ -49,7 +49,7 @@
                         <c:otherwise>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="${question.id}" id="${answer.id}">
+                                        <input type="radio" name="${question.id}" id="${answer.id}" class="answer">
                                         <span class="cr"><i class="cr-icon fa fa-check"></i></span>${answer.answerText}
                                     </label>
                                 </div>
@@ -60,7 +60,7 @@
         </div>
     </c:forEach>
 </form>
-<input type="submit" value="Submit">
+<button class="btn btn-primary js-submit" onclick="sendAnswers()">Submit</button>
 <script src="/resources/js/testing.js" type="text/javascript"></script>
 </div>
 </body>
