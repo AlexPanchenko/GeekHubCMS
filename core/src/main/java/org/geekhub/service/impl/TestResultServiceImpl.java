@@ -7,11 +7,13 @@ import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by admin on 26.05.2015.
  */
 @Service
+@Transactional
 public class TestResultServiceImpl implements TestResultService {
 
     @Autowired
@@ -25,9 +27,6 @@ public class TestResultServiceImpl implements TestResultService {
 
     @Autowired
     private QuestionService questionService;
-
-    @Autowired
-    private UserAnswersService userAnswersService;
 
     @Autowired
     private AnswerDao answerDao;

@@ -3,15 +3,18 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.dao.AnswerDao;
 import org.geekhub.hibernate.dao.UserAnswersDao;
 import org.geekhub.hibernate.dao.UserResultsDao;
-import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.UserAnswers;
 import org.geekhub.hibernate.entity.UserResults;
 import org.geekhub.service.UserAnswersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by user on 20.05.2015.
  */
+@Service
+@Transactional
 public class UserAnswersServiceImpl implements UserAnswersService {
 
     @Autowired

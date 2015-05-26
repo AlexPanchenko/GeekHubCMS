@@ -7,6 +7,7 @@ import org.geekhub.hibernate.bean.TestInfo;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.GeneratorRandomQuestions;
 import org.geekhub.service.TestConfigService;
+import org.geekhub.service.TestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +30,9 @@ public class TestController {
 
     @Autowired
     private TestConfigService testConfigService;
+
+    @Autowired
+    private TestResultService testResultService;
 
     @RequestMapping(value = "/selectCourse", method = RequestMethod.GET)
     public String selectCourse(ModelMap model) {
@@ -73,11 +77,15 @@ public class TestController {
                              @RequestBody String jsonStr) {
         System.out.println(jsonStr);
         Gson gson = new Gson();
-        TestInfo[] w = gson.fromJson(jsonStr, TestInfo[].class);
-        System.out.println(w);
-        //TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testId);
-        //model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
+        TestInfo[] results = gson.fromJson(jsonStr, TestInfo[].class);
+        System.out.println(results);
+        testResultService.parseResult(results, testId);
 
         return "test-page/testPage";
+    }
+
+    @RequestMapping(value = "/endOfTest", method = RequestMethod.POST)
+    public String endOfTest() {
+        return "test-page/endOfTest";
     }
 }

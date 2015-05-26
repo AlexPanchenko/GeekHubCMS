@@ -34,6 +34,8 @@
             type: 'POST',
             contentType: 'application/json',
             data: wrapperArray
+        }).done(function(){
+            window.location = "/student/testing/endOfTest"
         })
     }
 
