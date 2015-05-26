@@ -30,16 +30,17 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     @Override
     public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user) {
-        return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, user);
+        return testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user);
     }
 
     @Override
     public Object read(int testAssignmentId) {
-        return null;
+        return testAssignmentDao.read(testAssignmentId, TestAssignment.class);
     }
 
     @Override
     public void delete(int testAssignmentId) {
+        testAssignmentDao.delete(testAssignmentDao.read(testAssignmentId, TestAssignment.class));
 
     }
 

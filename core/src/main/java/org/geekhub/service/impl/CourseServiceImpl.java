@@ -8,10 +8,12 @@ import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +44,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private TestConfigService testConfigService;
+
+    @Autowired
+    private TestAssignmentService testAssignmentService;
 
 
     @Override
@@ -167,6 +172,9 @@ public class CourseServiceImpl implements CourseService {
         for (UsersCourses usersCourses : usersCoursesList) {
             if(usersCourses.getUser().equals(user) && usersCourses.getCourse().equals(course)) {
                 usersCoursesDao.delete(usersCourses);
+                TestConfig testConfig= testConfigService.getTestConfigByCource(course);
+                TestAssignment testAssignment = testAssignmentService.getTestAssignmentByTestConfigAdnUser(testConfig, user);
+                testAssignmentService.delete(testAssignment.getId());
             }
         }
 

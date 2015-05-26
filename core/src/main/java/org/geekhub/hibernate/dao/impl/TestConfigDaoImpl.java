@@ -13,4 +13,13 @@ import java.util.List;
 
 @Repository
 public class TestConfigDaoImpl extends BaseDaoImpl implements TestConfigDao {
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Override
+    public TestConfig getTestConfigByCourse(Course course) {
+
+        return (TestConfig)sessionFactory.getCurrentSession().createCriteria(TestConfig.class).add(Restrictions.eq("course", course)).uniqueResult();
+
+    }
 }
