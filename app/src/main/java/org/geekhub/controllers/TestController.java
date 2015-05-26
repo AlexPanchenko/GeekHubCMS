@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.bean.TestInfo;
-import org.geekhub.service.CourseService;
-import org.geekhub.service.GeneratorRandomQuestions;
-import org.geekhub.service.TestConfigService;
-import org.geekhub.service.TestResultService;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,6 +32,9 @@ public class TestController {
     @Autowired
     private TestResultService testResultService;
 
+    @Autowired
+    private TestAssignmentService testAssignmentService;
+
     @RequestMapping(value = "/selectCourse", method = RequestMethod.GET)
     public String selectCourse(ModelMap model) {
         List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
@@ -50,8 +51,10 @@ public class TestController {
     public String selectTest( @PathVariable("courseId") int courseId,
                             ModelMap model) {
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigBeenEnable(courseId);
+        TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByTestConfigAdnUser(testConfigBeen.getId());
         model.addAttribute("courseId",courseId);
         model.addAttribute("testConfig", testConfigBeen);
+        model.addAttribute("testAssignment", testAssignment);
         return "test-page/selectTest";
     }
 

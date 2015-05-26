@@ -17,4 +17,6 @@ public interface TestAssignmentService {
     void delete(int testAssignmentId);
     int create(TestAssignmentBean testAssignmentBean);
     void update(TestAssignmentBean testAssignmentBean);
+
+    TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId);
 }

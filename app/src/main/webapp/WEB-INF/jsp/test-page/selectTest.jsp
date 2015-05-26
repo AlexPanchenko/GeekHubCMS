@@ -42,6 +42,7 @@
           <th>Start Date</th>
           <th>Finish Date</th>
           <th>Count question</th>
+          <th>Status</th>
           <th>Select</th>
 
         </tr>
@@ -49,11 +50,12 @@
         <tbody>
 
           <tr>
-            <td width="300">${testConfig.id}</td>
+            <td>${testAssignment.id}</td>
             <td>${testConfig.tittle}</td>
-            <td>${testConfig.dateStart}</td>
-            <td>${testConfig.dateFinish}</td>
+            <td>${testAssignment.dateStart}</td>
+            <td>${testAssignment.dateFinish}</td>
             <td>${testConfig.questionCount}</td>
+            <td>${testAssignment.testStatusAssignment}</td>
             <td width="50">
               <div class="col-sm-12">
                 <div class="radio">
