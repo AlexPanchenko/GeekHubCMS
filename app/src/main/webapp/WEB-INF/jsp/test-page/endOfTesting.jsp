@@ -9,10 +9,15 @@
 <html>
 <head>
     <title>End</title>
+    <jsp:include page="../adminpanel/source.jsp"></jsp:include>
 </head>
 <body>
+<div class="endTesting">
+    <h1 class="text">Test completed</h1>
 
-<h1>Test completed</h1>
-<h2>Wait result</h2>
+    <h2 class="text">Wait result</h2>
+
+    <p class="text"><a href="/index">Index page</a></p>
+</div>
 </body>
 </html>

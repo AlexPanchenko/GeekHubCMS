@@ -7,6 +7,7 @@ import org.geekhub.hibernate.entity.TestConfig;
 public interface TestConfigService {
 
     public TestConfigBeen getTestConfigById (int testConfigId);
+    public TestConfig getTestConfigByID(int testConfigId);
     public TestConfigBeen getTestConfigBeen (int courseId);
     public void createTestConfig (TestConfigBeen testConfigBeen);
     public void update (TestConfigBeen testConfigBeen);

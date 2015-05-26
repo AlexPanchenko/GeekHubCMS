@@ -30,6 +30,11 @@ public class TestConfigServiceImpl implements TestConfigService {
         return toBeen(testConfig);
     }
 
+    @Override
+    public TestConfig getTestConfigByID(int testConfigId) {
+        return (TestConfig) testConfigDao.read(testConfigId, TestConfig.class);
+    }
+
     public TestConfigBeen toBeen(TestConfig testConfig) {
         TestConfigBeen testConfigBeen = new TestConfigBeen(testConfig.getId(),
                 testConfig.getTitle(),

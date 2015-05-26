@@ -3,6 +3,7 @@ package org.geekhub.service;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.TestStatusAssignment;
 import org.geekhub.hibernate.entity.User;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface TestAssignmentService {
     void delete(int testAssignmentId);
     int create(TestAssignmentBean testAssignmentBean);
     void update(TestAssignmentBean testAssignmentBean);
+    public void setStatus(TestConfig testConfig, TestStatusAssignment testStatusAssignment);
 }

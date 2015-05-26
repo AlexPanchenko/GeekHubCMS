@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>AdminPanel</title>
 
     <jsp:include page="source.jsp"></jsp:include>
@@ -40,7 +39,7 @@
                 </div>
             </div>
             <h1>${fn:toUpperCase(courseName)}</h1>
-            <table class="table table-striped table-condensed">
+            <table class="table table-striped table-condensed table-bordered">
                 <thead>
                 <tr>
                     <th>First Name</th>

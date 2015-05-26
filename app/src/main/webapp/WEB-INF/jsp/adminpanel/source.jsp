@@ -10,4 +10,4 @@
 <script src="<c:url value='/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
-<script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
+<script language="JavaScript" src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>

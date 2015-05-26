@@ -46,6 +46,7 @@ public class TestResultServiceImpl implements TestResultService {
         User user = userService.getLogInUser();
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentByTestConfigAdnUser((TestConfig) testConfigDao.read(testConfigId, TestConfig.class), user);
         testAssignment.setDatePassed(new Date());
+        testAssignment.setTestStatusAssignment(TestStatusAssignment.PASSED);
         for(TestInfo testInfo: testInfos){
             UserResults userResults = new UserResults();
             userResults.setQuestion((Question) questionService.read(testInfo.getQuestionId()));

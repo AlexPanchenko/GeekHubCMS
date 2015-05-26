@@ -16,3 +16,14 @@
     padding: 30px;
     padding-right: 300px;
 }
+
+.coursesAdminResult{
+    background-color: #d5d5d5;
+}
+
+.endTesting{
+    align-content: center;
+}
+.text{
+    text-align: center;
+}
