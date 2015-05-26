@@ -4,7 +4,6 @@
 
 //setTimeout(sendAnswers(),3000);
     function sendAnswers() {
-        alert("GGG");
         var questions = [];
         questions = $('.question');
 
@@ -39,5 +38,4 @@
     }
 
 $(document).ready(function () {
-    setTimeout(function(){sendAnswers()},7000);
 });

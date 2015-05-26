@@ -17,20 +17,23 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/resources/js/timer.js" type="text/javascript"></script>
 </head>
-<body>
+<body onload="startTimer()">
 <div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h1 align="center">Test     <small>Course name:${questions.get(0).course.name}</small></h1>
             </div>
+            <p><span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:00:15</span></p>
         </div>
 <form>
+    <c:set var="count" value="0" scope="page" />
     <input type="hidden" class="testId" id="${testId}">
     <c:forEach items="${questions}" var="question">
         <div class="radius">
             <div class="question" id="${question.id}">
-                    ${question.questionText}
+                    №<c:set var="count" value="${count + 1}" scope="page"/><span>${count}</span>  ${question.questionText}
                 <div class="questionCode">
                     <pre><b>${question.questionCode}</b></pre>
                 </div>
