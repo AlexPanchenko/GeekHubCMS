@@ -4,8 +4,6 @@ package org.geekhub.service;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.TestConfig;
 
-import java.util.List;
-
 public interface TestConfigService {
 
     public TestConfigBeen getTestConfigById (int testConfigId);
@@ -14,5 +12,5 @@ public interface TestConfigService {
     public void update (TestConfigBeen testConfigBeen);
     public void delete (TestConfigBeen testConfigBeen);
     public TestConfigBeen toBeen(TestConfig testConfig);
-    public TestConfigBeen getTestConfigBeensEnable (int courseId);
+    public TestConfigBeen getTestConfigBeenEnable (int courseId);
 }
