@@ -35,8 +35,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
-                                <a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"
-                                                                  title="Create new test config"></i></a>
+                                <%--<a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"--%>
+                                                                  <%--title="Create new test config"></i></a>--%>
                                 <b>Test config manage</b></h1>
                             <table class="table">
                                 <thead class="alert alert-success">
@@ -52,26 +52,42 @@
                                 </tr>
                                 </thead>
 
+                                <tr>
+                                <td>${course.testConfigBeen.id}</td>
+                                <td>${course.testConfigBeen.tittle}</td>
+                                <td>${course.testConfigBeen.questionCount}</td>
+                                <td>${course.testConfigBeen.dateStart}</td>
+                                <td>${course.testConfigBeen.dateFinish}</td>
+                                <td>${course.testConfigBeen.timeToTest}</td>
+                                <td>${course.testConfigBeen.status}</td>
 
-                                <c:forEach items="${course.testConfigListBeens}" var="testConfig">
+                                <td class="text-center">
+                                <a href="/admin/testConfig/${course.id}/${course.testConfigBeen.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                <%--<a href="/admin/testConfig/${course.id}/${course.testConfigBeen.id}/delete"> <i class="fa fa-times"></i></a>--%>
+                                </td>
+
+                                </tr>
 
 
-                                    <tr>
-                                        <td>${testConfig.id}</td>
-                                        <td>${testConfig.tittle}</td>
-                                        <td>${testConfig.questionCount}</td>
-                                        <td>${testConfig.dateStart}</td>
-                                        <td>${testConfig.dateFinish}</td>
-                                        <td>${testConfig.timeToTest}</td>
-                                        <td>${testConfig.status}</td>
+                                <%--<c:forEach items="${course.testConfigListBeens}" var="testConfig">--%>
 
-                                        <td class="text-center">
-                                            <a href="/admin//testConfig/${course.id}/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="/admin/testConfig/${course.id}/${testConfig.id}/delete"> <i class="fa fa-times"></i></a>
-                                        </td>
 
-                                    </tr>
-                                </c:forEach>
+                                    <%--<tr>--%>
+                                        <%--<td>${testConfig.id}</td>--%>
+                                        <%--<td>${testConfig.tittle}</td>--%>
+                                        <%--<td>${testConfig.questionCount}</td>--%>
+                                        <%--<td>${testConfig.dateStart}</td>--%>
+                                        <%--<td>${testConfig.dateFinish}</td>--%>
+                                        <%--<td>${testConfig.timeToTest}</td>--%>
+                                        <%--<td>${testConfig.status}</td>--%>
+
+                                        <%--<td class="text-center">--%>
+                                            <%--<a href="/admin//testConfig/${course.id}/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>--%>
+                                            <%--<a href="/admin/testConfig/${course.id}/${testConfig.id}/delete"> <i class="fa fa-times"></i></a>--%>
+                                        <%--</td>--%>
+
+                                    <%--</tr>--%>
+                                <%--</c:forEach>--%>
                             </table>
                             <!-- Pagination -->
 

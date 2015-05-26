@@ -13,4 +13,5 @@ import java.util.List;
 public interface TestAssignmentDao extends BaseDao {
     List<TestAssignment> getTestAssignmentByUserAndCourse(Course course, User user);
     TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user);
+
 }

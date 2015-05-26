@@ -4,6 +4,7 @@ import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.TestStatusAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.service.TestAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,33 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     @Override
     public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user) {
         return testAssignmentDao.getTestAssignmentByTestConfigAdnUser(testConfig, user);
+    }
+
+    @Override
+    public Object read(int testAssignmentId) {
+        return null;
+    }
+
+    @Override
+    public void delete(int testAssignmentId) {
+
+    }
+
+    @Override
+    public int create(TestAssignmentBean testAssignmentBean) {
+        TestAssignment testAssignment = new TestAssignment();
+        testAssignment.setUser(testAssignmentBean.getUser());
+        testAssignment.setTestConfig(testAssignmentBean.getTestConfig());
+        testAssignment.setPassed(false);
+        testAssignment.setDateStart(testAssignmentBean.getTestStart());
+        testAssignment.setDateFinish(testAssignmentBean.getTestFinish());
+        testAssignment.setTestStatusAssignment(TestStatusAssignment.NOT_YET_PASSING);
+        testAssignmentDao.create(testAssignment);
+        return testAssignment.getId();
+    }
+
+    @Override
+    public void update(TestAssignmentBean testAssignmentBean) {
+
     }
 }

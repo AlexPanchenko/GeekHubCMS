@@ -17,9 +17,10 @@ public class TestAssignmentBean {
     private User user;
     private TestConfig testConfig;
     private List<UserResults> userResults = new ArrayList<>();
-    private Date dueDate;
+    private Date datePassed;
     private Date testStart;
     private Date testFinish;
+    private int countTrueAnswers;
     private boolean passed;
     private TestStatusAssignment testStatusAssignment;
 
@@ -31,11 +32,19 @@ public class TestAssignmentBean {
         this.user = user;
         this.testConfig = testConfig;
         this.userResults = userResults;
-        this.dueDate = dueDate;
+        this.datePassed = dueDate;
         this.testStart = testStart;
         this.testFinish = testFinish;
         this.passed = passed;
         this.testStatusAssignment = testStatusAssignment;
+    }
+
+    public int getCountTrueAnswers() {
+        return countTrueAnswers;
+    }
+
+    public void setCountTrueAnswers(int countTrueAnswers) {
+        this.countTrueAnswers = countTrueAnswers;
     }
 
     public int getId() {
@@ -70,8 +79,12 @@ public class TestAssignmentBean {
         this.userResults = userResults;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getDatePassed() {
+        return datePassed;
+    }
+
+    public void setDatePassed(Date datePassed) {
+        this.datePassed = datePassed;
     }
 
     public void setDueDate(Date dueDate) {
