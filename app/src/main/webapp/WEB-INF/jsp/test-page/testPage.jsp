@@ -25,7 +25,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <h1 align="center">Test     <small>Course name:${questions.get(0).course.name}</small></h1>
             </div>
-            <p><span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:00:03</span></p>
+            <p><span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:00:15</span></p>
         </div>
 <form>
     <c:set var="count" value="0" scope="page" />

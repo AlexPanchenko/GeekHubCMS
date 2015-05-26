@@ -75,17 +75,15 @@ public class TestController {
     public String completeTest(
                              @PathVariable("testId") int testId,
                              @RequestBody String jsonStr) {
-        System.out.println(jsonStr);
         Gson gson = new Gson();
         TestInfo[] results = gson.fromJson(jsonStr, TestInfo[].class);
-        System.out.println(results);
         testResultService.parseResult(results, testId);
 
         return "test-page/testPage";
     }
 
-    @RequestMapping(value = "/endOfTest", method = RequestMethod.POST)
+    @RequestMapping(value = "/endOfTest", method = RequestMethod.GET)
     public String endOfTest() {
-        return "test-page/endOfTest";
+        return "test-page/endOfTesting";
     }
 }

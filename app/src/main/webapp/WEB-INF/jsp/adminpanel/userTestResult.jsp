@@ -63,7 +63,7 @@
                         <td>${wrap.course.name}</td>
                         <td>${wrap.testConfig.title}</td>
                         <td><fmt:formatDate type="both"
-                                            value="${wrap.testAssignmnt.datePassed}" /></td>
+                                            value="${wrap.testAssignment.datePassed}" /></td>
                         <td>${(wrap.testAssignment.countTrueAnswers / wrap.testConfig.questionCount)*100}%</td>
                         <td><span class="label label-success">Accepted</span></td>
                     </tr>
