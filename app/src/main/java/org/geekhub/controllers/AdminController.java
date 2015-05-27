@@ -138,18 +138,15 @@ public class AdminController {
                               @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,
                               ModelMap modelMap) {
 
-        Page<CourseBean> page = courseService.getAll(p, recPerPage);
-        //List<CourseBean> courseBeanList = courseService.getAllBeans();
-        modelMap.addAttribute("page", page);
-        //modelMap.addAttribute("page", courseBeanList);
+        List<Course> coursesList = courseService.getAllCourses();
+        modelMap.addAttribute("courses", coursesList);
         return "adminpanel/courses";
     }
 
     @RequestMapping(value = "/course/create", method = RequestMethod.GET)
     public ModelAndView createPage() throws CourseNotFoundException {
         ModelAndView model = new ModelAndView("adminpanel/course-create");
-        model.addObject("enumStatus", TestStatus.values());
-        model.addObject("course", new Course());
+      //  model.addObject("enumStatus", TestStatus.values());
         return model;
     }
 
@@ -177,39 +174,18 @@ public class AdminController {
 
         CourseBean courseBean = new CourseBean(courseId, name, description);
         courseService.update(courseBean);
-        return "redirect:/admin/course/" + courseId + "/edit";
+//        return "redirect:/admin/course/" + courseId + "/edit";
+        return "redirect:/admin/course/list";
+
     }
 
     @RequestMapping(value = "/course", method = RequestMethod.POST)
     public String createCourse(@RequestParam("name") String name,
-                               @RequestParam("description") String description,
-                               @RequestParam("title") String title,
-                               @RequestParam("questionCount") int questionCount,
-                               @RequestParam("dateStart") String dateStart,
-                               @RequestParam("dateFinish") String dateFinish,
-                               @RequestParam("timeToTest") int timeToTest,
-                                   @RequestParam("status") TestStatus status) throws Exception {
-
-
-        try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = new Date();
-            if (!startDate.equals("")) {
-                startDate = dt.parse(dateStart);
-            }
-            Date finishDate = new Date();
-            if (!finishDate.equals("")) {
-                finishDate = dt.parse(dateFinish);
-            }
-
+                               @RequestParam("description") String description
+                            ) throws Exception {
             CourseBean courseBean = new CourseBean(name, description);
-            TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
-            //courseBean.getTestConfigListBeens().add(testConfigBeen);
-            courseBean.getTestConfigBeen();
-            courseService.create(courseBean, testConfigBeen);
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
+            courseService.createCourse(courseBean);
+
         return "redirect:/admin/course/list";
     }
 
@@ -545,7 +521,7 @@ public class AdminController {
 
     @RequestMapping(value = "/testType/create", method = RequestMethod.GET)
     public String testTypeCreate(ModelMap model){
-        model.put("courseList", courseService.getAll());
+        model.put("courseList", courseService. getAllCourses());
         return "adminpanel/testTypeCreate";
     }
 

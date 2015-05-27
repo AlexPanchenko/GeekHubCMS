@@ -110,20 +110,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseBean toBean(Course course) {
 
-        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(),
-                testConfigService.toBeen(course.getTestConfig()));
-                //testConfigService.getTestConfigBeen(course.getId()));
+        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription());
 
-//        for (TestConfig testConfig : testConfigList) {
-//            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
-//                    testConfig.getTitle(),
-//                    testConfig.getQuestionCount(),
-//                    testConfig.getDateStart(),
-//                    testConfig.getDateFinish(),
-//                    testConfig.getTimeToTest(),
-//                    testConfig.getStatus(),
-//                    courseBean));
-//        }
         return courseBean;
     }
 
@@ -215,7 +203,16 @@ public class CourseServiceImpl implements CourseService {
         return courseBeanList;
     }
 
-    public List<Course> getAll(){
+    @Override
+    public void createCourse(CourseBean courseBean) {
+        Course course = new Course();
+        course.setName(courseBean.getName());
+        course.setDescription(courseBean.getDescription());
+        courseDao.create(course);
+    }
+
+    @Override
+    public List<Course> getAllCourses() {
         return courseDao.getAll();
     }
 }
