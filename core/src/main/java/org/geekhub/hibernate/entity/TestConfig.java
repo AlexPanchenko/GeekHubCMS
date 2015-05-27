@@ -28,6 +28,19 @@ public class  TestConfig extends BaseEntity {
     @JoinColumn(name = "TC_COURSE_ID")
     private Course course;
 
+    @ManyToOne
+    @JoinColumn(name = "TEST_TYPE_ID")
+    private TestType testType;
+
+
+    public TestType getTestType() {
+        return testType;
+    }
+
+    public void setTestType(TestType testType) {
+        this.testType = testType;
+    }
+
     public int getId() {
         return id;
     }
