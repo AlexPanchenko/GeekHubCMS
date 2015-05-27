@@ -28,6 +28,9 @@
                 <li>
                     <a href="/admin/userTestResult">User test result</a>
                 </li>
+                <li>
+                    <a href="/admin/testType">Test type</a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

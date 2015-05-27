@@ -214,5 +214,9 @@ public class CourseServiceImpl implements CourseService {
         }
         return courseBeanList;
     }
+
+    public List<Course> getAll(){
+        return courseDao.getAll();
+    }
 }
 

@@ -34,4 +34,6 @@ public interface CourseService {
 
     public void unRegisterCourse (int id);
 
+    public List<Course> getAll();
+
 }

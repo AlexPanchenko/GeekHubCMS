@@ -45,6 +45,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TestTypeService testTypeService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "adminpanel/index";
@@ -533,6 +536,27 @@ public class AdminController {
         classroomService.removeClassroomById(classroomId);
         return "adminpanel/classRoom";
     }
+
+    @RequestMapping(value = "/testType", method = RequestMethod.GET)
+    public String testType(ModelMap model){
+        model.put("testTypeList", testTypeService.getList());
+        return "adminpanel/testType";
+    }
+
+    @RequestMapping(value = "/testType/create", method = RequestMethod.GET)
+    public String testTypeCreate(ModelMap model){
+        model.put("courseList", courseService.getAll());
+        return "adminpanel/testTypeCreate";
+    }
+
+    @RequestMapping(value = "/testType/create", method = RequestMethod.POST)
+    public String testTypeCreateAction(ModelMap model,
+                                       @RequestParam("name") String name,
+                                       @RequestParam("courseId") int courseId){
+        return "redirect:/admin/testType";
+    }
+
+
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
