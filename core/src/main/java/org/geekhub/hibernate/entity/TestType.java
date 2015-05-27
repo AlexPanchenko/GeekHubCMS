@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "TEST_TYPE")
-public class TestType {
+public class TestType extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -24,6 +24,10 @@ public class TestType {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "testType")
     List<Question> questionList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
 
     public int getId() {
         return id;
@@ -55,5 +59,13 @@ public class TestType {
 
     public void setQuestionList(List<Question> questionList) {
         this.questionList = questionList;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

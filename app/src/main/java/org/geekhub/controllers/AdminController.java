@@ -529,6 +529,7 @@ public class AdminController {
     public String testTypeCreateAction(ModelMap model,
                                        @RequestParam("name") String name,
                                        @RequestParam("courseId") int courseId){
+        testTypeService.create(name, courseId);
         return "redirect:/admin/testType";
     }
 

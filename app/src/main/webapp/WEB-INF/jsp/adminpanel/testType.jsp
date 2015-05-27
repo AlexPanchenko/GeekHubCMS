@@ -27,21 +27,21 @@
                     <a href="/admin/testType/create"><i class="glyphicon glyphicon-pencil pull-left"
                                                         title="Create new course"></i></a>
                     <b>Test type manage</b></h1>
-                <table class="table">
+                <table class="table text-black">
                     <thead class="alert alert-success">
                     <tr>
-                        <th> ID</th>
-                        <th> Name</th>
-                        <th> Course</th>
+                        <th class="text-center"> ID</th>
+                        <th class="text-center"> Name</th>
+                        <th class="text-center"> Course</th>
                         <th class="text-center"> Action</th>
                     </tr>
                     </thead>
 
                     <c:forEach items="${testTypeList}" var="testType">
                         <tr>
-                            <td>${testType.id}</td>
-                            <td>${testType.name}</td>
-                            <td>${testType.course.name}</td>
+                            <td class="text-center">${testType.id}</td>
+                            <td class="text-center">${testType.name}</td>
+                            <td class="text-center">${testType.course.name}</td>
                             <td class="text-center">
                                 <a href="/admin/testType/${testType.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                                 <a href="/admin/testType-remove/${testType.id}"> <i class="fa fa-times"></i></a>

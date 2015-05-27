@@ -1,6 +1,8 @@
 package org.geekhub.service.impl;
 
+import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestTypeDao;
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestType;
 import org.geekhub.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,20 @@ public class TestTypeServiceImpl implements TestTypeService {
     @Autowired
     private TestTypeDao testTypeDao;
 
+    @Autowired
+    private CourseDao courseDao;
+
 
     @Override
     public List<TestType> getList() {
         return testTypeDao.getList();
+    }
+
+    @Override
+    public void create(String name, int courseId) {
+        TestType testType = new TestType();
+        testType.setName(name);
+        testType.setCourse((Course) courseDao.read(courseId, Course.class));
+        testTypeDao.create(testType);
     }
 }
