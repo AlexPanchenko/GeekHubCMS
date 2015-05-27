@@ -44,6 +44,7 @@
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
@@ -51,16 +52,27 @@
                         <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
                         <!-- /////////////////////////////////////////////////////////-->
 
-                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
-                            <option id="0">All Courses</option>
-                            <c:forEach items="${courses}" var="course">
-                                <option id=${course.id} >${course.name}</option>
-                            </c:forEach>
-                        </select>
-
+                        <%--<select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">--%>
+                            <%--<option id="0">All Courses</option>--%>
+                            <%--<c:forEach items="${courses}" var="course">--%>
+                                <%--<option id=${course.id} >${course.name}</option>--%>
+                            <%--</c:forEach>--%>
+                        <%--</select>--%>
+                        <div>
+                            <button class="courses btn">Change course</button>
+                            <div class="js-slide">
+                                <ul>
+                                    <c:forEach items="${courses}" var="course">
+                                        <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
                         <!-- /////////////////////////////////////////////////////////-->
 
                         <b>Questions manage</b></h1>
+
+
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
