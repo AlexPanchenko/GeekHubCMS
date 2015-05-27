@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface TestTypeService {
     public List<TestType> getList();
+    public void create(String name, int courseId);
 }

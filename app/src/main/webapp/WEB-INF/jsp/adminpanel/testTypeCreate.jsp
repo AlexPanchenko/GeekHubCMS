@@ -35,7 +35,7 @@
                     </dt>
                     <dd>
                         <div class="form-group">
-                            <input type="text" id="name" name="name">
+                            <input type="text" id="name" name="name" required>
                         </div>
                     </dd>
                     <dt>
