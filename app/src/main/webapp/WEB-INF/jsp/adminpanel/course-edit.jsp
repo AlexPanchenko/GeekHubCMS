@@ -60,8 +60,8 @@
                                         <td>${testConfig.id}</td>
                                         <td>${testConfig.tittle}</td>
                                         <td>${testConfig.questionCount}</td>
-                                        <td>${testConfig.dateStart}</td>
-                                        <td>${testConfig.dateFinish}</td>
+                                        <td>${testConfig.dateStartStr}</td>
+                                        <td>${testConfig.dateFinishStr}</td>
                                         <td>${testConfig.timeToTest}</td>
                                         <td>${testConfig.status}</td>
 

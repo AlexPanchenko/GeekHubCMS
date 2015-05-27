@@ -76,15 +76,15 @@
                                         <label class="pull-left control-label" for="dateStart">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
-                                            <input type="date" id="dateStart" class="form-control" name="dateStart">
+                                        <div class="form-group col-lg-3">
+                                            <input type="date" id="dateStart" class="pull-left form-control" name="dateStart">
                                         </div>
                                     </dd>
                                     <dt>
-                                        <label class="pull-left control-label" for="dateFinish">Date start </label>
+                                        <label class="pull-left control-label" for="dateFinish">Date finish </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-3">
                                             <input type="date" id="dateFinish" class="form-control" name="dateFinish">
                                         </div>
                                     </dd>

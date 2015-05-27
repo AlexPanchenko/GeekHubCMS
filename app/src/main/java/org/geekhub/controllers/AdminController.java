@@ -186,7 +186,7 @@ public class AdminController {
 
 
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
