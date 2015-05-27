@@ -31,7 +31,7 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
     }
 
     @Override
-    public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user) {
+    public TestAssignment getTestAssignmentByTestConfigAndUser(TestConfig testConfig, User user) {
 
         return (TestAssignment) sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
                 .add(Restrictions.eq("testConfig", testConfig)).add(Restrictions.eq("user", user)).uniqueResult();

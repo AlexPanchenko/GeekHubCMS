@@ -136,7 +136,9 @@ public class AdminController {
                               ModelMap modelMap) {
 
         Page<CourseBean> page = courseService.getAll(p, recPerPage);
+        //List<CourseBean> courseBeanList = courseService.getAllBeans();
         modelMap.addAttribute("page", page);
+        //modelMap.addAttribute("page", courseBeanList);
         return "adminpanel/courses";
     }
 
@@ -187,7 +189,7 @@ public class AdminController {
 
 
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
@@ -199,7 +201,8 @@ public class AdminController {
 
             CourseBean courseBean = new CourseBean(name, description);
             TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount,startDate,finishDate,timeToTest, status,courseBean);
-            courseBean.getTestConfigListBeens().add(testConfigBeen);
+            //courseBean.getTestConfigListBeens().add(testConfigBeen);
+            courseBean.getTestConfigBeen();
             courseService.create(courseBean, testConfigBeen);
         } catch (Exception ex) {
             throw new Exception(ex);
@@ -211,7 +214,7 @@ public class AdminController {
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
         try {
-            courseService.delete(courseId);
+            courseService.deleteCourse(courseId);
         } catch (Exception ex) {
             throw new Exception(ex);
         }
@@ -386,7 +389,7 @@ public class AdminController {
                                           @RequestParam("status") TestStatus status) throws Exception {
         ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
@@ -439,7 +442,7 @@ public class AdminController {
         Date startDate = new Date();
         Date finishDate = new Date();
         try {
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             if (!startDate.equals("")) {
                 startDate = dt.parse(dateStart);
             }
@@ -501,11 +504,11 @@ public class AdminController {
         return "redirect: /admin/classRoomList";
     }
 
-    @RequestMapping("/classRoomList")
+    @RequestMapping(value = "/classRoomList", method = RequestMethod.GET)
     public String classroomList(ModelMap model){
         List<ClassRoomBean> classRooms = classroomService.getBeans();
         model.addAttribute("classRoomBeans",classRooms);
-        return "/adminpanel/classRoom";
+        return "adminpanel/classRoom";
     }
 
 
@@ -513,20 +516,20 @@ public class AdminController {
     @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
     public String classroomListEdit(ModelMap model,@PathVariable("classroomId") int classroomId){
         model.addAttribute("classroomId",classroomId);
-        return "/adminpanel/editClassRoom";
+        return "adminpanel/editClassRoom";
     }
 
 
     @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
     public String classroomListEditPost(ModelMap model,@PathVariable("classroomId") int classroomId){
 
-        return "/adminpanel/classRoom";
+        return "adminpanel/classRoom";
     }
 
     @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
     public String classroomRemove(ModelMap model,@PathVariable("classroomId") int classroomId){
         classroomService.removeClassroomById(classroomId);
-        return "/adminpanel/classRoom";
+        return "adminpanel/classRoom";
     }
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)

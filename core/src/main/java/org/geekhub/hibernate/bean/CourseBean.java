@@ -19,14 +19,16 @@ public class CourseBean {
 
     List<TestConfigBeen> testConfigListBeens = new ArrayList<>();
 
+    TestConfigBeen testConfigBeen;
+
     public CourseBean() {
     }
 
-    public CourseBean(int id, String name, String description, List<TestConfigBeen> testConfigListBeens) {
+    public CourseBean(int id, String name, String description, TestConfigBeen testConfigBeen) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.testConfigListBeens = testConfigListBeens;
+        this.testConfigBeen = testConfigBeen;
     }
 
     public CourseBean(int id, String name, String description) {
@@ -68,13 +70,12 @@ public class CourseBean {
         this.description = description;
     }
 
-
-    public List<TestConfigBeen> getTestConfigListBeens() {
-        return testConfigListBeens;
+    public TestConfigBeen getTestConfigBeen() {
+        return testConfigBeen;
     }
 
-    public void setTestConfigListBeens(List<TestConfigBeen> testConfigListBeens) {
-        this.testConfigListBeens = testConfigListBeens;
+    public void setTestConfigBeen(TestConfigBeen testConfigBeen) {
+        this.testConfigBeen = testConfigBeen;
     }
 }
 

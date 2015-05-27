@@ -17,7 +17,7 @@
                     <a href="/admin/course/list"> Courses</a>
                 </li>
                 <li>
-                    <a href="#"> ClassRoom</a>
+                    <a href="/admin/classRoomList"> ClassRoom</a>
                 </li>
                 <li>
                     <a href="#"> Tests</a>

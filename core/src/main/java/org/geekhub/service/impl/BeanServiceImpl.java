@@ -38,7 +38,9 @@ public class BeanServiceImpl implements BeanService {
         courseBean.setDescription(course.getDescription());
         courseBean.setId(course.getId());
         courseBean.setName(course.getName());
+/*
         courseBean.setTestConfigListBeens(course.getTestConfig().stream().map(testConfig -> toTestConfigBean(testConfig)).collect(Collectors.toList()));
+*/
         return courseBean;
     }
 

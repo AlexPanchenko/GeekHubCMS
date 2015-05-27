@@ -3,6 +3,7 @@ package org.geekhub.controllers;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
 import org.geekhub.service.UserService;
+import org.geekhub.service.TestAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,8 @@ public class CoursesController {
     private CourseService courseService;
     @Autowired
     private UserService userService;
+    private TestAssignmentService testAssignmentService;
+
 
     @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
     public String coursesRegistration(Map<String, Object> model) {
@@ -38,6 +41,7 @@ public class CoursesController {
             registrationCoursesService.getRegistrationUserByCourses(id);
         }
 
+
         return "redirect:/student/userProfile";
     }
 
@@ -45,6 +49,7 @@ public class CoursesController {
     public ModelAndView deleteCourse(@PathVariable int courseId){
         ModelAndView model = new ModelAndView("redirect:/student/userProfile");
         courseService.unRegisterCourse(courseId);
+
         return model;
     }
 

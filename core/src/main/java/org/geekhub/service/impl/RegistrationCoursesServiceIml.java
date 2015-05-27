@@ -1,13 +1,18 @@
 package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.bean.CourseBean;
+import org.geekhub.hibernate.bean.TestAssignmentBean;
+import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
+import org.geekhub.service.TestAssignmentService;
+import org.geekhub.service.TestConfigService;
 import org.geekhub.wrapper.CourseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,8 +34,13 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
     private UserDao userDao;
     @Autowired
     private UsersCoursesDao usersCoursesDao;
+
     @Autowired
     private CourseService courseService;
+//    @Autowired
+//    private TestAssignmentService testAssignmentService;
+//    @Autowired
+//    private TestConfigService testConfigService;
 
 
     public List<CourseBean> getListCourseBeans() {
@@ -71,6 +81,12 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
         for (Course course : coursesList) {
             UsersCourses usersCourses = new UsersCourses(user, course);
             usersCoursesDao.create(usersCourses);
+//            TestAssignmentBean testAssignmentBean = new TestAssignmentBean();
+//            testAssignmentBean.setUser(user);
+//            testAssignmentBean.setTestConfig(course.getTestConfig());
+//            testAssignmentBean.setTestStart(course.getTestConfig().getDateStart());
+//            testAssignmentBean.setTestFinish(course.getTestConfig().getDateFinish());
+//            testAssignmentService.create(testAssignmentBean);
         }
     }
 

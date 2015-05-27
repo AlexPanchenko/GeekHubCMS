@@ -2,14 +2,7 @@ package org.geekhub.hibernate.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +30,9 @@ public class Course extends BaseEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     List<Question> questions = new ArrayList<>();
 
-    @OneToMany
+    @OneToOne
     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "course")
-    List<TestConfig> testConfig = new ArrayList<>();
+    TestConfig testConfig;
 
     public Course() {
     }
@@ -76,8 +69,12 @@ public class Course extends BaseEntity implements Serializable {
         this.usersCourses = usersCourses;
     }
 
-    public List<TestConfig> getTestConfig() {
+    public TestConfig getTestConfig() {
         return testConfig;
+    }
+
+    public void setTestConfig(TestConfig testConfig) {
+        this.testConfig = testConfig;
     }
 
     public List<Question> getQuestions() {
@@ -88,7 +85,4 @@ public class Course extends BaseEntity implements Serializable {
         this.questions = questions;
     }
 
-    public void setTestConfig(List<TestConfig> testConfig) {
-        this.testConfig = testConfig;
-    }
 }

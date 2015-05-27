@@ -8,8 +8,14 @@ import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.*;
+import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
+import org.geekhub.hibernate.entity.TestConfig;
+import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.TestAssignmentService;
+import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -37,6 +43,12 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private TestConfigDao testConfigDao;
 
+    @Autowired
+    private TestConfigService testConfigService;
+
+    @Autowired
+    private TestAssignmentService testAssignmentService;
+
     @Override
     public List<User> getUserFromCourse(int id){
         Course course = (Course) courseDao.read(id, Course.class);
@@ -56,7 +68,6 @@ public class CourseServiceImpl implements CourseService {
         }
         return users;
     }
-
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {
         List<CourseBean> courses = convertToCourseBean(courseDao.getAll(page, recordsPerPage));
@@ -94,23 +105,25 @@ public class CourseServiceImpl implements CourseService {
      * Convert {@link org.geekhub.hibernate.entity.Course} to {@link org.geekhub.hibernate.bean.CourseBean}
      *
      * @param course object to convert
-     * @return {@link }
+     * @return {@link }dsd
      */
     @Override
     public CourseBean toBean(Course course) {
-        List<TestConfigBeen> testConfigBeenList = new ArrayList<>();
-        List<TestConfig> testConfigList = course.getTestConfig();
-        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(), testConfigBeenList);
-        for (TestConfig testConfig : testConfigList) {
-            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
-                    testConfig.getTitle(),
-                    testConfig.getQuestionCount(),
-                    testConfig.getDateStart(),
-                    testConfig.getDateFinish(),
-                    testConfig.getTimeToTest(),
-                    testConfig.getStatus(),
-                    courseBean));
-        }
+
+        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(),
+                testConfigService.toBeen(course.getTestConfig()));
+                //testConfigService.getTestConfigBeen(course.getId()));
+
+//        for (TestConfig testConfig : testConfigList) {
+//            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
+//                    testConfig.getTitle(),
+//                    testConfig.getQuestionCount(),
+//                    testConfig.getDateStart(),
+//                    testConfig.getDateFinish(),
+//                    testConfig.getTimeToTest(),
+//                    testConfig.getStatus(),
+//                    courseBean));
+//        }
         return courseBean;
     }
 
@@ -128,7 +141,7 @@ public class CourseServiceImpl implements CourseService {
         TestConfig testConfig = new TestConfig();
         course.setName(courseBean.getName());
         course.setDescription(courseBean.getDescription());
-        course.getTestConfig().add(testConfig);
+        course.getTestConfig();
         testConfig.setTitle(testConfigBeen.getTittle());
         testConfig.setDateStart(testConfigBeen.getDateStart());
         testConfig.setDateFinish(testConfigBeen.getDateFinish());
@@ -178,6 +191,9 @@ public class CourseServiceImpl implements CourseService {
         for (UsersCourses usersCourses : usersCoursesList) {
             if(usersCourses.getUser().equals(user) && usersCourses.getCourse().equals(course)) {
                 usersCoursesDao.delete(usersCourses);
+                TestConfig testConfig= testConfigService.getTestConfigByCource(course);
+                TestAssignment testAssignment = testAssignmentService.getTestAssignmentByTestConfigAdnUser(testConfig, user);
+                testAssignmentService.delete(testAssignment.getId());
             }
         }
 
@@ -190,9 +206,9 @@ public class CourseServiceImpl implements CourseService {
         List<UsersCourses> usersCoursesList = user.getUsersCourses();
         List<CourseBean> courseBeanList = new ArrayList<>();
         for (UsersCourses usersCourses : usersCoursesList) {
-           if(usersCourses.getCourse().getTestConfig().size() == 0 ) {
-                continue;
-            }
+//           if(usersCourses.getCourse().getTestConfig().size() == 0 ) {
+//                continue;
+//            }
                Course course = usersCourses.getCourse();
                courseBeanList.add(toBean(course));
         }

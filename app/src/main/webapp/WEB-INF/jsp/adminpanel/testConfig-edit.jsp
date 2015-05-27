@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>User edit page</title>
+  <title>TestConfig edit page</title>
 
 
     <jsp:include page="source.jsp"></jsp:include>
