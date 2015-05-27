@@ -3,17 +3,21 @@ package org.geekhub.hibernate.bean;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestStatus;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 
 
 public class TestConfigBeen {
 
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private int id;
     private String tittle;
     private int questionCount;
     private Date dateStart;
     private Date dateFinish;
+    private String dateStartStr;
+    private String dateFinishStr;
     private int timeToTest;
     private TestStatus status;
     private CourseBean courseBean;
@@ -22,36 +26,34 @@ public class TestConfigBeen {
     public TestConfigBeen() {
     }
 
-    public TestConfigBeen(int id, String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, CourseBean courseBean) {
+    public TestConfigBeen(int id, String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest,
+                          TestStatus status, CourseBean courseBean) {
+        this(tittle, questionCount, dateStart, dateFinish, timeToTest, status);
         this.id = id;
-        this.tittle = tittle;
-        this.questionCount = questionCount;
-        this.dateStart = dateStart;
-        this.dateFinish = dateFinish;
-        this.timeToTest = timeToTest;
-        this.status = status;
         this.courseBean = courseBean;
     }
 
-    public TestConfigBeen(String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, CourseBean courseBean) {
-        this.tittle = tittle;
-        this.questionCount = questionCount;
-        this.dateStart = dateStart;
-        this.dateFinish = dateFinish;
-        this.timeToTest = timeToTest;
-        this.status = status;
+    public TestConfigBeen(String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status,
+                          CourseBean courseBean) {
+        this(tittle, questionCount, dateStart, dateFinish, timeToTest, status);
         this.courseBean = courseBean;
     }
 
     public TestConfigBeen(int id, String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status) {
+        this(tittle, questionCount, dateStart, dateFinish, timeToTest, status);
         this.id = id;
+    }
+    public TestConfigBeen(String tittle, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status) {
         this.tittle = tittle;
         this.questionCount = questionCount;
+        this.dateStartStr = formatter.format(dateStart);
+        this.dateFinishStr = formatter.format(dateFinish);
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
         this.timeToTest = timeToTest;
         this.status = status;
     }
+
 
     public int getId() {
         return id;
@@ -115,5 +117,21 @@ public class TestConfigBeen {
 
     public void setCourseBean(CourseBean courseBean) {
         this.courseBean = courseBean;
+    }
+
+    public String getDateStartStr() {
+        return dateStartStr;
+    }
+
+    public void setDateStartStr(String dateStartStr) {
+        this.dateStartStr = dateStartStr;
+    }
+
+    public String getDateFinishStr() {
+        return dateFinishStr;
+    }
+
+    public void setDateFinishStr(String dateFinishStr) {
+        this.dateFinishStr = dateFinishStr;
     }
 }

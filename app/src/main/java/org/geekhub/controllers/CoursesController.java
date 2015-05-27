@@ -2,6 +2,7 @@ package org.geekhub.controllers;
 
 import org.geekhub.service.CourseService;
 import org.geekhub.service.RegistrationCoursesService;
+import org.geekhub.service.UserService;
 import org.geekhub.service.TestAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,14 @@ public class CoursesController {
     @Autowired
     private CourseService courseService;
     @Autowired
+    private UserService userService;
     private TestAssignmentService testAssignmentService;
+
 
     @RequestMapping(value = "/registrationCourses", method = RequestMethod.GET)
     public String coursesRegistration(Map<String, Object> model) {
         model.put("listCourses", registrationCoursesService.getListCourseWrappers());
-        return "registrationCourses";
+        return "studentPage/registrationCourses";
     }
 
 
@@ -49,4 +52,12 @@ public class CoursesController {
 
         return model;
     }
+
+/*    @RequestMapping(value = "/courses", method = RequestMethod.GET)
+    public ModelAndView showUserOfCourses() {
+        ModelAndView model = new ModelAndView("userProfile");
+        List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
+        model.addObject("coursesList", courseBeanList);
+        return model;
+    }*/
 }

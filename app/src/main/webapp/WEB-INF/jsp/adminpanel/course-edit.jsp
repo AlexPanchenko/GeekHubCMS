@@ -16,12 +16,10 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
-
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-
-    <jsp:include page="navigation.jsp"></jsp:include>
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="container">
@@ -35,8 +33,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
-                                <%--<a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"--%>
-                                                                  <%--title="Create new test config"></i></a>--%>
+                                <a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"
+                                                                                  title="Create new test config"></i></a>
+
                                 <b>Test config manage</b></h1>
                             <table class="table">
                                 <thead class="alert alert-success">
@@ -56,8 +55,8 @@
                                 <td>${course.testConfigBeen.id}</td>
                                 <td>${course.testConfigBeen.tittle}</td>
                                 <td>${course.testConfigBeen.questionCount}</td>
-                                <td>${course.testConfigBeen.dateStart}</td>
-                                <td>${course.testConfigBeen.dateFinish}</td>
+                                <td>${course.testConfigBeen.dateStartStr}</td>
+                                <td>${course.testConfigBeen.dateFinishStr}</td>
                                 <td>${course.testConfigBeen.timeToTest}</td>
                                 <td>${course.testConfigBeen.status}</td>
 
@@ -133,10 +132,14 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-    <!-- /#page-wrapper -->
+</div>
 
-</div>
-<!-- /#wrapper -->
-</div>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
 </body>
 </html>

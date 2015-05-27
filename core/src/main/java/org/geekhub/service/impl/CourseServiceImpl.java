@@ -7,6 +7,7 @@ import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
@@ -48,7 +49,25 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private TestAssignmentService testAssignmentService;
 
-
+    @Override
+    public List<User> getUserFromCourse(int id){
+        Course course = (Course) courseDao.read(id, Course.class);
+        List<UsersCourses> usersCourses = course.getUsersCourses();
+        List<User> allUsers = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
+        for(UsersCourses u: usersCourses)
+            allUsers.add(u.getUser());
+        List<TestAssignment> testAssignments = new ArrayList<TestAssignment>();
+        for(User user: allUsers) {
+            testAssignments = user.getTestAssignments();
+            for(TestAssignment t: testAssignments){
+                if(t.isPassed()){
+                    users.add(user);
+                }
+            }
+        }
+        return users;
+    }
     @Override
     public Page<CourseBean> getAll(int page, int recordsPerPage) {
         List<CourseBean> courses = convertToCourseBean(courseDao.getAll(page, recordsPerPage));
@@ -86,7 +105,7 @@ public class CourseServiceImpl implements CourseService {
      * Convert {@link org.geekhub.hibernate.entity.Course} to {@link org.geekhub.hibernate.bean.CourseBean}
      *
      * @param course object to convert
-     * @return {@link }
+     * @return {@link }dsd
      */
     @Override
     public CourseBean toBean(Course course) {

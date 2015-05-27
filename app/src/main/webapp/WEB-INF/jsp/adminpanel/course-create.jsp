@@ -16,13 +16,10 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
-
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-
-    <jsp:include page="navigation.jsp"></jsp:include>
-
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
@@ -79,7 +76,7 @@
                                         <label class="pull-left control-label" for="dateStart">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-3">
                                             <input type="date" id="dateStart" class="form-control" name="dateStart">
                                         </div>
                                     </dd>
@@ -87,7 +84,7 @@
                                         <label class="pull-left control-label" for="dateFinish">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-3">
                                             <input type="date" id="dateFinish" class="form-control" name="dateFinish">
                                         </div>
                                     </dd>
@@ -127,12 +124,15 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
 </div>
+
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
 </body>
 </html>

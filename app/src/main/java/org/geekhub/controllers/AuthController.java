@@ -5,6 +5,7 @@ import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,11 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/student")
+    public String student() {
+        return "studentPage/student";
+    }
+
     @RequestMapping("/index")
     public String indexForm() {
         return "index";
@@ -33,7 +39,6 @@ public class AuthController {
     public String loginForm() {
         return "login";
     }
-
 
 //    @RequestMapping(value = "/UserSessionFilter")
 //    public String login(ModelMap model, HttpSession session) {

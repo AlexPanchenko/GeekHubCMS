@@ -12,6 +12,7 @@ import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
     @Autowired
     CourseDao courseDao;
 
     @Autowired
     UsersCoursesDao usersCoursesDao;
+
+    @Autowired
+    private BeanService beanService;
 
 
     public User getUserById(int userId) {
@@ -47,6 +52,37 @@ public class UserServiceImpl implements UserService {
 
     public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public UserBean getUserBeanByEmail(String email) {
+        User user = userDao.getUserByEmail(email);
+        return beanService.toUserBean(user);
+    }
+
+    @Override
+    public List<UserBean> getUsersOnOnePage(int page){
+        List<User> users = userDao.usersOnPage(page);
+        List<UserBean> userBeans = new ArrayList<UserBean>();
+        for(User u: users){
+            userBeans.add(beanService.toUserBean(u));
+        }
+        return userBeans;
+    }
+    public Long getUsersCount(){
+        return userDao.usersCount();
+    }
+
+    @Override
+    public List<UserBean> getAllTeachers() {
+        List<UserBean> allTeachers = new ArrayList<UserBean>();
+        List<User> users = userDao.readAllUsers();
+        for (User u : users) {
+            if (u.getRole().equals(Role.ROLE_TEACHER)) {
+                allTeachers.add(beanService.toUserBean(u));
+            }
+        }
+        return allTeachers;
     }
 
     /*Get user and set new feedback*/

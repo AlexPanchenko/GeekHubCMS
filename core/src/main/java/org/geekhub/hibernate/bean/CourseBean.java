@@ -17,6 +17,8 @@ public class CourseBean {
     @NotBlank(message = "Description should be not empty")
     private String description;
 
+    List<TestConfigBeen> testConfigListBeens = new ArrayList<>();
+
     TestConfigBeen testConfigBeen;
 
     public CourseBean() {

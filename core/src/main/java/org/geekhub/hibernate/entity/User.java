@@ -66,6 +66,10 @@ public class User extends BaseEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<UserResults> userResults = new ArrayList<>();
 
+    @ManyToOne()
+    @JoinColumn( name = "CLASSROOM_ID")
+    private ClassRoom classroom;
+
     public List<UserResults> getUserResults() {
         return userResults;
     }
@@ -135,7 +139,6 @@ public class User extends BaseEntity implements Serializable {
         this.skype = skype;
     }
 
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -176,7 +179,6 @@ public class User extends BaseEntity implements Serializable {
         this.usersCourses = usersCourses;
     }
 
-
     public List<TestAssignment> getTestAssignments() {
         return testAssignments;
     }
@@ -191,5 +193,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public ClassRoom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(ClassRoom classroom) {
+        this.classroom = classroom;
     }
 }
