@@ -56,8 +56,8 @@
                                 <td>${course.testConfigBeen.id}</td>
                                 <td>${course.testConfigBeen.tittle}</td>
                                 <td>${course.testConfigBeen.questionCount}</td>
-                                <td>${course.testConfigBeen.dateStart}</td>
-                                <td>${course.testConfigBeen.dateFinish}</td>
+                                <td>${course.testConfigBeen.dateStartStr}</td>
+                                <td>${course.testConfigBeen.dateFinishStr}</td>
                                 <td>${course.testConfigBeen.timeToTest}</td>
                                 <td>${course.testConfigBeen.status}</td>
 

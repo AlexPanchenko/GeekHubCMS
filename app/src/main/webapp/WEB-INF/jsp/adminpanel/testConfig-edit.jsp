@@ -55,16 +55,16 @@
                     <label class="pull-left control-label" for="dateStart">Date start</label>
                   </dt>
                   <dd>
-                    <div class="form-group">
-                      <input type="date" id="dateStart" class="form-control" name="dateStart" value="${testConfigBeen.dateStart}">
+                    <div class="form-group col-lg-3">
+                      <input type="date" id="dateStart" class="form-control" name="dateStart" value="${testConfigBeen.dateStartStr}">
                     </div>
                   </dd>
                   <dt>
                     <label class="pull-left control-label" for="dateStart">Date finish</label>
                   </dt>
                   <dd>
-                    <div class="form-group">
-                      <input type="date" id="dateFinish" class="form-control" name="dateFinish" value="${testConfigBeen.dateFinish}">
+                    <div class="form-group col-lg-3">
+                      <input type="date" id="dateFinish" class="form-control" name="dateFinish" value="${testConfigBeen.dateFinishStr}">
                     </div>
                   </dd>
 

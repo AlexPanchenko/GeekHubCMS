@@ -76,7 +76,7 @@
                                         <label class="pull-left control-label" for="dateStart">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-3">
                                             <input type="date" id="dateStart" class="form-control" name="dateStart">
                                         </div>
                                     </dd>
@@ -84,7 +84,7 @@
                                         <label class="pull-left control-label" for="dateFinish">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-3">
                                             <input type="date" id="dateFinish" class="form-control" name="dateFinish">
                                         </div>
                                     </dd>
