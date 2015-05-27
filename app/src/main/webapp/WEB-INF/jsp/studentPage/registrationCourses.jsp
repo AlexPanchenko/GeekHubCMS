@@ -12,63 +12,75 @@
     <jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
-<div class="coursesRegisTable">
 
-    <div>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
 
-        <h2>REGISTRATION ON COURSES</h2>
+            <div class="coursesRegisTable">
 
-        <form method="post" action="/student/registrationCourses">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Registration</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${listCourses}" var="courseWrapper">
+                <div>
+                    <h2>REGISTRATION ON COURSES</h2>
 
-                <tr>
-                    <td width="50">${courseWrapper.course.id}</td>
-                    <td width="300">${courseWrapper.course.name}</td>
-                    <td>${courseWrapper.course.description}</td>
-                    <td width="50">
-                        <c:choose>
-                            <c:when test="${courseWrapper.isRegistered}">
-                                <div class="col-sm-12">
-                                    <div class="checkbox">
-                                    <label style="font-size: 1.5em">
-                                        <input type="checkbox" checked disabled>
-                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                    </label>
-                                </div>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="col-sm-12">
-                                    <div class="checkbox">
-                                        <label style="font-size: 1.5em">
-                                            <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
-                                </div>
+                    <form method="post" action="/student/registrationCourses">
+                        <table class="table table-striped text-black">
+                            <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Registration</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${listCourses}" var="courseWrapper">
 
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </tr>
-                </c:forEach>
-            </table>
-            <tbody>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-    </div>
+                            <tr>
+                                <td width="50">${courseWrapper.course.id}</td>
+                                <td width="300">${courseWrapper.course.name}</td>
+                                <td>${courseWrapper.course.description}</td>
+                                <td width="50">
+                                    <c:choose>
+                                        <c:when test="${courseWrapper.isRegistered}">
+                                            <div class="col-sm-12">
+                                                <div class="checkbox">
+                                                    <label style="font-size: 1.5em">
+                                                        <input type="checkbox" checked disabled>
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="col-sm-12">
+                                                <div class="checkbox">
+                                                    <label style="font-size: 1.5em">
+                                                        <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                            </c:forEach>
+                        </table>
+                        <tbody>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
 </div>
-
+</div>
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 </body>
 </html>
 
