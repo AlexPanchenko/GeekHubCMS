@@ -55,9 +55,14 @@ public class TestController {
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigBeenEnable(courseId);
         model.addAttribute("courseId", courseId);
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByTestConfigAdnUser(testConfigBeen.getId());
+        if (testAssignment != null){
+
+        }
         model.addAttribute("courseId",courseId);
         model.addAttribute("testConfig", testConfigBeen);
         model.addAttribute("testAssignment", testAssignment);
+        model.addAttribute("passed", TestStatusAssignment.PASSED);
+        model.addAttribute("overdue", TestStatusAssignment.OVERDUE);
         return "test-page/selectTest";
     }
 
@@ -75,6 +80,7 @@ public class TestController {
         model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
         model.addAttribute("testId", testId);
         testAssignmentService.setStatus(testConfigService.getTestConfigByID(testId), TestStatusAssignment.IN_PROCESS);
+        model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testId).getTimeToTest());
         return "test-page/testPage";
     }
 

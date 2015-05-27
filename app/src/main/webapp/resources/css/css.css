@@ -27,3 +27,25 @@
 .text{
     text-align: center;
 }
+
+.testMain {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+}
+
+.back{
+    background-color: #FFF9FB;
+}
+
+.radius{
+    background-color: #EEF4F7;
+}
+
+.js-submit{
+    margin-left: 20px;
+}
+
+.myAnswer{
+    margin: 10px;
+}

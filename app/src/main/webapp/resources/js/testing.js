@@ -9,11 +9,11 @@
 
         var questionWrapList = [];
         var questionWrap;
-
-
+        var customAnswer = null;
         [].forEach.call(questions, function (item, i, questions) {
             questionWrap = new function () {
                 this.questionId = $(item).attr('id');
+                this.customAnswer = $('#question' + this.questionId).find('textarea').val();
                 var answers = $('#question' + this.questionId).find('.answer');
                 console.log(answers);
                 var tmp = [];

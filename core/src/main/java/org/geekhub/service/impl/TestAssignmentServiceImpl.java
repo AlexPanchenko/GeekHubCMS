@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,8 +81,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     public TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId) {
         TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigId, TestConfig.class);
-
-        return testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, userService.getLogInUser());
-
+        TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, userService.getLogInUser());
+        if(testConfig.getDateFinish().getTime() < new Date().getTime()){
+            testAssignment.setTestStatusAssignment(TestStatusAssignment.OVERDUE);
+        }
+        return testAssignment;
     }
 }

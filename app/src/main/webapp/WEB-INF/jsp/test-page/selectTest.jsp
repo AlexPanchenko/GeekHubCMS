@@ -60,7 +60,7 @@
               <div class="col-sm-12">
                 <div class="radio">
                   <label style="font-size: 1.5em">
-                    <input type="radio" name="courseId"  onclick="changeHref('/student/testing/course/${courseId}/test/${testConfig.id}')">
+                    <input type="radio" name="courseId" <c:if test="${(testAssignment.testStatusAssignment eq passed) || (testAssignment.testStatusAssignment eq overdue)}">disabled</c:if> onclick="changeHref('/student/testing/course/${courseId}/test/${testConfig.id}')">
                     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                   </label>
                 </div>

@@ -60,6 +60,14 @@ public class TestResultServiceImpl implements TestResultService {
                 userAnswersDao.create(userAnswers);
                 userResults.getUserAnswerses().add(userAnswers);
             }
+            if(testInfo.getCustomAnswer() != null){
+                UserAnswers userAnswers = new UserAnswers();
+                userAnswers.setUserResults(userResults);
+                userAnswers.setCustomAnswer(testInfo.getCustomAnswer());
+                userAnswersDao.create(userAnswers);
+                userResults.getUserAnswerses().add(userAnswers);
+            }
+
             userResultsDao.create(userResults);
             testAssignment.getUserResults().add(userResults);
         }

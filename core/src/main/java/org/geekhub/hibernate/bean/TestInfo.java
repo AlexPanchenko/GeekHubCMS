@@ -5,6 +5,7 @@ package org.geekhub.hibernate.bean;
  */
 public class TestInfo {
     private int questionId;
+    private String customAnswer;
     private int[] answerArray;
 
     public int[] getAnswerArray() {
@@ -21,5 +22,13 @@ public class TestInfo {
 
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
+    }
+
+    public String getCustomAnswer() {
+        return customAnswer;
+    }
+
+    public void setCustomAnswer(String customAnswer) {
+        this.customAnswer = customAnswer;
     }
 }

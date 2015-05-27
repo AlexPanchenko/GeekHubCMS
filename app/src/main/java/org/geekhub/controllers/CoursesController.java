@@ -39,7 +39,7 @@ public class CoursesController {
         }
 
 
-        return "redirect:/student/userProfile";
+        return "redirect:/student/registrationCourses";
     }
 
     @RequestMapping(value ="/deleteCourse/{courseId}")
