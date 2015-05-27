@@ -18,7 +18,11 @@ public interface CourseService {
 
     List<CourseBean> getAllBeans();
 
+    List<Course> getAllCourses();
+
     void create(CourseBean courseBean, TestConfigBeen testConfigBeen);
+
+    void createCourse(CourseBean courseBean);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
