@@ -37,10 +37,10 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
 
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private TestAssignmentService testAssignmentService;
-    @Autowired
-    private TestConfigService testConfigService;
+//    @Autowired
+//    private TestAssignmentService testAssignmentService;
+//    @Autowired
+//    private TestConfigService testConfigService;
 
 
     public List<CourseBean> getListCourseBeans() {
@@ -81,12 +81,12 @@ public class RegistrationCoursesServiceIml implements RegistrationCoursesService
         for (Course course : coursesList) {
             UsersCourses usersCourses = new UsersCourses(user, course);
             usersCoursesDao.create(usersCourses);
-            TestAssignmentBean testAssignmentBean = new TestAssignmentBean();
-            testAssignmentBean.setUser(user);
-            testAssignmentBean.setTestConfig(course.getTestConfig());
-            testAssignmentBean.setTestStart(course.getTestConfig().getDateStart());
-            testAssignmentBean.setTestFinish(course.getTestConfig().getDateFinish());
-            testAssignmentService.create(testAssignmentBean);
+//            TestAssignmentBean testAssignmentBean = new TestAssignmentBean();
+//            testAssignmentBean.setUser(user);
+//            testAssignmentBean.setTestConfig(course.getTestConfig());
+//            testAssignmentBean.setTestStart(course.getTestConfig().getDateStart());
+//            testAssignmentBean.setTestFinish(course.getTestConfig().getDateFinish());
+//            testAssignmentService.create(testAssignmentBean);
         }
     }
 
