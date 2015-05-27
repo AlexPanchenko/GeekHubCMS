@@ -12,6 +12,7 @@ import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
     @Autowired
     CourseDao courseDao;
 
     @Autowired
     UsersCoursesDao usersCoursesDao;
+
+    @Autowired
+    private BeanService beanService;
 
 
     public User getUserById(int userId) {
@@ -49,17 +54,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserBean getUserBeanByEmail(String email) {
+        User user = userDao.getUserByEmail(email);
+        return beanService.toUserBean(user);
+    }
+
+    @Override
     public List<UserBean> getUsersOnOnePage(int page){
         List<User> users = userDao.usersOnPage(page);
         List<UserBean> userBeans = new ArrayList<UserBean>();
         for(User u: users){
-            UserBean userBean = new UserBean();
-            userBean.setLastName(u.getLastName());
-            userBean.setFirstName(u.getFirstName());
-            userBean.setEmail(u.getEmail());
-            userBean.setPhoneNumber(u.getPhoneNumber());
-            userBean.setSkype(u.getSkype());
-            userBeans.add(userBean);
+            userBeans.add(beanService.toUserBean(u));
         }
         return userBeans;
     }
@@ -73,14 +78,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.readAllUsers();
         for (User u : users) {
             if (u.getRole().equals(Role.ROLE_TEACHER)) {
-                UserBean teacher = new UserBean();
-                teacher.setId(u.getId());
-                teacher.setLastName(u.getLastName());
-                teacher.setFirstName(u.getFirstName());
-                teacher.setEmail(u.getEmail());
-                teacher.setPhoneNumber(u.getPhoneNumber());
-                teacher.setSkype(u.getSkype());
-                allTeachers.add(teacher);
+                allTeachers.add(beanService.toUserBean(u));
             }
         }
         return allTeachers;
