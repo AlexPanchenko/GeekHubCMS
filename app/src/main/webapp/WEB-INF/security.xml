@@ -9,7 +9,6 @@
     <http auto-config="true" use-expressions="true">
         <form-login
                 login-page="/auth"
-                default-target-url="/index"
                 authentication-failure-url="/auth?error"
                 login-processing-url="/j_spring_security_check"
                 username-parameter="email"

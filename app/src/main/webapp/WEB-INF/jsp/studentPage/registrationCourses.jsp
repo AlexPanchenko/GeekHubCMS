@@ -4,17 +4,14 @@
 <html>
 <head>
     <title>registration on courses</title>
-    <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+    <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
 
+    <jsp:include page="myNavbar.jsp"></jsp:include>
+<div id="wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
 <div class="coursesRegisTable">
 
     <div>
