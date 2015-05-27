@@ -19,13 +19,11 @@
 </head>
 <body>
 
+    <jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
 
-    <jsp:include page="navigation.jsp"></jsp:include>
-
-    <!-- Page Content -->
-
-    <div id="page-wrapper">
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <h1 class="alert alert-success text-center"><b>Users test result</b></h1>
 
@@ -117,7 +115,15 @@
             </nav>
         </div>
     </c:if>
+    </div>
 </div>
+
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 <!-- /#wrapper -->
 </body>
 </html>

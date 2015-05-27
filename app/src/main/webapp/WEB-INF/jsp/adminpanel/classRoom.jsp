@@ -14,13 +14,10 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
-
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-
-    <jsp:include page="navigation.jsp"></jsp:include>
-
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -38,7 +35,7 @@
                         </tr>
                         </thead>
 
-                        <c:forEach items="${page.list}" var="classroom">
+                        <c:forEach items="${classRoomBeans}" var="classroom">
                             <tr>
                                 <td>${classroom.id}</td>
                                 <td>${classroom.teachers}</td>
@@ -98,10 +95,19 @@
                             </ul>
                         </nav>
                     </div>
-                  </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+</div>
+
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
 </body>
 </html>

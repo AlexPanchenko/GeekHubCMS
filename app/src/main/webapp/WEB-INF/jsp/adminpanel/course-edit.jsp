@@ -16,12 +16,10 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
-
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-
-    <jsp:include page="navigation.jsp"></jsp:include>
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="container">
@@ -36,7 +34,7 @@
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
                                 <a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"
-                                                                  title="Create new test config"></i></a>
+                                                                                  title="Create new test config"></i></a>
                                 <b>Test config manage</b></h1>
                             <table class="table">
                                 <thead class="alert alert-success">
@@ -117,10 +115,14 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-    <!-- /#page-wrapper -->
+</div>
 
-</div>
-<!-- /#wrapper -->
-</div>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
 </body>
 </html>

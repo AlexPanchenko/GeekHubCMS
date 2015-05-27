@@ -15,13 +15,10 @@
     <jsp:include page="source.jsp"></jsp:include>
 </head>
 <body>
-
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-
-    <jsp:include page="navigation.jsp"></jsp:include>
-
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
@@ -202,11 +199,9 @@
             </div>
             <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /#page-wrapper -->
-
 </div>
+
 <!-- /#wrapper -->
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
@@ -228,6 +223,13 @@
     </div>
 </div>
 
+
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 <script>
     function func(){
         document.getElementById("sendFeedback").submit();
