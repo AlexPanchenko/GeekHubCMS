@@ -38,4 +38,24 @@ public class TestTypeServiceImpl implements TestTypeService {
         testType.setCourse((Course) courseDao.read(courseId, Course.class));
         testTypeDao.create(testType);
     }
+
+    @Override
+    public void deleteById(int id) {
+        TestType testType = (TestType) testTypeDao.read(id, TestType.class);
+        testType.getQuestionList().clear();
+        testType.getTestConfigList().clear();
+        testTypeDao.delete(testType);
+    }
+
+    @Override
+    public TestType getTestTypeById(int id) {
+        return (TestType) testTypeDao.read(id, TestType.class);
+    }
+
+    @Override
+    public void changeTestType(int id, String name, int courseId) {
+        TestType testType = (TestType) testTypeDao.read(id, TestType.class);
+        testType.setName(name);
+        testType.setCourse((Course) courseDao.read(courseId, Course.class));
+    }
 }

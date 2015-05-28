@@ -71,6 +71,13 @@ public class AdminController {
     }
 
 
+    @RequestMapping(value = "/testConfig", method = RequestMethod.GET)
+    public String testTypeChangeAction(Map<String, Object> model){
+        model.put("testConfigList", testConfigService.getAll());
+        model.put("tmp", 12);
+        return "adminpanel/testConfig";
+    }
+
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) throws Exception {
         try {
@@ -532,6 +539,33 @@ public class AdminController {
         testTypeService.create(name, courseId);
         return "redirect:/admin/testType";
     }
+
+    @RequestMapping(value = "/testType/delete/{id}", method = RequestMethod.GET)
+    public String testTypeDelete(ModelMap model,
+                                       @PathVariable("id") int id){
+        testTypeService.deleteById(id);
+        return "redirect:/admin/testType";
+    }
+
+    @RequestMapping(value = "/testType/change/{id}", method = RequestMethod.GET)
+    public String testTypeChange(ModelMap model,
+                                 @PathVariable("id") int id){
+        model.put("id", testTypeService.getTestTypeById(id).getId());
+        model.put("name", testTypeService.getTestTypeById(id).getName());
+        model.put("courseId", testTypeService.getTestTypeById(id).getCourse().getId());
+        model.put("courseList", courseService. getAllCourses());
+        return "adminpanel/TestTypeChange";
+    }
+
+    @RequestMapping(value = "/testType/change/{id}", method = RequestMethod.POST)
+    public String testTypeChangeAction(ModelMap model,
+                                 @PathVariable("id") int id,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("courseId") int courseId){
+        testTypeService.changeTestType(id, name, courseId);
+        return "redirect:/admin/testType/change/"+id;
+    }
+
 
 
 /*    *//*Pagination for classroom*//*

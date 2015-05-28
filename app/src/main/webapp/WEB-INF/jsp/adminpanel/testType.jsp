@@ -43,8 +43,8 @@
                             <td class="text-center">${testType.name}</td>
                             <td class="text-center">${testType.course.name}</td>
                             <td class="text-center">
-                                <a href="/admin/testType/${testType.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                <a href="/admin/testType-remove/${testType.id}"> <i class="fa fa-times"></i></a>
+                                <a href="/admin/testType/change/${testType.id}"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="/admin//testType/delete/${testType.id}"> <i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     </c:forEach>

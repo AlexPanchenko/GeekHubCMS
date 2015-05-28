@@ -10,4 +10,7 @@ import java.util.List;
 public interface TestTypeService {
     public List<TestType> getList();
     public void create(String name, int courseId);
+    public void deleteById(int id);
+    public TestType getTestTypeById(int id);
+    public void changeTestType(int id, String name, int courseId);
 }
