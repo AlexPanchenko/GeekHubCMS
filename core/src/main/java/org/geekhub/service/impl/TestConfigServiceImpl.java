@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class TestConfigServiceImpl implements TestConfigService {
@@ -127,5 +129,10 @@ public class TestConfigServiceImpl implements TestConfigService {
     @Override
     public TestConfig getTestConfigByCource(Course course) {
         return testConfigDao.getTestConfigByCourse(course);
+    }
+
+    @Override
+    public List<TestConfig> getAll() {
+        return testConfigDao.getAll();
     }
 }

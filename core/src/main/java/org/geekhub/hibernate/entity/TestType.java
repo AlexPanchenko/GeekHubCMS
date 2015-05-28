@@ -19,10 +19,10 @@ public class TestType extends BaseEntity {
     @Column(name = "TEST_TYPE_NAME", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testType")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "testType")
     List<TestConfig> testConfigList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testType")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "testType")
     List<Question> questionList = new ArrayList<>();
 
     @ManyToOne

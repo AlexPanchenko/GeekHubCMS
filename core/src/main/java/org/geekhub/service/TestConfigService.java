@@ -5,6 +5,8 @@ import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestConfig;
 
+import java.util.List;
+
 public interface TestConfigService {
 
     public TestConfigBeen getTestConfigById (int testConfigId);
@@ -17,4 +19,5 @@ public interface TestConfigService {
     public TestConfigBeen getTestConfigBeenEnable (int courseId);
     public TestConfigBeen getTestConfigBeensEnable (int courseId);
     TestConfig getTestConfigByCource(Course course);
+    public List<TestConfig> getAll();
 }
