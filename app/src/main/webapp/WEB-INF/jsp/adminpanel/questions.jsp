@@ -1,6 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -22,6 +24,10 @@
       } else {
         document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
         $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
+          $.get("testtypedetails/" + $('#selectCourse option:selected').attr('id'), function(data){
+            //  alert(data);
+             //document.getElementById("selectTestType").setAttribute("${testTypeList}");
+          })
       }
 
     }
@@ -52,26 +58,33 @@
                         <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
                         <!-- /////////////////////////////////////////////////////////-->
 
-                        <%--<select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">--%>
-                            <%--<option id="0">All Courses</option>--%>
-                            <%--<c:forEach items="${courses}" var="course">--%>
-                                <%--<option id=${course.id} >${course.name}</option>--%>
+                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
+                            <option id="0">All Courses</option>
+                            <c:forEach items="${courses}" var="course">
+                                <option id=${course.id} >${course.name}</option>
+                            </c:forEach>
+                        </select>
+
+                        <%--<select id="selectTestType" class="dropdown-toggle">--%>
+                            <%--<option id="0">All TestType</option>--%>
+                            <%--<c:forEach items="${testTypeList}" var="testType">--%>
+                                <%--<option id=${testType.id} >${testType.name}</option>--%>
                             <%--</c:forEach>--%>
                         <%--</select>--%>
-                        <div>
-                            <button class="courses btn">Change course</button>
-                            <div class="js-slide">
-                                <ul>
-                                    <c:forEach items="${courses}" var="course">
-                                        <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
+
+                        <%--<div>--%>
+                            <%--<button class="courses btn">Change course</button>--%>
+                            <%--<div class="js-slide">--%>
+                                <%--<ul>--%>
+                                    <%--<c:forEach items="${courses}" var="course">--%>
+                                        <%--<li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>--%>
+                                    <%--</c:forEach>--%>
+                                <%--</ul>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
                         <!-- /////////////////////////////////////////////////////////-->
 
                         <b>Questions manage</b></h1>
-
 
                     <table class="table">
                         <thead class="alert alert-success">

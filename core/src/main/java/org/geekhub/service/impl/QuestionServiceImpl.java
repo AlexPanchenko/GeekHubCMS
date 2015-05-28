@@ -62,6 +62,7 @@ public class QuestionServiceImpl implements QuestionService{
         question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
         question.setMyAnswer(questionBean.getMyAnswer());
         question.setQuestionStatus(questionBean.getQuestionStatus());
+        question.setTestType(questionBean.getTestType());
         questionDao.create(question);
         return question.getId();
     }

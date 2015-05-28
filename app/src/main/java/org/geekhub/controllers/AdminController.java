@@ -218,13 +218,28 @@ public class AdminController {
         return "adminpanel/userTestResult";
     }
 
+    @RequestMapping(value = "/testtypedetails/{courseId}", method = RequestMethod.GET)
+    public
+    //@ResponseBody
+    String TestTypeByCourse(@PathVariable int courseId,
+                                    ModelMap model) {
+        List<TestType> list = testTypeService.getListByCourseId(courseId);
+        model.addAttribute("testTypeList", list);
+
+        return "adminpanel/questions";
+    }
+
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model) {
         List<Question> list = questionService.getAll();
         model.addAttribute("questions", list);
+
         List<CourseBean> listCourse = courseService.getAllBeans();
         model.addAttribute("courses", listCourse);
+
+        List<TestType> testTypeList = testTypeService.getList();
+        model.addAttribute("testTypeList", testTypeList);
         return "adminpanel/questions";
     }
 
@@ -251,8 +266,9 @@ public class AdminController {
     @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
     public String createQuestionPageByCourse(@PathVariable("courseId") int courseId, ModelMap model) {
         model.addAttribute("action", "create");
-        model.addAttribute("question", new Question());
+      //  model.addAttribute("question", new Question());
         model.addAttribute("courseId", courseId);
+        model.addAttribute("listTestType", testTypeService.getListByCourseId(courseId));
         try {
             model.addAttribute("courseName", courseService.getById(courseId).getName());
         } catch (CourseNotFoundException ex) {
@@ -266,9 +282,13 @@ public class AdminController {
                                  @RequestParam("questionWeight") byte questionWeight,
                                  @RequestParam("questionStatus") boolean questionStatus,
                                  @RequestParam("myAnswer") boolean myAnswer,
+                                 @RequestParam("testTypeId") int testTypeId,
                                  @PathVariable("courseId") int courseId) {
         QuestionBean questionBean = new QuestionBean(questionText, questionWeight, questionStatus, myAnswer, courseId);
+        questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
         int questionId = questionService.create(questionBean);
+
+
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
@@ -441,7 +461,7 @@ public class AdminController {
     @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
     public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
         String feedback = request.getParameter("feedback");
-        userService.setFeedback(userid,feedback);
+        userService.setFeedback(userid, feedback);
         return "redirect:/admin/users/" + userid + "/edit";
     }
 
@@ -456,7 +476,7 @@ public class AdminController {
     public ModelAndView usersOnPage(@RequestParam int page){
         ModelAndView mav=new ModelAndView("adminpanel/usersShow");
         List<UserBean> users = userService.getUsersOnOnePage(page);
-        mav.addObject("users",users);
+        mav.addObject("users", users);
         return mav;
     }
     @RequestMapping("/createClassrom")
@@ -465,7 +485,7 @@ public class AdminController {
         List<CourseBean> courses = courseService.getAllBeans();
         List<UserBean> teachers = userService.getAllTeachers();
         mav.addObject("courses",courses);
-        mav.addObject("teachers",teachers);
+        mav.addObject("teachers", teachers);
         return mav;
     }
 
@@ -481,14 +501,14 @@ public class AdminController {
     public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
                                       @RequestParam("CourseId") int courseId,
                                       @RequestParam("TeacherId") int teacherId){
-        classroomService.createClassroom(usersId,courseId,teacherId);
+        classroomService.createClassroom(usersId, courseId, teacherId);
         return "redirect: /admin/classRoomList";
     }
 
     @RequestMapping(value = "/classRoomList", method = RequestMethod.GET)
     public String classroomList(ModelMap model){
         List<ClassRoomBean> classRooms = classroomService.getBeans();
-        model.addAttribute("classRoomBeans",classRooms);
+        model.addAttribute("classRoomBeans", classRooms);
         return "adminpanel/classRoom";
     }
 
@@ -496,7 +516,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
     public String classroomListEdit(ModelMap model,@PathVariable("classroomId") int classroomId){
-        model.addAttribute("classroomId",classroomId);
+        model.addAttribute("classroomId", classroomId);
         return "adminpanel/editClassRoom";
     }
 
