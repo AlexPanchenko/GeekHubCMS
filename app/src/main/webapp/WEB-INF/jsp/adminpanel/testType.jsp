@@ -21,6 +21,7 @@
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
+        <h1>Test Types</h1>
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="alert alert-success text-center">

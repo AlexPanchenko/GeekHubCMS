@@ -20,7 +20,7 @@
                     <a href="/admin/classRoomList"> ClassRoom</a>
                 </li>
                 <li>
-                    <a href="#"> Tests</a>
+                    <a href="/admin/testConfig"> Tests</a>
                 </li>
                 <li>
                     <a href="/admin/questions">Base questions</a>

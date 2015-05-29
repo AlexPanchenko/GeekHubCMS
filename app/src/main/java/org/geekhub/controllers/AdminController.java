@@ -71,13 +71,6 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/testConfig", method = RequestMethod.GET)
-    public String testTypeChangeAction(Map<String, Object> model){
-        model.put("testConfigList", testConfigService.getAll());
-        model.put("tmp", 12);
-        return "adminpanel/testConfig";
-    }
-
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
     public String getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) throws Exception {
         try {
@@ -153,7 +146,7 @@ public class AdminController {
     @RequestMapping(value = "/course/create", method = RequestMethod.GET)
     public ModelAndView createPage() throws CourseNotFoundException {
         ModelAndView model = new ModelAndView("adminpanel/course-create");
-      //  model.addObject("enumStatus", TestStatus.values());
+        //  model.addObject("enumStatus", TestStatus.values());
         return model;
     }
 
@@ -189,9 +182,9 @@ public class AdminController {
     @RequestMapping(value = "/course", method = RequestMethod.POST)
     public String createCourse(@RequestParam("name") String name,
                                @RequestParam("description") String description
-                            ) throws Exception {
-            CourseBean courseBean = new CourseBean(name, description);
-            courseService.createCourse(courseBean);
+    ) throws Exception {
+        CourseBean courseBean = new CourseBean(name, description);
+        courseService.createCourse(courseBean);
 
         return "redirect:/admin/course/list";
     }
@@ -227,9 +220,9 @@ public class AdminController {
 
     @RequestMapping(value = "/testtypedetails/{courseId}", method = RequestMethod.GET)
     public
-    //@ResponseBody
+        //@ResponseBody
     String TestTypeByCourse(@PathVariable int courseId,
-                                    ModelMap model) {
+                            ModelMap model) {
         List<TestType> list = testTypeService.getListByCourseId(courseId);
         model.addAttribute("testTypeList", list);
 
@@ -273,7 +266,7 @@ public class AdminController {
     @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.GET)
     public String createQuestionPageByCourse(@PathVariable("courseId") int courseId, ModelMap model) {
         model.addAttribute("action", "create");
-      //  model.addAttribute("question", new Question());
+        //  model.addAttribute("question", new Question());
         model.addAttribute("courseId", courseId);
         model.addAttribute("listTestType", testTypeService.getListByCourseId(courseId));
         try {
@@ -299,7 +292,6 @@ public class AdminController {
         System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
-
 
 
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.GET)
@@ -373,28 +365,28 @@ public class AdminController {
                                ModelMap model) {
         answerService.delete(answerId);
         model.addAttribute("question", questionService.read(questionId));
-        return "redirect:/admin/course/"+ courseId + "/question/" + questionId + "/edit";
+        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
     // END ANSWER CONTROLLER
 
 
     @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.GET)
-    public ModelAndView createTestConfig (@PathVariable int courseId) {
-        ModelAndView model = new ModelAndView("adminpanel/testConfig-create");
+    public ModelAndView createTestConfig(@PathVariable int courseId) {
+        ModelAndView model = new ModelAndView("adminpanel/testConfigCreate");
         model.addObject("enumStatus", TestStatus.values());
         model.addObject("courseId", courseId);
         return model;
     }
 
     @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.POST)
-    public ModelAndView createTestConfig (@PathVariable int courseId,
-                                          @RequestParam("title") String title,
-                                          @RequestParam("questionCount") int questionCount,
-                                          @RequestParam("dateStart") String dateStart,
-                                          @RequestParam("dateFinish") String dateFinish,
-                                          @RequestParam("timeToTest") int timeToTest,
-                                          @RequestParam("status") TestStatus status) throws Exception {
+    public ModelAndView createTestConfig(@PathVariable int courseId,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("questionCount") int questionCount,
+                                         @RequestParam("dateStart") String dateStart,
+                                         @RequestParam("dateFinish") String dateFinish,
+                                         @RequestParam("timeToTest") int timeToTest,
+                                         @RequestParam("status") TestStatus status) throws Exception {
         ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
@@ -406,7 +398,7 @@ public class AdminController {
             if (!finishDate.equals("")) {
                 finishDate = dt.parse(dateFinish);
                 CourseBean courseBean = courseService.getById(courseId);
-                TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount, startDate, finishDate, timeToTest, status,courseBean);
+                TestConfigBeen testConfigBeen = new TestConfigBeen(title, questionCount, startDate, finishDate, timeToTest, status, courseBean);
                 testConfigService.createTestConfig(testConfigBeen);
             }
         } catch (CourseNotFoundException ex) {
@@ -421,14 +413,14 @@ public class AdminController {
     public ModelAndView editTestConfig(@PathVariable int testConfigId,
                                        @PathVariable int courseId) {
         ModelAndView model = new ModelAndView("adminpanel/testConfig-edit");
-        model.addObject("courseId",courseId);
+        model.addObject("courseId", courseId);
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfigId);
         model.addObject("testConfigBeen", testConfigBeen);
         model.addObject("enumStatus", TestStatus.values());
         return model;
     }
 
-    @RequestMapping(value ="/testConfig/{courseId}/{testConfigId}/delete")
+    @RequestMapping(value = "/testConfig/{courseId}/{testConfigId}/delete")
     public ModelAndView deleteTestConfig(@PathVariable int testConfigId,
                                          @PathVariable int courseId) {
         ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
@@ -436,15 +428,16 @@ public class AdminController {
         testConfigService.delete(testConfigBeen);
         return model;
     }
+
     @RequestMapping(value = "/testConfig/{courseId}/{testConfigId}/edit", method = RequestMethod.POST)
-    public ModelAndView editTestConfig (@PathVariable int testConfigId,
-                                        @PathVariable int courseId,
-                                        @RequestParam("title") String title,
-                                        @RequestParam("questionCount") int questionCount,
-                                        @RequestParam("dateStart") String dateStart,
-                                        @RequestParam("dateFinish") String dateFinish,
-                                        @RequestParam("timeToTest") int timeToTest,
-                                        @RequestParam("status") TestStatus status) {
+    public ModelAndView editTestConfig(@PathVariable int testConfigId,
+                                       @PathVariable int courseId,
+                                       @RequestParam("title") String title,
+                                       @RequestParam("questionCount") int questionCount,
+                                       @RequestParam("dateStart") String dateStart,
+                                       @RequestParam("dateFinish") String dateFinish,
+                                       @RequestParam("timeToTest") int timeToTest,
+                                       @RequestParam("status") TestStatus status) {
 
         ModelAndView model = new ModelAndView("redirect:/admin/course/" + courseId + "/edit");
         Date startDate = new Date();
@@ -460,13 +453,13 @@ public class AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId,title, questionCount,startDate,finishDate,timeToTest, status);
+        TestConfigBeen testConfigBeen = new TestConfigBeen(testConfigId, title, questionCount, startDate, finishDate, timeToTest, status);
         testConfigService.update(testConfigBeen);
         return model;
     }
 
     @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
-    public String createFeedback(@PathVariable("userid")Integer userid, HttpServletRequest request){
+    public String createFeedback(@PathVariable("userid") Integer userid, HttpServletRequest request) {
         String feedback = request.getParameter("feedback");
         userService.setFeedback(userid, feedback);
         return "redirect:/admin/users/" + userid + "/edit";
@@ -474,118 +467,202 @@ public class AdminController {
 
     /*classRoom controllers*/
     @RequestMapping("/ajax/countUsers")
-    public @ResponseBody
+    public
+    @ResponseBody
     Long usersCount() {
         return userService.getUsersCount();
     }
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(@RequestParam int page){
-        ModelAndView mav=new ModelAndView("adminpanel/usersShow");
+    public ModelAndView usersOnPage(@RequestParam int page) {
+        ModelAndView mav = new ModelAndView("adminpanel/usersShow");
         List<UserBean> users = userService.getUsersOnOnePage(page);
         mav.addObject("users", users);
         return mav;
     }
+
     @RequestMapping("/createClassrom")
-    public ModelAndView coursesDropDown(){
-        ModelAndView mav=new ModelAndView("/adminpanel/createClassroom");
+    public ModelAndView coursesDropDown() {
+        ModelAndView mav = new ModelAndView("/adminpanel/createClassroom");
         List<CourseBean> courses = courseService.getAllBeans();
         List<UserBean> teachers = userService.getAllTeachers();
-        mav.addObject("courses",courses);
+        mav.addObject("courses", courses);
         mav.addObject("teachers", teachers);
         return mav;
     }
 
     @RequestMapping("/ajax/usersOnCourse")
-    public ModelAndView usersOnCourse(@RequestParam("course") int course){
-        ModelAndView mav=new ModelAndView("adminpanel/usersOnCourse");
-        List<User> users= courseService.getUserFromCourse(course);
+    public ModelAndView usersOnCourse(@RequestParam("course") int course) {
+        ModelAndView mav = new ModelAndView("adminpanel/usersOnCourse");
+        List<User> users = courseService.getUserFromCourse(course);
         mav.addObject("users", users);
         return mav;
     }
 
     @RequestMapping("/ajax/createClassroom")
     public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                      @RequestParam("CourseId") int courseId,
-                                      @RequestParam("TeacherId") int teacherId){
+                                @RequestParam("CourseId") int courseId,
+                                @RequestParam("TeacherId") int teacherId) {
         classroomService.createClassroom(usersId, courseId, teacherId);
         return "redirect: /admin/classRoomList";
     }
 
     @RequestMapping(value = "/classRoomList", method = RequestMethod.GET)
-    public String classroomList(ModelMap model){
+    public String classroomList(ModelMap model) {
         List<ClassRoomBean> classRooms = classroomService.getBeans();
         model.addAttribute("classRoomBeans", classRooms);
         return "adminpanel/classRoom";
     }
 
 
-
     @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
-    public String classroomListEdit(ModelMap model,@PathVariable("classroomId") int classroomId){
+    public String classroomListEdit(ModelMap model, @PathVariable("classroomId") int classroomId) {
         model.addAttribute("classroomId", classroomId);
         return "adminpanel/editClassRoom";
     }
 
 
     @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
-    public String classroomListEditPost(ModelMap model,@PathVariable("classroomId") int classroomId){
+    public String classroomListEditPost(ModelMap model, @PathVariable("classroomId") int classroomId) {
 
         return "adminpanel/classRoom";
     }
 
     @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
-    public String classroomRemove(ModelMap model,@PathVariable("classroomId") int classroomId){
+    public String classroomRemove(ModelMap model, @PathVariable("classroomId") int classroomId) {
         classroomService.removeClassroomById(classroomId);
         return "adminpanel/classRoom";
     }
 
     @RequestMapping(value = "/testType", method = RequestMethod.GET)
-    public String testType(ModelMap model){
+    public String testType(ModelMap model) {
         model.put("testTypeList", testTypeService.getList());
         return "adminpanel/testType";
     }
 
     @RequestMapping(value = "/testType/create", method = RequestMethod.GET)
-    public String testTypeCreate(ModelMap model){
-        model.put("courseList", courseService. getAllCourses());
+    public String testTypeCreate(ModelMap model) {
+        model.put("courseList", courseService.getAllCourses());
         return "adminpanel/testTypeCreate";
     }
 
     @RequestMapping(value = "/testType/create", method = RequestMethod.POST)
     public String testTypeCreateAction(ModelMap model,
                                        @RequestParam("name") String name,
-                                       @RequestParam("courseId") int courseId){
+                                       @RequestParam("courseId") int courseId) {
         testTypeService.create(name, courseId);
         return "redirect:/admin/testType";
     }
 
     @RequestMapping(value = "/testType/delete/{id}", method = RequestMethod.GET)
     public String testTypeDelete(ModelMap model,
-                                       @PathVariable("id") int id){
+                                 @PathVariable("id") int id) {
         testTypeService.deleteById(id);
         return "redirect:/admin/testType";
     }
 
     @RequestMapping(value = "/testType/change/{id}", method = RequestMethod.GET)
     public String testTypeChange(ModelMap model,
-                                 @PathVariable("id") int id){
+                                 @PathVariable("id") int id) {
         model.put("id", testTypeService.getTestTypeById(id).getId());
         model.put("name", testTypeService.getTestTypeById(id).getName());
         model.put("courseId", testTypeService.getTestTypeById(id).getCourse().getId());
-        model.put("courseList", courseService. getAllCourses());
+        model.put("courseList", courseService.getAllCourses());
         return "adminpanel/TestTypeChange";
     }
 
     @RequestMapping(value = "/testType/change/{id}", method = RequestMethod.POST)
     public String testTypeChangeAction(ModelMap model,
-                                 @PathVariable("id") int id,
-                                 @RequestParam("name") String name,
-                                 @RequestParam("courseId") int courseId){
+                                       @PathVariable("id") int id,
+                                       @RequestParam("name") String name,
+                                       @RequestParam("courseId") int courseId) {
         testTypeService.changeTestType(id, name, courseId);
-        return "redirect:/admin/testType/change/"+id;
+        return "redirect:/admin/testType/change/" + id;
     }
 
+    @RequestMapping(value = "/testConfig", method = RequestMethod.GET)
+    public String testConfig(Map<String, Object> model) {
+        model.put("testConfigList", testConfigService.getAll());
+        model.put("tmp", 12);
+        return "adminpanel/testConfig";
+    }
+
+    @RequestMapping(value = "/testConfig/create", method = RequestMethod.GET)
+    public String testConfigCreate(Map<String, Object> model) {
+        model.put("testTypeList", testTypeService.getList());
+        model.put("status", TestStatus.values());
+        return "adminpanel/testConfigCreate";
+    }
+
+    @RequestMapping(value = "/testConfig/create", method = RequestMethod.POST)
+    public String testConfigCreateAction(Map<String, Object> model,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("questionCount") int questionCount,
+                                         @RequestParam("dateStart") String dateStart,
+                                         @RequestParam("dateFinish") String dateFinish,
+                                         @RequestParam("timeToTest") int timeToTest,
+                                         @RequestParam("status") TestStatus status,
+                                         @RequestParam("testType") int testTypeId) throws Exception {
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = new Date();
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
+            }
+            Date finishDate = new Date();
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
+                testConfigService.createTestConfig(new TestConfig(title, questionCount, startDate, finishDate, timeToTest, status,testTypeService.getTestTypeById(testTypeId).getCourse(), testTypeService.getTestTypeById(testTypeId)));
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+        return "redirect:/admin/testConfig";
+    }
+
+    @RequestMapping(value = "/testConfig/delete/{id}", method = RequestMethod.GET)
+    public String testConfigDelete(Map<String, Object> model,
+                                   @PathVariable("id") int id) {
+        testConfigService.deleteById(id);
+        return "redirect:/admin/testConfig";
+    }
+
+    @RequestMapping(value = "/testConfig/edit/{id}", method = RequestMethod.GET)
+    public String testConfigEdit(Map<String, Object> model,
+                                   @PathVariable("id") int id) {
+        model.put("status", TestStatus.values());
+        model.put("testTypeList", testTypeService.getList());
+        model.put("testConfig", testConfigService.getTestConfigByID(id));
+        return "adminpanel/testConfigEdit";
+    }
+
+    @RequestMapping(value = "/testConfig/edit/{id}", method = RequestMethod.POST)
+    public String testConfigEditAction(Map<String, Object> model,
+                                 @PathVariable("id") int id,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("questionCount") int questionCount,
+                                 @RequestParam("dateStart") String dateStart,
+                                 @RequestParam("dateFinish") String dateFinish,
+                                 @RequestParam("timeToTest") int timeToTest,
+                                 @RequestParam("status") TestStatus status,
+                                 @RequestParam("testType") int testTypeId) throws Exception {
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = new Date();
+            if (!startDate.equals("")) {
+                startDate = dt.parse(dateStart);
+            }
+            Date finishDate = new Date();
+            if (!finishDate.equals("")) {
+                finishDate = dt.parse(dateFinish);
+                testConfigService.updateByParams(id, title, questionCount, startDate, finishDate, timeToTest, status, testTypeService.getTestTypeById(testTypeId));
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+
+        return "redirect:/admin/testConfig/edit/"+id;
+}
 
 
 /*    *//*Pagination for classroom*//*
@@ -598,7 +675,6 @@ public class AdminController {
 //        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }*/
-
 
 
 }

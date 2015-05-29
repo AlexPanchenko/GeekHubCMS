@@ -33,6 +33,7 @@ public class Course extends BaseEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     List<TestType> testTypeList = new ArrayList<>();
 
+
     @OneToOne
     (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "course")
     TestConfig testConfig;

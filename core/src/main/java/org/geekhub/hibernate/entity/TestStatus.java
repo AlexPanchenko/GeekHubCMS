@@ -2,7 +2,7 @@ package org.geekhub.hibernate.entity;
 
 
 public enum  TestStatus {
-    ENABLED,
+    ACTIVE,
+    INACTIVE,
     ARCHIVE,
-    DISABLED;
 }
