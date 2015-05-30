@@ -21,11 +21,21 @@
         <security:authorize access="hasRole('ROLE_STUDENT')">
             <a href="/student" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
         </security:authorize>
+        <security:authorize access="hasRole('ROLE_TEACHER')">
+            <a href="/teacher" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
+        </security:authorize>
+
         <!-- /.dropdown -->
         <li class="dropdown">
             <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
-                    <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
+                <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </security:authorize>
+            <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
+                <ul class="dropdown-menu dropdown-user">
+                    <li class="divider"></li>
+                    <li><a href="/auth?logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                </ul>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">
                 <ul class="dropdown-menu dropdown-user">

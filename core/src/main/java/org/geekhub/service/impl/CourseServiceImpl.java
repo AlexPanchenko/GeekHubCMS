@@ -181,9 +181,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-
+    @Override
     public void unRegisterCourse (int id) {
-           Course course = (Course) courseDao.read(id, Course.class);
+        Course course = (Course) courseDao.read(id, Course.class);
         org.springframework.security.core.userdetails.User principal =
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());

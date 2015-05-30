@@ -8,16 +8,13 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="text-center" style="margin-top: -15px" >
-                    <h3><i>User Panel</i> </h3>
+                    <h3>User Panel</h3>
                 </li>
                 <li>
                     <a href="/student/registrationCourses" class="text-left">Registration on course</a>
                 </li>
                 <li>
-                    <a href="#" class="text-left">Remove registration</a>
-                </li>
-                <li>
-                    <a href="redirect:" class="text-left">Starting test</a>
+                    <a href="/student/testing/selectCourse" class="text-left">Starting test</a>
                 </li>
                 <li>
                     <a href="/student/userProfile" class="text-left">Profile</a>

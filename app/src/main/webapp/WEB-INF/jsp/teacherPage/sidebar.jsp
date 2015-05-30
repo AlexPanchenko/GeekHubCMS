@@ -8,32 +8,23 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="text-center" style="margin-top: -15px" >
-                    <h3> Admin Panel</h3>
+                    <h3>Teacher Panel</h3>
                 </li>
                 <li>
-                    <a href="/admin/users"> Users</a>
+                    <a href="/teacher/registrationCourses" class="text-left">Students</a>
                 </li>
                 <li>
-                    <a href="/admin/course/list"> Courses</a>
+                    <a href="#" class="text-left">Classrooms</a>
                 </li>
                 <li>
-                    <a href="/admin/classRoomList"> ClassRoom</a>
+                    <a href="/teacher/testing/selectCourse" class="text-left">Tests</a>
                 </li>
                 <li>
-                    <a href="#"> Tests</a>
+                    <a href="/teacher/teacherPage" class="text-left">Teacher Profile</a>
                 </li>
-                <li>
-                    <a href="/admin/questions">Base questions</a>
-                </li>
-                <li>
-                    <a href="/admin/userTestResult">User test result</a>
-                </li>
-                <li>
-                    <a href="/admin/adminPage">Admin Profile</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
     </div>
 </div>
-

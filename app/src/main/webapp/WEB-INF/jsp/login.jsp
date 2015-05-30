@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 <head>
   <title>LogIn</title>
@@ -32,6 +32,7 @@
   <input type="submit" value="Submit" class="btn btn-primary">
 
 </form>
+
 <%--<script src="/resources/js/forms.js"></script>--%>
 
 </body>

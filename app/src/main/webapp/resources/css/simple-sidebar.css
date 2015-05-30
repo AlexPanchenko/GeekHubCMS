@@ -1,17 +1,12 @@
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
 
 #wrapper {
+    width: auto;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    height: 100%;
 }
 
 #wrapper.toggled {
@@ -41,13 +36,13 @@
 
 #page-content-wrapper {
     width: 100%;
-    position: fixed;
+    position: relative;
     padding: 15px;
-    height: 100%;
+    height: auto;
     background: #ffffff;
     color: #000000;
+    background-color: #f8f8f8;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-color: #ffffff;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -121,6 +116,7 @@
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
+        background-color: #ffffff;
     }
 
     #wrapper.toggled {
@@ -129,6 +125,7 @@
 
     #sidebar-wrapper {
         width: 250px;
+        background-color: #f8f8f8;
     }
 
     #wrapper.toggled #sidebar-wrapper {

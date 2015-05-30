@@ -45,12 +45,27 @@ public class UserServiceImpl implements UserService {
 
 
     public User getUserById(int userId) {
-        return null;
+        return userDao.getUserById(userId);
     }
 
 
     public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public void removeUserById(int userId) {
+        userDao.delete(userDao.getUserById(userId));
+    }
+
+    @Override
+    public void saveUser(UserBean userBean) {
+        User user = beanService.toUserEntity(userBean);
+        RegistrationResponseBean registrationResponseBean = validateForm(userBean);
+
+        if (registrationResponseBean.isSuccess()) {
+            userDao.create(user);
+        }
     }
 
     @Override
@@ -60,8 +75,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUserByUserBean(UserBean userBean) {
+        User user = userDao.getUserById(userBean.getId());
+        user.setFirstName(userBean.getFirstName());
+        user.setLastName(userBean.getLastName());
+        user.setPhoneNumber(userBean.getPhoneNumber());
+        user.setEmail(userBean.getEmail());
+        user.setSkype(userBean.getSkype());
+        userDao.update(user);
+    }
+
+    @Override
     public List<UserBean> getUsersOnOnePage(int page){
         List<User> users = userDao.usersOnPage(page);
+        System.out.println(users.size());
         List<UserBean> userBeans = new ArrayList<UserBean>();
         for(User u: users){
             userBeans.add(beanService.toUserBean(u));

@@ -11,6 +11,9 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface UserService  {
+    public void removeUserById(int userId);
+    public void saveUser(UserBean userBean);
+    public void updateUserByUserBean(UserBean userBean);
     public UserBean getUserBeanByEmail(String email);
     public void setFeedback(int Id, String feedBack);
     public User getUserById(int userId);

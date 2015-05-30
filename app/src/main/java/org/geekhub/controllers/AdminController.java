@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -50,75 +50,93 @@ public class AdminController {
         return "adminpanel/index";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(ModelMap model) {
-        List<User> users = new ArrayList<>();
-        User u = new User();
-        u.setBirthDay(new Date());
-        u.setId(1);
-        u.setFirstName("Test1");
-        u.setEmail("Ivan@mail.ru");
-        u.setLastName("Test");
-        u.setPassword("1234512");
-        u.setRegistrationDate(new Date());
-        u.setPhoneNumber("+380(93)145-1514");
-        for (int i = 0; i < 5; i++) users.add(u);
-        model.addAttribute("users", users);
-        return "adminpanel/users";
+    @RequestMapping(value = "/createUser",method = RequestMethod.GET)
+    public String createUser(ModelMap modelMap){
+        return "adminpanel/createUser";
+    }
+
+    @RequestMapping(value = "/createUser",method = RequestMethod.POST)
+    public String createUserPost(@RequestParam("first-name") String firstName,
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("password") String password,
+                                 String skype,String phone,
+                                 @RequestParam("birthday") String birthDay,
+                                 @RequestParam("role") String role,
+                                 ModelMap modelMap) throws ParseException {
+
+        /* create bean that transmit to service*/
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+        Date dateB = new Date();
+        if (!birthDay.equals("")) {
+            dateB = dt.parse(birthDay);
+        }
+        UserBean userBean = new UserBean();
+        userBean.setFirstName(firstName);
+        userBean.setLastName(lastName);
+        userBean.setConfirmPassword(password);
+        userBean.setEmail(email);
+        userBean.setPhoneNumber(phone);
+        userBean.setSkype(skype);
+        userBean.setRegistrationDate(new Date());
+        userBean.setBirthDay(dateB);
+        userBean.setEnable(Byte.parseByte("1"));
+        userBean.setPassword(password);
+        userBean.setRole(Role.valueOf(role));
+        /*send userBean to save in database*/
+        userService.saveUser(userBean);
+        return "redirect:/admin/users";
+    }
+
+    @RequestMapping(value = "/users",method = RequestMethod.GET)
+    public ModelAndView users(){
+        ModelAndView mav=new ModelAndView("adminpanel/users");
+        Long usersCount = userService.getUsersCount();
+        Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE>0)
+            pagesCount++;
+        List<Integer> pageNumbers = new ArrayList<Integer>();
+        int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
+        if(pagesCount < k)
+            k = pagesCount.intValue();
+        for(int i = 1; i<=k; i++)
+            pageNumbers.add(i);
+        mav.addObject("pageNumbers",pageNumbers);
+        return mav;
     }
 
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
-    public String getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) throws Exception {
-        try {
+    public ModelAndView getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model){
+        ModelAndView modelAndView = new ModelAndView("adminpanel/user-edit");
+        User user = userService.getUserById(userId);
+        modelAndView.addObject("roleList",Role.values());
+        modelAndView.addObject("user",user);
+        return modelAndView;
+    }
 
+    @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
+    public ModelAndView removeUser(@PathVariable("userId") Integer userId, ModelMap model){
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
+        userService.removeUserById(userId);
+        return modelAndView;
+    }
 
-            Course cour = new Course();
-            cour.setId(1);
-            cour.setName("PHP");
-
-            Course c2 = new Course();
-            c2.setId(2);
-            c2.setName("Java Script");
-
-            Set<Course> courses = new HashSet<>();
-            courses.add(c2);
-            courses.add(cour);
-
-            User u = new User();
-
-            u.setBirthDay(new Date());
-            u.setId(userId);
-            u.setFirstName("Test1");
-            u.setEmail("Ivan@mail.ru");
-            u.setLastName("Test");
-
-
-            u.setPassword("1234512");
-            u.setRegistrationDate(new Date());
-            //  u.setCourses(courses);
-            u.setPhoneNumber("931451514");
-
-            model.addAttribute("courseList", courses);
-            model.addAttribute("user", u);
-            model.addAttribute("userCourses", userService.getAllCoursesByUser(u));
-            return "adminpanel/user-edit";
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
+    @RequestMapping(value ="/adminPage", method = RequestMethod.GET)
+    public ModelAndView userProfile(Principal principal){
+        ModelAndView model = new ModelAndView("adminpanel/userProfile");
+        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        return model;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public String editUser(@RequestParam("id") String id,
+    public String editUser(@RequestParam("id") int id,
                            @RequestParam("first-name") String firstName,
                            @RequestParam("last-name") String lastName,
                            @RequestParam("email") String email,
                            @RequestParam("skype") String skype,
                            @RequestParam("phone") String phone,
                            @RequestParam("birthday") String birthday,
-                           @RequestParam("role") String role,
-                           @RequestParam("courses[]") String[] courses,
-                           @RequestParam(value = "avatar", required = false) MultipartFile avatar,
                            ModelMap model) {
         try {
             Date date = CommonUtil.getFormattedDate(birthday);
@@ -126,6 +144,14 @@ public class AdminController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        UserBean userBean = new UserBean();
+        userBean.setId(id);
+        userBean.setFirstName(firstName);
+        userBean.setLastName(lastName);
+        userBean.setEmail(email);
+        userBean.setSkype(skype);
+        userBean.setPhoneNumber(phone);
+        userService.updateUserByUserBean(userBean);
         return "redirect:/admin/users/" + id + "/edit";
     }
 
@@ -185,9 +211,7 @@ public class AdminController {
                                @RequestParam("dateStart") String dateStart,
                                @RequestParam("dateFinish") String dateFinish,
                                @RequestParam("timeToTest") int timeToTest,
-                                   @RequestParam("status") TestStatus status) throws Exception {
-
-
+                               @RequestParam("status") TestStatus status) throws Exception {
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = new Date();
@@ -531,6 +555,7 @@ public class AdminController {
         classroomService.removeClassroomById(classroomId);
         return "adminpanel/classRoom";
     }
+
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,

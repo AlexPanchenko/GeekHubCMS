@@ -1,6 +1,8 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title></title>
@@ -20,8 +22,7 @@
                 </div>
                 <div class="panel-body ">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3 col-lg-offset-1 col-md-offset-1"> <img alt="User Pic" src="<c:url value='/resources/img/slowpoke.png'/>" class="img-rounded" width="170"  style="margin-top: 15px;"> </div>
-
+                        <div class="col-md-3 col-lg-3 col-lg-offset-1 col-md-offset-1"> <img alt="User Pic" src="<c:url value='/resources/img/pikachu.png'/>" class="img-circle" width="170"  style="margin-top: 15px;"> </div>
                         <div class="col-md-6 col-lg-6 col-lg-offset-1 col-md-offset-1">
                             <table class="table table-user-information text-black">
                                 <tbody>
@@ -51,7 +52,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" href="/student/users/${user.id}/edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" href="/teacher/users/${user.id}/edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
                 </div>
             </div>
         </div>
