@@ -16,3 +16,36 @@
     padding: 30px;
     padding-right: 300px;
 }
+
+.coursesAdminResult{
+    background-color: #d5d5d5;
+}
+
+.endTesting{
+    align-content: center;
+}
+.text{
+    text-align: center;
+}
+
+.testMain {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+}
+
+.back{
+    background-color: #FFF9FB;
+}
+
+.radius{
+    background-color: #EEF4F7;
+}
+
+.js-submit{
+    margin-left: 20px;
+}
+
+.myAnswer{
+    margin: 10px;
+}

@@ -44,6 +44,8 @@
                                         <label class="control-label pull-left" for="description">Course
                                             description</label>
                                     </dt>
+
+
                                     <dd>
                                         <div class="form-group">
                                                     <textarea class="form-control" id="description" name="description"
@@ -51,6 +53,7 @@
                                                               rows="5" required></textarea>
                                         </div>
                                     </dd>
+                                    <h1 class="page-header">New Test</h1>
                                     <dt>
                                         <label class="pull-left control-label" for="title">Test config title</label>
                                     </dt>

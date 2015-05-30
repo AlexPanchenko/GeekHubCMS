@@ -16,6 +16,7 @@ import org.geekhub.service.BeanService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -229,6 +230,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Course> getAllCoursesByUser(User user) {
         return usersCoursesDao.getAllCoursesByUser(user);
+    }
+
+    @Override
+    public User getLogInUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDao.loadUserByUsername(principal.getUsername());
     }
 
 

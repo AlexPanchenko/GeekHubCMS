@@ -337,12 +337,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.POST)
-    public String editQuestion(@RequestParam("questionText") String questionText,
+    public String editQuestion(@PathVariable("questionId") int questionId,
+                               @RequestParam("questionText") String questionText,
+                               @RequestParam("questionCode") String questionCode,
                                @RequestParam("questionWeight") byte questionWeight,
                                @RequestParam("questionStatus") boolean questionStatus,
                                @RequestParam("myAnswer") boolean myAnswer,
                                @PathVariable("courseId") int courseId) {
-        QuestionBean questionBean = new QuestionBean(courseId, questionText, questionWeight, questionStatus, myAnswer, courseId);
+        QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, questionStatus, myAnswer, courseId, questionCode);
         questionService.update(questionBean);
         return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }
