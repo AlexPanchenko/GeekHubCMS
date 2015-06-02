@@ -206,6 +206,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course getCourseById(int id) {
+        return (Course) courseDao.read(id, Course.class);
+    }
+
+    @Override
     public List<CourseBean> getCourseBeenByUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());

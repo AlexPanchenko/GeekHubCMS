@@ -1,6 +1,7 @@
 package org.geekhub.hibernate.dao;
 
 
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -19,4 +20,5 @@ public interface UserDao extends BaseDao {
     public void addUser(User user);
     public User loadUserByUsername(String email) throws UsernameNotFoundException;
     public User getUserByEmail(String email) throws UsernameNotFoundException;
+    public List<User> getUserListByTestAssignment(TestAssignment testAssignment);
 }

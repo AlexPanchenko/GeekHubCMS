@@ -87,4 +87,31 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         }
         return testAssignment;
     }
+
+    @Override
+    public void createTestAssignment(User user, TestConfig testConfig) {
+        TestAssignment testAssignment = new TestAssignment();
+        testAssignment.setTestConfig(testConfig);
+        System.out.println();
+        testAssignment.setUser(user);
+        testAssignment.setDateStart(testConfig.getDateStart());
+        testAssignment.setDateFinish(testConfig.getDateFinish());
+        testAssignment.setTestStatusAssignment(TestStatusAssignment.NOT_YET_PASSING);
+        testAssignmentDao.create(testAssignment);
+    }
+
+    @Override
+     public void assignTestByUserListId(List<Integer> listId, TestConfig testConfig) {
+        for(Integer id: listId){
+            System.out.println(userService.getUserById(id.intValue()));
+            createTestAssignment(userService.getUserById(id.intValue()), testConfig);
+        }
+    }
+
+    @Override
+    public void deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig) {
+        testAssignmentDao.delete(testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user));
+    }
+
+
 }

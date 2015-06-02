@@ -8,13 +8,11 @@ import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Role;
-import org.geekhub.hibernate.entity.TestAssignment;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
+import org.geekhub.wrapper.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
 
     public User getUserById(int userId) {
-        return null;
+        return (User) userDao.read(userId, User.class);
     }
 
 
@@ -160,7 +158,9 @@ public class UserServiceImpl implements UserService {
         for (User user : userList) {
             List<TestAssignment> list = user.getTestAssignments();
             for(TestAssignment tA: list){
-                userTestResultWrapperList.add(new UserTestResultWrapper(user, course, tA, tA.getTestConfig()));
+                if(tA.getTestConfig().getTestType().getCourse().equals(course)) {
+                    userTestResultWrapperList.add(new UserTestResultWrapper(user, course, tA, tA.getTestConfig()));
+                }
             }
         }
         return userTestResultWrapperList;
@@ -188,7 +188,7 @@ public class UserServiceImpl implements UserService {
         if (recordsPerPage < size) {
             list = list.subList(firstRecord, lastRecord);
         }
-        Page<UserTestResultWrapper> resultPage = new Page<UserTestResultWrapper>(list, begin, current, size, maxPages, recordsPerPage, end);
+        Page<UserTestResultWrapper> resultPage = new Page<>(list, begin, current, size, maxPages, recordsPerPage, end);
 
         List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
         Course course = courseDao.getCourseByName(courseName);
@@ -206,9 +206,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsersByCourse(Course course) {
+        System.out.println(course.getId());
+        System.out.println("List = " + usersCoursesDao.getAllUsersByCourse(course));
+        return usersCoursesDao.getAllUsersByCourse(course);
+    }
+
+    @Override
     public User getLogInUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDao.loadUserByUsername(principal.getUsername());
+    }
+
+    @Override
+    public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig) {
+        List<User> userList = getAllUsersByCourse(course);
+        System.out.println("List = " + userList);
+        List<UserWrapper> userWrapperList = new ArrayList<>();
+        for(User user: userList){
+            UserWrapper userWrapper = new UserWrapper();
+            userWrapper.setUser(user);
+            userWrapper.setIsRegistered(false);
+            for(TestAssignment testAssignment: user.getTestAssignments()){
+                if(testAssignment.getTestConfig().equals(testConfig)){
+                    userWrapper.setIsRegistered(true);
+                }
+            }
+            userWrapperList.add(userWrapper);
+        }
+        return userWrapperList;
     }
 
 
