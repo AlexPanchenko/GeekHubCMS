@@ -30,6 +30,11 @@ public class QuestionBean {
         this.testType = testType;
     }
 
+    public QuestionBean(int id, String questionText) {
+        this.id = id;
+        this.questionText = questionText;
+    }
+
     public QuestionBean(int id, String questionText, Byte questionWeight, String questionTitle, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Set<AnswerBean> answers, int course) {
         this.id = id;
         this.questionText = questionText;

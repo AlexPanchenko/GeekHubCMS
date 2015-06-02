@@ -22,6 +22,10 @@
         document.getElementById('testTypeId').value = $('#selectTestType option:selected').attr('id');
     }
 
+    function changeValueUpdate(){
+        document.getElementById('testTypeIdUpdate').value = $('#selectTestType2 option:selected').attr('id');
+    }
+
     $("form").submit(function () {
 
 
@@ -69,7 +73,7 @@
                                                 <option value="${testType.id}" id=${testType.id}>${testType.name}</option>
                                             </c:forEach>
                                         </select>
-                                        <input type="hidden" id="testTypeId" name="testTypeId" value="0"/>
+                                        <input type="hidden" id="testTypeId" name="testTypeId" value="0">
                                     </h1>
                                     <dl class="dl-horizontal">
                                         <dt>
@@ -106,18 +110,18 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                        <dt>
-                                            <label class="control-label pull-left">Status
-                                                question</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="questionStatus"
-                                                       name="questionStatus" value="true">
-                                                <input type="hidden" name="questionStatus"
-                                                       value="false">
-                                            </div>
-                                        </dd>
+                                        <%--<dt>--%>
+                                            <%--<label class="control-label pull-left">Status--%>
+                                                <%--question</label>--%>
+                                        <%--</dt>--%>
+                                        <%--<dd>--%>
+                                            <%--<div class="form-group">--%>
+                                                <%--<input type="checkbox" id="questionStatus"--%>
+                                                       <%--name="questionStatus" value="true">--%>
+                                                <%--<input type="hidden" name="questionStatus"--%>
+                                                       <%--value="false">--%>
+                                            <%--</div>--%>
+                                        <%--</dd>--%>
                                         <dt>
                                             <label class="control-label pull-left">Your
                                                 answer</label>
@@ -135,7 +139,7 @@
                             </form>
                         </c:when>
                         <c:otherwise>
-                            <h1 class="page-header">Edit ${question.id}</h1>
+                            <h1 class="page-header">Edit question № ${question.id} for course ${courseName}</h1>
 
                             <form data-toggle="validator" name="edit" id="edit" role="form"
                                   action="/admin/course/${question.course.id}/question/${question.id}/edit"
@@ -148,6 +152,28 @@
                                             <input class="form-control" id="course" name="course"
                                                    type="hidden" value="${question.course.id}">
                                         </div>
+                                        <dt>
+                                            <label class="pull-left control-label"
+                                                   for="selectTestType2">TestType</label>
+                                        </dt>
+                                        <dd>
+                                            <div class="form-group">
+                                            <select id="selectTestType2" name="selectTestType2" onchange="changeValueUpdate()" class="dropdown-toggle form-control">
+                                                <option id="0">All TestType</option>
+                                                <c:forEach items="${listTestType}" var="testType">
+                                                    <c:choose>
+                                                        <c:when test="${curentTestTypeId == testType.id}">
+                                                            <option selected value="${testType.id}" id=${testType.id}>${testType.name}</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="${testType.id}" id=${testType.id}>${testType.name}</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </select>
+                                                </div>
+                                            <input type="hidden" id="testTypeIdUpdate" name="testTypeIdUpdate" value=${curentTestTypeId}>
+                                        </dd>
                                         <dt>
                                             <label class="pull-left control-label"
                                                    for="questionText1">Question text</label>
@@ -185,30 +211,30 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                        <dt>
-                                            <label class="control-label pull-left">Status
-                                                question</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <c:choose>
-                                                    <c:when test="${question.questionStatus eq true}">
-                                                        <input type="checkbox"
-                                                               id="questionStatusTrue"
-                                                               name="questionStatus" checked>
-                                                        <input type="hidden" name="questionStatus"
-                                                               value="false">
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input type="checkbox"
-                                                               id="questionStatusFalse"
-                                                               name="questionStatus">
-                                                        <input type="hidden" name="questionStatus"
-                                                               value="false">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </dd>
+                                        <%--<dt>--%>
+                                            <%--<label class="control-label pull-left">Status--%>
+                                                <%--question</label>--%>
+                                        <%--</dt>--%>
+                                        <%--<dd>--%>
+                                            <%--<div class="form-group">--%>
+                                                <%--<c:choose>--%>
+                                                    <%--<c:when test="${question.questionStatus eq true}">--%>
+                                                        <%--<input type="checkbox"--%>
+                                                               <%--id="questionStatusTrue"--%>
+                                                               <%--name="questionStatus" checked>--%>
+                                                        <%--<input type="hidden" name="questionStatus"--%>
+                                                               <%--value="false">--%>
+                                                    <%--</c:when>--%>
+                                                    <%--<c:otherwise>--%>
+                                                        <%--<input type="checkbox"--%>
+                                                               <%--id="questionStatusFalse"--%>
+                                                               <%--name="questionStatus">--%>
+                                                        <%--<input type="hidden" name="questionStatus"--%>
+                                                               <%--value="false">--%>
+                                                    <%--</c:otherwise>--%>
+                                                <%--</c:choose>--%>
+                                            <%--</div>--%>
+                                        <%--</dd>--%>
                                         <dt>
                                             <label class="control-label pull-left">Your
                                                 answer</label>
@@ -244,9 +270,9 @@
                                         <td>${answer.answerText}</td>
                                         <td>${answer.answerRight}</td>
                                         <td class="text-center">
-                                            <a href="/admin/question/${questionId}/answer/${answer.id}/edit"><i
+                                            <a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/edit"><i
                                                     class="fa fa-pencil-square-o"></i></a>
-                                            <a href="/admin/question/${questionId}/answer/${answer.id}/delete"><i
+                                            <a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/delete"><i
                                                     class="fa fa-times"></i></a>
                                         </td>
                                     </tr>
@@ -335,7 +361,7 @@
                                         <%--</dt>--%>
                                         <%--<dd>--%>
                                             <%--<div class="form-group">--%>
-                                                <%--<input type="checkbox" id="questionStatus" name="questionStatus"--%>
+                                                <%--<input type="checkbox" id="courseId" name="questionStatus"--%>
                                                        <%--value="true">--%>
                                                 <%--<input type="hidden" name="questionStatus" value="false">--%>
                                             <%--</div>--%>
