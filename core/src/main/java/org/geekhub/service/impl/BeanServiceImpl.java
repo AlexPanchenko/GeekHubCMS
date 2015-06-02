@@ -12,6 +12,7 @@ import org.geekhub.service.BeanService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,6 +64,9 @@ public class BeanServiceImpl implements BeanService {
         ClassRoomBean classRoomBean = new ClassRoomBean();
         classRoomBean.setId(classRoom.getId());
         classRoomBean.setCourseId(toCourseBean(classRoom.getCourseId()));
+        classRoomBean.setName(classRoom.getName());
+        classRoomBean.setDescription(classRoom.getDescription());
+//        classRoomBean.setTeacher(toUserBean(classRoom.getTeacher()));
         classRoomBean.setUsers(classRoom.getUsers().stream().map(user -> toUserBean(user)).collect(Collectors.toList()));
         return classRoomBean;
     }

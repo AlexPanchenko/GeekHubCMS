@@ -24,7 +24,9 @@
                         <thead class="alert alert-success">
                         <tr>
                             <th class="text-center"> СlassRoom_ID </th>
-                            <th class="text-center"> Cousrse_Name </th>
+                            <th class="text-center"> Course_Name </th>
+                            <th class="text-center"> Classroom_Name </th>
+                            <th class="text-center"> Classroom_Description </th>
                             <th class="text-center"> Teachers</th>
                             <th class="text-center"> Students</th>
                             <th class="text-center"> Action</th>
@@ -33,19 +35,20 @@
                         <c:forEach items="${classRoomBeans}" var="classroom">
                             <tr>
                                 <td>${classroom.id}</td>
-                                <td>${classroom.teachers}</td>
                                 <td>${classroom.courseId.name}</td>
-                                <td class="text-black">
-                                    <c:forEach items="${classroom.students}" var="student">
-                                        <c:if test="${student.role == 'ROLE_TEACHER'}">
-                                            ${student}<br>
-                                        </c:if>
-                                    </c:forEach>
+                                <td>${classroom.name}</td>
+                                <td>${classroom.description}</td>
+                            <%--<td>${classroom.teachers}</td>--%>
+                                <td><c:forEach items="${classroom.users}" var="user">
+                                    <c:if test="${user.role == 'ROLE_TEACHER'}">
+                                        ${user.lastName}<br>
+                                    </c:if>
+                                </c:forEach>
                                 </td>
                                 <td class="text-black">
-                                    <c:forEach items="${classroom.students}" var="student">
-                                        <c:if test="${student.role == 'ROLE_STUDENT'}">
-                                            ${student}<br>
+                                    <c:forEach items="${classroom.users}" var="user">
+                                        <c:if test="${user.role == 'ROLE_STUDENT'}">
+                                            ${user.lastName}<br>
                                         </c:if>
                                     </c:forEach>
                                 </td>

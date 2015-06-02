@@ -29,23 +29,25 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Autowired
     private ClassroomDao classroomDao;
 
-    public void createClassroom(Integer[] userId,int courseId,int teacherId){
-        /*convert users id into List*/
-        ArrayList<Integer> usersId = new ArrayList<>();
-        for (int i = 0; i < userId.length; i++){
-            usersId.add(userId[i]);
-        }
-        usersId.add(teacherId);
-
-        /*Set users list*/
-        ArrayList<User> users = new ArrayList<>(classroomDao.getUsersById(usersId));
-
-        /*Make classroom set all fields*/
+    public void createClassroom(Integer[] userId,int courseId,int teacherId,String className,String classDescription){
         ClassRoom classRoom = new ClassRoom();
-        classRoom.setUsers(users);
-        classRoom.setCourseId((Course) classroomDao.read(courseId,Course.class));
-
-        /*save entity at db*/
+        classRoom.setCourseId((Course)classroomDao.read(courseId, Course.class));
+        classRoom.setName(className);
+        classRoom.setDescription(classDescription);
+        if(userId != null) {
+            ArrayList<Integer> usersId = new ArrayList<Integer>();
+            for (int i = 0; i < userId.length; i++) {
+                usersId.add(userId[i]);
+            }
+            usersId.add(teacherId);
+            ArrayList<User> users = new ArrayList<>(classroomDao.getUsersById(usersId));
+            ArrayList<User> usersInClass = new ArrayList<>();
+            for (User u : users) {
+                u.setClassroom(classRoom);
+                usersInClass.add(u);
+            }
+            classRoom.setUsers(usersInClass);
+        }
         classroomDao.create(classRoom);
     }
 
@@ -64,7 +66,48 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Override
     public void removeClassroomById(int classroomId){
-        classroomDao.delete(classroomDao.read(classroomId,ClassRoom.class));
+        ClassRoom classRoom = (ClassRoom) classroomDao.read(classroomId, ClassRoom.class);
+        List<User> users = classRoom.getUsers();
+        for(User u: users){u.setClassroom(null);}
+        classRoom.setUsers(users);
+        if(classRoom.getTeacher()!= null) {
+           classRoom.getTeacher().setClassroomTeacher(null);
+        }
+        classRoom.setTeacher(null);
+        classRoom.setUsers(null);
+        classroomDao.update(classRoom);
+        classroomDao.delete(classroomDao.read(classroomId, ClassRoom.class));
+    }
+
+    @Override
+    public ClassRoomBean getClassroom(int classroomId) {
+        ClassRoom classroomEntity = classroomDao.getClassroom(classroomId);
+        ClassRoomBean classRoom = beanService.toClassroomBean(classroomEntity);
+        return classRoom;
+    }
+
+    @Override
+    public void updateClassroom(Integer[] userId,int courseId,int teacherId,String className,String classDescription,int classroomId){
+        ClassRoom classRoom = (ClassRoom) classroomDao.read(classroomId, ClassRoom.class);
+//        List<User> users = classRoom.getUsers();
+        if(userId != null) {
+            ArrayList<Integer> usersId = new ArrayList<Integer>();
+            for (int i = 0; i < userId.length; i++) {
+                usersId.add(userId[i]);
+            }
+            usersId.add(teacherId);
+            List<User> users = new ArrayList<>(classroomDao.getUsersById(usersId));
+            List<User> usersInClass = new ArrayList<>();
+            for (User u : users) {
+                u.setClassroom(classRoom);
+                usersInClass.add(u);
+            }
+            classRoom.setUsers(usersInClass);
+        }
+        classRoom.setName(className);
+        classRoom.setDescription(classDescription);
+        classRoom.setCourseId((Course) classroomDao.read(courseId, Course.class));
+        classroomDao.update(classRoom);
     }
 
 }

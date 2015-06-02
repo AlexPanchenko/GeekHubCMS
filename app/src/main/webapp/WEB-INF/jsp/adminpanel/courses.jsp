@@ -26,7 +26,7 @@
                     <h1 class="alert alert-success text-center">
                         <a href="/admin/course/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
                         <b>Courses manage</b></h1>
-                    <table class="table">
+                    <table class="table text-black">
                         <thead class="alert alert-success">
                         <tr>
                             <th> ID </th>

@@ -480,7 +480,7 @@ public class AdminController {
     }
     @RequestMapping("/createClassrom")
     public ModelAndView coursesDropDown(){
-        ModelAndView mav=new ModelAndView("/adminpanel/createClassroom");
+        ModelAndView mav=new ModelAndView("adminpanel/createClassroom");
         List<CourseBean> courses = courseService.getAllBeans();
         List<UserBean> teachers = userService.getAllTeachers();
         mav.addObject("courses",courses);
@@ -496,12 +496,16 @@ public class AdminController {
         return mav;
     }
 
-    @RequestMapping("/ajax/createClassroom")
-    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                      @RequestParam("CourseId") int courseId,
-                                      @RequestParam("TeacherId") int teacherId){
-        classroomService.createClassroom(usersId,courseId,teacherId);
-        return "redirect: /admin/classRoomList";
+    @RequestMapping(value = "/ajax/createClassroom", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveClassroom(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
+                                @RequestParam(value = "courseId") int courseId,
+                                @RequestParam(value = "teacherId") int teacherId,
+                                @RequestParam(value = "className") String className,
+                                @RequestParam(value = "classDescription") String classDescription){
+
+        classroomService.createClassroom(usersId,courseId,teacherId,className,classDescription);
+        return "/admin/classRoomList";
     }
 
     @RequestMapping(value = "/classRoomList", method = RequestMethod.GET)
@@ -511,25 +515,34 @@ public class AdminController {
         return "adminpanel/classRoom";
     }
 
-
-
-    @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
-    public String classroomListEdit(ModelMap model,@PathVariable("classroomId") int classroomId){
-        model.addAttribute("classroomId",classroomId);
-        return "adminpanel/editClassRoom";
+    @RequestMapping(value = "/classroom/{classroomId}/edit")
+    public ModelAndView classroomListEdit(@PathVariable("classroomId") int classroomId){
+        ModelAndView mav=new ModelAndView("adminpanel/classroom-edit");
+        List<CourseBean> courses = courseService.getAllBeans();
+        List<UserBean> teachers = userService.getAllTeachers();
+        ClassRoomBean classroom = classroomService.getClassroom(classroomId);
+        mav.addObject("courses",courses);
+        mav.addObject("teachers",teachers);
+        mav.addObject("classroom", classroom);
+        return mav;
     }
 
-
-    @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
-    public String classroomListEditPost(ModelMap model,@PathVariable("classroomId") int classroomId){
-
-        return "adminpanel/classRoom";
+    @RequestMapping(value = "/classroom/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public String classroomListEditPost(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
+                                        @RequestParam(value = "courseId") int courseId,
+                                        @RequestParam(value = "teacherId") int teacherId,
+                                        @RequestParam(value = "className") String className,
+                                        @RequestParam(value = "classDescription") String classDescription,
+                                        @RequestParam(value = "classId") int classroomId){
+        classroomService.updateClassroom(usersId,courseId,teacherId,className,classDescription,classroomId);
+        return "/admin/classRoomList";
     }
 
-    @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
-    public String classroomRemove(ModelMap model,@PathVariable("classroomId") int classroomId){
+    @RequestMapping(value = "/classroom-remove/{classroomId}", method = RequestMethod.GET)
+    public String classroomRemove(@PathVariable("classroomId") int classroomId){
         classroomService.removeClassroomById(classroomId);
-        return "adminpanel/classRoom";
+        return "redirect:/admin/classRoomList";
     }
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)

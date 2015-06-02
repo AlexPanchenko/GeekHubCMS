@@ -37,7 +37,7 @@
                                                                                   title="Create new test config"></i></a>
 
                                 <b>Test config manage</b></h1>
-                            <table class="table">
+                            <table class="table text-black">
                                 <thead class="alert alert-success">
                                 <tr>
                                     <th> ID</th>

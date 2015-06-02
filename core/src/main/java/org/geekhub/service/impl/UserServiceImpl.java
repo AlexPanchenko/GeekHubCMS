@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         List<UserBean> allTeachers = new ArrayList<UserBean>();
         List<User> users = userDao.readAllUsers();
         for (User u : users) {
-            if (u.getRole().equals(Role.ROLE_TEACHER)) {
+            if (u.getRole().equals(Role.ROLE_TEACHER)&&u.getClassroom()==null) {
                 allTeachers.add(beanService.toUserBean(u));
             }
         }

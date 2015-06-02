@@ -23,6 +23,5 @@
       <p><input type="checkbox" class="inlineCheckbox1" value="${u.id}"> ${u.lastName}&nbsp${u.firstName}</p>
     </c:forEach>
   </label>
-  <p><input type='button' value='Write result' onclick='writeUsers($("#course").val(),$("#teacher").val());'/></p>
 </body>
 </html>
