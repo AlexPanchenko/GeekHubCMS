@@ -42,30 +42,31 @@
           <th>Start Date</th>
           <th>Finish Date</th>
           <th>Count question</th>
+          <th>Status</th>
           <th>Select</th>
 
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${testList}" var="test">
+
           <tr>
-            <td width="300">${test.id}</td>
-            <td>${test.tittle}</td>
-            <td>${test.dateStart}</td>
-            <td>${test.dateFinish}</td>
-            <td>${test.questionCount}</td>
+            <td>${testAssignment.id}</td>
+            <td>${testConfig.tittle}</td>
+            <td>${testAssignment.dateStart}</td>
+            <td>${testAssignment.dateFinish}</td>
+            <td>${testConfig.questionCount}</td>
+            <td>${testAssignment.testStatusAssignment}</td>
             <td width="50">
               <div class="col-sm-12">
                 <div class="radio">
                   <label style="font-size: 1.5em">
-                    <input type="radio" name="courseId"  onclick="changeHref('/student/testing/course/${test.courseBean.id}/test/${test.id}')">
+                    <input type="radio" name="courseId" <c:if test="${(testAssignment.testStatusAssignment eq passed) || (testAssignment.testStatusAssignment eq overdue)}">disabled</c:if> onclick="changeHref('/student/testing/course/${courseId}/test/${testConfig.id}')">
                     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                   </label>
                 </div>
               </div>
             </td>
           </tr>
-        </c:forEach>
         </tbody>
       </table>
     </form>

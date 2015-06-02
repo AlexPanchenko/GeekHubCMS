@@ -28,8 +28,12 @@
                 <li>
                     <a href="/admin/userTestResult">User test result</a>
                 </li>
+                <li>
+                    <a href="/admin/adminPage">Admin Profile</a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
     </div>
 </div>
+

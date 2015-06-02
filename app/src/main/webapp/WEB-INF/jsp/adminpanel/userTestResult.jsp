@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>AdminPanel</title>
 
     <jsp:include page="source.jsp"></jsp:include>
@@ -38,7 +37,7 @@
                 </div>
             </div>
             <h1>${fn:toUpperCase(courseName)}</h1>
-            <table class="table table-striped table-condensed">
+            <table class="table table-striped table-condensed table-bordered">
                 <thead>
                 <tr>
                     <th>First Name</th>
@@ -61,7 +60,7 @@
                         <td>${wrap.course.name}</td>
                         <td>${wrap.testConfig.title}</td>
                         <td><fmt:formatDate type="both"
-                                            value="${wrap.testAssignmnt.datePassed}" /></td>
+                                            value="${wrap.testAssignment.datePassed}" /></td>
                         <td>${(wrap.testAssignment.countTrueAnswers / wrap.testConfig.questionCount)*100}%</td>
                         <td><span class="label label-success">Accepted</span></td>
                     </tr>

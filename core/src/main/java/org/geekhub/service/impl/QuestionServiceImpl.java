@@ -40,6 +40,7 @@ public class QuestionServiceImpl implements QuestionService{
     public void update(QuestionBean questionBean) {
         Question question = (Question) questionDao.read(questionBean.getId(), Question.class);
         question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionCode(questionBean.getQuestionCode());
         question.setQuestionWeight(questionBean.getQuestionWeight());
         question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
         question.setMyAnswer(questionBean.getMyAnswer());
@@ -56,6 +57,7 @@ public class QuestionServiceImpl implements QuestionService{
     public int create(QuestionBean questionBean) {
         Question question = new Question();
         question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionCode(questionBean.getQuestionCode());
         question.setQuestionWeight(questionBean.getQuestionWeight());
         question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
         question.setMyAnswer(questionBean.getMyAnswer());

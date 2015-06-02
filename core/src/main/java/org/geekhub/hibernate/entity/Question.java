@@ -26,6 +26,9 @@ public class Question extends BaseEntity implements Serializable{
     @NotBlank(message = "Question text should be not empty")
     private String questionText;
 
+    @Column(name = "QUESTION_CODE")
+    private String questionCode;
+
     @Column(name = "QUESTION_WEIGHT", nullable = false)
     @NotNull(message = "Question weight should be not empty")
     private Byte questionWeight;
@@ -57,6 +60,14 @@ public class Question extends BaseEntity implements Serializable{
         this.myAnswer = myAnswer;
         this.manyAnswers = manyAnswers;
         this.course = course;
+    }
+
+    public String getQuestionCode() {
+        return questionCode;
+    }
+
+    public void setQuestionCode(String questionCode) {
+        this.questionCode = questionCode;
     }
 
     public Boolean getMyAnswer() {

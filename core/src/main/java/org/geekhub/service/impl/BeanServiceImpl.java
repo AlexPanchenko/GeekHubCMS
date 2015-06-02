@@ -1,5 +1,6 @@
 package org.geekhub.service.impl;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.bean.ClassRoomBean;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
@@ -19,6 +20,21 @@ import java.util.stream.Collectors;
 @Transactional
 public class BeanServiceImpl implements BeanService {
     @Override
+    public User toUserEntity(UserBean userBean) {
+        User user = new User();
+        user.setLastName(userBean.getLastName());
+        user.setFirstName(userBean.getFirstName());
+        user.setEmail(userBean.getEmail());
+        user.setPhoneNumber(userBean.getPhoneNumber());
+        user.setSkype(userBean.getSkype());
+        user.setBirthDay(userBean.getBirthDay());
+        user.setRole(userBean.getRole());
+        user.setRegistrationDate(userBean.getRegistrationDate());
+        user.setPassword(DigestUtils.md5Hex(userBean.getPassword()));
+        return user;
+    }
+
+    @Override
     public UserBean toUserBean(User user) {
         UserBean userBean = new UserBean();
         userBean.setId(user.getId());
@@ -30,6 +46,7 @@ public class BeanServiceImpl implements BeanService {
         userBean.setBirthDay(user.getBirthDay());
         userBean.setRole(user.getRole());
         userBean.setRegistrationDate(user.getRegistrationDate());
+        userBean.setPassword(user.getPassword());
         return userBean;
     }
 

@@ -15,13 +15,16 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-
-        <a href="#" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
-        </li>
+        <security:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="/admin" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
+        </security:authorize>
+        <security:authorize access="hasRole('ROLE_STUDENT')">
+            <a href="/student" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
+        </security:authorize>
         <!-- /.dropdown -->
         <li class="dropdown">
             <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
-                    <li><a href="/auth?logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">

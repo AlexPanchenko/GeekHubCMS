@@ -1,17 +1,17 @@
 package org.geekhub.controllers;
 
+import com.google.gson.Gson;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.service.CourseService;
-import org.geekhub.service.TestConfigService;
-import org.geekhub.service.GeneratorRandomQuestions;
+import org.geekhub.hibernate.bean.TestInfo;
+import org.geekhub.hibernate.entity.TestStatusAssignment;
+import org.geekhub.hibernate.entity.TestAssignment;
+
+import org.geekhub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +31,12 @@ public class TestController {
     @Autowired
     private TestConfigService testConfigService;
 
+    @Autowired
+    private TestResultService testResultService;
+
+    @Autowired
+    private TestAssignmentService testAssignmentService;
+
     @RequestMapping(value = "/selectCourse", method = RequestMethod.GET)
     public String selectCourse(ModelMap model) {
         List<CourseBean> courseBeanList = courseService.getCourseBeenByUser();
@@ -46,9 +52,17 @@ public class TestController {
     @RequestMapping(value = "/course/{courseId}/selectTest", method = RequestMethod.GET)
     public String selectTest( @PathVariable("courseId") int courseId,
                             ModelMap model) {
-        TestConfigBeen listTestConfigBeen = testConfigService.getTestConfigBeensEnable(courseId);
-        testConfigService.getTestConfigBeensEnable(courseId);
-        model.addAttribute("testList", listTestConfigBeen);
+        TestConfigBeen testConfigBeen = testConfigService.getTestConfigBeenEnable(courseId);
+        model.addAttribute("courseId", courseId);
+        TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByTestConfigAdnUser(testConfigBeen.getId());
+        if (testAssignment != null){
+
+        }
+        model.addAttribute("courseId",courseId);
+        model.addAttribute("testConfig", testConfigBeen);
+        model.addAttribute("testAssignment", testAssignment);
+        model.addAttribute("passed", TestStatusAssignment.PASSED);
+        model.addAttribute("overdue", TestStatusAssignment.OVERDUE);
         return "test-page/selectTest";
     }
 
@@ -64,7 +78,25 @@ public class TestController {
                              ModelMap model) {
         TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testId);
         model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), courseId));
+        model.addAttribute("testId", testId);
+        testAssignmentService.setStatus(testConfigService.getTestConfigByID(testId), TestStatusAssignment.IN_PROCESS);
+        model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testId).getTimeToTest());
         return "test-page/testPage";
     }
 
+    @RequestMapping(value = "/course/comletetest/{testId}", method = RequestMethod.POST)
+    public String completeTest(
+                             @PathVariable("testId") int testId,
+                             @RequestBody String jsonStr) {
+        Gson gson = new Gson();
+        TestInfo[] results = gson.fromJson(jsonStr, TestInfo[].class);
+        testResultService.parseResult(results, testId);
+
+        return "test-page/testPage";
+    }
+
+    @RequestMapping(value = "/endOfTest", method = RequestMethod.GET)
+    public String endOfTest() {
+        return "test-page/endOfTesting";
+    }
 }

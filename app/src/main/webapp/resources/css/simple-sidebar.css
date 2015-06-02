@@ -1,12 +1,6 @@
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
 
 #wrapper {
+    width: auto;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -131,6 +125,7 @@
 
     #sidebar-wrapper {
         width: 250px;
+        background-color: #f8f8f8;
     }
 
     #wrapper.toggled #sidebar-wrapper {

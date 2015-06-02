@@ -1,15 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Jekainfinity
-  Date: 27.05.2015
-  Time: 10:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title></title>
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../teacherPage/source.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -18,16 +13,16 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="row">
-        <div class="col-lg-6 col-lg-offset-2 ">
+        <div class="col-lg-6 col-md-6 col-lg-offset-2 col-md-offset-2 " style="width: 600px;">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">${user.firstName}&nbsp&nbsp${user.lastName}</h3>
                 </div>
                 <div class="panel-body ">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3 col-lg-offset-1"> <img alt="User Pic" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-circle" width="170"  style="margin-top: 15px;"> </div>
+                        <div class="col-md-3 col-lg-3 col-lg-offset-1 col-md-offset-1"> <img alt="User Pic" src="<c:url value='/resources/img/slowpoke.png'/>" class="img-rounded" width="170"  style="margin-top: 15px;"> </div>
 
-                        <div class="col-md-6 col-lg-6 col-lg-offset-1">
+                        <div class="col-md-6 col-lg-6 col-lg-offset-1 col-md-offset-1">
                             <table class="table table-user-information text-black">
                                 <tbody>
                                 <tr>
@@ -56,7 +51,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" href="/student/users/${user.id}/edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
                 </div>
             </div>
         </div>

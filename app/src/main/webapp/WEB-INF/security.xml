@@ -12,14 +12,15 @@
                 authentication-failure-url="/auth?error"
                 login-processing-url="/j_spring_security_check"
                 username-parameter="email"
-                password-parameter="password"/>
-        <logout logout-success-url="/auth?logout"/>
+                password-parameter="password"
+                />
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/auth?logout"/>
         <csrf disabled="true"/>
         <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/student/**" access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher/**" access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        </http>
+    </http>
 
     <authentication-manager>
     <authentication-provider user-service-ref="CustomUserDetailsService" >

@@ -28,19 +28,8 @@
                           method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-5">
-                                    <div class="control-group">
-                                        <div class="form-horizontal">
-                                            <img class="profile-avatar img-thumbnail"
-                                                 src="http://www.w3schools.com/bootstrap/cinqueterre.jpg"/>
-                                            <input type="file" name="avatar" id="avatar"
-                                                   class="btn btn-sm btn-default avatar-upload"
-                                                   data-input="false">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-lg-6">
                                     <fieldset>
                                         <div class="control-group">
                                             <dl class="dl-horizontal">
@@ -126,22 +115,12 @@
                                                     <div class="form-group">
                                                         <select id="role" name="role" class="form-control">
                                                             <c:forEach items="${roleList}" var="role">
-                                                                <c:set var="selectRole" value="false"/>
-                                                                <c:forEach items="${user.roles}" var="userRole">
-                                                                    <c:if test="${role.id eq userRole.id}">
-                                                                        <c:set var="selectRole" value="true"/>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                                <c:choose>
-                                                                    <c:when test="${selectRole eq true}">
-                                                                        <option id="${role.id}"
-                                                                                selected>${role.name}</option>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <option id="${role.id}"
-                                                                                selected>${role.name}</option>
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                                <c:if test="${role == user.role}">
+                                                                    <option selected value="${role}">${role}</option>
+                                                                </c:if>
+                                                                <c:if test="${role != user.role}">
+                                                                    <option value="${role}">${role}</option>
+                                                                </c:if>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
@@ -180,10 +159,10 @@
                                         </div>
                                         <div class="container">
                                             <div class="row">
-                                                <div class="col-lg-1 col-lg-offset-4">
+                                                <div class=" col-md-1 col-lg-1 col-lg-offset-3">
                                                     <a href="#myModal" class="btn btn-success pull-right" data-toggle="modal">Send FeedBack</a>
                                                 </div>
-                                                <div class="col-lg-1" style="margin-left:15px">
+                                                <div class=" col-md-1 col-lg-1 col-lg-offset-1">
                                                     <button type="submit" class="btn btn-success pull-right" >Update Data
                                                     </button>
                                                 </div>
@@ -212,7 +191,7 @@
             </div>
             <form action="/admin/createFeedback/${user.id}" id="sendFeedback" method="get">
                 <div class="modal-body">
-                    <textarea type="text" cols="80" rows="5" name="feedback"></textarea>
+                    <textarea type="text" cols="68" rows="5" name="feedback"></textarea>
                 </div>
             </form>
             <div class="modal-footer">

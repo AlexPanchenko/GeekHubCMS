@@ -168,3 +168,40 @@ h1{
 .coursesRegisTable{
     margin: 100px;
 }
+
+div.questionCode{
+    padding: 0px 20px ;
+}
+
+div.question{
+    font-size: 20px;
+    color: #444444;
+    font: 'Open Sans', Arial, Helvetica, Sans-Serif;
+    padding: 0px 20px 0px 20px ;
+}
+
+div.questionBlock{
+    padding: 20px 20px;
+    background-color: lightgoldenrodyellow;
+}
+div.radius {
+    border: 2px solid CornflowerBlue;
+    border-radius: 22px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+div.radio{
+    padding: 0px 20px 0px 20px ;
+}
+
+div.checkbox{
+    padding: 0px 20px 0px 20px ;
+}
+
+div.headerTest{
+    width:600px;
+    height:100px;
+}

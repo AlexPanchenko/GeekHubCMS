@@ -5,7 +5,7 @@
 <head>
     <title>registration on courses</title>
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../teacherPage/source.jsp"></jsp:include>
 </head>
 <body>
 
@@ -44,8 +44,7 @@
                                             <div class="col-sm-12">
                                                 <div class="checkbox">
                                                     <label style="font-size: 1.5em">
-                                                        <input type="checkbox" checked disabled>
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                        <input type="checkbox" checked>
                                                     </label>
                                                 </div>
                                             </div>
@@ -55,7 +54,6 @@
                                                 <div class="checkbox">
                                                     <label style="font-size: 1.5em">
                                                         <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                     </label>
                                                 </div>
                                             </div>

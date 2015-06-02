@@ -10,6 +10,7 @@ import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.User;
 
 public interface BeanService {
+    public User toUserEntity(UserBean userBean);
     public UserBean toUserBean(User user);
     public CourseBean toCourseBean(Course course);
     public ClassRoomBean toClassroomBean(ClassRoom classRoom);

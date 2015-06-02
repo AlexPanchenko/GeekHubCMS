@@ -51,4 +51,12 @@ public class UserAnswers extends BaseEntity implements Serializable {
     public void setUserResults(UserResults userResults) {
         this.userResults = userResults;
     }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
 }
