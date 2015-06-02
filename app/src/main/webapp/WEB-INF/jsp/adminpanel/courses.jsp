@@ -20,6 +20,7 @@
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
+        <h1>Courses</h1>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">

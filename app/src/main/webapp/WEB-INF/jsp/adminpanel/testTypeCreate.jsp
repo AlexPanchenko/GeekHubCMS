@@ -22,38 +22,44 @@
     <jsp:include page="sidebar.jsp"></jsp:include>
 
 
-
     <div id="page-content-wrapper">
         <h1>Test type create</h1>
-        <form data-toggle="validator" name="create" id="create" role="form"
-              action="/admin/testType/create" method="POST"
-              class="form-horizontal">
-            <fieldset>
-                <dl class="dl-horizontal">
-                    <dt>
-                        <label class="pull-left control-label" for="name">Test type name</label>
-                    </dt>
-                    <dd>
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                    </dd>
-                    <dt>
-                        <label class="pull-left control-label" for="select">Select course</label>
-                    </dt>
-                    <dd>
-                        <div class="form-group">
-                            <select class="selectpicker" id="select" name="courseId">
-                                <c:forEach items="${courseList}" var="course">
-                                    <option value="${course.id}">${course.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </dd>
-                    <input type="submit" value="Create" class="btn btn-primary">
-                </dl>
-            </fieldset>
-        </form>
+        <c:choose>
+            <c:when test="${empty courseList}">
+                <p>You must create "Course"</p>
+            </c:when>
+            <c:otherwise>
+                <form data-toggle="validator" name="create" id="create" role="form"
+                      action="/admin/testType/create" method="POST"
+                      class="form-horizontal">
+                    <fieldset>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <label class="pull-left control-label" for="name">Test type name</label>
+                            </dt>
+                            <dd>
+                                <div class="form-group">
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                            </dd>
+                            <dt>
+                                <label class="pull-left control-label" for="select">Select course</label>
+                            </dt>
+                            <dd>
+                                <div class="form-group">
+                                    <select class="selectpicker" id="select" name="courseId">
+                                        <c:forEach items="${courseList}" var="course">
+                                            <option value="${course.id}">${course.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </dd>
+                            <input type="submit" value="Create" class="btn btn-primary">
+                        </dl>
+                    </fieldset>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 
 </div>

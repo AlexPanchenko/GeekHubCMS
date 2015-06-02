@@ -16,6 +16,7 @@ import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
+import org.geekhub.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private TestAssignmentService testAssignmentService;
+
+    @Autowired
+    private TestTypeService testTypeService;
 
     @Override
     public List<User> getUserFromCourse(int id){
@@ -165,6 +170,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(int courseId) throws CourseNotFoundException {
+        Course course = (Course) courseDao.read(courseId, Course.class);
+        if(course.getTestTypeList() != null) {
+            Iterator<TestType> iterator = course.getTestTypeList().iterator();
+            while (iterator.hasNext()){
+                TestType testType = iterator.next();
+                iterator.remove();
+                testTypeService.deleteById(testType.getId());
+                //iterator.remove();
+            }
+        }
+        if(course.getTestConfig()!= null) {
+            course.getTestConfig().setCourse(null);
+        }
         courseDao.deleteCourseById(courseId);
     }
 

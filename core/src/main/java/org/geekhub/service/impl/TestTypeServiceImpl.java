@@ -2,9 +2,7 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestTypeDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestType;
-import org.geekhub.service.CourseService;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +51,18 @@ public class TestTypeServiceImpl implements TestTypeService {
 
     public void deleteById(int id) {
         TestType testType = (TestType) testTypeDao.read(id, TestType.class);
-        testType.getQuestionList().clear();
-        testType.getTestConfigList().clear();
+        for(TestConfig testConfig: testType.getTestConfigList()){
+            testConfig.setStatus(TestStatus.INACTIVE);
+            testConfig.setTestType(null);
+        }
+
+        for(Question question: testType.getQuestionList()){
+            question.setTestType(null);
+        }
+        if(testType.getCourse() != null) {
+            testType.getCourse().getTestTypeList().remove(testType);
+        }
+        testTypeDao.update(testType);
         testTypeDao.delete(testType);
     }
 

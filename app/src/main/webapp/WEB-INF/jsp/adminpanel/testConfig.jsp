@@ -23,7 +23,7 @@
 
 
     <div id="page-content-wrapper">
-        <h1>Test type create</h1>
+        <h1>Test configs</h1>
 
         <div class="row">
             <div class="col-lg-12">
@@ -31,30 +31,39 @@
                     <a href="/admin/testConfig/create"><i class="glyphicon glyphicon-pencil pull-left"
                                                           title="Create new test config"></i></a>
                     <b>Test config manage</b></h1>
-                <table class="table text-black">
+                <table class="table text-black" class="text-center">
                     <thead class="alert alert-success">
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Test type</th>
-                        <th>Date start</th>
-                        <th>Date finish</th>
-                        <th>Time to test</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                    <tr class="text-center">
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Title</th>
+                        <th class="text-center">Test type</th>
+                        <th class="text-center">Date start</th>
+                        <th class="text-center">Date finish</th>
+                        <th class="text-center">Time to test</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-
                         <c:forEach items="${testConfigList}" var="testConfig">
-                            <tr>
-                                <td>${testConfig.id}</td>
-                                <td>${testConfig.title}</td>
-                                <td>${testConfig.testType.name}</td>
-                                <td>${testConfig.dateStart}</td>
-                                <td>${testConfig.dateFinish}</td>
-                                <td>${testConfig.timeToTest}m</td>
-                                <td>${testConfig.status}</td>
+                            <tr class="text-center">
+                                <td class="text-center">${testConfig.id}</td>
+                                <td class="text-center">${testConfig.title}</td>
+                                <c:choose>
+                                    <c:when test="${testConfig.testType eq null}">
+                                        <td class="text-center">-</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td class="text-center">${testConfig.testType.name} (${testConfig.testType.course.name})</td>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <td class="text-center"><fmt:formatDate type="date"
+                                                                        value="${testConfig.dateStart}" /></td>
+                                <td class="text-center"><fmt:formatDate type="date"
+                                                                        value="${testConfig.dateFinish}" /></td>
+                                <td class="text-center">${testConfig.timeToTest}m</td>
+                                <td class="text-center">${testConfig.status}</td>
 
                                 <td class="text-center">
                                     <a href="/admin/testConfig/edit/${testConfig.id}"><i
