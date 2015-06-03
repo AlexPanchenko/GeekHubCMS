@@ -5,10 +5,8 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.ClassroomDao;
-import org.geekhub.hibernate.entity.ClassRoom;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
 import org.geekhub.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,8 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Autowired
     private BeanService beanService;
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private ClassroomDao classroomDao;
@@ -34,12 +34,14 @@ public class ClassroomServiceImpl implements ClassroomService {
         classRoom.setCourseId((Course)classroomDao.read(courseId, Course.class));
         classRoom.setName(className);
         classRoom.setDescription(classDescription);
+        System.out.println("teacher id in dao " + teacherId);
         if(userId != null) {
             ArrayList<Integer> usersId = new ArrayList<Integer>();
             for (int i = 0; i < userId.length; i++) {
                 usersId.add(userId[i]);
             }
             usersId.add(teacherId);
+
             ArrayList<User> users = new ArrayList<>(classroomDao.getUsersById(usersId));
             ArrayList<User> usersInClass = new ArrayList<>();
             for (User u : users) {
@@ -49,6 +51,32 @@ public class ClassroomServiceImpl implements ClassroomService {
             classRoom.setUsers(usersInClass);
         }
         classroomDao.create(classRoom);
+    }
+
+    @Override
+    public List<UserBean> getUserByClassroomId(int classRoomId) {
+        ClassRoom classRoom = (ClassRoom) classroomDao.read(classRoomId,ClassRoom.class);
+        List<UserBean> userBeans = new ArrayList<>();
+        for(User user: classRoom.getUsers())
+        {
+            if(user.getRole() == Role.ROLE_STUDENT){
+                userBeans.add(beanService.toUserBean(user));
+            }
+        }
+        return userBeans;
+    }
+
+    @Override
+    public List<UserBean> getTeacherByClassroomId(int classRoomId) {
+        ClassRoom classRoom = (ClassRoom) classroomDao.read(classRoomId,ClassRoom.class);
+        List<UserBean> userBeans = new ArrayList<>();
+        for(User user: classRoom.getUsers())
+        {
+            if(user.getRole() == Role.ROLE_TEACHER){
+                userBeans.add(beanService.toUserBean(user));
+            }
+        }
+        return userBeans;
     }
 
     @Override
@@ -110,4 +138,14 @@ public class ClassroomServiceImpl implements ClassroomService {
         classroomDao.update(classRoom);
     }
 
+    @Override
+    public List<ClassRoomBean> getBeansByCourseId(int courseId) {
+        List<ClassRoom> classRooms = classroomDao.getClassroomByCourseId(courseId);
+        List<ClassRoomBean> classRoomBeans = new ArrayList<>();
+
+        for (ClassRoom classRoom: classRooms){
+            classRoomBeans.add(beanService.toClassroomBean(classRoom));
+        }
+        return classRoomBeans;
+    }
 }

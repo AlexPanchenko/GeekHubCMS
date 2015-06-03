@@ -1,7 +1,9 @@
 package org.geekhub.hibernate.dao.impl;
 
+import org.geekhub.hibernate.bean.ClassRoomBean;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
+import org.geekhub.hibernate.entity.ClassRoom;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.entity.Page;
 import org.hibernate.SessionFactory;
@@ -21,6 +23,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Autowired
     private UsersCoursesDao usersCourses;
+
 
     @Override
     public Long usersCount() throws UsernameNotFoundException {

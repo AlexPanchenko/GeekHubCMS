@@ -31,6 +31,12 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
     }
 
     @Override
+    public List<TestAssignment> getTestAssignmentByCourse(int courseId) {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).createAlias("testConfig","tCon").
+                createAlias("course","cour").add(Restrictions.eq("tCon.cour.id",courseId)).list();
+    }
+
+    @Override
     public TestAssignment getTestAssignmentByTestConfigAndUser(TestConfig testConfig, User user) {
 
         return (TestAssignment) sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
