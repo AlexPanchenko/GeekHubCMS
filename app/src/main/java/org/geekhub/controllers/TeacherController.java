@@ -1,11 +1,16 @@
 package org.geekhub.controllers;
 
+import org.geekhub.hibernate.bean.ClassRoomBean;
+import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.TestConfigDao;
+import org.geekhub.hibernate.dao.UserDao;
+import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.ClassroomService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserService;
@@ -14,15 +19,13 @@ import org.geekhub.wrapper.UserTestResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +42,13 @@ public class TeacherController {
     UserService userService;
 
     @Autowired
+    private ClassroomService classroomService;
+
+    @Autowired
     TestConfigDao testConfigDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     TestAssignmentService testAssignmentService;
@@ -54,7 +63,7 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView("teacherPage/teacher-edit");
         User user = userService.getUserById(userId);
         modelAndView.addObject("roleList", Role.values());
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
@@ -117,4 +126,33 @@ public class TeacherController {
         model.put("user", user);
         return "teacherpanel/checkUserAnswers";
     }
+
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public String students(ModelMap model, Principal principal) {
+        int courseId = userDao.getUserByEmail(principal.getName()).getClassroom().getCourseId().getId();
+
+        List<UserBean> userBeans = courseService.getUsersByCourse(courseId);
+        model.addAttribute("users", userBeans);
+
+        List<ClassRoomBean> classroomBeans = classroomService.getBeansByCourseId(courseId);
+        model.addAttribute("classRooms", classroomBeans);
+        return "teacherPage/studentByClassroom";
+    }
+
+    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
+    public String studentProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
+        UserBean userBean = userService.getUserBeanById(userId);
+        model.addAttribute("user", userBean);
+        return "teacherPage/userProfile";
+    }
+
+    @RequestMapping(value = "/students/classroom", method = RequestMethod.GET)
+    public String studentClassroom(ModelMap model,@RequestParam int classroomId) {
+        List<UserBean> userBeans = classroomService.getUserByClassroomId(classroomId);
+        model.addAttribute("users", userBeans);
+        model.addAttribute("teacher", classroomService.getTeacherByClassroomId(classroomId));
+        return "teacherPage/students";
+    }
+
+
 }
