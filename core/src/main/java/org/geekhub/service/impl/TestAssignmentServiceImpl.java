@@ -113,5 +113,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         testAssignmentDao.delete(testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user));
     }
 
+    @Override
+    public TestAssignment getTestAssignmentById(int id) {
+        return (TestAssignment) testAssignmentDao.read(id, TestAssignment.class);
+    }
+
 
 }

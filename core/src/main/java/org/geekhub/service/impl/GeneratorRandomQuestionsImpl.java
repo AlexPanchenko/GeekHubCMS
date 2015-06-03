@@ -2,8 +2,10 @@ package org.geekhub.service.impl;
 
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.QuestionDao;
+import org.geekhub.hibernate.dao.TestTypeDao;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.TestType;
 import org.geekhub.service.GeneratorRandomQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class GeneratorRandomQuestionsImpl implements GeneratorRandomQuestions {
 
     @Autowired
     CourseDao courseDao;
+
+    @Autowired
+    TestTypeDao testTypeDao;
 
     public List<Question> generatorRandomQuestionsByLevel(int questionCount, Course course, int countEasyQuestion,
                                                    int countMediumQuestion, int countHardQuestion){
@@ -55,10 +60,8 @@ public class GeneratorRandomQuestionsImpl implements GeneratorRandomQuestions {
         return questionsList;
     }
 
-    public List<Question> generatorRandomQuestionsAll(int questionCount, int courseId) {
-        Course course = (Course)courseDao.read(courseId, Course.class);
-        List<Question> questionsListByCourse = (List)questionDao.getByCourse(course);
-
+    public List<Question> generatorRandomQuestionsAll(int questionCount, TestType testType) {
+        List<Question> questionsListByCourse = (List) questionDao.getByTestType(testType);
         List<Question> questionsList = new LinkedList<>();
 
         for(int i=0; i < questionCount; i++) {

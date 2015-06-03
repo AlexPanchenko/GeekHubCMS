@@ -57,14 +57,14 @@
                                                     </label>
                                                 </div>
                                             </div>
-
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
                             </tr>
                             </c:forEach>
+                            </tbody>
                         </table>
-                        <tbody>
+
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

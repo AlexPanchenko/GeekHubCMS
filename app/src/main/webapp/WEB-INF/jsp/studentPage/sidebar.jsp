@@ -14,7 +14,7 @@
                     <a href="/student/registrationCourses" class="text-left">Registration on course</a>
                 </li>
                 <li>
-                    <a href="/student/testing/selectCourse" class="text-left">Starting test</a>
+                    <a href="/student/testing/assignmentTest" class="text-left">Starting test</a>
                 </li>
                 <li>
                     <a href="/student/userProfile" class="text-left">Profile</a>

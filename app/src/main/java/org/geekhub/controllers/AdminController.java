@@ -402,6 +402,7 @@ public class AdminController {
             questionBean.setTestType(null);
         }
         questionBean.setQuestionCode(questionCode);
+        questionBean.setManyAnswers(false);
         int questionId = questionService.create(questionBean);
 
 
