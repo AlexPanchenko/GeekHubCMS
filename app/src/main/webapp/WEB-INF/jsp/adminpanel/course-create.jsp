@@ -53,69 +53,69 @@
                                                               rows="5" required></textarea>
                                         </div>
                                     </dd>
-                                    <h1 class="page-header">New Test</h1>
-                                    <dt>
-                                        <label class="pull-left control-label" for="title">Test config title</label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group">
-                                            <input type="text" id="title" min="0" name="title">
-                                        </div>
-                                    </dd>
-                                    <dt>
-                                        <label class="pull-left control-label" for="questionCount">Question
-                                            count</label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group">
-                                            <input type="number" id="questionCount" min="0" name="questionCount">
-                                        </div>
-                                    </dd>
+                                    <%--<h1 class="page-header">New Test</h1>--%>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="title">Test config title</label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group">--%>
+                                            <%--<input type="text" id="title" min="0" name="title">--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="questionCount">Question--%>
+                                            <%--count</label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group">--%>
+                                            <%--<input type="number" id="questionCount" min="0" name="questionCount">--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
 
-                                    <dt>
-                                        <label class="pull-left control-label" for="dateStart">Date start </label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group col-lg-3">
-                                            <input type="date" id="dateStart" class="form-control" name="dateStart">
-                                        </div>
-                                    </dd>
-                                    <dt>
-                                        <label class="pull-left control-label" for="dateFinish">Date start </label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group col-lg-3">
-                                            <input type="date" id="dateFinish" class="form-control" name="dateFinish">
-                                        </div>
-                                    </dd>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="dateStart">Date start </label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group col-lg-3">--%>
+                                            <%--<input type="date" id="dateStart" class="form-control" name="dateStart">--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="dateFinish">Date start </label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group col-lg-3">--%>
+                                            <%--<input type="date" id="dateFinish" class="form-control" name="dateFinish">--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
 
-                                    <dt>
-                                        <label class="pull-left control-label" for="timeToTest">Time to
-                                            test</label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group">
-                                            <input type="number" min="0" id="timeToTest"
-                                                   name="timeToTest">
-                                        </div>
-                                    </dd>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="timeToTest">Time to--%>
+                                            <%--test</label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group">--%>
+                                            <%--<input type="number" min="0" id="timeToTest"--%>
+                                                   <%--name="timeToTest">--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
 
-                                    <dt>
-                                        <label class="pull-left control-label" for="status">status</label>
-                                    </dt>
-                                    <dd>
-                                        <div class="form-group">
-                                            <div class="btn-group">
-                                                <select name="status" class="btn btn-default dropdown-toggle"
-                                                        data-toggle="dropdown" aria-expanded="false" id="status">
-                                                    <c:forEach items="${enumStatus}" var="status">
-                                                        <option><a href="#">${status}</a></option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </dd>
-                                </dl>
+                                    <%--<dt>--%>
+                                        <%--<label class="pull-left control-label" for="status">status</label>--%>
+                                    <%--</dt>--%>
+                                    <%--<dd>--%>
+                                        <%--<div class="form-group">--%>
+                                            <%--<div class="btn-group">--%>
+                                                <%--<select name="status" class="btn btn-default dropdown-toggle"--%>
+                                                        <%--data-toggle="dropdown" aria-expanded="false" id="status">--%>
+                                                    <%--<c:forEach items="${enumStatus}" var="status">--%>
+                                                        <%--<option><a href="#">${status}</a></option>--%>
+                                                    <%--</c:forEach>--%>
+                                                <%--</select>--%>
+                                            <%--</div>--%>
+                                        <%--</div>--%>
+                                    <%--</dd>--%>
+                                <%--</dl>--%>
                             </fieldset>
                             <button type="submit" class="btn btn-primary btn-lg">Create</button>
                         </form>

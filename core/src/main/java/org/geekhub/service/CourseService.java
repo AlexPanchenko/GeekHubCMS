@@ -4,6 +4,7 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.entity.BaseEntity;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
@@ -20,7 +21,11 @@ public interface CourseService {
 
     List<CourseBean> getAllBeans();
 
+    List<Course> getAllCourses();
+
     void create(CourseBean courseBean, TestConfigBeen testConfigBeen);
+
+    void createCourse(CourseBean courseBean);
 
     CourseBean getById(int id) throws CourseNotFoundException;
 
@@ -37,5 +42,7 @@ public interface CourseService {
     public void unRegisterCourse (int id);
 
     public List<UserBean> getUsersByCourse(int courseId);
+
+    public BaseEntity getCourseById(int id);
 
 }

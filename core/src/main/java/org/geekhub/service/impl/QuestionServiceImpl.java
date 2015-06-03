@@ -1,10 +1,12 @@
 package org.geekhub.service.impl;
 
+import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.QuestionBean;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.TestType;
 import org.geekhub.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,7 @@ public class QuestionServiceImpl implements QuestionService{
         question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
         question.setMyAnswer(questionBean.getMyAnswer());
         question.setQuestionStatus(questionBean.getQuestionStatus());
+        question.setTestType(questionBean.getTestType());
         questionDao.update(question);
     }
 
@@ -59,11 +62,26 @@ public class QuestionServiceImpl implements QuestionService{
         question.setQuestionText(questionBean.getQuestionText());
         question.setQuestionCode(questionBean.getQuestionCode());
         question.setQuestionWeight(questionBean.getQuestionWeight());
-        question.setCourse((Course)courseDao.read(questionBean.getCourse(), Course.class));
+        question.setCourse((Course) courseDao.read(questionBean.getCourse(), Course.class));
         question.setMyAnswer(questionBean.getMyAnswer());
         question.setQuestionStatus(questionBean.getQuestionStatus());
+        question.setTestType(questionBean.getTestType());
         questionDao.create(question);
         return question.getId();
     }
 
+    @Override
+    public List<Question> getQuestionsByCourse(CourseBean courseBean) {
+        return questionDao.getByCourse(courseDao.getCourseByName(courseBean.getName()));
+    }
+
+    @Override
+    public List<Question> getQuestionsByTestType(TestType testType) {
+        return questionDao.getByTestType(testType);
+    }
+
+    @Override
+    public List<Question> getQuestionsByCourseWithoutTestType(CourseBean courseBean) {
+        return questionDao.getByCourseWithoutTestType(courseDao.getCourseByName(courseBean.getName()));
+    }
 }

@@ -4,8 +4,8 @@ import org.geekhub.hibernate.bean.ClassRoomBean;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.ClassRoom;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
-import org.geekhub.hibernate.entity.Page;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -71,5 +72,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         User user = (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
         return user;
     }
+
+    @Override
+    public List<User> getUserListByTestAssignment(TestAssignment testAssignment) {
+        List<TestAssignment> list = new ArrayList<TestAssignment>();
+        list.add(testAssignment);
+        return sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.in("testAssignment", list)).list();
+    }
+
 
 }

@@ -1,6 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -19,20 +21,44 @@
     function selectCource(){
       if ($('#selectCourse option:selected').attr('id') == 0) {
         document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
+          document.getElementById('selectTestType').style.visibility = 'hidden';
+          window.location.replace("/admin/questions");
       } else {
         document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
+          document.getElementById('selectTestType').style.visibility = 'visible';
+
         $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
+          var redirectTo = "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/questions/";
+          window.location.replace(redirectTo);
+
+//          $.get("/admin/questions/" + $('#selectCourse option:selected').attr('id'), function(data){
+//              $('#page-content-wrapper').load('questions.jsp');
+//            alert(data);
+             //document.getElementById("selectTestType").setAttribute("${testTypeList}");
+//          })
       }
 
     }
-
+    function selectTestType(){
+        if ($('#selectTestType option:selected').attr('id') == "testType0") {
+    } else {
+            var redirectTo = "/admin/course/" + ${currentCourse} + "/testType/"+$('#selectTestType option:selected').attr('id') + "/questions/";
+            window.location.replace(redirectTo);
+        }
+    }
+    <%--alert(${currentCourse});--%>
     $(document).ready(function () {
+        <%--document.getElementById('selectCourse').selectedIndex = ${currentCourse};--%>
+
       if ($('#selectCourse option:selected').attr('id') == 0) {
         document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-      } else {
+          document.getElementById('selectTestType').style.visibility = 'hidden';
+
+    } else {
         document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
+          document.getElementById('selectTestType').style.visibility = 'visible';
         $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-      }
+    }
     });
 
   </script>
@@ -44,23 +70,55 @@
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
 
                         <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
                         <!-- /////////////////////////////////////////////////////////-->
-
                         <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
-                            <option id="0">All Courses</option>
-                            <c:forEach items="${courses}" var="course">
-                                <option id=${course.id} >${course.name}</option>
-                            </c:forEach>
+                                    <option id="0">All Courses</option>
+                                    <c:forEach items="${courses}" var="course">
+                                        <c:if test="${course.id != currentCourse}">
+                                            <option id=${course.id} >${course.name}</option>
+                                        </c:if>
+                                        <c:if test="${course.id == currentCourse}">
+                                            <option selected id=${course.id} >${course.name}</option>
+                                        </c:if>
+                                    </c:forEach>
+                            <%--<option selected id=${currentCourse}>${currentCourse}</option>--%>
                         </select>
 
+                        <select id="selectTestType" class="dropdown-toggle" onchange="selectTestType()">
+                            <option id="testType0">All TestType</option>
+                            <c:forEach items="${testTypeList}" var="testType">
+                                    <option id=${testType.id}>${testType.name}</option>
+                            </c:forEach>
+                            <option id="0">withoutTestType</option>
+                        </select>
+
+                        <%--<select id="selectTestType" class="dropdown-toggle">--%>
+                            <%--<option id="0">All TestType</option>--%>
+                            <%--<c:forEach items="${testTypeList}" var="testType">--%>
+                                <%--<option id=${testType.id} >${testType.name}</option>--%>
+                            <%--</c:forEach>--%>
+                        <%--</select>--%>
+
+                        <%--<div>--%>
+                            <%--<button class="courses btn">Change course</button>--%>
+                            <%--<div class="js-slide">--%>
+                                <%--<ul>--%>
+                                    <%--<c:forEach items="${courses}" var="course">--%>
+                                        <%--<li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>--%>
+                                    <%--</c:forEach>--%>
+                                <%--</ul>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
                         <!-- /////////////////////////////////////////////////////////-->
 
                         <b>Questions manage</b></h1>
+
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>

@@ -30,6 +30,68 @@
                 </div>
 
                 <div class="container-fluid">
+                    <%--<div class="row">--%>
+                        <%--<div class="col-lg-12">--%>
+                            <%--<h1 class="alert alert-success text-center">--%>
+                                <%--<a href="/admin/testConfig/${courseId}/create"><i class="glyphicon glyphicon-pencil pull-left"--%>
+                                                                                  <%--title="Create new test config"></i></a>--%>
+
+                                <%--<b>Test config manage</b></h1>--%>
+                            <%--<table class="table">--%>
+                                <%--<thead class="alert alert-success">--%>
+                                <%--<tr>--%>
+                                    <%--<th> ID</th>--%>
+                                    <%--<th>Title</th>--%>
+                                    <%--<th>Question count</th>--%>
+                                    <%--<th>Date start</th>--%>
+                                    <%--<th>Date finish</th>--%>
+                                    <%--<th>Time to test</th>--%>
+                                    <%--<th>Status</th>--%>
+                                    <%--<th>Action</th>--%>
+                                <%--</tr>--%>
+                                <%--</thead>--%>
+
+                                <%--<tr>--%>
+                                <%--<td>${course.testConfigBeen.id}</td>--%>
+                                <%--<td>${course.testConfigBeen.tittle}</td>--%>
+                                <%--<td>${course.testConfigBeen.questionCount}</td>--%>
+                                <%--<td>${course.testConfigBeen.dateStartStr}</td>--%>
+                                <%--<td>${course.testConfigBeen.dateFinishStr}</td>--%>
+                                <%--<td>${course.testConfigBeen.timeToTest}</td>--%>
+                                <%--<td>${course.testConfigBeen.status}</td>--%>
+
+                                <%--<td class="text-center">--%>
+                                <%--<a href="/admin/testConfig/${course.id}/${course.testConfigBeen.id}/edit"><i class="fa fa-pencil-square-o"></i></a>--%>
+                                <%--&lt;%&ndash;<a href="/admin/testConfig/${course.id}/${course.testConfigBeen.id}/delete"> <i class="fa fa-times"></i></a>&ndash;%&gt;--%>
+                                <%--</td>--%>
+
+                                <%--</tr>--%>
+
+
+                                <%--&lt;%&ndash;<c:forEach items="${course.testConfigListBeens}" var="testConfig">&ndash;%&gt;--%>
+
+
+                                    <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.id}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.tittle}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.questionCount}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.dateStart}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.dateFinish}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.timeToTest}</td>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;<td>${testConfig.status}</td>&ndash;%&gt;--%>
+
+                                        <%--&lt;%&ndash;<td class="text-center">&ndash;%&gt;--%>
+                                            <%--&lt;%&ndash;<a href="/admin//testConfig/${course.id}/${testConfig.id}/edit"><i class="fa fa-pencil-square-o"></i></a>&ndash;%&gt;--%>
+                                            <%--&lt;%&ndash;<a href="/admin/testConfig/${course.id}/${testConfig.id}/delete"> <i class="fa fa-times"></i></a>&ndash;%&gt;--%>
+                                        <%--&lt;%&ndash;</td>&ndash;%&gt;--%>
+
+                                    <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
+                            <%--</table>--%>
+                            <%--<!-- Pagination -->--%>
+
+
+                        <%--</div>--%>
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="alert alert-success text-center">
@@ -66,11 +128,7 @@
                                 </td>
 
                                 </tr>
-
-
                                 <%--<c:forEach items="${course.testConfigListBeens}" var="testConfig">--%>
-
-
                                     <%--<tr>--%>
                                         <%--<td>${testConfig.id}</td>--%>
                                         <%--<td>${testConfig.tittle}</td>--%>
@@ -89,8 +147,6 @@
                                 <%--</c:forEach>--%>
                             </table>
                             <!-- Pagination -->
-
-
                         </div>
                     </div>
                     <div class="updateCourse">

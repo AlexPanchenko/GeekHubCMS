@@ -9,7 +9,6 @@
         <property name="url" value="jdbc:mysql://localhost/geekhub?useUnicode=true&amp;characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true" />
         <property name="username" value="root" />
         <property name="password" value="root" />
-
     </bean>
 
     <bean id="proxyDataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">

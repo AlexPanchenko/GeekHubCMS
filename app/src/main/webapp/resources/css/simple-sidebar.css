@@ -116,7 +116,7 @@
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
-        background-color: #ffffff;
+        background-color: #f8f8f8;
     }
 
     #wrapper.toggled {

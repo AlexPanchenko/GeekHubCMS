@@ -52,6 +52,10 @@ public class Question extends BaseEntity implements Serializable{
     @OneToMany(mappedBy="question",cascade = CascadeType.ALL)
     List<UserResults>  UserResults = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "TEST_TYPE_ID")
+    private TestType testType;
+
 
     public Question(String questionText, Byte questionWeight, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Course course) {
         this.questionText = questionText;
@@ -60,6 +64,14 @@ public class Question extends BaseEntity implements Serializable{
         this.myAnswer = myAnswer;
         this.manyAnswers = manyAnswers;
         this.course = course;
+    }
+
+    public TestType getTestType() {
+        return testType;
+    }
+
+    public void setTestType(TestType testType) {
+        this.testType = testType;
     }
 
     public String getQuestionCode() {

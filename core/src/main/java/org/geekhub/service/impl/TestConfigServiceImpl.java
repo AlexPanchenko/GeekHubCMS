@@ -7,12 +7,16 @@ import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.TestStatus;
+import org.geekhub.hibernate.entity.TestType;
 import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -81,6 +85,12 @@ public class TestConfigServiceImpl implements TestConfigService {
     }
 
     @Override
+    public void createTestConfig(TestConfig testConfig) {
+        testConfig.setCourse(null);
+        testConfigDao.create(testConfig);
+    }
+
+    @Override
     public void update(TestConfigBeen testConfigBeen) {
         TestConfig testConfig = (TestConfig) testConfigDao.read(testConfigBeen.getId(), TestConfig.class);
         testConfig.setQuestionCount(testConfigBeen.getQuestionCount());
@@ -98,10 +108,15 @@ public class TestConfigServiceImpl implements TestConfigService {
         testConfigDao.delete(testConfig);
     }
 
-//    public TestConfig getTestConfigByCourse (Course course){
-//
-//        return
-//    }
+    @Override
+    public void deleteById(int id) {
+        TestConfig testConfig = (TestConfig) testConfigDao.read(id, TestConfig.class);
+        if(testConfig.getTestType() != null) {
+            testConfig.getTestType().getTestConfigList().remove(testConfig);
+        }
+        testConfigDao.update(testConfig);
+        testConfigDao.delete(testConfig);
+    }
 
     public TestConfigBeen getTestConfigBeenEnable(int courseId) {
         Course course = (Course) courseDao.read(courseId, Course.class);
@@ -109,7 +124,7 @@ public class TestConfigServiceImpl implements TestConfigService {
         TestConfig testConfig = course.getTestConfig();
 
         TestConfigBeen testConfigBeen = new TestConfigBeen();
-        if (testConfig.getStatus().equals(TestStatus.ENABLED)) {
+        if (testConfig.getStatus().equals(TestStatus.ACTIVE)) {
             testConfigBeen= new TestConfigBeen(testConfig.getId(),
                         testConfig.getTitle(),
                         testConfig.getQuestionCount(),
@@ -131,4 +146,23 @@ public class TestConfigServiceImpl implements TestConfigService {
     public TestConfig getTestConfigByCource(Course course) {
         return testConfigDao.getTestConfigByCourse(course);
     }
+
+    @Override
+    public List<TestConfig> getAll() {
+        return testConfigDao.getAll();
+    }
+
+    @Override
+    public void updateByParams(int id, String title, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, TestType testType) {
+        TestConfig testConfig = (TestConfig) testConfigDao.read(id, TestConfig.class);
+        testConfig.setTitle(title);
+        testConfig.setQuestionCount(questionCount);
+        testConfig.setDateFinish(dateFinish);
+        testConfig.setDateStart(dateStart);
+        testConfig.setTimeToTest(timeToTest);
+        testConfig.setStatus(status);
+        testConfig.setTestType(testType);
+        testConfigDao.update(testConfig);
+    }
+
 }

@@ -18,6 +18,7 @@ import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
+import org.geekhub.service.TestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +55,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private TestAssignmentService testAssignmentService;
+
+    @Autowired
+    private TestTypeService testTypeService;
 
     @Override
     public List<User> getUserFromCourse(int id){
@@ -117,20 +122,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseBean toBean(Course course) {
 
-        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription(),
-                testConfigService.toBeen(course.getTestConfig()));
-                //testConfigService.getTestConfigBeen(course.getId()));
+        CourseBean courseBean = new CourseBean(course.getId(), course.getName(), course.getDescription());
 
-//        for (TestConfig testConfig : testConfigList) {
-//            testConfigBeenList.add(new TestConfigBeen(testConfig.getId(),
-//                    testConfig.getTitle(),
-//                    testConfig.getQuestionCount(),
-//                    testConfig.getDateStart(),
-//                    testConfig.getDateFinish(),
-//                    testConfig.getTimeToTest(),
-//                    testConfig.getStatus(),
-//                    courseBean));
-//        }
         return courseBean;
     }
 
@@ -184,6 +177,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(int courseId) throws CourseNotFoundException {
+        Course course = (Course) courseDao.read(courseId, Course.class);
+        if(course.getTestTypeList() != null) {
+            Iterator<TestType> iterator = course.getTestTypeList().iterator();
+            while (iterator.hasNext()){
+                TestType testType = iterator.next();
+                iterator.remove();
+                testTypeService.deleteById(testType.getId());
+                //iterator.remove();
+            }
+        }
+        if(course.getTestConfig()!= null) {
+            course.getTestConfig().setCourse(null);
+        }
         courseDao.deleteCourseById(courseId);
     }
 
@@ -204,6 +210,11 @@ public class CourseServiceImpl implements CourseService {
             }
         }
 
+    }
+
+    @Override
+    public Course getCourseById(int id) {
+        return (Course) courseDao.read(id, Course.class);
     }
 
     @Override
@@ -230,13 +241,24 @@ public class CourseServiceImpl implements CourseService {
         List<UserBean> userBeans = new ArrayList<>();
 
         for (UsersCourses usersCourse : usersCourses) {
-            if (usersCourse.getUser().getRole() == Role.ROLE_STUDENT){
+            if (usersCourse.getUser().getRole() == Role.ROLE_STUDENT) {
                 userBeans.add(beanService.toUserBean(usersCourse.getUser()));
             }
 
         }
 
         return userBeans;
+    }
+    public void createCourse(CourseBean courseBean) {
+        Course course = new Course();
+        course.setName(courseBean.getName());
+        course.setDescription(courseBean.getDescription());
+        courseDao.create(course);
+    }
+
+    @Override
+    public List<Course> getAllCourses() {
+        return courseDao.getAll();
     }
 }
 

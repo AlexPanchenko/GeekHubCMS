@@ -1,5 +1,7 @@
 package org.geekhub.hibernate.bean;
 
+import org.geekhub.hibernate.entity.TestType;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +20,20 @@ public class QuestionBean {
     private Boolean manyAnswers;
     private Set<AnswerBean> answers = new HashSet<>();
     private int course;
+    private TestType testType;
+
+    public TestType getTestType() {
+        return testType;
+    }
+
+    public void setTestType(TestType testType) {
+        this.testType = testType;
+    }
+
+    public QuestionBean(int id, String questionText) {
+        this.id = id;
+        this.questionText = questionText;
+    }
 
     public QuestionBean(int id, String questionText, Byte questionWeight, String questionTitle, Boolean questionStatus, Boolean myAnswer, Boolean manyAnswers, Set<AnswerBean> answers, int course) {
         this.id = id;

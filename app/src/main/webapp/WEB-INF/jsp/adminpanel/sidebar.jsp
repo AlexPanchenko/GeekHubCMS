@@ -17,10 +17,16 @@
                     <a href="/admin/course/list"> Courses</a>
                 </li>
                 <li>
-                    <a href="/admin/classRoomList"> ClassRoom</a>
+                    <a href="/admin/testType">Test type</a>
                 </li>
                 <li>
-                    <a href="#"> Tests</a>
+                    <a href="/admin/testConfig"> Test config</a>
+                </li>
+                <li>
+                    <a href="/admin/assignTest">Assign test </a>
+                </li>
+                <li>
+                    <a href="/admin/classRoomList"> ClassRoom</a>
                 </li>
                 <li>
                     <a href="/admin/questions">Base questions</a>
