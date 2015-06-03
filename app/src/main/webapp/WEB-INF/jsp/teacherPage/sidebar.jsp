@@ -11,10 +11,7 @@
                     <h3>Teacher Panel</h3>
                 </li>
                 <li>
-                    <a href="/teacher/registrationCourses" class="text-left">Students</a>
-                </li>
-                <li>
-                    <a href="#" class="text-left">Classrooms</a>
+                    <a href="/teacher/students" class="text-left">Students</a>
                 </li>
                 <li>
                     <a href="/teacher/testing/selectCourse" class="text-left">Tests</a>

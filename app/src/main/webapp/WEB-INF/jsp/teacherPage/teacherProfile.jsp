@@ -6,7 +6,7 @@
 <html>
 <head>
     <title></title>
-    <jsp:include page="../teacherPage/source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
