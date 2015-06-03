@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>End</title>
-    <jsp:include page="../adminpanel/source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <div class="endTesting">

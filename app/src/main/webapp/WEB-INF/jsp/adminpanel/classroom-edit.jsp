@@ -20,7 +20,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <jsp:include page="source.jsp"></jsp:include>
+  <jsp:include page="../source.jsp"></jsp:include>
   <script>
     function showUsers(course){
       $.ajax({

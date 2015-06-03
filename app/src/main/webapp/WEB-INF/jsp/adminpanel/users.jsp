@@ -13,7 +13,7 @@
     <title>User edit page</title>
 
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
     <!-- /#wrapper -->
     <script>
         $("#menu-toggle").click(function(e) {
@@ -70,8 +70,8 @@
                             <th> Action</th>
                         </tr>
                         </thead>
-                        <tbody id="rows">
-                        </tbody>
+                        <div id="rows">
+                        </div>
                     </table>
                     <div class="text-center">
                         <nav>

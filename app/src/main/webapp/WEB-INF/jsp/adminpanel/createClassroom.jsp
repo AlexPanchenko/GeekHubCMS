@@ -20,7 +20,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <jsp:include page="source.jsp"></jsp:include>
+  <jsp:include page="../source.jsp"></jsp:include>
   <script>
     function showUsers(course){
       $.ajax({
@@ -88,7 +88,12 @@
     </div>
   </div>
 </div>
-
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 
 </body>
 </html>

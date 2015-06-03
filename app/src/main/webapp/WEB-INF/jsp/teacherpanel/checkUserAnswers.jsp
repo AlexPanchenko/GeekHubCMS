@@ -13,7 +13,7 @@
 <html>
 <head>
     <title>Teacher Panel</title>
-    <jsp:include page="../adminpanel/source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <h1>Check User Answer</h1>

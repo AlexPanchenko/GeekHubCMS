@@ -14,7 +14,7 @@
     <meta name="author" content="">
     <title>AdminPanel</title>
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 
