@@ -10,4 +10,5 @@ public interface ClassroomDao extends BaseDao {
     public List<User> getUsersById(ArrayList<Integer> usersId);
     public List<ClassRoom> getAll();
     public ClassRoom getClassroom(int classroomId);
+    public List<ClassRoom> getClassroomByCourseId(int courseId);
 }

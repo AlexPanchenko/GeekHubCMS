@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Component
 public interface TestAssignmentService {
+    public List<TestAssignment> getTestAsignByCourse(int courseId);
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId);
     public TestAssignment getTestAssignmentByTestConfigAdnUser(TestConfig testConfig, User user);
     Object read(int testAssignmentId);

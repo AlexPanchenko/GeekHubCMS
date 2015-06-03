@@ -3,8 +3,10 @@ package org.geekhub.service;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
+import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.BaseEntity;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 
@@ -38,6 +40,8 @@ public interface CourseService {
     public CourseBean toBean(Course course);
 
     public void unRegisterCourse (int id);
+
+    public List<UserBean> getUsersByCourse(int courseId);
 
     public BaseEntity getCourseById(int id);
 

@@ -11,67 +11,68 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>TestConfig edit page</title>
+  <title>User edit page</title>
 
+  <jsp:include page="../source.jsp"></jsp:include>
 
-    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="myNavbar.jsp"></jsp:include>
-<div id="wrapper">
+    <jsp:include page="myNavbar.jsp"></jsp:include>
+    <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
                     <div class="container">
-                        <h1 class="page-header">Edit test config</h1>
+                        <h1 class="page-header">Add new test config</h1>
 
-                        <form data-toggle="validator" role="form" action="/admin/testConfig/${courseId}/${testConfigBeen.id}/edit" method="POST"
-                              class="form-horizontal">
+                        <form data-toggle="validator" role="form" action="/admin/testConfig/${courseId}/create" method="POST"    class="form-horizontal">
                             <fieldset>
                                 <dl class="dl-horizontal">
                                     <dt>
-                                        <label class="pull-left control-label" for="title">Title</label>
+                                        <label class="pull-left control-label" for="title">Test config title</label>
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="text" id="title" min="0" name="title" value="${testConfigBeen.tittle}">
+                                            <input type="text" id="title" min="0" name="title">
                                         </div>
                                     </dd>
                                     <dt>
-                                        <label class="pull-left control-label" for="questionCount">Question count</label>
+                                        <label class="pull-left control-label" for="questionCount">Question
+                                            count</label>
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="number" id="questionCount" min="0" name="questionCount" value="${testConfigBeen.questionCount}">
+                                            <input type="number" id="questionCount" min="0" name="questionCount">
                                         </div>
                                     </dd>
 
                                     <dt>
-                                        <label class="pull-left control-label" for="dateStart">Date start</label>
+                                        <label class="pull-left control-label" for="dateStart">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group col-lg-3">
-                                            <input type="date" id="dateStart" class="form-control" name="dateStart" value="${testConfigBeen.dateStartStr}">
+                                        <div class="form-group">
+                                            <input type="date" id="dateStart" class="form-control" name="dateStart">
                                         </div>
                                     </dd>
                                     <dt>
-                                        <label class="pull-left control-label" for="dateStart">Date finish</label>
+                                        <label class="pull-left control-label" for="dateFinish">Date start </label>
                                     </dt>
                                     <dd>
-                                        <div class="form-group col-lg-3">
-                                            <input type="date" id="dateFinish" class="form-control" name="dateFinish" value="${testConfigBeen.dateFinishStr}">
+                                        <div class="form-group">
+                                            <input type="date" id="dateFinish" class="form-control" name="dateFinish">
                                         </div>
                                     </dd>
 
                                     <dt>
-                                        <label class="pull-left control-label" for="timeToTest">Date time to
+                                        <label class="pull-left control-label" for="timeToTest">Time to
                                             test</label>
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="number" min="0" id ="timeToTest"  name="timeToTest" value="${testConfigBeen.timeToTest}">
+                                            <input type="number" min="0" id="timeToTest"
+                                                   name="timeToTest">
                                         </div>
                                     </dd>
 
@@ -92,7 +93,7 @@
                                     </dd>
                                 </dl>
                             </fieldset>
-                            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Create</button>
                         </form>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -108,5 +109,7 @@
         $("#wrapper").toggleClass("toggled");
     });
 </script>
+
+</div>
 </body>
 </html>

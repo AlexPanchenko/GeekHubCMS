@@ -11,7 +11,7 @@
 
     <title>Grayscale - Start Bootstrap Theme</title>
 
-    <jsp:include page="teacherPage/source.jsp"></jsp:include>
+    <jsp:include page="source.jsp"></jsp:include>
 
 
 </head>

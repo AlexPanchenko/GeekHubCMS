@@ -12,7 +12,7 @@
 
     <title>User edit page</title>
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -183,7 +183,7 @@
 
 <!-- /#wrapper -->
 <div id="myModal" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog text-black">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

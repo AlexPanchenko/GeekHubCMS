@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TEST_CONFIG")
-public class  TestConfig extends BaseEntity {
+public class TestConfig extends BaseEntity {
 
     @GeneratedValue
     @Id

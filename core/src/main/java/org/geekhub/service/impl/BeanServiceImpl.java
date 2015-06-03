@@ -27,6 +27,7 @@ public class BeanServiceImpl implements BeanService {
         user.setEmail(userBean.getEmail());
         user.setPhoneNumber(userBean.getPhoneNumber());
         user.setSkype(userBean.getSkype());
+        user.setEnable(userBean.getEnable());
         user.setBirthDay(userBean.getBirthDay());
         user.setRole(userBean.getRole());
         user.setRegistrationDate(userBean.getRegistrationDate());
@@ -42,6 +43,7 @@ public class BeanServiceImpl implements BeanService {
         userBean.setFirstName(user.getFirstName());
         userBean.setEmail(user.getEmail());
         userBean.setPhoneNumber(user.getPhoneNumber());
+        userBean.setEnable(user.getEnable());
         userBean.setSkype(user.getSkype());
         userBean.setBirthDay(user.getBirthDay());
         userBean.setRole(user.getRole());

@@ -53,6 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserBean getUserBeanById(int userId) {
+        User user = userDao.getUserById(userId);
+        return beanService.toUserBean(user);
+    }
+
+    @Override
     public void removeUserById(int userId) {
         userDao.delete(userDao.getUserById(userId));
     }
@@ -246,6 +252,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserBean> getUser() {
+        List<UserBean> userBeans = new ArrayList<>();
+        for (User user : userDao.readAllUsers()) {
+            userBeans.add(beanService.toUserBean(user));
+        }
+
+        return userBeans;
+    }
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig) {
         List<User> userList = getAllUsersByCourse(course);
         System.out.println("List = " + userList);

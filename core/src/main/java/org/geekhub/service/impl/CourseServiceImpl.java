@@ -3,6 +3,7 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.TestConfigBeen;
+import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
@@ -13,6 +14,7 @@ import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
@@ -41,6 +43,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private BeanService beanService;
 
     @Autowired
     private TestConfigDao testConfigDao;
@@ -229,6 +234,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<UserBean> getUsersByCourse(int courseId) {
+        Course course = (Course) courseDao.read(courseId, Course.class);
+
+        List<UsersCourses> usersCourses = course.getUsersCourses();
+        List<UserBean> userBeans = new ArrayList<>();
+
+        for (UsersCourses usersCourse : usersCourses) {
+            if (usersCourse.getUser().getRole() == Role.ROLE_STUDENT) {
+                userBeans.add(beanService.toUserBean(usersCourse.getUser()));
+            }
+
+        }
+
+        return userBeans;
+    }
     public void createCourse(CourseBean courseBean) {
         Course course = new Course();
         course.setName(courseBean.getName());

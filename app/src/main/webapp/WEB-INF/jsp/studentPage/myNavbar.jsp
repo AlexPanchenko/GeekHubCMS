@@ -10,11 +10,11 @@
             <span class="sr-only">Toggle navigation</span>
 
         </button>
-        <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle"style="margin-top:-5px"></i>
     </div>
     <!-- /.navbar-header -->
-
+    <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle"style="margin-top:-5px"></i>
     <ul class="nav navbar-top-links navbar-right">
+        <a href="/" class="text-center" style="margin-right: 410px;"><i class="fa" style="color:blue;"></i><b>GEEKHUB HOME</b></a>
         <security:authorize access="hasRole('ROLE_ADMIN')">
             <a href="/admin" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
         </security:authorize>

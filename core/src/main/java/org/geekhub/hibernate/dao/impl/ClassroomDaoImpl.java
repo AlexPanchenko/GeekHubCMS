@@ -33,4 +33,9 @@ public class ClassroomDaoImpl extends BaseDaoImpl implements ClassroomDao {
         return classRoom;
     }
 
+    public List<ClassRoom> getClassroomByCourseId(int courseId) {
+        return sessionFactory.getCurrentSession()
+               .createCriteria(ClassRoom.class).createAlias("courseId", "course")
+               .add(Restrictions.eq("course.id", courseId)).list();
+    }
 }

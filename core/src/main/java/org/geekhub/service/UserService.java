@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface UserService  {
+    public UserBean getUserBeanById(int userId);
     public void removeUserById(int userId);
     public void saveUser(UserBean userBean);
     public void updateUserByUserBean(UserBean userBean);
@@ -26,6 +27,7 @@ public interface UserService  {
     Object getUserTestResultWrapperListByCourseName(String course);
     Page<UserTestResultWrapper> getPageUserTestResultWrapperListByCourseName(String course, int p, int i);
     public List<Course> getAllCoursesByUser(User user);
+    public List<UserBean> getUser();
     public List<User> getAllUsersByCourse(Course course);
     public User getLogInUser();
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,16 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     @Override
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId) {
+        return null;
+    }
+
+    @Override
+    public List<TestAssignment> getTestAsignByCourse(int courseId) {
+        List<TestAssignment> testAssignments = testAssignmentDao.getTestAssignmentByCourse(courseId);
+        List<TestAssignmentBean> testAssignmentBeans = new ArrayList<>();
+        for (TestAssignment testAssignment: testAssignments){
+
+        }
         return null;
     }
 
