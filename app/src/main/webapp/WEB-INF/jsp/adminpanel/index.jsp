@@ -17,9 +17,6 @@
     <jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
-    <div id="page-content-wrapper">
-
-    </div>
     </div>
 
     <script>

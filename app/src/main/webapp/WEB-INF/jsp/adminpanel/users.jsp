@@ -59,18 +59,8 @@
                     <h1 class="alert alert-success text-center">
                     <a href="/admin/createUser" class="pull-left">Create User </a>
                     <b>Users manage</b></h1>
-                    <table class="table text-black">
-                        <thead class="alert alert-success">
-                        <tr>
-                            <th> Last name <input class="input-sm" placeholder="Place for filthering"> </th>
-                            <th> Name <input class="input-sm" placeholder="Place for filthering"></th>
-                            <th> Email <input class="input-sm" placeholder="Place for filthering"></th>
-                            <th> Phone <input class="input-sm" placeholder="Place for filthering"></th>
-                            <th> Skype <input class="input-sm" placeholder="Place for filthering"></th>
-                            <th> Action</th>
-                        </tr>
-                        </thead>
-                        <div id="rows">
+                    <table class="table text-black" >
+                        <div id="rows" class="col-lg-12">
                         </div>
                     </table>
                     <div class="text-center">

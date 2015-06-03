@@ -29,8 +29,9 @@
   <c:if test="${!empty SPRING_SECURITY_LAST_EXCEPTION}">
       <div class="err-msg">Invalid email or password</div>
   </c:if>
+  <a href="/forgotPassword">forgot password</a>
   <input type="submit" value="Submit" class="btn btn-primary">
-
+  <a href="/registration" class="pull-right" style="margin-top: 10px;">registration now</a>
 </form>
 
 <%--<script src="/resources/js/forms.js"></script>--%>
