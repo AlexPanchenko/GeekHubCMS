@@ -13,7 +13,7 @@
 
   <title>Test config edit page</title>
 
-  <jsp:include page="source.jsp"></jsp:include>
+  <jsp:include page="../source.jsp"></jsp:include>
 
 </head>
 <body>
