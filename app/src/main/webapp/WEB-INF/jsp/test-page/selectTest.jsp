@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
     function changeHref(href) {
         $('a').attr('href', href);
@@ -29,40 +30,48 @@
 <div class="selectTest">
 
     <div>
-        <h2>Select the test</h2>
+        <c:choose>
+            <c:when test="${not empty testAssignmentList}">
+                <h2>Select test</h2>
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Start Date</th>
-                    <th>Finish Date</th>
-                    <th>Status</th>
-                    <th>Select</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${testAssignmentList}" var="testAssignment">
-
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td>${testAssignment.id}</td>
-                        <td>(${testAssignment.testConfig.testType.course.name}
-                            | ${testAssignment.testConfig.testType.name})
-                            ${testAssignment.testConfig.title}</td>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Start Date</th>
+                        <th>Finish Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
 
-                        <td>${testAssignment.testConfig.dateStart}</td>
-                        <td>${testAssignment.testConfig.dateFinish}</td>
-                        <td>${testAssignment.testStatusAssignment}</td>
-                        <td width="50">
-                            <a href="/student/testing/test/${testAssignment.testConfig.testType.id}"><button class="btn btn-primary">Start</button></a>
-                        </td>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        <a href="" name="link" class="btn btn-default">Select</a>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${testAssignmentList}" var="testAssignment">
+
+                        <tr>
+                            <td>${testAssignment.id}</td>
+                            <td>(${testAssignment.testConfig.testType.course.name}
+                                | ${testAssignment.testConfig.testType.name})
+                                    ${testAssignment.testConfig.title}</td>
+
+                            <td><fmt:formatDate type="date"
+                                                value="${testAssignment.testConfig.dateStart}" /></td>
+                            <td><fmt:formatDate type="date"
+                                                value="${testAssignment.testConfig.dateFinish}" /></td>
+                            <td>${testAssignment.testStatusAssignment}</td>
+                            <td width="50">
+                                <a href="/student/testing/test/${testAssignment.testConfig.testType.id}"><button class="btn btn-primary">Start</button></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <h2>You not have any test</h2>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 

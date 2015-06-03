@@ -129,5 +129,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         return (TestAssignment) testAssignmentDao.read(id, TestAssignment.class);
     }
 
+    @Override
+    public List<TestAssignment> getAvailableTestAssignmentByUser(User user) {
+        return testAssignmentDao.getAvailableTestAssignmentByUser(user);
+    }
+
 
 }

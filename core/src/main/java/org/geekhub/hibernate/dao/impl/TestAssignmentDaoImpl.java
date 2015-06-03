@@ -2,10 +2,7 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestAssignment;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +38,13 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
 
         return (TestAssignment) sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
                 .add(Restrictions.eq("testConfig", testConfig)).add(Restrictions.eq("user", user)).uniqueResult();
+    }
+
+    @Override
+    public List<TestAssignment> getAvailableTestAssignmentByUser(User user) {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
+                .add(Restrictions.eq("user", user))
+                .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.PASSED)))
+                .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.OVERDUE))).list();
     }
 }

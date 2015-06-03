@@ -27,4 +27,5 @@ public interface TestAssignmentService {
     public void assignTestByUserListId(List<Integer> listId, TestConfig testConfig);
     public void deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig);
     public TestAssignment getTestAssignmentById(int id);
+    public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
 }

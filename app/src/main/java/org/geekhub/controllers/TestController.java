@@ -78,13 +78,16 @@ public class TestController {
     @RequestMapping(value = "/test/{testAssignmentId}", method = RequestMethod.GET)
     public String selectTest(@PathVariable("testAssignmentId") int testAssignmentId,
                              ModelMap model) {
-        TestConfig testConfig =  testAssignmentService.getTestAssignmentById(testAssignmentId).getTestConfig();
-        TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfig.getId());
-        model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), testAssignmentService.getTestAssignmentById(testAssignmentId).getTestConfig().getTestType()));
-        model.addAttribute("testId", testConfig.getId());
-        testAssignmentService.setStatus(testConfigService.getTestConfigByID(testConfig.getId()), TestStatusAssignment.IN_PROCESS);
-        model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testConfig.getId()).getTimeToTest());
-        return "test-page/testPage";
+        TestAssignment testAssignment = testAssignmentService.getTestAssignmentById(testAssignmentId);
+        if ((testAssignment.getTestStatusAssignment() != TestStatusAssignment.OVERDUE) && (testAssignment.getTestStatusAssignment() != TestStatusAssignment.PASSED)) {
+            TestConfig testConfig = testAssignment.getTestConfig();
+            TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfig.getId());
+            model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), testAssignmentService.getTestAssignmentById(testAssignmentId).getTestConfig().getTestType()));
+            model.addAttribute("testId", testConfig.getId());
+            testAssignmentService.setStatus(testConfigService.getTestConfigByID(testConfig.getId()), TestStatusAssignment.IN_PROCESS);
+            model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testConfig.getId()).getTimeToTest());
+            return "test-page/testPage";
+        } else return "redirect:/";
     }
 
     @RequestMapping(value = "/course/comletetest/{testId}", method = RequestMethod.POST)
@@ -105,8 +108,7 @@ public class TestController {
 
     @RequestMapping(value = "/assignmentTest", method = RequestMethod.GET)
     public String completeTest(ModelMap model) {
-
-        model.addAttribute("testAssignmentList", userService.getLogInUser().getTestAssignments());
+        model.addAttribute("testAssignmentList", testAssignmentService.getAvailableTestAssignmentByUser(userService.getLogInUser()));
         return "test-page/selectTest";
     }
 }
