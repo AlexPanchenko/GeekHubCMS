@@ -26,4 +26,11 @@ public class ClassroomDaoImpl extends BaseDaoImpl implements ClassroomDao {
     public List<ClassRoom> getAll() {
         return sessionFactory.getCurrentSession().createCriteria(ClassRoom.class).list();
     }
+
+    @Override
+    public ClassRoom getClassroom(int classroomId){
+        ClassRoom classRoom = (ClassRoom) sessionFactory.getCurrentSession().get(ClassRoom.class, classroomId);
+        return classRoom;
+    }
+
 }

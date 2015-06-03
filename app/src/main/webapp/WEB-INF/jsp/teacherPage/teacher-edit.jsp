@@ -12,7 +12,7 @@
 
     <title>User edit page</title>
 
-    <jsp:include page="source.jsp"></jsp:include>
+    <jsp:include page="../teacherPage/source.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -22,9 +22,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10">
-                    <h1 class="page-header">User <b>${user.id}</b> profile</h1>
+                    <h1 class="page-header">Teacher <b>${user.id}</b> profile</h1>
 
-                    <form action="/admin/users" data-toggle="validator" role="form" class="form-horizontal"
+                    <form action="/teacher/teacherEdit" data-toggle="validator" role="form" class="form-horizontal"
                           method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">

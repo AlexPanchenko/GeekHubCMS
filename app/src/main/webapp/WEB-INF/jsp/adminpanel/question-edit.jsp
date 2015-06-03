@@ -137,6 +137,7 @@
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary btn-lg">Create</button>
                             </form>
+
                         </c:when>
                         <c:otherwise>
                             <h1 class="page-header">Edit question № ${question.id} for course ${courseName}</h1>

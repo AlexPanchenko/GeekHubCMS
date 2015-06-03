@@ -60,15 +60,18 @@ public class User extends BaseEntity implements Serializable {
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     List<TestAssignment> testAssignments = new ArrayList<>();
 
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     List<UsersCourses> usersCourses = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<UserResults> userResults = new ArrayList<>();
 
-    @ManyToOne()
-    @JoinColumn( name = "CLASSROOM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLASSROOM_ID")
     private ClassRoom classroom;
+
+//    @OneToOne(mappedBy = "teacher")
+    private ClassRoom classroomTeacher;
 
     public List<UserResults> getUserResults() {
         return userResults;
@@ -201,5 +204,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setClassroom(ClassRoom classroom) {
         this.classroom = classroom;
+    }
+
+    public ClassRoom getClassroomTeacher() {
+        return classroomTeacher;
+    }
+
+    public void setClassroomTeacher(ClassRoom classroomTeacher) {
+        this.classroomTeacher = classroomTeacher;
     }
 }

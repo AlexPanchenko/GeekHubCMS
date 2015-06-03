@@ -14,13 +14,12 @@
   <tr>
     <td>${user.lastName}</td>
     <td>${user.firstName}</td>
-    <td>${user.patronymic}</td>
     <td>${user.email}</td>
     <td>${user.phoneNumber}</td>
     <td>${user.skype}</td>
     <td align="center">
       <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-      <i class="fa fa-times"></i>
+      <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
     </td>
   </tr>
 </c:forEach>

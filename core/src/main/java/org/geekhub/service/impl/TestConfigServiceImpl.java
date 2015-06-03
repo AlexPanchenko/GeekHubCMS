@@ -8,6 +8,7 @@ import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.TestStatus;
 import org.geekhub.hibernate.entity.TestType;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class TestConfigServiceImpl implements TestConfigService {
     private CourseService courseService;
     @Autowired
     private TestConfigDao testConfigDao;
+    @Autowired
+    private BeanService beanService;
 
     @Override
     public TestConfigBeen getTestConfigById(int testConfigId) {

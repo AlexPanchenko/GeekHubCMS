@@ -1,6 +1,11 @@
 package org.geekhub.hibernate.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +19,18 @@ public class ClassRoom extends BaseEntity implements Serializable {
     @Column(name = "CLASSROOM_ID")
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classroom")
-    private List<User> users = new ArrayList<>();
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy ="classroom",cascade = CascadeType.ALL)
+    private List<User> users;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn( name = "TEACHER_ID")
+    private User teacher;
 
     @ManyToOne
     @JoinColumn(name = "COURSE_ID")
@@ -43,5 +58,29 @@ public class ClassRoom extends BaseEntity implements Serializable {
 
     public void setCourseId(Course courseId) {
         this.courseId = courseId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 }

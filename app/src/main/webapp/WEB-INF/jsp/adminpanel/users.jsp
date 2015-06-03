@@ -14,6 +14,37 @@
 
 
     <jsp:include page="source.jsp"></jsp:include>
+    <!-- /#wrapper -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        function showNewPage(page){
+            $.ajax({
+                url:"ajax/usersShow",
+                type:"post",
+                data:{page:page},
+                success:function(data) {
+                    $("#rows").html(data);
+                }
+            });
+        }
+        function countUsers(){
+            $.ajax({
+                url:"ajax/countUsers",
+                type:"post",
+                data:'',
+                success:function(data) {
+                }
+            });
+        }
+        $(document).ready(function() {
+            countUsers();
+            showNewPage(1);
+        });
+    </script>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -25,7 +56,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="alert alert-success text-center"><b>Users manage</b></h1>
+                    <h1 class="alert alert-success text-center">
+                    <a href="/admin/createUser" class="pull-left">Create User </a>
+                    <b>Users manage</b></h1>
                     <table class="table text-black">
                         <thead class="alert alert-success">
                         <tr>
@@ -37,34 +70,20 @@
                             <th> Action</th>
                         </tr>
                         </thead>
-                        <c:forEach items="${users}" var="user">
-                            <tr>
-                                <td>${user.lastName}</td>
-                                <td>${user.firstName}</td>
-                                <td>${user.email}</td>
-                                <td>${user.phoneNumber}</td>
-                                <td>${user.skype}</td>
-                                <td align="center">
-                                    <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <i class="fa fa-times"></i>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </div>
+                        <tbody id="rows">
+                        </tbody>
                     </table>
                     <div class="text-center">
                         <nav>
-                            <ul class="pagination" >
+                            <ul id="course" class="pagination" >
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <c:forEach items="${pageNumbers}" var="number">
+                                    <li><a href="#" onclick="showNewPage(${number})">${number}</a></li>
+                                </c:forEach>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -79,16 +98,18 @@
         </div>
         <!-- /.row -->
     </div>
+        <!-- /.row -->
+    </div>
     <!-- /.container-fluid -->
 </div>
-
-<!-- /#wrapper -->
 <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 </script>
+
+
 </body>
 </html>
 

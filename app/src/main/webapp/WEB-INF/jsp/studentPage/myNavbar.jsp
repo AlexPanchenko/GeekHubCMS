@@ -15,14 +15,19 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
+        <security:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="/admin" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
+        </security:authorize>
+        <security:authorize access="hasRole('ROLE_STUDENT')">
+            <a href="/student" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
+        </security:authorize>
 
-        <a href="#" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
-        </li>
         <!-- /.dropdown -->
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
+            <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
+                <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </security:authorize>
             <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
                 <ul class="dropdown-menu dropdown-user">
                     <li class="divider"></li>

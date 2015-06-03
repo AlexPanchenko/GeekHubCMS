@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Aleksander
-  Date: 21.05.2015
+  Date: 29.05.2015
   Time: 11:30
   To change this template use File | Settings | File Templates.
 --%>
@@ -32,27 +32,29 @@
         }
       });
     };
-    function saveClassroom(){
+    function saveEdits(){
       var users = $('.inlineCheckbox1:checked');
       var idUsers = [];
       for (var i=0; i<users.length;i++)
         idUsers.push(users[i].value);
       var course = $('#course').val();
       var teacher = $('#teacher').val();
+      var classId = ${classroom.id};
       var className = $('#ClassroomName').val();
       var classDescription = $('#ClassroomDescription').val();
       if(course!=""&&className!=""&&classDescription!="")
         $.ajax({
-          url:"ajax/createClassroom",
+          url:"/admin/classroom/edit",
           type:"post",
-          data:{usersId:idUsers,courseId:course,teacherId:teacher,className:className,classDescription:classDescription},
+          data:{usersId:idUsers,courseId:course,teacherId:teacher,className:className,classDescription:classDescription,classId:classId},
           success:function(data) {
             window.location = data;
           }
         });
       else
-        $("#error-message").html("Fill in all required fields!")
-    }
+        $("#error-message").html("Fill in all required fields!");
+    };
+
 
   </script>
 
@@ -66,11 +68,12 @@
       <div class="row">
         <div id="error-message" style="color:red;"></div>
         <p>Classroom name <span style="color: red;">*</span></p>
-        <input id ='ClassroomName' type='text'/>
+        <input id ='ClassroomName' type='text' value='${classroom.name}'/>
         <p>Classroom description <span style="color: red;">*</span></p>
-        <input id ='ClassroomDescription' type='text'/>
+        <input id ='ClassroomDescription' type='text' value="${classroom.description}"/>
         <p>Course name <span style="color: red;">*</span></p>
         <select size='1' id="course" onchange='showUsers($("#course").val())'>
+          <%--<option selected value="${classroom.courseId}">${classroom.courseId.name}</option>--%>
           <c:forEach items="${courses}" var="s">
             <option value="${s.id}">${s.name}</option>
           </c:forEach>
@@ -83,7 +86,7 @@
           </c:forEach>
         </select>
         <div id="users"></div>
-        <p><input type='button' value='Save classroom' onclick='saveClassroom();'/></p>
+        <p><input type='button' value='Save edits' onclick='saveEdits();'/></p>
       </div>
     </div>
   </div>

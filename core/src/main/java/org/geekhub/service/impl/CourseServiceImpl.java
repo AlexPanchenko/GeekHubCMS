@@ -60,8 +60,10 @@ public class CourseServiceImpl implements CourseService {
         List<UsersCourses> usersCourses = course.getUsersCourses();
         List<User> allUsers = new ArrayList<User>();
         List<User> users = new ArrayList<User>();
-        for(UsersCourses u: usersCourses)
+        for(UsersCourses u: usersCourses) {
+            if(u.getUser().getRole() == Role.ROLE_STUDENT && u.getUser().getClassroom()==null)
             allUsers.add(u.getUser());
+        }
         List<TestAssignment> testAssignments = new ArrayList<TestAssignment>();
         for(User user: allUsers) {
             testAssignments = user.getTestAssignments();
@@ -187,9 +189,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-
+    @Override
     public void unRegisterCourse (int id) {
-           Course course = (Course) courseDao.read(id, Course.class);
+        Course course = (Course) courseDao.read(id, Course.class);
         org.springframework.security.core.userdetails.User principal =
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());

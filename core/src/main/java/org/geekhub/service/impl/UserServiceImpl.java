@@ -53,14 +53,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeUserById(int userId) {
+        userDao.delete(userDao.getUserById(userId));
+    }
+
+    @Override
+    public void saveUser(UserBean userBean) {
+        User user = beanService.toUserEntity(userBean);
+        RegistrationResponseBean registrationResponseBean = validateForm(userBean);
+
+        if (registrationResponseBean.isSuccess()) {
+            userDao.create(user);
+        }
+    }
+
+    @Override
     public UserBean getUserBeanByEmail(String email) {
         User user = userDao.getUserByEmail(email);
         return beanService.toUserBean(user);
     }
 
     @Override
+    public void updateUserByUserBean(UserBean userBean) {
+        User user = userDao.getUserById(userBean.getId());
+        user.setFirstName(userBean.getFirstName());
+        user.setLastName(userBean.getLastName());
+        user.setPhoneNumber(userBean.getPhoneNumber());
+        user.setEmail(userBean.getEmail());
+        user.setSkype(userBean.getSkype());
+        userDao.update(user);
+    }
+
+    @Override
     public List<UserBean> getUsersOnOnePage(int page){
         List<User> users = userDao.usersOnPage(page);
+        System.out.println(users.size());
         List<UserBean> userBeans = new ArrayList<UserBean>();
         for(User u: users){
             userBeans.add(beanService.toUserBean(u));
@@ -76,7 +103,7 @@ public class UserServiceImpl implements UserService {
         List<UserBean> allTeachers = new ArrayList<UserBean>();
         List<User> users = userDao.readAllUsers();
         for (User u : users) {
-            if (u.getRole().equals(Role.ROLE_TEACHER)) {
+            if (u.getRole().equals(Role.ROLE_TEACHER)&&u.getClassroom()==null) {
                 allTeachers.add(beanService.toUserBean(u));
             }
         }

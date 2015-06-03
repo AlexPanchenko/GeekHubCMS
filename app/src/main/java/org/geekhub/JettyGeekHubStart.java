@@ -58,7 +58,6 @@ public class JettyGeekHubStart {
 			e.printStackTrace();
 			System.exit(100);
 		}
-
 	}
 
     private static int getSslPort() {

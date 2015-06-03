@@ -8,16 +8,19 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="text-center" style="margin-top: -15px" >
-                    <h3>User Panel</h3>
+                    <h3>Teacher Panel</h3>
                 </li>
                 <li>
-                    <a href="/student/registrationCourses" class="text-left">Registration on course</a>
+                    <a href="/teacher/registrationCourses" class="text-left">Students</a>
                 </li>
                 <li>
-                    <a href="/student/testing/selectCourse" class="text-left">Starting test</a>
+                    <a href="#" class="text-left">Classrooms</a>
                 </li>
                 <li>
-                    <a href="/student/userProfile" class="text-left">Profile</a>
+                    <a href="/teacher/testing/selectCourse" class="text-left">Tests</a>
+                </li>
+                <li>
+                    <a href="/teacher/teacherPage" class="text-left">Teacher Profile</a>
                 </li>
 
             </ul>
