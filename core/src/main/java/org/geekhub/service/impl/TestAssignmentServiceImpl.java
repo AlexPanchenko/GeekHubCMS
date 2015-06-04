@@ -3,11 +3,9 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
-import org.geekhub.hibernate.entity.TestAssignment;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.TestStatusAssignment;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.TestAssignmentService;
+import org.geekhub.service.UserResultsService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,6 +31,8 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserResultsService userResultsService;
 
     @Override
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId) {
@@ -42,7 +43,7 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     public List<TestAssignment> getTestAsignByCourse(int courseId) {
         List<TestAssignment> testAssignments = testAssignmentDao.getTestAssignmentByCourse(courseId);
         List<TestAssignmentBean> testAssignmentBeans = new ArrayList<>();
-        for (TestAssignment testAssignment: testAssignments){
+        for (TestAssignment testAssignment : testAssignments) {
 
         }
         return null;
@@ -91,9 +92,9 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
 
 
     public TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId) {
-        TestConfig testConfig = (TestConfig)testConfigDao.read(testConfigId, TestConfig.class);
+        TestConfig testConfig = (TestConfig) testConfigDao.read(testConfigId, TestConfig.class);
         TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, userService.getLogInUser());
-        if(testConfig.getDateFinish().getTime() < new Date().getTime()){
+        if (testConfig.getDateFinish().getTime() < new Date().getTime()) {
             testAssignment.setTestStatusAssignment(TestStatusAssignment.OVERDUE);
         }
         return testAssignment;
@@ -112,8 +113,8 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     }
 
     @Override
-     public void assignTestByUserListId(List<Integer> listId, TestConfig testConfig) {
-        for(Integer id: listId){
+    public void assignTestByUserListId(List<Integer> listId, TestConfig testConfig) {
+        for (Integer id : listId) {
             System.out.println(userService.getUserById(id.intValue()));
             createTestAssignment(userService.getUserById(id.intValue()), testConfig);
         }
@@ -134,5 +135,25 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         return testAssignmentDao.getAvailableTestAssignmentByUser(user);
     }
 
+    @Override
+    public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig) {
+        return testAssignmentDao.getTestAssignmentListByTestConfig(testConfig);
+    }
 
+    @Override
+    public void delete(TestAssignment testAssignment) {
+        List<UserResults> userResultsList = testAssignment.getUserResults();
+        testAssignment.setUser(null);
+        testAssignment.setTestConfig(null);
+        if (userResultsList != null) {
+            Iterator<UserResults> iterator = userResultsList.iterator();
+            while (iterator.hasNext()) {
+                UserResults userResults = iterator.next();
+                iterator.remove();
+                userResultsService.delete(userResults);
+            }
+        }
+        testAssignmentDao.update(testAssignment);
+        testAssignmentDao.delete(testAssignment);
+    }
 }

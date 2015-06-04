@@ -79,15 +79,19 @@ public class TestController {
     public String selectTest(@PathVariable("testAssignmentId") int testAssignmentId,
                              ModelMap model) {
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentById(testAssignmentId);
-        if ((testAssignment.getTestStatusAssignment() != TestStatusAssignment.OVERDUE) && (testAssignment.getTestStatusAssignment() != TestStatusAssignment.PASSED)) {
-            TestConfig testConfig = testAssignment.getTestConfig();
-            TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfig.getId());
-            model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), testAssignmentService.getTestAssignmentById(testAssignmentId).getTestConfig().getTestType()));
-            model.addAttribute("testId", testConfig.getId());
-            testAssignmentService.setStatus(testConfigService.getTestConfigByID(testConfig.getId()), TestStatusAssignment.IN_PROCESS);
-            model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testConfig.getId()).getTimeToTest());
-            return "test-page/testPage";
-        } else return "redirect:/";
+        if(testAssignment.getTestConfig().getQuestionCount() <= testAssignment.getTestConfig().getTestType().getQuestionList().size()) {
+            if ((testAssignment.getTestStatusAssignment() != TestStatusAssignment.OVERDUE) && (testAssignment.getTestStatusAssignment() != TestStatusAssignment.PASSED)) {
+                TestConfig testConfig = testAssignment.getTestConfig();
+                TestConfigBeen testConfigBeen = testConfigService.getTestConfigById(testConfig.getId());
+                model.addAttribute("questions", generatorRandomQuestions.generatorRandomQuestionsAll(testConfigBeen.getQuestionCount(), testAssignmentService.getTestAssignmentById(testAssignmentId).getTestConfig().getTestType()));
+                model.addAttribute("testId", testConfig.getId());
+                testAssignmentService.setStatus(testConfigService.getTestConfigByID(testConfig.getId()), TestStatusAssignment.IN_PROCESS);
+                model.addAttribute("timeToTest", testConfigService.getTestConfigByID(testConfig.getId()).getTimeToTest());
+                return "test-page/testPage";
+            } else return "redirect:/";
+        }else {
+            return "warning/notEnoughQuestions";
+        }
     }
 
     @RequestMapping(value = "/course/comletetest/{testId}", method = RequestMethod.POST)

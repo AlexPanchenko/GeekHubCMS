@@ -47,4 +47,9 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
                 .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.PASSED)))
                 .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.OVERDUE))).list();
     }
+
+    @Override
+    public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig) {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).add(Restrictions.eq("testConfig", testConfig)).list();
+    }
 }

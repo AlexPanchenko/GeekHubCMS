@@ -28,4 +28,6 @@ public interface TestAssignmentService {
     public void deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig);
     public TestAssignment getTestAssignmentById(int id);
     public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
+    public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig);
+    public void delete(TestAssignment testAssignment);
 }

@@ -14,11 +14,7 @@ import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.UsersCourses;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
-import org.geekhub.service.BeanService;
-import org.geekhub.service.CourseService;
-import org.geekhub.service.TestAssignmentService;
-import org.geekhub.service.TestConfigService;
-import org.geekhub.service.TestTypeService;
+import org.geekhub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -58,6 +54,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private TestTypeService testTypeService;
+
+    @Autowired
+    private QuestionService questionService;
 
     @Override
     public List<User> getUserFromCourse(int id){
@@ -187,6 +186,19 @@ public class CourseServiceImpl implements CourseService {
                 //iterator.remove();
             }
         }
+        List<Question> questionList = course.getQuestions();
+
+        if(questionList != null) {
+            Iterator<Question> iterator = questionList.iterator();
+            while (iterator.hasNext()){
+                Question question = iterator.next();
+                iterator.remove();
+                questionService.delete(question.getId());
+                //iterator.remove();
+            }
+        }
+
+
         if(course.getTestConfig()!= null) {
             course.getTestConfig().setCourse(null);
         }

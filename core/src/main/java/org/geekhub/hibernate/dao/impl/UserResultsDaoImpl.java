@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("userResultsDao")
 public class UserResultsDaoImpl extends BaseDaoImpl implements UserResultsDao {
+
 }

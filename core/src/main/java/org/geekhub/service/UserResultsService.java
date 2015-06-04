@@ -11,5 +11,6 @@ public interface UserResultsService {
     Object read(int userResultId);
     void update(UserResults userResult);
     void delete(int userResultId);
+    void delete(UserResults userResults);
     public UserResults create(int userId, int questionId);
 }

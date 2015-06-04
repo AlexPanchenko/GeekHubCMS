@@ -43,6 +43,14 @@ public class UserAnswersServiceImpl implements UserAnswersService {
     }
 
     @Override
+    public void delete(UserAnswers userAnswers) {
+        userAnswers.setAnswer(null);
+        userAnswers.setUserResults(null);
+        userAnswersDao.update(userAnswers);
+        userAnswersDao.delete(userAnswers);
+    }
+
+    @Override
     public UserAnswers create(int userResultId, int answerId) {
         UserAnswers userAnswers = new UserAnswers();
         userAnswers.setUserResults((UserResults)userResultsDao.read(userResultId, UserResults.class));

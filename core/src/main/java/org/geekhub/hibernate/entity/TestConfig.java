@@ -1,7 +1,9 @@
 package org.geekhub.hibernate.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TEST_CONFIG")
@@ -31,6 +33,9 @@ public class TestConfig extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "TEST_TYPE_ID")
     private TestType testType;
+
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "testConfig")
+    //List<TestAssignment> testAssignmentList = new ArrayList<>();
 
     public TestConfig() {
     }
@@ -117,4 +122,5 @@ public class TestConfig extends BaseEntity {
     public void setCourse(Course course) {
         this.course = course;
     }
+
 }

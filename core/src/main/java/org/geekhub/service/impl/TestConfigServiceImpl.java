@@ -4,18 +4,17 @@ import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.TestStatus;
-import org.geekhub.hibernate.entity.TestType;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
+import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.TestConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -29,6 +28,9 @@ public class TestConfigServiceImpl implements TestConfigService {
     private TestConfigDao testConfigDao;
     @Autowired
     private BeanService beanService;
+
+    @Autowired
+    private TestAssignmentService testAssignmentService;
 
     @Override
     public TestConfigBeen getTestConfigById(int testConfigId) {
@@ -113,6 +115,15 @@ public class TestConfigServiceImpl implements TestConfigService {
         TestConfig testConfig = (TestConfig) testConfigDao.read(id, TestConfig.class);
         if(testConfig.getTestType() != null) {
             testConfig.getTestType().getTestConfigList().remove(testConfig);
+        }
+        List<TestAssignment> testAssignmentList = testAssignmentService.getTestAssignmentListByTestConfig(testConfig);
+        if(testAssignmentList != null) {
+                Iterator<TestAssignment> iterator = testAssignmentList.iterator();
+                while (iterator.hasNext()){
+                    TestAssignment testAssignment = iterator.next();
+                    iterator.remove();
+                    testAssignmentService.delete(testAssignment);
+            }
         }
         testConfigDao.update(testConfig);
         testConfigDao.delete(testConfig);

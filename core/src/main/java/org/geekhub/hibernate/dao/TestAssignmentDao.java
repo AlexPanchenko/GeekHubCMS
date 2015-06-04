@@ -15,4 +15,5 @@ public interface TestAssignmentDao extends BaseDao {
     List<TestAssignment> getTestAssignmentByCourse(int courseId);
     TestAssignment getTestAssignmentByTestConfigAndUser(TestConfig testConfig, User user);
     public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
+    public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig);
 }

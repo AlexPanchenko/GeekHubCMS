@@ -11,5 +11,6 @@ public interface UserAnswersService {
     Object read(int userAnswersId);
     void update(UserAnswers userAnswers);
     void delete(int userAnswersId);
+    void delete(UserAnswers userAnswers);
     public UserAnswers create(int userResultId, int answerId);
 }

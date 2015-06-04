@@ -1,6 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -35,10 +36,20 @@
                             <%--<li><a class="titleSelect" href="/admin/assignTest/${course.id}">${course.name}</a></li>--%>
                         <%--</c:forEach>--%>
                         <c:forEach items="${testConfigList}" var="testConfig">
-                        <li><a class="titleSelect" href="/admin/assignTest/${testConfig.id}">(${testConfig.testType.course.name}
-                                | ${testConfig.testType.name})
-                                    ${testConfig.title}
-                        </a></li>
+                            <c:choose>
+                                <c:when test="${testConfig.questionCount <= fn:length(testConfig.testType.questionList)}">
+                                    <li><a class="titleSelect" href="/admin/assignTest/${testConfig.id}">(${testConfig.testType.course.name}
+                                        | ${testConfig.testType.name})
+                                            ${testConfig.title}
+                                    </a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="titleSelect">(${testConfig.testType.course.name}
+                                        | ${testConfig.testType.name})
+                                            ${testConfig.title} <span class="alert-warning">Warning : Not enough questions</span>
+                                    </p>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </ul>
                 </div>
