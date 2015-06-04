@@ -156,4 +156,9 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         testAssignmentDao.update(testAssignment);
         testAssignmentDao.delete(testAssignment);
     }
+
+    @Override
+    public List<TestAssignment> getAll() {
+        return testAssignmentDao.getAll();
+    }
 }

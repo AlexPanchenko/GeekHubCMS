@@ -30,4 +30,5 @@ public interface TestAssignmentService {
     public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
     public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig);
     public void delete(TestAssignment testAssignment);
+    public List<TestAssignment> getAll();
 }

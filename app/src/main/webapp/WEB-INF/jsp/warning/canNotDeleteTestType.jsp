@@ -7,14 +7,16 @@
 --%>
 <html>
 <head>
-  <title>End</title>
-  <jsp:include page="../source.jsp"></jsp:include>
+    <title>End</title>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <div class="endTesting">
-  <h1 class="alert-warning">You can not delete Test Type</h1>
-  <h2 class="alert-warning">Course : Test for this Test Type passed</h2>
-  <p class="text"><a href="/admin">Admin Panel</a></p>
+    <h1 class="alert-warning">You can not delete Test Type</h1>
+
+    <h2 class="alert-warning">Course : Test for this Test Type passed</h2>
+
+    <p class="text"><a href="/admin">Admin Panel</a></p>
 </div>
 </body>
 </html>

@@ -8,13 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>End</title>
-  <jsp:include page="../source.jsp"></jsp:include>
+    <title>End</title>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
 <div class="endTesting">
-  <h1 class="alert-warning">Not enough question for this test</h1>
-  <p class="text"><a href="/student/testing/assignmentTest">Select another test</a></p>
+    <h1 class="alert-warning">Not enough question for this test</h1>
+
+    <p class="text"><a href="/student/testing/assignmentTest">Select another test</a></p>
 </div>
 </body>
 </html>

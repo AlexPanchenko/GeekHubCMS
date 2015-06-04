@@ -52,4 +52,9 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
     public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig) {
         return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).add(Restrictions.eq("testConfig", testConfig)).list();
     }
+
+    @Override
+    public List<TestAssignment> getAll() {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).list();
+    }
 }
