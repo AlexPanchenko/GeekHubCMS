@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RecoverPasswordController {
 
+
     @Autowired
     private RecoverPasswordService recoverPasswordService;
 
@@ -46,3 +47,4 @@ public class RecoverPasswordController {
         return "login";
     }
 }
+

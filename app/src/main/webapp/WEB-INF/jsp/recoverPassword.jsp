@@ -23,11 +23,11 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                             <!--EMAIL ADDRESS-->
-                                            <input id="emailInput" class="form-control" type="password" name="recoverPassword" oninvalid="setCustomValidity('Please enter a new password!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                                            <input id="emailInput" class="form-control" type="password" name="recoverPassword"  required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="btn btn-lg btn-primary btn-block" value="new password" type="submit" name="recoverPassword">
+                                        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Change password">
                                     </div>
                                 </fieldset>
                             </form><!--/end form-->
