@@ -16,16 +16,6 @@
     <jsp:include page="../source.jsp"></jsp:include>
 
     <script>
-        function selectClassroom(data){
-            $.ajax({
-                url:"/teacher/students/classroom",
-                type:"get",
-                data:{classroomId:data},
-                success:function(data) {
-                    $("#items").html(data);
-                }
-            });
-        }
 
     </script>
 
@@ -60,13 +50,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-
+<script src="<c:url value="/resources/js/teacher/studentByClassroom.js" />" type="text/javascript"></script>
 </body>
 </html>

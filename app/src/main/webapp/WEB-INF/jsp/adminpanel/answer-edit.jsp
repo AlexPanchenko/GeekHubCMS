@@ -20,33 +20,9 @@
 
     <title>Question edit page</title>
 
-  <jsp:include page="../source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
-<script>
-
-    function changeValueUpdate(){
-        document.getElementById('testTypeIdUpdate').value = $('#selectTestType2 option:selected').attr('id');
-    }
-
-    $("form").submit(function () {
-
-        var this_master = $(this);
-
-        this_master.find('input[type="checkbox"]').each(function () {
-            var checkbox_this = $(this);
-
-
-            if (checkbox_this.is(":checked") == true) {
-                checkbox_this.attr('value', 'true');
-            } else {
-                checkbox_this.prop('checked', true);
-                //DONT' ITS JUST CHECK THE CHECKBOX TO SUBMIT FORM DATA
-                checkbox_this.attr('value', 'false');
-            }
-        })
-    })
-</script>
 <jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
@@ -129,21 +105,26 @@
                                         </dt>
                                         <dd>
                                             <div class="form-group">
-                                                <select id="selectTestType2" name="selectTestType2" onchange="changeValueUpdate()" class="dropdown-toggle form-control">
+                                                <select id="selectTestType2" name="selectTestType2"
+                                                        onchange="changeValueUpdate()"
+                                                        class="dropdown-toggle form-control">
                                                     <option id="0">All TestType</option>
                                                     <c:forEach items="${listTestType}" var="testType">
                                                         <c:choose>
                                                             <c:when test="${curentTestTypeId == testType.id}">
-                                                                <option selected value="${testType.id}" id=${testType.id}>${testType.name}</option>
+                                                                <option selected value="${testType.id}"
+                                                                        id=${testType.id}>${testType.name}</option>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <option value="${testType.id}" id=${testType.id}>${testType.name}</option>
+                                                                <option value="${testType.id}"
+                                                                        id=${testType.id}>${testType.name}</option>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:forEach>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="testTypeIdUpdate" name="testTypeIdUpdate" value=${curentTestTypeId}>
+                                            <input type="hidden" id="testTypeIdUpdate" name="testTypeIdUpdate"
+                                                   value=${curentTestTypeId}>
                                         </dd>
 
                                         <dt>
@@ -227,8 +208,8 @@
                                         <td>${answer.answerText}</td>
                                         <td>${answer.answerRight}</td>
                                         <td class="text-center">
-                                            <%--<a href="/admin/question/${questionId}/answer/${answer.id}/edit"><i--%>
-                                                    <%--class="fa fa-pencil-square-o"></i></a>--%>
+                                                <%--<a href="/admin/question/${questionId}/answer/${answer.id}/edit"><i--%>
+                                                <%--class="fa fa-pencil-square-o"></i></a>--%>
                                             <a href="/admin/question/${questionId}/answer/${answer.id}/delete"><i
                                                     class="fa fa-times"></i></a>
                                         </td>
@@ -276,12 +257,6 @@
         </div>
     </div>
 
-    <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
-
+    <script src="<c:url value='/resources/js/adminpanel/answer-edit.js'/>" type="text/javascript"></script>
 </body>
 </html>

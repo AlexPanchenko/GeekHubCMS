@@ -5,10 +5,10 @@
 
 <html>
 <body>
-<table class="table text-black" >
+<table class="table text-black">
     <thead class="alert alert-success">
     <tr>
-        <th> Last name <input class="input-sm" placeholder="Place for filthering"> </th>
+        <th> Last name <input class="input-sm" placeholder="Place for filthering"></th>
         <th> Name <input class="input-sm" placeholder="Place for filthering"></th>
         <th> Email <input class="input-sm" placeholder="Place for filthering"></th>
         <th> Phone <input class="input-sm" placeholder="Place for filthering"></th>

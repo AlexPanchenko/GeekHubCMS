@@ -6,8 +6,7 @@
   <title>LogIn</title>
 
   <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-  <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
+  <link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css'/>" rel="stylesheet"/>
 
 </head>
 <body>

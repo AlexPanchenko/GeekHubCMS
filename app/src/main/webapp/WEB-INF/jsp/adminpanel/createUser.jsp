@@ -23,6 +23,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header text-center">User create</h1>
+
                     <form action="/admin/createUser" data-toggle="validator" class="form-horizontal"
                           method="post" enctype="multipart/form-data">
                         <div class="container">
@@ -57,12 +58,14 @@
                                                     </div>
                                                 </dd>
                                                 <dt>
-                                                    <label class="control-label pull-left" for="password">Password</label>
+                                                    <label class="control-label pull-left"
+                                                           for="password">Password</label>
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
                                                         <input type="password" id="password"
-                                                               name="password" placeholder="password" class="form-control input-lg"
+                                                               name="password" placeholder="password"
+                                                               class="form-control input-lg"
                                                                required>
                                                     </div>
                                                 </dd>
@@ -89,7 +92,8 @@
                                                 </dd>
 
                                                 <dt>
-                                                    <label class="control-label pull-right" for="phone" style="margin-top: 5px;font-size: larger;">+380</label>
+                                                    <label class="control-label pull-right" for="phone"
+                                                           style="margin-top: 5px;font-size: larger;">+380</label>
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
@@ -105,11 +109,12 @@
                                                 </dt>
                                                 <dd>
                                                     <div class="form-group">
-                                                        <input type="date" name="birthday" id="birthday" name="birthday" class="form-control js-birthday">
+                                                        <input type="date" name="birthday" id="birthday" name="birthday"
+                                                               class="form-control js-birthday">
 
                                                     </div>
                                                 </dd>
-                                                                                                <dt>
+                                                <dt>
                                                     <label class="control-label pull-left" for="role">Roles</label>
                                                 </dt>
                                                 <dd>
@@ -126,7 +131,7 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <button type="submit" class="btn btn-success pull-right" >Create User
+                                                    <button type="submit" class="btn btn-success pull-right">Create User
                                                     </button>
                                                 </div>
                                             </div>
@@ -143,13 +148,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
 
 </body>
 </html>

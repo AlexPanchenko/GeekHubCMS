@@ -124,3 +124,7 @@
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+h1 {
+    font-size: 21px;
+}

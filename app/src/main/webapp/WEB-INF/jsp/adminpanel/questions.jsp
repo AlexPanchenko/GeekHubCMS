@@ -17,52 +17,6 @@
 
     <jsp:include page="../source.jsp"></jsp:include>
 
-  <script>
-    function selectCource(){
-      if ($('#selectCourse option:selected').attr('id') == 0) {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-          document.getElementById('selectTestType').style.visibility = 'hidden';
-          window.location.replace("/admin/questions");
-      } else {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-          document.getElementById('selectTestType').style.visibility = 'visible';
-
-        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-          var redirectTo = "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/questions/";
-          window.location.replace(redirectTo);
-
-//          $.get("/admin/questions/" + $('#selectCourse option:selected').attr('id'), function(data){
-//              $('#page-content-wrapper').load('questions.jsp');
-//            alert(data);
-             //document.getElementById("selectTestType").setAttribute("${testTypeList}");
-//          })
-      }
-
-    }
-    function selectTestType(){
-        if ($('#selectTestType option:selected').attr('id') == "testType0") {
-    } else {
-            var redirectTo = "/admin/course/" + ${currentCourse} + "/testType/"+$('#selectTestType option:selected').attr('id') + "/questions/";
-            window.location.replace(redirectTo);
-        }
-    }
-    <%--alert(${currentCourse});--%>
-    $(document).ready(function () {
-        <%--document.getElementById('selectCourse').selectedIndex = ${currentCourse};--%>
-
-      if ($('#selectCourse option:selected').attr('id') == 0) {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-          document.getElementById('selectTestType').style.visibility = 'hidden';
-
-    } else {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-          document.getElementById('selectTestType').style.visibility = 'visible';
-        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-    }
-    });
-
-  </script>
-
 </head>
 <body>
     <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -77,7 +31,7 @@
 
                         <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
                         <!-- /////////////////////////////////////////////////////////-->
-                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
+                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCourse()">
                                     <option id="0">All Courses</option>
                                     <c:forEach items="${courses}" var="course">
                                         <c:if test="${course.id != currentCourse}">
@@ -175,13 +129,9 @@
         </div>
       </div>
     </div>
-
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-
+    <script>
+        var currentCourse = ${currentCourse};
+    </script>
+    <script src="<c:url value='/resources/js/adminpanel/questions.js'/>" type="text/javascript"></script>
 </body>
 </html>
