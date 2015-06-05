@@ -90,7 +90,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:forEach var="i" begin="${page.begin}" end="${page.end}">
-                        <c:url var="pageUrl" value="/admin/userTestResult/java?p=${i}"/>
+                        <c:url var="pageUrl" value="/admin/userTestResult/${courseName}?p=${i}"/>
                         <c:choose>
                             <c:when test="${i ==page.current}">
                                 <li class="active"><a href="${pageUrl}"><c:out value="${i}"/></a></li>

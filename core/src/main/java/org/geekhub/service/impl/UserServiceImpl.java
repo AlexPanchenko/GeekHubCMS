@@ -277,4 +277,39 @@ public class UserServiceImpl implements UserService {
         }
         return userWrapperList;
     }
+
+    @Override
+    public Page<UserWrapper> getPageUserByCourse(Course course, int page, int recordsPerPage, TestConfig testConfig) {
+
+        int size = usersCoursesDao.getAllUsersByCourse(course).size();
+        int maxPages = (size % recordsPerPage == 0) ? (size / recordsPerPage) : (size / recordsPerPage) + 1;
+        page = (page > maxPages) ? maxPages : page;
+        int current = page;
+        int begin = Math.max(1, current - recordsPerPage);
+        int end = maxPages;
+        int firstRecordOnPage = page==1 ? 1 : page * recordsPerPage - recordsPerPage +1;
+        List<UserWrapper> list = convertToUserWrapperListByTestConfig(usersCoursesDao.getAllUsersByCourse(course, firstRecordOnPage, recordsPerPage), testConfig);
+        Page<UserWrapper> resultPage = new Page<>(list, begin, current, size, maxPages, recordsPerPage, end);
+
+
+        return resultPage;
+    }
+
+    @Override
+    public List<UserWrapper> convertToUserWrapperListByTestConfig(List<User> userList, TestConfig testConfig) {
+        List<UserWrapper> userWrapperList = new ArrayList<>();
+        for(User user: userList){
+            UserWrapper userWrapper = new UserWrapper();
+            userWrapper.setUser(user);
+            userWrapper.setIsRegistered(false);
+            for(TestAssignment testAssignment: user.getTestAssignments()){
+                if(testAssignment.getTestConfig().equals(testConfig)){
+                    userWrapper.setIsRegistered(true);
+                }
+            }
+            userWrapperList.add(userWrapper);
+        }
+        System.out.println("List 2 = "+ userWrapperList);
+        return userWrapperList;
+    }
 }

@@ -37,6 +37,9 @@
                 <li>
                     <a href="/admin/adminPage">Admin Profile</a>
                 </li>
+                <li>
+                    <a href="/admin/schedulers">Schedulers</a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

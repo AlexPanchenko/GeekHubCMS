@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,5 +57,13 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
     @Override
     public List<TestAssignment> getAll() {
         return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).list();
+    }
+
+    @Override
+    public List<TestAssignment> getOverdueTestAssignmentList() {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
+                .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.PASSED)))
+                .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.OVERDUE)))
+                .add(Restrictions.lt("dateFinish", new Date())).list();
     }
 }

@@ -31,4 +31,6 @@ public interface UserService  {
     public List<User> getAllUsersByCourse(Course course);
     public User getLogInUser();
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
+    public Page<UserWrapper> getPageUserByCourse(Course course, int page, int recordsPerPage, TestConfig testConfig);
+    public List<UserWrapper> convertToUserWrapperListByTestConfig(List<User> list, TestConfig testConfig);
 }

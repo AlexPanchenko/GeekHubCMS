@@ -4,9 +4,11 @@ import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.*;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
+import org.geekhub.scheduler.AbstractScheduler;
 import org.geekhub.service.*;
 import org.geekhub.util.CommonUtil;
 import org.geekhub.wrapper.UserTestResultWrapper;
+import org.geekhub.wrapper.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -48,22 +53,25 @@ public class AdminController {
     @Autowired
     private TestAssignmentService testAssignmentService;
 
+    @Autowired
+    private List<AbstractScheduler> schedulers;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "adminpanel/index";
     }
 
-    @RequestMapping(value = "/createUser",method = RequestMethod.GET)
-    public String createUser(ModelMap modelMap){
+    @RequestMapping(value = "/createUser", method = RequestMethod.GET)
+    public String createUser(ModelMap modelMap) {
         return "adminpanel/createUser";
     }
 
-    @RequestMapping(value = "/createUser",method = RequestMethod.POST)
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUserPost(@RequestParam("first-name") String firstName,
                                  @RequestParam("lastName") String lastName,
                                  @RequestParam("email") String email,
                                  @RequestParam("password") String password,
-                                 String skype,String phone,
+                                 String skype, String phone,
                                  @RequestParam("birthday") String birthDay,
                                  @RequestParam("role") String role,
                                  ModelMap modelMap) throws ParseException {
@@ -91,44 +99,44 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @RequestMapping(value = "/users",method = RequestMethod.GET)
-    public ModelAndView users(){
-        ModelAndView mav=new ModelAndView("adminpanel/users");
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ModelAndView users() {
+        ModelAndView mav = new ModelAndView("adminpanel/users");
         Long usersCount = userService.getUsersCount();
         Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
-        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE>0)
+        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE > 0)
             pagesCount++;
         List<Integer> pageNumbers = new ArrayList<Integer>();
         int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
-        if(pagesCount < k)
+        if (pagesCount < k)
             k = pagesCount.intValue();
-        for(int i = 1; i<=k; i++)
+        for (int i = 1; i <= k; i++)
             pageNumbers.add(i);
-        mav.addObject("pageNumbers",pageNumbers);
+        mav.addObject("pageNumbers", pageNumbers);
         return mav;
     }
 
 
     @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
-    public ModelAndView getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model){
+    public ModelAndView getEditUserPage(@PathVariable("userId") Integer userId, ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("adminpanel/user-edit");
         User user = userService.getUserById(userId);
-        modelAndView.addObject("roleList",Role.values());
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("roleList", Role.values());
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
     @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
-    public ModelAndView removeUser(@PathVariable("userId") Integer userId, ModelMap model){
+    public ModelAndView removeUser(@PathVariable("userId") Integer userId, ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
         userService.removeUserById(userId);
         return modelAndView;
     }
 
-    @RequestMapping(value ="/adminPage", method = RequestMethod.GET)
-    public ModelAndView userProfile(Principal principal){
+    @RequestMapping(value = "/adminPage", method = RequestMethod.GET)
+    public ModelAndView userProfile(Principal principal) {
         ModelAndView model = new ModelAndView("adminpanel/userProfile");
-        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        model.addObject("user", userService.getUserBeanByEmail(principal.getName()));
         return model;
     }
 
@@ -265,7 +273,7 @@ public class AdminController {
         model.addAttribute("courses", listCourse);
         List<TestType> testTypeList = testTypeService.getList();
         model.addAttribute("testTypeList", testTypeList);
-        model.addAttribute("currentCourse",0);
+        model.addAttribute("currentCourse", 0);
         return "adminpanel/questions";
     }
 
@@ -290,7 +298,7 @@ public class AdminController {
                                       @PathVariable("testTypeId") int testTypeId,
                                       ModelMap model) throws CourseNotFoundException {
 
-        if (testTypeId == 0){
+        if (testTypeId == 0) {
             List<Question> list = questionService.getQuestionsByCourseWithoutTestType(courseService.getById(courseId));
             model.addAttribute("questions", list);
         } else {
@@ -317,9 +325,9 @@ public class AdminController {
 
     @RequestMapping(value = "/course/{courseId}/testType/{testTypeId}/question/{questionId}/edit", method = RequestMethod.GET)
     public String editQuestionByTestType(@PathVariable("questionId") int questionId,
-                               @PathVariable("courseId") int courseId,
-                               @PathVariable("testTypeId") int testTypeId,
-                               ModelMap model) throws CourseNotFoundException {
+                                         @PathVariable("courseId") int courseId,
+                                         @PathVariable("testTypeId") int testTypeId,
+                                         ModelMap model) throws CourseNotFoundException {
 
 
         model.addAttribute("question", questionService.read(questionId));
@@ -329,28 +337,28 @@ public class AdminController {
         if ((questionService.read(questionId)).getTestType() == null) {
             model.addAttribute("curentTestTypeId", 0);
         } else
-            model.addAttribute("curentTestTypeId",(questionService.read(questionId)).getTestType().getId());
+            model.addAttribute("curentTestTypeId", (questionService.read(questionId)).getTestType().getId());
 
         return "adminpanel/question-editTestType";
     }
 
     @RequestMapping(value = "/course/{courseId}/testType/question/{questionId}/edit", method = RequestMethod.POST)
     public String editQuestionByTestTyp(@PathVariable("questionId") int questionId,
-                               @PathVariable("courseId") int courseId,
-                               @RequestParam("questionText") String questionText,
+                                        @PathVariable("courseId") int courseId,
+                                        @RequestParam("questionText") String questionText,
 //                               @RequestParam("questionCode") String questionCode,
 //                               @RequestParam("questionWeight") byte questionWeight,
-                               //@RequestParam("questionStatus") boolean questionStatus,
+                                        //@RequestParam("questionStatus") boolean questionStatus,
 //                               @RequestParam("myAnswer") boolean myAnswer,
-                               @RequestParam("oldTestTypeId") int oldTestTypeId,
-                               @RequestParam("testTypeIdUpdate") int testTypeId
-                               ) {
+                                        @RequestParam("oldTestTypeId") int oldTestTypeId,
+                                        @RequestParam("testTypeIdUpdate") int testTypeId
+    ) {
         Question question = questionService.read(questionId);
         QuestionBean questionBean = new QuestionBean(questionId, questionText, question.getQuestionWeight(), true, question.getMyAnswer(), courseId, question.getQuestionCode());
         questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
         questionBean.setQuestionText(questionText);
         questionService.update(questionBean);
-        return "redirect:/admin/course/" + courseId + "/testType/" + oldTestTypeId +"/questions/";
+        return "redirect:/admin/course/" + courseId + "/testType/" + oldTestTypeId + "/questions/";
     }
 
     //////////////////////////////////////////////////////////////////
@@ -423,7 +431,7 @@ public class AdminController {
         if ((questionService.read(questionId)).getTestType() == null) {
             model.addAttribute("curentTestTypeId", 0);
         } else
-        model.addAttribute("curentTestTypeId",(questionService.read(questionId)).getTestType().getId());
+            model.addAttribute("curentTestTypeId", (questionService.read(questionId)).getTestType().getId());
 
         return "adminpanel/question-edit";
     }
@@ -472,10 +480,10 @@ public class AdminController {
         model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
         model.addAttribute("answerSelect", answerService.read(answerId));
         model.addAttribute("listTestType", testTypeService.getListByCourseId(courseId));
-        if (((Question)questionService.read(questionId)).getTestType() == null) {
+        if (((Question) questionService.read(questionId)).getTestType() == null) {
             model.addAttribute("curentTestTypeId", 0);
         } else
-            model.addAttribute("curentTestTypeId",((Question)questionService.read(questionId)).getTestType().getId());
+            model.addAttribute("curentTestTypeId", ((Question) questionService.read(questionId)).getTestType().getId());
         return "adminpanel/answer-edit";
     }
 
@@ -498,7 +506,8 @@ public class AdminController {
         model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
-////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/update", method = RequestMethod.POST)
     public String updateAnswer(@PathVariable("questionId") int questionId,
                                @PathVariable("courseId") int courseId,
@@ -639,8 +648,8 @@ public class AdminController {
 
     @RequestMapping("/createClassrom")
 
-    public ModelAndView coursesDropDown(){
-        ModelAndView mav=new ModelAndView("adminpanel/createClassroom");
+    public ModelAndView coursesDropDown() {
+        ModelAndView mav = new ModelAndView("adminpanel/createClassroom");
         List<CourseBean> courses = courseService.getAllBeans();
         List<UserBean> teachers = userService.getAllTeachers();
         mav.addObject("courses", courses);
@@ -656,24 +665,24 @@ public class AdminController {
         return mav;
     }
 
-/*<<<<<<< HEAD
-    @RequestMapping("/ajax/createClassroom")
-    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                @RequestParam("CourseId") int courseId,
-                                @RequestParam("TeacherId") int teacherId) {
-        classroomService.createClassroom(usersId, courseId, teacherId);
-        return "redirect: /admin/classRoomList";
-        ======
-    }*/
+    /*<<<<<<< HEAD
+        @RequestMapping("/ajax/createClassroom")
+        public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
+                                    @RequestParam("CourseId") int courseId,
+                                    @RequestParam("TeacherId") int teacherId) {
+            classroomService.createClassroom(usersId, courseId, teacherId);
+            return "redirect: /admin/classRoomList";
+            ======
+        }*/
     @RequestMapping(value = "/ajax/createClassroom", method = RequestMethod.POST)
     @ResponseBody
     public String saveClassroom(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
                                 @RequestParam(value = "courseId") int courseId,
                                 @RequestParam(value = "teacherId") int teacherId,
                                 @RequestParam(value = "className") String className,
-                                @RequestParam(value = "classDescription") String classDescription){
+                                @RequestParam(value = "classDescription") String classDescription) {
 
-        classroomService.createClassroom(usersId,courseId,teacherId,className,classDescription);
+        classroomService.createClassroom(usersId, courseId, teacherId, className, classDescription);
         return "/admin/classRoomList";
 //>>>>>>> 966e4e7125cd139192af0bba44c4cfb1b9dcdbe5
     }
@@ -685,34 +694,34 @@ public class AdminController {
         return "adminpanel/classRoom";
     }
 
-/*<<<<<<< HEAD
+    /*<<<<<<< HEAD
 
-    @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
-    public String classroomListEdit(ModelMap model, @PathVariable("classroomId") int classroomId) {
-        model.addAttribute("classroomId", classroomId);
-        return "adminpanel/editClassRoom";
-    }
+        @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
+        public String classroomListEdit(ModelMap model, @PathVariable("classroomId") int classroomId) {
+            model.addAttribute("classroomId", classroomId);
+            return "adminpanel/editClassRoom";
+        }
 
 
-    @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
-    public String classroomListEditPost(ModelMap model, @PathVariable("classroomId") int classroomId) {
+        @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
+        public String classroomListEditPost(ModelMap model, @PathVariable("classroomId") int classroomId) {
 
-        return "adminpanel/classRoom";
-    }
+            return "adminpanel/classRoom";
+        }
 
-    @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
-    public String classroomRemove(ModelMap model, @PathVariable("classroomId") int classroomId) {
+        @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
+        public String classroomRemove(ModelMap model, @PathVariable("classroomId") int classroomId) {
 
-    }
-=======*/
+        }
+    =======*/
     @RequestMapping(value = "/classroom/{classroomId}/edit")
-    public ModelAndView classroomListEdit(@PathVariable("classroomId") int classroomId){
-        ModelAndView mav=new ModelAndView("adminpanel/classroom-edit");
+    public ModelAndView classroomListEdit(@PathVariable("classroomId") int classroomId) {
+        ModelAndView mav = new ModelAndView("adminpanel/classroom-edit");
         List<CourseBean> courses = courseService.getAllBeans();
         List<UserBean> teachers = userService.getAllTeachers();
         ClassRoomBean classroom = classroomService.getClassroom(classroomId);
-        mav.addObject("courses",courses);
-        mav.addObject("teachers",teachers);
+        mav.addObject("courses", courses);
+        mav.addObject("teachers", teachers);
         mav.addObject("classroom", classroom);
         return mav;
     }
@@ -724,13 +733,13 @@ public class AdminController {
                                         @RequestParam(value = "teacherId") int teacherId,
                                         @RequestParam(value = "className") String className,
                                         @RequestParam(value = "classDescription") String classDescription,
-                                        @RequestParam(value = "classId") int classroomId){
-        classroomService.updateClassroom(usersId,courseId,teacherId,className,classDescription,classroomId);
+                                        @RequestParam(value = "classId") int classroomId) {
+        classroomService.updateClassroom(usersId, courseId, teacherId, className, classDescription, classroomId);
         return "/admin/classRoomList";
     }
 
     @RequestMapping(value = "/classroom-remove/{classroomId}", method = RequestMethod.GET)
-    public String classroomRemove(@PathVariable("classroomId") int classroomId){
+    public String classroomRemove(@PathVariable("classroomId") int classroomId) {
 //>>>>>>> 966e4e7125cd139192af0bba44c4cfb1b9dcdbe5
         classroomService.removeClassroomById(classroomId);
         return "redirect:/admin/classRoomList";
@@ -878,12 +887,18 @@ public class AdminController {
 
     @RequestMapping(value = "/assignTest/{testConfigId}", method = RequestMethod.GET)
     public String assignTestByCourse(Map<String, Object> model,
+                                     @RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
+                                     @RequestParam(value = "results", defaultValue = "1", required = false) Integer recPerPage,
                                      @PathVariable("testConfigId") int testConfigId) throws CourseNotFoundException {
+        TestConfig testConfig = testConfigService.getTestConfigByID(testConfigId);
+        Page<UserWrapper> page = userService.getPageUserByCourse(testConfig.getTestType().getCourse(), p, recPerPage, testConfig);
         model.put("courseList", courseService.getAllCourses());
         model.put("testTypeList", testTypeService.getList());
-        model.put("userWrapperList", userService.getUserWrapperListByCourse(testConfigService.getTestConfigByID(testConfigId).getTestType().getCourse(), testConfigService.getTestConfigByID(testConfigId)));
+        //model.put("userWrapperList", userService.getUserWrapperListByCourse(testConfig.getTestType().getCourse(), testConfig));
         model.put("testConfigList", testConfigService.getAll());
+        model.put("testConfigId", testConfigId);
         model.put("currentTestConfig", testConfigService.getTestConfigByID(testConfigId));
+        model.put("page", page);
         return "adminpanel/assignTest";
     }
 
@@ -905,6 +920,13 @@ public class AdminController {
         return "redirect:/admin/assignTest/" + testConfigId;
     }
 
+    @RequestMapping(value = "/schedulers", method = RequestMethod.GET)
+    public String gerSchedulers(Map<String, Object> model) {
+        System.out.println(schedulers.get(0).getClass().getSimpleName());
+        model.put("schedulerList", schedulers);
+        return "adminpanel/schedulers";
+    }
+
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
@@ -915,6 +937,4 @@ public class AdminController {
 //        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }*/
-
-
 }

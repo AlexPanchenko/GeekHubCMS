@@ -161,4 +161,9 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     public List<TestAssignment> getAll() {
         return testAssignmentDao.getAll();
     }
+
+    @Override
+    public List<TestAssignment> getOverdueTestAssignmentList() {
+        return testAssignmentDao.getOverdueTestAssignmentList();
+    }
 }
