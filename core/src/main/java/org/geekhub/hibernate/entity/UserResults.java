@@ -34,6 +34,9 @@ public class UserResults extends BaseEntity implements Serializable {
     @JoinColumn(name = "TEST_ASSIGNMENT_ID")
     private TestAssignment testAssignment;
 
+    @Column(name = "RIGHT_ANSWER")
+    private boolean rightAnswer;
+
     public Question getQuestion() {
         return question;
     }
@@ -51,6 +54,14 @@ public class UserResults extends BaseEntity implements Serializable {
     }
 
     public UserResults() {
+    }
+
+    public boolean isRightAnswer() {
+        return rightAnswer;
+    }
+
+    public void setRightAnswer(boolean rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 
     public int getId() {

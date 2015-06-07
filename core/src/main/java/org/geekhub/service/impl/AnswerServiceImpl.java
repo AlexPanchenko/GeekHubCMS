@@ -4,6 +4,7 @@ import org.geekhub.hibernate.dao.AnswerDao;
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.Question;
+import org.geekhub.hibernate.entity.UserAnswers;
 import org.geekhub.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class AnswerServiceImpl implements AnswerService{
 
         return answerDao.getAnswersByQuestion((Question)answerDao.read(questionId,Question.class));
     }
+
+    @Override
+    public UserAnswers getUserAnswerById(int answerId) {
+        return (UserAnswers) answerDao.read(answerId,UserAnswers.class);
+    }
+
 
     @Override
     public Object read(int answerId) {

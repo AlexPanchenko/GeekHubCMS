@@ -52,8 +52,9 @@
                                         <c:otherwise>
                                             <div class="col-sm-12">
                                                 <div class="checkbox">
-                                                    <label style="font-size: 1.5em">
-                                                        <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
+                                                    <label style="font-size: 1.0em">
+                                                        <input type="checkbox" value="${courseWrapper.course.id}" name="courseId">
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                     </label>
                                                 </div>
                                             </div>

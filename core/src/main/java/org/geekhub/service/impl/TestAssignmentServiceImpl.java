@@ -1,15 +1,16 @@
 package org.geekhub.service.impl;
 
+import com.sun.org.apache.bcel.internal.generic.I2F;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
+import org.geekhub.hibernate.bean.TestResWrapper;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
-import org.geekhub.hibernate.entity.TestAssignment;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.TestStatusAssignment;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.entity.*;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,9 +34,55 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private BeanService beanService;
+
     @Override
     public List<TestAssignmentBean> getTAByUserAndCourse(int courseId) {
         return null;
+    }
+
+    @Override
+    public TestAssignment updateTestAssignmentCount(int testAssignmentId, int score) {
+        TestAssignment testAssignment = getTestAssignmentById(testAssignmentId);
+        testAssignment.setCountTrueAnswers(score);
+        testAssignment.setStatusReview(true);
+        testAssignmentDao.update(testAssignment);
+        return testAssignment;
+    }
+
+    @Override
+    public TestAssignment getTestAssignmentBeanByUserId(int userId) {
+        TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByUserId(userId);
+        return testAssignment;
+    }
+
+    @Override
+    public TestAssignment countRightAnswer(TestAssignment testAssignment){
+        int i = 0;
+        if(testAssignment.isStatusReview()){
+            testAssignment.setCountTrueAnswers(testAssignment.getCountTrueAnswers());
+        }
+        if(!testAssignment.isStatusReview()){
+            for(UserResults userResult: testAssignment.getUserResults()){
+                if ((userResult.getQuestion().getMyAnswer())){
+                    continue;
+                }else{
+                    for (Answer answer : userResult.getQuestion().getAnswers()) {
+                        if (answer.getAnswerRight()) {
+                            for (UserAnswers userAnswers : userResult.getUserAnswerses()) {
+                                if (userAnswers.getAnswer().getId() == answer.getId()) {
+                                    i++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            testAssignment.setCountTrueAnswers(i);
+        }
+        testAssignmentDao.update(testAssignment);
+        return  testAssignment;
     }
 
     @Override
@@ -61,7 +108,6 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     @Override
     public void delete(int testAssignmentId) {
         testAssignmentDao.delete(testAssignmentDao.read(testAssignmentId, TestAssignment.class));
-
     }
 
     @Override

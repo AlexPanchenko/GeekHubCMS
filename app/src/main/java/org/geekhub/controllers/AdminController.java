@@ -34,10 +34,16 @@ public class AdminController {
     private CourseService courseService;
 
     @Autowired
+    private BeanService beanService;
+
+    @Autowired
     private TestConfigService testConfigService;
 
     @Autowired
     private ClassroomService classroomService;
+
+    @Autowired
+    private UserResultsService userResultsService;
 
     @Autowired
     private UserService userService;
@@ -141,8 +147,9 @@ public class AdminController {
                            @RequestParam("phone") String phone,
                            @RequestParam("birthday") String birthday,
                            ModelMap model) {
+        Date date = null;
         try {
-            Date date = CommonUtil.getFormattedDate(birthday);
+            date = CommonUtil.getFormattedDate(birthday);
             System.out.println(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -154,6 +161,7 @@ public class AdminController {
         userBean.setEmail(email);
         userBean.setSkype(skype);
         userBean.setPhoneNumber(phone);
+        userBean.setBirthDay(date);
         userService.updateUserByUserBean(userBean);
         return "redirect:/admin/users/" + id + "/edit";
     }
@@ -832,6 +840,20 @@ public class AdminController {
         return "redirect:/admin/testConfig";
     }
 
+
+    @RequestMapping(value = "/calculateNewCount", method = RequestMethod.POST)
+    public @ResponseBody String calculateNew(@RequestParam("testAsId") int testAsId,@RequestParam("score") String score) {
+        TestAssignment testAssignment = testAssignmentService.updateTestAssignmentCount(testAsId, Integer.parseInt(score));
+        return "Success";
+    }
+
+    @RequestMapping(value = "/calculateTrueAnswer", method = RequestMethod.POST)
+    public @ResponseBody String calculateTrueAnswer(@RequestParam("userResultsId") int usResId) {
+        userResultsService.setAnswerStatus(usResId);
+        return "AnswerIsTrue";
+    }
+
+
     @RequestMapping(value = "/testConfig/edit/{id}", method = RequestMethod.GET)
     public String testConfigEdit(Map<String, Object> model,
                                  @PathVariable("id") int id) {
@@ -905,6 +927,24 @@ public class AdminController {
                                          @PathVariable("userId") int userId) {
         testAssignmentService.deleteTestAssignByUserAndTestConfig(userService.getUserById(userId), testConfigService.getTestConfigByID(testConfigId));
         return "redirect:/admin/assignTest/" + testConfigId;
+    }
+
+
+    @RequestMapping(value = "/answerResult/{userId}", method = RequestMethod.GET)
+    public String assignTestByCourseSave(ModelMap model, @PathVariable("userId") int userId) {
+        TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByUserId(userId);
+        String url = "";
+
+        List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
+        model.addAttribute("testWra", testResWrappers);
+
+        if(!testResWrappers.get(0).getReview()){
+           url = "adminpanel/testResultByUser";
+        }
+        if(testResWrappers.get(0).getReview()){
+            url = "adminpanel/testResultByUserWithoutReview";
+        }
+        return url;
     }
 
 /*    *//*Pagination for classroom*//*

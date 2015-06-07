@@ -10,6 +10,7 @@ import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
+import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserService;
 import org.geekhub.wrapper.UserTestResultWrapper;
 import org.geekhub.wrapper.UserWrapper;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UsersCoursesDao usersCoursesDao;
+
+    @Autowired
+    private TestAssignmentService testAssignmentService;
 
     @Autowired
     private BeanService beanService;
@@ -183,6 +187,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    private boolean findMyAnswer(TestConfig tc){
+        for (Question question: tc.getTestType().getQuestionList()){
+            if (question.getMyAnswer()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<UserTestResultWrapper> getUserTestResultWrapperListByCourseName(String courseName) {
         List<UserTestResultWrapper> userTestResultWrapperList = new ArrayList<>();
         Course course = courseDao.getCourseByName(courseName);
@@ -192,7 +205,10 @@ public class UserServiceImpl implements UserService {
             List<TestAssignment> list = user.getTestAssignments();
             for(TestAssignment tA: list){
                 if(tA.getTestConfig().getTestType().getCourse().equals(course)) {
-                    userTestResultWrapperList.add(new UserTestResultWrapper(user, course, tA, tA.getTestConfig()));
+                    UserTestResultWrapper us=new UserTestResultWrapper(user, course, tA, tA.getTestConfig());
+                    us.setReview(tA.isStatusReview());
+                    us.setScore(testAssignmentService.countRightAnswer(tA).getCountTrueAnswers());
+                    userTestResultWrapperList.add(us);
                 }
             }
         }
