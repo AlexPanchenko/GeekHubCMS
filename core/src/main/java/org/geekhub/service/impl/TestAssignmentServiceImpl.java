@@ -2,7 +2,6 @@ package org.geekhub.service.impl;
 
 import com.sun.org.apache.bcel.internal.generic.I2F;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
-import org.geekhub.hibernate.bean.TestResWrapper;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.entity.*;

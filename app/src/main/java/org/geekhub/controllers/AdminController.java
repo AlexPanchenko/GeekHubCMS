@@ -935,7 +935,7 @@ public class AdminController {
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByUserId(userId);
         String url = "";
 
-        List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
+        /*List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
         model.addAttribute("testWra", testResWrappers);
 
         if(!testResWrappers.get(0).getReview()){
@@ -943,7 +943,7 @@ public class AdminController {
         }
         if(testResWrappers.get(0).getReview()){
             url = "adminpanel/testResultByUserWithoutReview";
-        }
+        }*/
         return url;
     }
 
