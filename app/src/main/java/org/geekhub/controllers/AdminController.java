@@ -391,7 +391,7 @@ public class AdminController {
     public String createQuestion(@RequestParam("questionText") String questionText,
                                  @RequestParam("questionCode") String questionCode,
                                  @RequestParam("questionWeight") byte questionWeight,
-                                 //@RequestParam("questionStatus") boolean questionStatus,
+                                 @RequestParam("questionStatusManyAnswers") boolean questionStatusManyAnswers,
                                  @RequestParam("myAnswer") boolean myAnswer,
                                  @RequestParam("testTypeId") int testTypeId,
                                  @PathVariable("courseId") int courseId) {
@@ -402,7 +402,7 @@ public class AdminController {
             questionBean.setTestType(null);
         }
         questionBean.setQuestionCode(questionCode);
-        questionBean.setManyAnswers(false);
+        questionBean.setManyAnswers(questionStatusManyAnswers);
         int questionId = questionService.create(questionBean);
 
 
@@ -441,10 +441,12 @@ public class AdminController {
                                @RequestParam("questionWeight") byte questionWeight,
                                //@RequestParam("questionStatus") boolean questionStatus,
                                @RequestParam("myAnswer") boolean myAnswer,
+                               @RequestParam("manyAnswers") boolean manyAnswers,
                                @RequestParam("testTypeIdUpdate") int testTypeId,
                                @PathVariable("courseId") int courseId) {
         QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
         questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
+        questionBean.setManyAnswers(manyAnswers);
         questionService.update(questionBean);
         return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }

@@ -110,18 +110,17 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                        <%--<dt>--%>
-                                            <%--<label class="control-label pull-left">Status--%>
-                                                <%--question</label>--%>
-                                        <%--</dt>--%>
-                                        <%--<dd>--%>
-                                            <%--<div class="form-group">--%>
-                                                <%--<input type="checkbox" id="questionStatus"--%>
-                                                       <%--name="questionStatus" value="true">--%>
-                                                <%--<input type="hidden" name="questionStatus"--%>
-                                                       <%--value="false">--%>
-                                            <%--</div>--%>
-                                        <%--</dd>--%>
+                                        <dt>
+                                            <label class="control-label pull-left">ManyAnswers</label>
+                                        </dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <input type="checkbox" id="questionStatusManyAnswers"
+                                                       name="questionStatusManyAnswers" value="true">
+                                                <input type="hidden" name="questionStatusManyAnswers"
+                                                       value="false">
+                                            </div>
+                                        </dd>
                                         <dt>
                                             <label class="control-label pull-left">Your
                                                 answer</label>
@@ -212,30 +211,29 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                        <%--<dt>--%>
-                                            <%--<label class="control-label pull-left">Status--%>
-                                                <%--question</label>--%>
-                                        <%--</dt>--%>
-                                        <%--<dd>--%>
-                                            <%--<div class="form-group">--%>
-                                                <%--<c:choose>--%>
-                                                    <%--<c:when test="${question.questionStatus eq true}">--%>
-                                                        <%--<input type="checkbox"--%>
-                                                               <%--id="questionStatusTrue"--%>
-                                                               <%--name="questionStatus" checked>--%>
-                                                        <%--<input type="hidden" name="questionStatus"--%>
-                                                               <%--value="false">--%>
-                                                    <%--</c:when>--%>
-                                                    <%--<c:otherwise>--%>
-                                                        <%--<input type="checkbox"--%>
-                                                               <%--id="questionStatusFalse"--%>
-                                                               <%--name="questionStatus">--%>
-                                                        <%--<input type="hidden" name="questionStatus"--%>
-                                                               <%--value="false">--%>
-                                                    <%--</c:otherwise>--%>
-                                                <%--</c:choose>--%>
-                                            <%--</div>--%>
-                                        <%--</dd>--%>
+                                        <dt>
+                                            <label class="control-label pull-left">ManyAnswers</label>
+                                        </dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <c:choose>
+                                                    <c:when test="${question.manyAnswers eq true}">
+                                                        <input type="checkbox"
+                                                               id="questionManyAnswersTrue"
+                                                               name="manyAnswers" checked>
+                                                        <input type="hidden" name="manyAnswers"
+                                                               value="false">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input type="checkbox"
+                                                               id="manyAnswersFalse"
+                                                               name="manyAnswers">
+                                                        <input type="hidden" name="manyAnswers"
+                                                               value="false">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </dd>
                                         <dt>
                                             <label class="control-label pull-left">Your
                                                 answer</label>
