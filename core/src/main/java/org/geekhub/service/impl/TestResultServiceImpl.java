@@ -36,6 +36,9 @@ public class TestResultServiceImpl implements TestResultService {
     private AnswerDao answerDao;
 
     @Autowired
+    private UserResultsService userResultsService;
+
+    @Autowired
     private UserResultsDao userResultsDao;
 
     @Autowired

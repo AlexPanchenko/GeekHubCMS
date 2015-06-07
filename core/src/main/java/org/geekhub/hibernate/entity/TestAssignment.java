@@ -44,6 +44,9 @@ public class TestAssignment extends BaseEntity implements Serializable {
     @Column(name = "TA_TEST_STATUS_ASSIGNMENT")
     private TestStatusAssignment testStatusAssignment;
 
+    @Column(name = "STATUS_REVIEW")
+    private boolean statusReview ;
+
     public Date getDateStart() {
         return dateStart;
     }
@@ -58,6 +61,14 @@ public class TestAssignment extends BaseEntity implements Serializable {
 
     public void setDateFinish(Date dateFinish) {
         this.dateFinish = dateFinish;
+    }
+
+    public boolean isStatusReview() {
+        return statusReview;
+    }
+
+    public void setStatusReview(boolean statusReview) {
+        this.statusReview = statusReview;
     }
 
     public List<UserResults> getUserResults() {
@@ -107,6 +118,7 @@ public class TestAssignment extends BaseEntity implements Serializable {
     public void setTestStatusAssignment(TestStatusAssignment testStatusAssignment) {
         this.testStatusAssignment = testStatusAssignment;
     }
+
 
     public Date getDatePassed() {
         return datePassed;

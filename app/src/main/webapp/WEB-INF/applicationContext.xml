@@ -80,6 +80,4 @@
     <bean id="gsonBuilder" class="com.google.gson.GsonBuilder" />
     <bean id="gson" factory-bean="gsonBuilder" factory-method="create" />
     
-
-
 </beans>

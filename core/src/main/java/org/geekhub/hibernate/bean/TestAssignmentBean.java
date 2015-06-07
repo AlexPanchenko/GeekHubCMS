@@ -27,18 +27,6 @@ public class TestAssignmentBean {
     public TestAssignmentBean(){
     };
 
-    public TestAssignmentBean(int id, User user, TestConfig testConfig, List<UserResults> userResults, Date dueDate, Date testStart, Date testFinish, boolean passed, TestStatusAssignment testStatusAssignment) {
-        this.id = id;
-        this.user = user;
-        this.testConfig = testConfig;
-        this.userResults = userResults;
-        this.datePassed = dueDate;
-        this.testStart = testStart;
-        this.testFinish = testFinish;
-        this.passed = passed;
-        this.testStatusAssignment = testStatusAssignment;
-    }
-
     public int getCountTrueAnswers() {
         return countTrueAnswers;
     }
