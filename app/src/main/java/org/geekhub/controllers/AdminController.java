@@ -922,9 +922,45 @@ public class AdminController {
 
     @RequestMapping(value = "/schedulers", method = RequestMethod.GET)
     public String gerSchedulers(Map<String, Object> model) {
-        System.out.println(schedulers.get(0).getClass().getSimpleName());
         model.put("schedulerList", schedulers);
         return "adminpanel/schedulers";
+    }
+
+    @RequestMapping(value = "/bgprocess/run", method = RequestMethod.GET)
+    public String runSchedulers(Map<String, Object> model,
+                                @RequestParam("name") String name) {
+
+        for (AbstractScheduler scheduler : schedulers) {
+            if (scheduler.getProcessTerminal().getClassName().equals(name)) {
+                scheduler.run();
+                break;
+            }
+        }
+        return "redirect:/admin/schedulers";
+    }
+
+    @RequestMapping(value = "/bgprocess/enable", method = RequestMethod.GET)
+    public String enableSchedulers(Map<String, Object> model,
+                                   @RequestParam("name") String name) {
+        for (AbstractScheduler scheduler : schedulers) {
+            if (scheduler.getProcessTerminal().getClassName().equals(name)) {
+               scheduler.getProcessTerminal().setSchedulingOn(true);
+                break;
+            }
+        }
+        return "redirect:/admin/schedulers";
+    }
+
+    @RequestMapping(value = "/bgprocess/disable", method = RequestMethod.GET)
+    public String disableSchedulers(Map<String, Object> model,
+                                    @RequestParam("name") String name) {
+        for (AbstractScheduler scheduler : schedulers) {
+            if (scheduler.getProcessTerminal().getClassName().equals(name)) {
+                scheduler.getProcessTerminal().setSchedulingOn(false);
+                break;
+            }
+        }
+        return "redirect:/admin/schedulers";
     }
 
 /*    *//*Pagination for classroom*//*

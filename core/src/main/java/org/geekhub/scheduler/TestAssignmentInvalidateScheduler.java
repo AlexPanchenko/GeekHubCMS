@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by admin on 05.06.2015.
@@ -24,12 +25,20 @@ public class TestAssignmentInvalidateScheduler extends AbstractScheduler {
     @Autowired
     private TestAssignmentDao testAssignmentDao;
 
-    @Scheduled(cron = "30 * * * * ?")
-    public void updateTestAssignmentStatus() {
+    @Override
+    @Scheduled(cron = "59 59 23 * * ?")
+    public void schedule() {
+        if (processTerminal.isSchedulingOn()) {
+            run();
+        }
+    }
+
+    @Override
+    protected void process() throws InterruptedException, ExecutionException {
         List<TestAssignment> testAssignmentList = testAssignmentService.getOverdueTestAssignmentList();
-        for (TestAssignment testAssignment: testAssignmentList){
-                    testAssignment.setTestStatusAssignment(TestStatusAssignment.OVERDUE);
-                    testAssignmentDao.update(testAssignment);
+        for (TestAssignment testAssignment : testAssignmentList) {
+            testAssignment.setTestStatusAssignment(TestStatusAssignment.OVERDUE);
+            testAssignmentDao.update(testAssignment);
         }
         System.out.println("TestStatusAssignment is update.");
     }
