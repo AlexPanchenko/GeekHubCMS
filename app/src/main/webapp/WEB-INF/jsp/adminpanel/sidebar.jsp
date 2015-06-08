@@ -17,23 +17,29 @@
                     <a href="/admin/course/list"> Courses</a>
                 </li>
                 <li>
-                    <a href="/admin/testType">Test type</a>
-                </li>
-                <li>
-                    <a href="/admin/testConfig"> Test config</a>
-                </li>
-                <li>
-                    <a href="/admin/assignTest">Assign test </a>
-                </li>
-                <li>
                     <a href="/admin/classRoomList"> ClassRoom</a>
                 </li>
                 <li>
-                    <a href="/admin/questions">Base questions</a>
+                    <a href="#" class="nav-collapse" data-togle="collapse" data-target=".collapse-menu">Tests</a>
+                    <ul class="collapse-menu">
+                        <li>
+                            <a href="/admin/testType">Test type</a>
+                        </li>
+                        <li>
+                            <a href="/admin/testConfig"> Test config</a>
+                        </li>
+                        <li>
+                            <a href="/admin/assignTest">Assign test </a>
+                        </li>
+                        <li>
+                            <a href="/admin/questions">Base questions</a>
+                        </li>
+                        <li>
+                            <a href="/admin/userTestResult">User test result</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="/admin/userTestResult">User test result</a>
-                </li>
+
                 <li>
                     <a href="/admin/adminPage">Admin Profile</a>
                 </li>
@@ -42,6 +48,9 @@
         <!-- /.sidebar-collapse -->
     </div>
 </div>
+
+
+
 
 
 <script src="<c:url value="/resources/js/sidebar.js" /> " type="text/javascript"></script>
