@@ -22,7 +22,6 @@
                 type:"post",
                 data:{userResultsId:userResultsId},
                 success:function(data) {
-                    alert(data);
                 }
             });
         }
@@ -32,7 +31,7 @@
                 type:"post",
                 data:{testAsId:testAsId,score:score},
                 success:function(data) {
-                    alert(data);
+                    window.location.href = "/admin/userTestResult";
                 }
             });
         }
@@ -90,10 +89,10 @@
 
                                         <span class="label label-info" style="margin-left: 30px;">My Answer</span>
                                         <span class="label label-answer">${custAnswer.customAnswer}</span>
-                                        <c:if  test="${userCustRes.right}">
+                                        <c:if  test="${userCustRes.right and userCustRes.review}">
                                             <img src="<c:url value='/resources/img/right.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
                                         </c:if>
-                                        <c:if  test="${!userCustRes.right}">
+                                        <c:if  test="${!userCustRes.right and userCustRes.review}">
                                             <img src="<c:url value='/resources/img/wrong.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
                                         </c:if>
 
@@ -111,7 +110,7 @@
                         </table>
                     </c:forEach>
 
-                    <label for="score">Score: </label> <input type="text" id="score" value="${score}" disabled> <span>%</span>
+                    <label for="score">Score: </label> <input type="text" id="score" value="${score}" disabled>
                     <button  class="btn btn-success" onclick="calculateResult(${globalTestWrap.testAssignmentId})">Confirm</button>
 
                 </div>

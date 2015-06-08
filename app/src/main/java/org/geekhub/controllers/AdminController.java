@@ -844,7 +844,7 @@ public class AdminController {
     @RequestMapping(value = "/calculateNewCount", method = RequestMethod.POST)
     public @ResponseBody String calculateNew(@RequestParam("testAsId") int testAsId,@RequestParam("score") String score) {
         TestAssignment testAssignment = testAssignmentService.updateTestAssignmentCount(testAsId, Integer.parseInt(score));
-        return "Success";
+        return "";
     }
 
     @RequestMapping(value = "/calculateTrueAnswer", method = RequestMethod.POST)
@@ -935,7 +935,7 @@ public class AdminController {
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByUserId(userId);
         String url = "";
 
-        /*List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
+        List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
         model.addAttribute("testWra", testResWrappers);
 
         if(!testResWrappers.get(0).getReview()){
@@ -943,11 +943,11 @@ public class AdminController {
         }
         if(testResWrappers.get(0).getReview()){
             url = "adminpanel/testResultByUserWithoutReview";
-        }*/
+        }
         return url;
     }
 
-/*    *//*Pagination for classroom*//*
+    /*Pagination for classroom
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
                                @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,

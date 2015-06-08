@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class BeanServiceImpl implements BeanService {
 
-    /*@Override
+    @Override
     public List<TestResWrapper> toTestResWrapper(TestAssignment testAssignment) {
         TestResWrapper testResWrapper;
         List<TestResWrapper> testResWrappers = new ArrayList<TestResWrapper>();
@@ -44,13 +44,12 @@ public class BeanServiceImpl implements BeanService {
                 }
             }
             testResWrapper.setReview(testAssignment.isStatusReview());
-
             testResWrapper.setScore(testAssignment.getCountTrueAnswers());
 
             testResWrappers.add(testResWrapper);
         }
         return testResWrappers;
-    }*/
+    }
 
     @Override
     public User toUserEntity(UserBean userBean) {
