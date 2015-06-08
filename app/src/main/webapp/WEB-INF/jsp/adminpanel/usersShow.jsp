@@ -25,11 +25,31 @@
             <td>${user.skype}</td>
             <td align="center">
                 <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
+                <a href="#" data-href="/admin/users/${user.id}/remove" data-target="#confirm-delete" data-toggle="modal"><i class="fa fa-times"></i></a>
             </td>
         </tr>
     </c:forEach>
 </table>
 
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Delete user
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="<c:url value="/resources/js/adminpanel/deleteConfirm.js"/> "></script>
 </body>
 </html>

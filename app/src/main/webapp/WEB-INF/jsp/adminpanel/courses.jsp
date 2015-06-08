@@ -21,18 +21,20 @@
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
         <h1>Courses</h1>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
-                        <a href="/admin/course/create" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new course"></i></a>
+                        <a href="/admin/course/create"><i class="glyphicon glyphicon-pencil pull-left"
+                                                          title="Create new course"></i></a>
                         <b>Courses manage</b></h1>
                     <table class="table text-black">
                         <thead class="alert alert-success">
                         <tr>
-                            <th class="text-center"> ID </th>
-                            <th class="text-center"> Name </th>
-                            <th class="text-center"> Description </th>
+                            <th class="text-center"> ID</th>
+                            <th class="text-center"> Name</th>
+                            <th class="text-center"> Description</th>
                             <th class="text-center"></th>
                             <th class="text-center"> Action</th>
                         </tr>
@@ -47,7 +49,8 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="/admin/course/${course.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/course-remove/${course.id}"> <i class="fa fa-times"></i></a>
+                                    <a href="#" data-href="/admin/course-remove/${course.id}"
+                                       data-target="#confirm-delete" data-toggle="modal"> <i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -56,8 +59,27 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Delete course
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
     </div>
 </div>
 
+<script src="<c:url value="/resources/js/adminpanel/deleteConfirm.js"/> "></script>
 </body>
 </html>

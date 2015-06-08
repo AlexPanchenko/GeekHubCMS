@@ -204,6 +204,9 @@
     </div>
 </div>
 
+<script>
+    var userId = ${user.id};
+</script>
 <script src="<c:url value='/resources/js/adminpanel/userEdit.js'/>" type="text/javascript"></script>
 
 </body>

@@ -20,9 +20,9 @@ $("#sendFeedback").on("submit", function (event) {
     data = escapeHtml(data);
     $.ajax({
             method: "get",
-            url: "http://localhost:8080",
+            url: "http://localhost:8080/admin/createFeedback/" + userId,
             data: {
-                "feedbackMsg": data
+                "feedback": data
             },
             dataType: "html",
             success: function (data, status) {
@@ -35,7 +35,6 @@ $("#sendFeedback").on("submit", function (event) {
                     textValue.val("");
                     p.remove();
                 }, 1500);
-
             }
         }
     );

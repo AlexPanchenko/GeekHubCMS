@@ -89,7 +89,6 @@
                                                     <div class="checkbox">
                                                         <label style="font-size: 1.0em">
                                                             <input type="checkbox" value="${userWrapper.user.id}" name="userId" checked disabled>
-                                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                             <a href="/admin/assignTest/delete/${currentTestConfig.id}/${userWrapper.user.id}"> <i
                                                                     class="fa fa-times"></i></a>
                                                         </label>
@@ -101,7 +100,6 @@
                                                     <div class="checkbox">
                                                         <label style="font-size: 1.0em">
                                                             <input type="checkbox" value="${userWrapper.user.id}" name="userId">
-                                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -113,6 +111,7 @@
                                 </tr>
                             </c:forEach>
                         </table>
+                        <button id="select-all">Select all</button>
                         <button type="submit" class="btn btn-primary btn-lg">Save</button>
 
                         <div align="center">
