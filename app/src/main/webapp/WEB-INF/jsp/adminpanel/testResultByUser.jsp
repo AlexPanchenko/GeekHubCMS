@@ -66,24 +66,45 @@
                                              <c:set var="score" value="${testWrap.score}"/>
                                              <c:set var="globalTestWrap" value="${testWrap}"/>
 
-                                             <c:if test="${(item.id == usAnswer.answer.id) and (usAnswer.customAnswer == null)}">
-                                                <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1"  checked="checked" disabled> ${item.answerText}
-                                                    <c:if  test="${(item.answerRight) and (!testWrap.question.myAnswer)}">
-                                                        <img src="<c:url value='/resources/img/right.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
-                                                    </c:if>
-                                                    <c:if  test="${(!item.answerRight) and (!testWrap.question.myAnswer)}">
-                                                        <img src="<c:url value='/resources/img/wrong.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
-                                                    </c:if>
-                                                </p>
+                                             <c:if test="${!item.question.myAnswer}">
+                                                 <c:if test="${item.id == usAnswer.answer.id}">
+                                                     <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1"  checked="checked" disabled> ${item.answerText}
+                                                         <c:if  test="${item.answerRight}">
+                                                             <img src="<c:url value='/resources/img/right.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
+                                                         </c:if>
+                                                         <c:if  test="${!item.answerRight}">
+                                                             <img src="<c:url value='/resources/img/wrong.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
+                                                         </c:if>
+                                                     </p>
+                                                 </c:if>
+
+                                                 <c:if test="${item.id != usAnswer.answer.id}">
+                                                     <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
+                                                 </c:if>
                                              </c:if>
 
-                                             <c:if test="${(item.id != usAnswer.answer.id) and (usAnswer.customAnswer == null)}">
-                                                <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
-                                             </c:if>
+                                             <c:if test="${item.question.myAnswer}">
+                                                 <c:if test="${usAnswer.customAnswer != null}">
+                                                     <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
+                                                     <c:set var="custAnswer" value="${usAnswer}"/>
+                                                     <c:set var="userCustRes" value="${testWrap}"/>
+                                                 </c:if>
+                                                 <c:if test="${usAnswer.customAnswer == null}">
+                                                     <c:if test="${item.id == usAnswer.answer.id}">
+                                                         <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1"  checked="checked" disabled> ${item.answerText}
+                                                             <c:if  test="${item.answerRight}">
+                                                                 <img src="<c:url value='/resources/img/right.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
+                                                             </c:if>
+                                                             <c:if  test="${!item.answerRight}">
+                                                                 <img src="<c:url value='/resources/img/wrong.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
+                                                             </c:if>
+                                                         </p>
+                                                     </c:if>
 
-                                             <c:if test="${usAnswer.customAnswer != null}">
-                                                <c:set var="custAnswer" value="${usAnswer}"/>
-                                                <c:set var="userCustRes" value="${testWrap}"/>
+                  <%--                                   <c:if test="${item.id != usAnswer.answer.id}">
+                                                         <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
+                                                     </c:if>--%>
+                                                 </c:if>
                                              </c:if>
 
                                        </c:forEach>
