@@ -66,9 +66,10 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
         }
         if(!testAssignment.isStatusReview()){
             for(UserResults userResult: testAssignment.getUserResults()){
-                if ((userResult.getQuestion().getMyAnswer())){
+                if ((userResult.getQuestion().getMyAnswer()) && (!userResult.getQuestion().getManyAnswers())){
                     continue;
-                }else{
+                }
+                if((!userResult.getQuestion().getMyAnswer()) && (!userResult.getQuestion().getManyAnswers())){
                     for (Answer answer : userResult.getQuestion().getAnswers()) {
                         if (answer.getAnswerRight()) {
                             for (UserAnswers userAnswers : userResult.getUserAnswerses()) {
@@ -77,6 +78,23 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
                                 }
                             }
                         }
+                    }
+                }
+                if((!userResult.getQuestion().getMyAnswer()) && (userResult.getQuestion().getManyAnswers())){
+                    int rightAnswer = 0;
+                    int userAnswer = 0;
+                    for (Answer answer : userResult.getQuestion().getAnswers()) {
+                        if (answer.getAnswerRight()) {
+                            rightAnswer++;
+                            for (UserAnswers userAnswers : userResult.getUserAnswerses()) {
+                                if (userAnswers.getAnswer().getId() == answer.getId()) {
+                                    userAnswer++;
+                                }
+                            }
+                        }
+                    }
+                    if (rightAnswer == userAnswer){
+                        i++;
                     }
                 }
             }

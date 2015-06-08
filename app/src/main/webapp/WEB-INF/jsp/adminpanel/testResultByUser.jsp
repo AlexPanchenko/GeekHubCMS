@@ -25,15 +25,19 @@
                 }
             });
         }
-        function calculateResult(testAsId){
+        function calculateResult(testAsId,userId){
             $.ajax({
                 url:"/admin/calculateNewCount",
                 type:"post",
                 data:{testAsId:testAsId,score:score},
                 success:function(data) {
-                    window.location.href = "/admin/userTestResult";
+                    window.location.href = "/admin/answerResult/"+userId;
                 }
             });
+        }
+        function wrongAnswer(userResultsId){
+            $('#right'+userResultsId).prop('disabled',true);
+            $('#wrong'+userResultsId).prop('disabled',true);
         }
     </script>
 </head>
@@ -64,16 +68,16 @@
 
                                              <c:if test="${(item.id == usAnswer.answer.id) and (usAnswer.customAnswer == null)}">
                                                 <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1"  checked="checked" disabled> ${item.answerText}
-                                                    <c:if  test="${item.answerRight}">
+                                                    <c:if  test="${(item.answerRight) and (!testWrap.question.myAnswer)}">
                                                         <img src="<c:url value='/resources/img/right.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
                                                     </c:if>
-                                                    <c:if  test="${!item.answerRight}">
+                                                    <c:if  test="${(!item.answerRight) and (!testWrap.question.myAnswer)}">
                                                         <img src="<c:url value='/resources/img/wrong.png'/>" height="15" width="15" style="margin-bottom: 5px"/>
                                                     </c:if>
                                                 </p>
                                              </c:if>
 
-                                             <c:if test="${item.id != usAnswer.answer.id}">
+                                             <c:if test="${(item.id != usAnswer.answer.id) and (usAnswer.customAnswer == null)}">
                                                 <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
                                              </c:if>
 
@@ -111,7 +115,7 @@
                     </c:forEach>
 
                     <label for="score">Score: </label> <input type="text" id="score" value="${score}" disabled>
-                    <button  class="btn btn-success" onclick="calculateResult(${globalTestWrap.testAssignmentId})">Confirm</button>
+                    <button  class="btn btn-success" onclick="calculateResult(${globalTestWrap.testAssignmentId},${userId})">Confirm</button>
 
                 </div>
             </div>

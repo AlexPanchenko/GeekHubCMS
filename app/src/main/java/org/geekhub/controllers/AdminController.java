@@ -1023,6 +1023,7 @@ public class AdminController {
 
         List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
         model.addAttribute("testWra", testResWrappers);
+        model.addAttribute("userId",userId);
 
         if(!testResWrappers.get(0).getReview()){
            url = "adminpanel/testResultByUser";
