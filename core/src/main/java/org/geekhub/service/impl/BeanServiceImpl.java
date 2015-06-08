@@ -79,7 +79,7 @@ public class BeanServiceImpl implements BeanService {
         noteBean.setReceiver(note.getReceiver());
         noteBean.setSender(note.getSender());
         noteBean.setNoteText(note.getNoteText());
-        noteBean.setRegistrationDate(note.getRegistrationDate());
+        noteBean.setDate(note.getDate());
         return noteBean;
     }
 

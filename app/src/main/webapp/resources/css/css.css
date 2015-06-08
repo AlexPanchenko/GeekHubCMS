@@ -124,3 +124,9 @@
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+
+.comment-box {
+    width: 90%;
+    margin: 0 auto;
+}

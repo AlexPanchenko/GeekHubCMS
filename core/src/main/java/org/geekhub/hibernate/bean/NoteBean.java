@@ -44,11 +44,11 @@ public class NoteBean {
         this.receiver = receiver;
     }
 
-    public Date getRegistrationDate() {
+    public Date getDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
