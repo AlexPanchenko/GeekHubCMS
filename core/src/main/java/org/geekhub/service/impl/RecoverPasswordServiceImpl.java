@@ -1,5 +1,6 @@
 package org.geekhub.service.impl;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.geekhub.hibernate.dao.PasswordDao;
 import org.geekhub.hibernate.dao.UserDao;
@@ -32,7 +33,7 @@ public class RecoverPasswordServiceImpl implements RecoverPasswordService{
         PasswordLink pl = passwordDao.getUserId(id);
         User user = userDao.getUserById(pl.getUserId());
         System.out.println(newPassword);
-        user.setPassword(newPassword);
+        user.setPassword(DigestUtils.md5Hex(newPassword));
         System.out.println("New User password  - " + user.getPassword());
         userDao.update(user);
     }

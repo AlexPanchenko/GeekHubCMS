@@ -58,6 +58,7 @@
                     <th>Date</th>
                     <th>Mark</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
 
@@ -71,6 +72,7 @@
                         <td>11-11-11</td>
                         <td>90%</td>
                         <td><span class="label label-success">Accepted</span></td>
+                        <td><a href="/admin/answerResult/${wrap.user.id}">act</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

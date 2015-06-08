@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface UserResultsService {
+    public void setAnswerStatus( int usResId);
     Object read(int userResultId);
     void update(UserResults userResult);
     void delete(int userResultId);

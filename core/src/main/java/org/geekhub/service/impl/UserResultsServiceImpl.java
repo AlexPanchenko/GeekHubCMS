@@ -33,6 +33,13 @@ public class UserResultsServiceImpl implements UserResultsService {
     UserAnswersService userAnswersService;
 
     @Override
+    public void setAnswerStatus(int usResId) {
+        UserResults userResults = (UserResults) userResultsDao.read(usResId, UserResults.class);
+        userResults.setRightAnswer(true);
+        userResultsDao.update(userResults);
+    }
+
+    @Override
     public Object read(int userResultId) {
         return userResultsDao.read(userResultId, UserResults.class);
     }

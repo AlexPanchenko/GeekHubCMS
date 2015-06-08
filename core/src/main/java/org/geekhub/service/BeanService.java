@@ -1,18 +1,16 @@
 package org.geekhub.service;
 
-import org.geekhub.hibernate.bean.ClassRoomBean;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.hibernate.bean.UserBean;
-import org.geekhub.hibernate.entity.ClassRoom;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.bean.*;
+import org.geekhub.hibernate.entity.*;
+
+import java.util.List;
 
 public interface BeanService {
+    //public List<TestResWrapper> toTestResWrapper(TestAssignment testAssignment);
     public User toUserEntity(UserBean userBean);
     public UserBean toUserBean(User user);
     public CourseBean toCourseBean(Course course);
     public ClassRoomBean toClassroomBean(ClassRoom classRoom);
     public TestConfigBeen toTestConfigBean(TestConfig testConfig);
+    public TestAssignmentBean toTestAssignmentBean(TestAssignment testAssignment);
 }

@@ -47,7 +47,7 @@
                     <th>Test</th>
                     <th>Date</th>
                     <th>Mark</th>
-                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
 
@@ -61,8 +61,18 @@
                         <td>${wrap.testConfig.title}</td>
                         <td><fmt:formatDate type="both"
                                             value="${wrap.testAssignment.datePassed}" /></td>
-                        <td>${(wrap.testAssignment.countTrueAnswers / wrap.testConfig.questionCount)*100}%</td>
-                        <td><span class="label label-success">Accepted</span></td>
+                        <c:if test="${!wrap.review}">
+                            <td>must be cheked</td>
+                        </c:if>
+                        <c:if test="${wrap.review}">
+                            <td>${fn:substringBefore((wrap.score / wrap.testConfig.questionCount)*100, '.')}%</td>
+                        </c:if>
+                        <c:if test="${wrap.testAssignment.datePassed != null}">
+                            <td class="text-center"><a href="/admin/answerResult/${wrap.user.id}" class="btn btn-default">see test</a></td>
+                        </c:if>
+                        <c:if test="${wrap.testAssignment.datePassed == null}">
+                            <td class="text-center"><a class="btn btn-default" aria-disabled="true">Not finish</a></td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>

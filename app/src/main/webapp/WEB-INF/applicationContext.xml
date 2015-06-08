@@ -21,6 +21,7 @@
     <context:annotation-config />
     <context:component-scan base-package="org.geekhub" />
     <mvc:annotation-driven />
+    <!--<context:property-placeholder location="classpath:mailConfig.properties" />-->
 
     <import resource="data-source.xml"/>
     <import resource="hibernate-dao.xml"/>
@@ -86,6 +87,4 @@
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="5"/>
     <task:scheduler id="scheduler" pool-size="10"/>
-
-
 </beans>

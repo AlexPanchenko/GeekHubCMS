@@ -13,6 +13,8 @@ public class UserTestResultWrapper {
     private Course course;
     private TestAssignment testAssignment;
     private TestConfig testConfig;
+    private boolean review;
+    private int score;
 
     public UserTestResultWrapper(User user, Course course) {
         this.user = user;
@@ -24,6 +26,22 @@ public class UserTestResultWrapper {
         this.course = course;
         this.testAssignment = testAssignment;
         this.testConfig = testConfig;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isReview() {
+        return review;
+    }
+
+    public void setReview(boolean review) {
+        this.review = review;
     }
 
     public User getUser() {

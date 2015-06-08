@@ -1,24 +1,57 @@
 package org.geekhub.service.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.geekhub.hibernate.bean.ClassRoomBean;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.hibernate.bean.UserBean;
-import org.geekhub.hibernate.entity.ClassRoom;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.bean.*;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class BeanServiceImpl implements BeanService {
+
+    /*@Override
+    public List<TestResWrapper> toTestResWrapper(TestAssignment testAssignment) {
+        TestResWrapper testResWrapper;
+        List<TestResWrapper> testResWrappers = new ArrayList<TestResWrapper>();
+
+        for (UserResults userResult: testAssignment.getUserResults()){
+            testResWrapper = new TestResWrapper();
+            testResWrapper.setTestAssignmentId(testAssignment.getId());
+            testResWrapper.setQuestion(userResult.getQuestion());
+            testResWrapper.setUserAnswers(userResult.getUserAnswerses());
+
+            if((userResult.isRightAnswer()) && (userResult.getQuestion().getMyAnswer())){
+                testResWrapper.setRight(true);
+            }
+            if((!userResult.isRightAnswer()) && (userResult.getQuestion().getMyAnswer())){
+                testResWrapper.setRight(false);
+            }
+            if(!userResult.getQuestion().getMyAnswer()){
+                for (Answer answer: userResult.getQuestion().getAnswers()){
+                    for (UserAnswers userAnswers: userResult.getUserAnswerses()){
+                        if ((userAnswers.getAnswer().getId() == answer.getId()) && (answer.getAnswerRight())){
+                            testResWrapper.setRight(true);
+                        }else {
+                            testResWrapper.setRight(false);
+                        }
+                    }
+                }
+            }
+            testResWrapper.setReview(testAssignment.isStatusReview());
+
+            testResWrapper.setScore(testAssignment.getCountTrueAnswers());
+
+            testResWrappers.add(testResWrapper);
+        }
+        return testResWrappers;
+    }*/
+
     @Override
     public User toUserEntity(UserBean userBean) {
         User user = new User();
@@ -88,5 +121,22 @@ public class BeanServiceImpl implements BeanService {
 //        classRoomBean.setTeacher(toUserBean(classRoom.getTeacher()));
         classRoomBean.setUsers(classRoom.getUsers().stream().map(user -> toUserBean(user)).collect(Collectors.toList()));
         return classRoomBean;
+    }
+
+    @Override
+    public TestAssignmentBean toTestAssignmentBean(TestAssignment testAssignment) {
+        TestAssignmentBean testAssignmentBean = new TestAssignmentBean();
+        testAssignmentBean.setId(testAssignment.getId());
+        testAssignmentBean.setUser(testAssignment.getUser());
+        testAssignmentBean.setCountTrueAnswers(testAssignment.getCountTrueAnswers());
+        testAssignmentBean.setTestStart(testAssignment.getDateStart());
+        testAssignmentBean.setDatePassed(testAssignment.getDatePassed());
+        testAssignmentBean.setTestFinish(testAssignment.getDateFinish());
+        testAssignmentBean.setPassed(testAssignment.isPassed());
+        testAssignmentBean.setTestConfig(testAssignment.getTestConfig());
+        testAssignmentBean.setUserResults(testAssignment.getUserResults());
+        testAssignmentBean.setTestStatusAssignment(testAssignment.getTestStatusAssignment());
+
+        return testAssignmentBean;
     }
 }

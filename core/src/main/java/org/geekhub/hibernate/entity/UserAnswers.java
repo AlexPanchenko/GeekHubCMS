@@ -27,7 +27,6 @@ public class UserAnswers extends BaseEntity implements Serializable {
 
     public UserAnswers() {}
 
-
     public int getId() {
         return id;
     }
