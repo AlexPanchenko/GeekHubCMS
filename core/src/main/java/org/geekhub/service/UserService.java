@@ -1,10 +1,10 @@
 package org.geekhub.service;
 
+import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Note;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.wrapper.UserTestResultWrapper;
@@ -32,6 +32,6 @@ public interface UserService  {
     public List<User> getAllUsersByCourse(Course course);
     public User getLogInUser();
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
-    public List<Note> getNotesListBySender (int userId);
-    public List<Note> getNotesListByReceiver (int userId);
+    public List<NoteBean> getNotesListBySender (int userId);
+    public List<NoteBean> getNotesListByReceiver (int userId);
 }

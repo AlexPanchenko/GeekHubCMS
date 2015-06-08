@@ -2,6 +2,7 @@ package org.geekhub.service.impl;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
@@ -283,15 +284,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Note> getNotesListBySender(int userId) {
+    public List<NoteBean> getNotesListBySender(int userId) {
         List<Note> senderNotesList = noteDao.getNotesListBySender(userId);
-        return senderNotesList;
+        List<NoteBean> senderNotesBeansList = new ArrayList<>();
+        for(Note each : senderNotesList) {
+            NoteBean noteBean = new NoteBean();
+            noteBean = beanService.toNoteBean(each);
+            senderNotesBeansList.add(noteBean);
+        }
+
+        return senderNotesBeansList;
     }
 
     @Override
-    public List<Note> getNotesListByReceiver(int userId) {
+    public List<NoteBean> getNotesListByReceiver(int userId) {
         List<Note> receiverNotesList = noteDao.getNotesListByReceiver(userId);
-        return receiverNotesList;
+        List<NoteBean> receiverNotesBeansList = new ArrayList<>();
+        for(Note each : receiverNotesList) {
+            NoteBean noteBean = new NoteBean();
+            noteBean = beanService.toNoteBean(each);
+            receiverNotesBeansList.add(noteBean);
+        }
+
+        return receiverNotesBeansList;
     }
 
 

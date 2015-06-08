@@ -1,14 +1,8 @@
 package org.geekhub.service.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.geekhub.hibernate.bean.ClassRoomBean;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.TestConfigBeen;
-import org.geekhub.hibernate.bean.UserBean;
-import org.geekhub.hibernate.entity.ClassRoom;
-import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestConfig;
-import org.geekhub.hibernate.entity.User;
+import org.geekhub.hibernate.bean.*;
+import org.geekhub.hibernate.entity.*;
 import org.geekhub.service.BeanService;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +70,17 @@ public class BeanServiceImpl implements BeanService {
         testConfigBeen.setTimeToTest(testConfig.getTimeToTest());
         testConfigBeen.setTittle(testConfig.getTitle());
         return null;
+    }
+
+    @Override
+    public NoteBean toNoteBean(Note note) {
+        NoteBean noteBean = new NoteBean();
+        noteBean.setId(note.getId());
+        noteBean.setReceiver(note.getReceiver());
+        noteBean.setSender(note.getSender());
+        noteBean.setNoteText(note.getNoteText());
+        noteBean.setRegistrationDate(note.getRegistrationDate());
+        return noteBean;
     }
 
     @Override

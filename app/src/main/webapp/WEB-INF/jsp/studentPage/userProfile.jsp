@@ -52,7 +52,11 @@
                 </div>
                 <div class="panel-footer">
                     <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" href="/student/users/${user.id}/edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" href="/student/users/${user.id}/changepassword">Change Password</a>
                 </div>
+                <c:forEach var="each" items="${notesAboutUser}">
+                    ${each.getNoteText()};
+                </c:forEach>
             </div>
         </div>
         </div>

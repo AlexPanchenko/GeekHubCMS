@@ -8,6 +8,18 @@ public class NoteBean {
 
     private int id;
 
+    private User sender;
+
+    private User receiver;
+
+    private String noteText;
+
+    private Date registrationDate;
+
+    public NoteBean () {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -32,14 +44,6 @@ public class NoteBean {
         this.receiver = receiver;
     }
 
-    public String getNoteText() {
-        return noteText;
-    }
-
-    public void setNoteText(String noteText) {
-        this.noteText = noteText;
-    }
-
     public Date getRegistrationDate() {
         return registrationDate;
     }
@@ -48,12 +52,11 @@ public class NoteBean {
         this.registrationDate = registrationDate;
     }
 
-    private User sender;
+    public String getNoteText() {
+        return noteText;
+    }
 
-    private User receiver;
-
-    private String noteText;
-
-    private Date registrationDate;
-
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
+    }
 }

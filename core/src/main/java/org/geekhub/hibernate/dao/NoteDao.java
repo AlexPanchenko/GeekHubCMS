@@ -9,4 +9,4 @@ import java.util.List;
         public List<Note> getNotesListBySender(int userId);
 
         public List<Note> getNotesListByReceiver(int userId);
-}
+    }
