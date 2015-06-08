@@ -130,7 +130,6 @@ public class TeacherController {
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String students(ModelMap model, Principal principal) {
         int courseId = userDao.getUserByEmail(principal.getName()).getClassroom().getCourseId().getId();
-
         List<UserBean> userBeans = courseService.getUsersByCourse(courseId);
         model.addAttribute("users", userBeans);
 
@@ -154,5 +153,6 @@ public class TeacherController {
         return "teacherPage/students";
     }
 
+    //@RequestMapping(value = )
 
 }

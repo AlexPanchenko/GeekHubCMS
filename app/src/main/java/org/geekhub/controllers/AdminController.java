@@ -616,10 +616,17 @@ public class AdminController {
         return model;
     }
 
-    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
-    public String createFeedback(@PathVariable("userid") Integer userid, HttpServletRequest request) {
-        String feedback = request.getParameter("feedback");
-        userService.setFeedback(userid, feedback);
+   @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+    public String createFeedback(@PathVariable("userid") int userid,
+                                 Principal principal,
+                                 @RequestParam("feedback") String feedback) {
+        NoteBean noteBean = new NoteBean(        );
+        noteBean.setNoteText(feedback);
+        noteBean.setReceiver(userService.getUserById(userid));
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        noteBean.setSender(userService.getUserById(userBean.getId()));
+        noteBean.setDate(new Date());
+        userService.saveNote(noteBean);
         return "redirect:/admin/users/" + userid + "/edit";
     }
 

@@ -309,5 +309,13 @@ public class UserServiceImpl implements UserService {
         return receiverNotesBeansList;
     }
 
-
+    @Override
+    public void saveNote(NoteBean noteBean) {
+        Note note = new Note();
+        note.setSender(noteBean.getSender());
+        note.setReceiver(noteBean.getReceiver());
+        note.setNoteText(noteBean.getNoteText());
+        note.setDate(noteBean.getDate());
+        noteDao.create(note);
+    }
 }

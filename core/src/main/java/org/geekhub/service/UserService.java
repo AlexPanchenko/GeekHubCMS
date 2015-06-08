@@ -34,4 +34,5 @@ public interface UserService  {
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
     public List<NoteBean> getNotesListBySender (int userId);
     public List<NoteBean> getNotesListByReceiver (int userId);
+    public void saveNote(NoteBean noteBean);
 }
