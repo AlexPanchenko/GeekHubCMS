@@ -1,12 +1,8 @@
 package org.geekhub.hibernate.bean;
 
-import org.geekhub.hibernate.dao.QuestionDao;
-import org.geekhub.hibernate.entity.Answer;
 import org.geekhub.hibernate.entity.Question;
-import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.entity.UserAnswers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestResWrapper {
@@ -64,5 +60,4 @@ public class TestResWrapper {
     public void setQuestion(Question question) {
         this.question = question;
     }
-
 }
