@@ -11,4 +11,5 @@ import java.util.List;
 public interface TestTypeDao extends BaseDao {
     public List<TestType> getList();
     public List<TestType> getListByCource(Course course);
+    public boolean isRemovable(TestType testType);
 }

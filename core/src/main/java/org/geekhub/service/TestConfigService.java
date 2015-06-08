@@ -26,4 +26,5 @@ public interface TestConfigService {
     TestConfig getTestConfigByCource(Course course);
     public List<TestConfig> getAll();
     public void updateByParams(int id, String title, int questionCount, Date dateStart, Date dateFinish, int timeToTest, TestStatus status, TestType testType);
+    public boolean isRemovable(TestConfig testConfig);
 }

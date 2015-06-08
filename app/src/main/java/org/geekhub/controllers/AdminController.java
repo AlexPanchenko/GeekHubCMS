@@ -234,12 +234,16 @@ public class AdminController {
     @RequestMapping(value = "/course-remove/{courseId}", method = RequestMethod.GET)
     public String createCourse(@PathVariable("courseId") Integer courseId) throws Exception {
 
-        try {
-            courseService.deleteCourse(courseId);
-        } catch (Exception ex) {
-            throw new Exception(ex);
+        if (courseService.isRemovable((Course) courseService.getCourseById(courseId))) {
+            try {
+                courseService.deleteCourse(courseId);
+            } catch (Exception ex) {
+                throw new Exception(ex);
+            }
+            return "redirect:/admin/course/list";
+        } else {
+            return "warning/canNotDeleteCourse";
         }
-        return "redirect:/admin/course/list";
     }
 
 
@@ -779,8 +783,13 @@ public class AdminController {
     @RequestMapping(value = "/testType/delete/{id}", method = RequestMethod.GET)
     public String testTypeDelete(ModelMap model,
                                  @PathVariable("id") int id) {
-        testTypeService.deleteById(id);
-        return "redirect:/admin/testType";
+        //if(testTypeService.getTestTypeById(id).getTestConfigList().)
+        if (testTypeService.isRemovable(testTypeService.getTestTypeById(id))) {
+            testTypeService.deleteById(id);
+            return "redirect:/admin/testType";
+        } else {
+            return "warning/canNotDeleteTestType";
+        }
     }
 
     @RequestMapping(value = "/testType/change/{id}", method = RequestMethod.GET)
@@ -845,19 +854,29 @@ public class AdminController {
     @RequestMapping(value = "/testConfig/delete/{id}", method = RequestMethod.GET)
     public String testConfigDelete(Map<String, Object> model,
                                    @PathVariable("id") int id) {
-        testConfigService.deleteById(id);
-        return "redirect:/admin/testConfig";
+        //if(testAssignmentService.getTestAssignmentListByTestConfig(testConfigService.getTestConfigByID(id)) != null)
+        if (testConfigService.isRemovable(testConfigService.getTestConfigByID(id))) {
+            testConfigService.deleteById(id);
+            return "redirect:/admin/testConfig";
+        } else {
+            return "warning/canNotDeleteTestConfig";
+        }
+
     }
 
 
     @RequestMapping(value = "/calculateNewCount", method = RequestMethod.POST)
-    public @ResponseBody String calculateNew(@RequestParam("testAsId") int testAsId,@RequestParam("score") String score) {
+    public
+    @ResponseBody
+    String calculateNew(@RequestParam("testAsId") int testAsId, @RequestParam("score") String score) {
         TestAssignment testAssignment = testAssignmentService.updateTestAssignmentCount(testAsId, Integer.parseInt(score));
         return "Success";
     }
 
     @RequestMapping(value = "/calculateTrueAnswer", method = RequestMethod.POST)
-    public @ResponseBody String calculateTrueAnswer(@RequestParam("userResultsId") int usResId) {
+    public
+    @ResponseBody
+    String calculateTrueAnswer(@RequestParam("userResultsId") int usResId) {
         userResultsService.setAnswerStatus(usResId);
         return "AnswerIsTrue";
     }
@@ -940,8 +959,14 @@ public class AdminController {
     public String assignTestByCourseSave(Map<String, Object> model,
                                          @PathVariable("testConfigId") int testConfigId,
                                          @PathVariable("userId") int userId) {
-        testAssignmentService.deleteTestAssignByUserAndTestConfig(userService.getUserById(userId), testConfigService.getTestConfigByID(testConfigId));
-        return "redirect:/admin/assignTest/" + testConfigId;
+        //if (testAssignmentService.isRemovable(testAssignmentService))
+        if (testAssignmentService.deleteTestAssignByUserAndTestConfig(userService.getUserById(userId), testConfigService.getTestConfigByID(testConfigId))) {
+            return "redirect:/admin/assignTest/" + testConfigId;
+        } else {
+            return "warning/canNotDeleteTestAssignment";
+        }
+        //testAssignmentService.deleteTestAssignByUserAndTestConfig(userService.getUserById(userId), testConfigService.getTestConfigByID(testConfigId));
+        //return "redirect:/admin/assignTest/" + testConfigId;
     }
 
     @RequestMapping(value = "/schedulers", method = RequestMethod.GET)
@@ -968,7 +993,7 @@ public class AdminController {
                                    @RequestParam("name") String name) {
         for (AbstractScheduler scheduler : schedulers) {
             if (scheduler.getProcessTerminal().getClassName().equals(name)) {
-               scheduler.getProcessTerminal().setSchedulingOn(true);
+                scheduler.getProcessTerminal().setSchedulingOn(true);
                 break;
             }
         }

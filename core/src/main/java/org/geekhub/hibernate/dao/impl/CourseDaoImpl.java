@@ -2,6 +2,7 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.CourseDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,14 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
     @Override
     public Course getCourseByName(String name) {
         return (Course)sessionFactory.getCurrentSession().createCriteria(Course.class).add(Restrictions.eq("name", name)).uniqueResult();
+    }
+
+    @Override
+    public boolean isRemovable(Course course) {
+         return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class)
+                 .createAlias("testConfig", "tC")
+                 .createAlias("tC.testType", "tT")
+                 .createAlias("tT.course", "currentCourse")
+                .add(Restrictions.eq("currentCourse.id", course.getId())).list().isEmpty();
     }
 }

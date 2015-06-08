@@ -1,6 +1,5 @@
 package org.geekhub.service.impl;
 
-import com.sun.org.apache.bcel.internal.generic.I2F;
 import org.geekhub.hibernate.bean.TestAssignmentBean;
 import org.geekhub.hibernate.dao.TestAssignmentDao;
 import org.geekhub.hibernate.dao.TestConfigDao;
@@ -10,7 +9,6 @@ import org.geekhub.service.TestAssignmentService;
 import org.geekhub.service.UserResultsService;
 import org.geekhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -169,8 +167,14 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     }
 
     @Override
-    public void deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig) {
-        testAssignmentDao.delete(testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user));
+    public boolean deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig) {
+        TestAssignment testAssignment = testAssignmentDao.getTestAssignmentByTestConfigAndUser(testConfig, user);
+        if(isRemovable(testAssignment)) {
+            testAssignmentDao.delete(testAssignment);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -214,4 +218,11 @@ public class TestAssignmentServiceImpl implements TestAssignmentService {
     public List<TestAssignment> getOverdueTestAssignmentList() {
         return testAssignmentDao.getOverdueTestAssignmentList();
     }
+
+    @Override
+    public boolean isRemovable(TestAssignment testAssignment) {
+        return testAssignment.getTestStatusAssignment().equals(TestStatusAssignment.NOT_YET_PASSING);
+    }
+
+
 }

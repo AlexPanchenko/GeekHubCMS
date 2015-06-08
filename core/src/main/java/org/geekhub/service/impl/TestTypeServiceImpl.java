@@ -75,4 +75,9 @@ public class TestTypeServiceImpl implements TestTypeService {
         testType.setCourse((Course) courseDao.read(courseId, Course.class));
 
     }
+
+    @Override
+    public boolean isRemovable(TestType testType) {
+        return testTypeDao.isRemovable(testType);
+    }
 }

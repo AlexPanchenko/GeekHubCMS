@@ -176,4 +176,8 @@ public class TestConfigServiceImpl implements TestConfigService {
         testConfigDao.update(testConfig);
     }
 
+    @Override
+    public boolean isRemovable(TestConfig testConfig) {
+        return testConfigDao.isRemovable(testConfig);
+    }
 }

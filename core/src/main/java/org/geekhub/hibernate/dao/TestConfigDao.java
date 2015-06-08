@@ -9,6 +9,7 @@ import java.util.List;
 public interface TestConfigDao extends BaseDao {
     TestConfig getTestConfigByCourse(Course course);
     public List<TestConfig> getAll();
+    public boolean isRemovable(TestConfig testConfig);
 
 
 }

@@ -12,4 +12,5 @@ public interface CourseDao extends BaseDao {
     void updateCourse(Course course);
     void deleteCourseById(int courseId);
     public Course getCourseByName(String name);
+    public boolean isRemovable(Course course);
 }

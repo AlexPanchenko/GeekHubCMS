@@ -2,6 +2,7 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.TestConfig;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -25,5 +26,10 @@ public class TestConfigDaoImpl extends BaseDaoImpl implements TestConfigDao {
     @Override
     public List<TestConfig> getAll() {
         return (List<TestConfig>) sessionFactory.getCurrentSession().createCriteria(TestConfig.class).list();
+    }
+
+    @Override
+    public boolean isRemovable(TestConfig testConfig) {
+        return sessionFactory.getCurrentSession().createCriteria(TestAssignment.class).add(Restrictions.eq("testConfig", testConfig)).list().isEmpty();
     }
 }

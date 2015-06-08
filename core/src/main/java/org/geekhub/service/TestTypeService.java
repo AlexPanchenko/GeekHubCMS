@@ -1,6 +1,5 @@
 package org.geekhub.service;
 
-import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.TestType;
 
 import java.util.List;
@@ -18,5 +17,6 @@ public interface TestTypeService {
     public void deleteById(int id);
     public TestType getTestTypeById(int id);
     public void changeTestType(int id, String name, int courseId);
+    public boolean isRemovable(TestType testType);
 
 }

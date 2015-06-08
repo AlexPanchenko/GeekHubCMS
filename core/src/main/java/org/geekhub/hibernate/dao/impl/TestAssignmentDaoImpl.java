@@ -71,4 +71,5 @@ public class TestAssignmentDaoImpl extends BaseDaoImpl implements TestAssignment
                 .add(Restrictions.not(Restrictions.eq("testStatusAssignment", TestStatusAssignment.OVERDUE)))
                 .add(Restrictions.lt("dateFinish", new Date())).list();
     }
+
 }

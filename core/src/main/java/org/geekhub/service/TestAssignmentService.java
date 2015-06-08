@@ -28,11 +28,12 @@ public interface TestAssignmentService {
     TestAssignment getTestAssignmentBeanByTestConfigAdnUser(int testConfigId);
     public void createTestAssignment(User user, TestConfig testConfig);
     public void assignTestByUserListId(List<Integer> listId, TestConfig testConfig);
-    public void deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig);
+    public boolean deleteTestAssignByUserAndTestConfig(User user, TestConfig testConfig);
     public TestAssignment getTestAssignmentById(int id);
     public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
     public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig);
     public void delete(TestAssignment testAssignment);
     public List<TestAssignment> getAll();
     public List<TestAssignment> getOverdueTestAssignmentList();
+    public boolean isRemovable(TestAssignment testAssignment);
 }

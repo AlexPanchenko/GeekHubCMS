@@ -12,11 +12,19 @@ import java.util.List;
  */
 public interface TestAssignmentDao extends BaseDao {
     public TestAssignment getTestAssignmentByUserId(int userId);
+
     List<TestAssignment> getTestAssignmentByUserAndCourse(Course course, User user);
+
     List<TestAssignment> getTestAssignmentByCourse(int courseId);
+
     TestAssignment getTestAssignmentByTestConfigAndUser(TestConfig testConfig, User user);
+
     public List<TestAssignment> getAvailableTestAssignmentByUser(User user);
+
     public List<TestAssignment> getTestAssignmentListByTestConfig(TestConfig testConfig);
+
     public List<TestAssignment> getAll();
+
     public List<TestAssignment> getOverdueTestAssignmentList();
+
 }

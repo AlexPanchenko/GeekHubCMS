@@ -6,7 +6,6 @@ import org.geekhub.hibernate.bean.TestConfigBeen;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.BaseEntity;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 
@@ -44,5 +43,5 @@ public interface CourseService {
     public List<UserBean> getUsersByCourse(int courseId);
 
     public BaseEntity getCourseById(int id);
-
+    public boolean isRemovable(Course course);
 }

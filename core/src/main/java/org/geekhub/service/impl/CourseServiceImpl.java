@@ -230,6 +230,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean isRemovable(Course course) {
+        return courseDao.isRemovable(course);
+    }
+
+    @Override
     public List<CourseBean> getCourseBeenByUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         org.geekhub.hibernate.entity.User user = userDao.loadUserByUsername(principal.getUsername());

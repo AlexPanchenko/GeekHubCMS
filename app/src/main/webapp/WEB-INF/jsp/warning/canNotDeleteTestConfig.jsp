@@ -14,7 +14,7 @@
 <div class="endTesting">
     <h1 class="alert-warning">You can not delete Test Config</h1>
 
-    <h2 class="alert-warning">Course : Test for this Test Config passed</h2>
+    <h2 class="alert-warning">Reason : User registered on test for this Test Config</h2>
 
     <p class="text"><a href="/admin">Admin Panel</a></p>
 </div>
