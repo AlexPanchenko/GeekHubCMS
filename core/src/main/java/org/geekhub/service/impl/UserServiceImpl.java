@@ -6,6 +6,7 @@ import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.CourseDao;
+import org.geekhub.hibernate.dao.NoteDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.*;
@@ -41,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BeanService beanService;
+
+    @Autowired
+    private NoteDao noteDao;
 
 
     public User getUserById(int userId) {
@@ -277,4 +281,18 @@ public class UserServiceImpl implements UserService {
         }
         return userWrapperList;
     }
+
+    @Override
+    public List<Note> getNotesListBySender(int userId) {
+        List<Note> senderNotesList = noteDao.getNotesListBySender(userId);
+        return senderNotesList;
+    }
+
+    @Override
+    public List<Note> getNotesListByReceiver(int userId) {
+        List<Note> receiverNotesList = noteDao.getNotesListByReceiver(userId);
+        return receiverNotesList;
+    }
+
+
 }
