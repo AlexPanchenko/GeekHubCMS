@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface UserService  {
     public UserBean getUserBeanById(int userId);
-    public void removeUserById(int userId);
+    public boolean removeUserById(int userId);
     public void saveUser(UserBean userBean);
     public void updateUserByUserBean(UserBean userBean);
     public UserBean getUserBeanByEmail(String email);
@@ -33,4 +33,5 @@ public interface UserService  {
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
     public Page<UserWrapper> getPageUserByCourse(Course course, int page, int recordsPerPage, TestConfig testConfig);
     public List<UserWrapper> convertToUserWrapperListByTestConfig(List<User> list, TestConfig testConfig);
+    public boolean isRemovable(User user);
 }

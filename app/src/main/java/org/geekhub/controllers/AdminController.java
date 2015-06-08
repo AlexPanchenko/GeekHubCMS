@@ -133,10 +133,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
-    public ModelAndView removeUser(@PathVariable("userId") Integer userId, ModelMap model) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
-        userService.removeUserById(userId);
-        return modelAndView;
+    public String removeUser(@PathVariable("userId") Integer userId, ModelMap model) {
+        //ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
+        ModelAndView modelAndView = new ModelAndView();
+        if(userService.removeUserById(userId)) {
+            return "redirect:/admin/users";
+        } else {
+            return "warning/canNotDeleteUser";
+        }
     }
 
     @RequestMapping(value = "/adminPage", method = RequestMethod.GET)

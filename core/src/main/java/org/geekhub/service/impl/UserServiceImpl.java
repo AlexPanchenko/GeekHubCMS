@@ -63,8 +63,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUserById(int userId) {
-        userDao.delete(userDao.getUserById(userId));
+    public boolean removeUserById(int userId) {
+        User user = userDao.getUserById(userId);
+        if (isRemovable(user)){
+            userDao.delete(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -327,5 +333,10 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("List 2 = "+ userWrapperList);
         return userWrapperList;
+    }
+
+    @Override
+    public boolean isRemovable(User user) {
+        return user.getTestAssignments().isEmpty();
     }
 }
