@@ -32,13 +32,14 @@
                     <h3>Select Test config</h3>
                     <ul>
                         <%--<c:forEach items="${courseList}" var="course">--%>
-                            <%--<li><a class="titleSelect" href="/admin/assignTest/${course.id}">${course.name}</a></li>--%>
+                        <%--<li><a class="titleSelect" href="/admin/assignTest/${course.id}">${course.name}</a></li>--%>
                         <%--</c:forEach>--%>
                         <c:forEach items="${testConfigList}" var="testConfig">
-                        <li><a class="titleSelect" href="/admin/assignTest/${testConfig.id}">(${testConfig.testType.course.name}
+                            <li><a class="titleSelect"
+                                   href="/admin/assignTest/${testConfig.id}">(${testConfig.testType.course.name}
                                 | ${testConfig.testType.name})
                                     ${testConfig.title}
-                        </a></li>
+                            </a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -57,14 +58,14 @@
                                 ${currentTestConfig.title}</h3>
 
                         <%--<div class="form-group">--%>
-                            <%--<select class="selectpicker selectpicker" id="testType" name="testConfigId">--%>
-                                <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
-                                    <%--<option value="${testConfig.id}">(${testConfig.testType.course.name}--%>
-                                        <%--| ${testConfig.testType.name})--%>
-                                            <%--${testConfig.title}--%>
-                                    <%--</option>--%>
-                                <%--</c:forEach>--%>
-                            <%--</select>--%>
+                        <%--<select class="selectpicker selectpicker" id="testType" name="testConfigId">--%>
+                        <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
+                        <%--<option value="${testConfig.id}">(${testConfig.testType.course.name}--%>
+                        <%--| ${testConfig.testType.name})--%>
+                        <%--${testConfig.title}--%>
+                        <%--</option>--%>
+                        <%--</c:forEach>--%>
+                        <%--</select>--%>
                         <%--</div>--%>
 
                         <table class="table text-black">
@@ -88,9 +89,11 @@
                                                 <div class="col-sm-12">
                                                     <div class="checkbox">
                                                         <label style="font-size: 1.0em">
-                                                            <input type="checkbox" value="${userWrapper.user.id}" name="userId" checked disabled>
-                                                            <a href="/admin/assignTest/delete/${currentTestConfig.id}/${userWrapper.user.id}"> <i
-                                                                    class="fa fa-times"></i></a>
+                                                            <input type="checkbox" value="${userWrapper.user.id}"
+                                                                   name="userId" checked disabled>
+                                                            <a href="/admin/assignTest/delete/${currentTestConfig.id}/${userWrapper.user.id}">
+                                                                <i
+                                                                        class="fa fa-times"></i></a>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -99,7 +102,8 @@
                                                 <div class="col-sm-12">
                                                     <div class="checkbox">
                                                         <label style="font-size: 1.0em">
-                                                            <input type="checkbox" value="${userWrapper.user.id}" name="userId">
+                                                            <input type="checkbox" value="${userWrapper.user.id}"
+                                                                   name="userId">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -111,7 +115,7 @@
                                 </tr>
                             </c:forEach>
                         </table>
-                        <button id="select-all">Select all</button>
+                        <button id="select-all" class="btn btn-primary btn-lg">Select all</button>
                         <button type="submit" class="btn btn-primary btn-lg">Save</button>
 
                         <div align="center">
@@ -122,5 +126,7 @@
         </div>
     </div>
 </div>
+
+<script src="<c:url value="/resources/js/adminpanel/testAssign.js"/> " type="text/javascript"></script>
 </body>
 </html>
