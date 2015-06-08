@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -619,15 +620,16 @@ public class AdminController {
    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
     public String createFeedback(@PathVariable("userid") int userid,
                                  Principal principal,
-                                 @RequestParam("feedback") String feedback) {
-        NoteBean noteBean = new NoteBean(        );
+                                 @RequestParam("feedback") String feedback,
+                                 HttpServletResponse response) {
+        NoteBean noteBean = new NoteBean();
         noteBean.setNoteText(feedback);
         noteBean.setReceiver(userService.getUserById(userid));
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
         noteBean.setSender(userService.getUserById(userBean.getId()));
         noteBean.setDate(new Date());
         userService.saveNote(noteBean);
-        return "redirect:/admin/users/" + userid + "/edit";
+        return response.getWriter("Œ ");
     }
 
     /*classRoom controllers*/
