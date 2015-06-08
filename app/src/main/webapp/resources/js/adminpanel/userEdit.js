@@ -26,15 +26,17 @@ $("#sendFeedback").on("submit", function (event) {
             },
             dataType: "html",
             success: function (data, status) {
-                var p = $("<p></p>").text("Feedback successfully added");
-                p.addClass("text-success");
-                $("#sendFeedback").append(p);
+                if (data = "OK") {
+                    var p = $("<p></p>").text("Feedback successfully added");
+                    p.addClass("text-success");
+                    $("#sendFeedback").append(p);
 
-                setTimeout(function () {
-                    $('#feedbackForm').modal('hide');
-                    textValue.val("");
-                    p.remove();
-                }, 1500);
+                    setTimeout(function () {
+                        $('#feedbackForm').modal('hide');
+                        textValue.val("");
+                        p.remove();
+                    }, 1500);
+                }
             }
         }
     );
