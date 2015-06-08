@@ -56,7 +56,7 @@
                         <td>${testAssignment.testConfig.dateFinish}</td>
                         <td>${testAssignment.testStatusAssignment}</td>
                         <td width="50">
-                            <a href="/student/testing/test/${testAssignment.testConfig.testType.id}"><button class="btn btn-primary">Start</button></a>
+                            <a href="/student/testing/test/${testAssignment.id}"><button class="btn btn-primary">Start</button></a>
                         </td>
                     </tr>
                 </c:forEach>

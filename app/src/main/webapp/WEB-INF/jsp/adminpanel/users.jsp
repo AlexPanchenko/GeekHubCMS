@@ -16,11 +16,6 @@
     <jsp:include page="../source.jsp"></jsp:include>
     <!-- /#wrapper -->
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
         function showNewPage(page) {
             $.ajax({
                 url: "ajax/usersShow",

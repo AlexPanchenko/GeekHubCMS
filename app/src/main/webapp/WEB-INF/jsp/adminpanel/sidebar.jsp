@@ -43,10 +43,6 @@
     </div>
 </div>
 
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
+
+<script src="<c:url value="/resources/js/sidebar.js" /> " type="text/javascript"></script>
 
