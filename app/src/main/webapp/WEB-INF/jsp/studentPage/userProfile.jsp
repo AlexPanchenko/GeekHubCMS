@@ -72,8 +72,7 @@
                                             Author: ${each.getSender().getFirstName()} ${each.getSender().getLastName()}</h3>
                                     </div>
                                     <div class="panel-body">
-                                            ${each.getNoteText()};
-
+                                            ${each.getNoteText()}
                                     </div>
                                     <div class="panel-footer">
                                         Date: ${each.getDate()}
