@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -618,10 +619,10 @@ public class AdminController {
     }
 
    @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
-    public String createFeedback(@PathVariable("userid") int userid,
+    public void createFeedback(@PathVariable("userid") int userid,
                                  Principal principal,
                                  @RequestParam("feedback") String feedback,
-                                 HttpServletResponse response) {
+                                 HttpServletResponse response) throws IOException {
         NoteBean noteBean = new NoteBean();
         noteBean.setNoteText(feedback);
         noteBean.setReceiver(userService.getUserById(userid));
@@ -629,7 +630,7 @@ public class AdminController {
         noteBean.setSender(userService.getUserById(userBean.getId()));
         noteBean.setDate(new Date());
         userService.saveNote(noteBean);
-        return response.getWriter("Œ ");
+        response.getWriter().write("OK");
     }
 
     /*classRoom controllers*/
