@@ -24,7 +24,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class AdminController extends MasterController {
 
     @Autowired
     private QuestionService questionService;
@@ -618,7 +618,7 @@ public class AdminController {
         return model;
     }
 
-   @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
+  /* @RequestMapping(value = "/createFeedback/{userid}", method = RequestMethod.GET)
     public void createFeedback(@PathVariable("userid") int userid,
                                  Principal principal,
                                  @RequestParam("feedback") String feedback,
@@ -631,7 +631,7 @@ public class AdminController {
         noteBean.setDate(new Date());
         userService.saveNote(noteBean);
         response.getWriter().write("OK");
-    }
+    }*/
 
     /*classRoom controllers*/
     @RequestMapping("/ajax/countUsers")
@@ -915,6 +915,14 @@ public class AdminController {
                                          @PathVariable("userId") int userId) {
         testAssignmentService.deleteTestAssignByUserAndTestConfig(userService.getUserById(userId), testConfigService.getTestConfigByID(testConfigId));
         return "redirect:/admin/assignTest/" + testConfigId;
+    }
+
+    @Override
+    @RequestMapping(value = "/leavenote/{userid}")
+    public void createFeedback
+            (@PathVariable("userid") int userid, Principal principal,
+             @RequestParam("feedback") String feedback, HttpServletResponse response) throws IOException {
+        super.createFeedback(userid, principal, feedback, response);
     }
 
 /*    *//*Pagination for classroom*//*

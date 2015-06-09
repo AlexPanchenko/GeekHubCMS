@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -284,29 +285,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<NoteBean> getNotesListBySender(int userId) {
-        List<Note> senderNotesList = noteDao.getNotesListBySender(userId);
-        List<NoteBean> senderNotesBeansList = new ArrayList<>();
-        for(Note each : senderNotesList) {
-            NoteBean noteBean = new NoteBean();
-            noteBean = beanService.toNoteBean(each);
-            senderNotesBeansList.add(noteBean);
-        }
-
-        return senderNotesBeansList;
+    public List<NoteBean> getNotesListBySender(User user) {
+        List<Note> senderNotesList = noteDao.getNotesListBySender(user);
+        return senderNotesList.stream().map(note -> beanService.toNoteBean(note)).collect(Collectors.toList());
     }
 
     @Override
-    public List<NoteBean> getNotesListByReceiver(int userId) {
-        List<Note> receiverNotesList = noteDao.getNotesListByReceiver(userId);
-        List<NoteBean> receiverNotesBeansList = new ArrayList<>();
-        for(Note each : receiverNotesList) {
-            NoteBean noteBean = new NoteBean();
-            noteBean = beanService.toNoteBean(each);
-            receiverNotesBeansList.add(noteBean);
-        }
-
-        return receiverNotesBeansList;
+    public List<NoteBean> getNotesListByReceiver(User user) {
+        List<Note> receiverNotesList = noteDao.getNotesListByReceiver(user);
+        return receiverNotesList.stream().map(note -> beanService.toNoteBean(note)).collect(Collectors.toList());
     }
 
     @Override

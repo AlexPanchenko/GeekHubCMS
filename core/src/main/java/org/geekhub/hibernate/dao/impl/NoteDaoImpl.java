@@ -17,17 +17,13 @@ public class NoteDaoImpl extends BaseDaoImpl implements NoteDao {
 
     @Override
 
-    public List<Note> getNotesListBySender(int userId) {
-        User user = new User();
-        user.setId(userId);
+    public List<Note> getNotesListBySender(User user) {
         List<Note> notesListBySender = (List<Note>) sessionFactory.getCurrentSession().createCriteria(Note.class).add(Restrictions.eq("sender", user)).list();
         return notesListBySender;
     }
 
     @Override
-    public List<Note> getNotesListByReceiver(int userId) {
-        User user = new User();
-        user.setId(userId);
+    public List<Note> getNotesListByReceiver(User user) {
         List<Note> notesListByReceiver = (List <Note>) sessionFactory.getCurrentSession().createCriteria(Note.class).add(Restrictions.eq("receiver", user)).list();
         return  notesListByReceiver;
     }

@@ -189,7 +189,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Write FeedBack</h4>
             </div>
-            <form action="/admin/createFeedback/${user.id}" id="sendFeedback" method="get">
+            <form action="/admin/leavenote/${user.id}" id="sendFeedback" method="get">
                 <div class="modal-body">
                     <textarea type="text" cols="68" rows="5" name="feedback"></textarea>
                 </div>

@@ -7,6 +7,7 @@ import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
 import org.geekhub.service.UserService;
@@ -40,11 +41,14 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BeanService beanService;
+
     @RequestMapping(value ="/userProfile", method = RequestMethod.GET)
     public ModelAndView userProfile(Principal principal){
         ModelAndView model = new ModelAndView("studentPage/userProfile");
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
-        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(userBean.getId());
+        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(beanService.toUserEntity(userBean));
         model.addObject("user", userBean);
         model.addObject("notesAboutUser", notesAboutUser);
         return model;

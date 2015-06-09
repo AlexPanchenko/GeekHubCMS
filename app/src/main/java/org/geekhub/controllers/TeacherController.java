@@ -22,6 +22,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
@@ -33,7 +35,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/teacher")
-public class TeacherController {
+public class TeacherController extends MasterController {
 
     @Autowired
     CourseService courseService;
@@ -153,6 +155,13 @@ public class TeacherController {
         return "teacherPage/students";
     }
 
-    //@RequestMapping(value = )
+    @Override
+    @RequestMapping(value = "/leavenote/{userid}")
+    public void createFeedback(
+            @PathVariable("userid") int userid, Principal principal,
+            @RequestParam("feedback") String feedback, HttpServletResponse response) throws IOException {
+        super.createFeedback(userid, principal, feedback, response);
+    }
+//@RequestMapping(value = )
 
 }

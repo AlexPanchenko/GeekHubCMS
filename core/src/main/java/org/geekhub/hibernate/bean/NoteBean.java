@@ -14,7 +14,7 @@ public class NoteBean {
 
     private String noteText;
 
-    private Date registrationDate;
+    private Date date;
 
     public NoteBean () {
 
@@ -44,19 +44,19 @@ public class NoteBean {
         this.receiver = receiver;
     }
 
-    public Date getDate() {
-        return registrationDate;
-    }
-
-    public void setDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
     public String getNoteText() {
         return noteText;
     }
 
     public void setNoteText(String noteText) {
         this.noteText = noteText;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

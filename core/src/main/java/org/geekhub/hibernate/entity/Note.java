@@ -27,7 +27,7 @@ public class Note extends BaseEntity implements Serializable {
 
 
     @Column(name = "DATE")
-    private Date registrationDate;
+    private Date date;
 
     public int getId() {
         return id;
@@ -62,10 +62,10 @@ public class Note extends BaseEntity implements Serializable {
     }
 
     public Date getDate() {
-        return registrationDate;
+        return date;
     }
 
-    public void setDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

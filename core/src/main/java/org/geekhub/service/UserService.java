@@ -32,7 +32,7 @@ public interface UserService  {
     public List<User> getAllUsersByCourse(Course course);
     public User getLogInUser();
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
-    public List<NoteBean> getNotesListBySender (int userId);
-    public List<NoteBean> getNotesListByReceiver (int userId);
+    public List<NoteBean> getNotesListBySender (User user);
+    public List<NoteBean> getNotesListByReceiver (User user);
     public void saveNote(NoteBean noteBean);
 }
