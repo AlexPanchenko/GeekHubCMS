@@ -12,13 +12,13 @@
             <span class="sr-only">Toggle navigation</span>
 
         </button>
-        <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle"style="margin-top:-5px"></i>
+        <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle" style="margin-top:-5px"></i>
     </div>
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
         <li>
-        <a href="#"><i class="fa"></i>${username}</a>
+            <a href="#"><i class="fa"></i>${username}</a>
         </li>
         <!-- /.dropdown -->
         <li class="dropdown">
@@ -34,7 +34,8 @@
                     </li>
                 </ul>
             </security:authorize>
-            <security:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">
+            <security:authorize
+                    access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="/registration"><i class="fa fa-gear fa-fw"></i>Register</a>
                     </li>
@@ -49,37 +50,37 @@
     </ul>
 </nav>
 
-    <!-- /.navbar-top-links -->
+<!-- /.navbar-top-links -->
 <div id="wrapper">
     <!-- /.navbar-static-side -->
-<div id="sidebar-wrapper">
-    <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav navbar-collapse">
-            <ul class="nav" id="side-menu">
-                <li>
-                    <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
-                </li>
-                <li>
-                    <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
-                </li>
-                <li>
-                    <a href="/admin/questions"><i class="fa fa-table fa-fw"></i>Base questions</a>
-                </li>
-                <li>
-                    <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
-                </li>
-            </ul>
+    <div id="sidebar-wrapper">
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/admin/users"><i class="fa fa-table fa-fw"></i> Users</a>
+                    </li>
+                    <li>
+                        <a href="/admin/course/list"><i class="fa fa-table fa-fw"></i> Courses</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> ClassRoom</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> Tests</a>
+                    </li>
+                    <li>
+                        <a href="/admin/questions"><i class="fa fa-table fa-fw"></i>Base questions</a>
+                    </li>
+                    <li>
+                        <a href="/admin/userTestResult"><i class="fa fa-table fa-fw"></i> User test result</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- /.sidebar-collapse -->
+
         </div>
-
-        <!-- /.sidebar-collapse -->
-
- </div>
-    <!-- /.navbar-static-side -->
+        <!-- /.navbar-static-side -->
+    </div>
 </div>
-

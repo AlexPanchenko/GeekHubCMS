@@ -10,10 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
-  <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
-  <script src="<c:url value='/resources/js/jquery-2.1.4.min.js'/>" type="text/javascript"></script>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,42 +17,6 @@
   <meta name="author" content="">
 
   <jsp:include page="../source.jsp"></jsp:include>
-  <script>
-    function showUsers(course){
-      $.ajax({
-        url:"/admin/ajax/usersOnCourse",
-        type:"post",
-        data:{course:course},
-        success:function(data) {
-          $("#users").html(data);
-        }
-      });
-    };
-    function saveEdits(){
-      var users = $('.inlineCheckbox1:checked');
-      var idUsers = [];
-      for (var i=0; i<users.length;i++)
-        idUsers.push(users[i].value);
-      var course = $('#course').val();
-      var teacher = $('#teacher').val();
-      var classId = ${classroom.id};
-      var className = $('#ClassroomName').val();
-      var classDescription = $('#ClassroomDescription').val();
-      if(course!=""&&className!=""&&classDescription!="")
-        $.ajax({
-          url:"/admin/classroom/edit",
-          type:"post",
-          data:{usersId:idUsers,courseId:course,teacherId:teacher,className:className,classDescription:classDescription,classId:classId},
-          success:function(data) {
-            window.location = data;
-          }
-        });
-      else
-        $("#error-message").html("Fill in all required fields!");
-    };
-
-
-  </script>
 
 </head>
 <body>
@@ -93,5 +53,10 @@
 </div>
 
 
+<script>
+  var classId = ${classroom.id};
+</script>
+
+<script src="<c:url value='/resources/js/adminpanel/classroom-edit.js'/>" type="text/javascript"></script>
 </body>
 </html>

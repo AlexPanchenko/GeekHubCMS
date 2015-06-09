@@ -15,17 +15,17 @@
     <title>TeacherPanel</title>
 
     <link href="<c:url value='/resources/css/metisMenu.min.css'/>" rel="stylesheet"/>
-    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/sb-admin-2.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/css.css'/>" rel="stylesheet">
 
-    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/vendors/bootstrap/dist/js/bootstrap.min.js"/>"
+            type="text/javascript"></script>
     <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/userTestResultScript.js'/>" type="text/javascript"></script>
 
 </head>
 <body>
@@ -124,5 +124,6 @@
         </div>
     </c:if>
 </div>
+<script src="<c:url value='/resources/js/userTestResultScript.js'/>" type="text/javascript"></script>
 </body>
 </html>

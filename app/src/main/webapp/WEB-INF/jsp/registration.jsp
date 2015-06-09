@@ -5,47 +5,55 @@
 <head>
     <title>Registration</title>
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/vendors/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
 
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    <script src="<c:url value="http://code.jquery.com/jquery-1.11.3.min.js" />"></script>
+    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js" />"></script>
+    <script src="<c:url value="/resources/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/vendors/jquery-validation/dist/jquery.validate.min.js" />"></script>
 </head>
 <body>
 <h1>Registration</h1>
 
-<form class="login-form well" action="/registration" method="post">
+<form id="registration-form" class="login-form well" action="/registration" method="post">
 
     <div class="form-group">
         <span class="must">*</span><label for="email">Email address</label>
-        <input type="email" maxlength="39" class="form-control js-email" id="email" name="email" placeholder="Enter email">
+        <input type="email" maxlength="39" class="form-control" id="email"
+               name="email" placeholder="Enter email">
     </div>
     <div class="form-group ">
         <span class="must">*</span><label for="firstName">First Name</label>
-        <input type="text" maxlength="24" class="form-control js-name" id="firstName" name="firstName" placeholder="Enter your first name">
+        <input type="text" maxlength="24 " class="form-control" id="firstName" name="firstName"
+               placeholder="Enter your first name">
     </div>
     <div class="form-group">
         <span class="must">*</span><label for="lastName">Last Name</label>
-        <input type="text" maxlength="24" class="form-control js-name" id="lastName" name="lastName" placeholder="Enter your last name">
+        <input type="text" maxlength="24" class="form-control" id="lastName" name="lastName"
+               placeholder="Enter your last name" >
     </div>
 
     <div class="form-group">
         <span class="must">*</span><label for="password">Password</label>
-        <input type="password" maxlength="50" class="form-control js-pass" id="password" name="password" placeholder="Password">
+        <input type="password" maxlength="50" class="form-control" id="password" name="password"
+               placeholder="Password" >
     </div>
     <div class="form-group ">
         <span class="must">*</span><label for="password">Confirm password</label>
-        <input type="password" maxlength="50" class="form-control js-confirm-pass" id="confirmPassword"  name="confirmPassword"
-               placeholder="Repeat your password">
+        <input type="password" maxlength="50" class="form-control" id="confirmPassword"
+               name="confirmPassword"
+               placeholder="Repeat your password" >
     </div>
 
     <div class="form-group ">
         <label for="phoneNumber">Phone</label>
-        <input type="text" maxlength="29" class="form-control js-phone" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone">
+        <input type="text" maxlength="29" class="form-control" id="phoneNumber" name="phoneNumber"
+               placeholder="Enter your phone">
     </div>
     <div class="form-group ">
         <label for="skype">Skype</label>
-        <input type="text" maxlength="39" class="form-control js-skype" id="skype"  name="skype" placeholder="Enter your skype">
+        <input type="text" maxlength="39" class="form-control" id="skype" name="skype"
+               placeholder="Enter your skype">
     </div>
     <div class="form-group ">
         <label for="birthday">Birthday</label>
@@ -56,7 +64,8 @@
 
 </form>
 <%--<script src="/resources/js/forms.js"></script>--%>
-<script src="/resources/js/sign-in.js"></script>
+<%--<script src="/resources/js/sign-in.js"></script>--%>
 
+<script src="<c:url value="/resources/js/registrationValidate.js" />"></script>
 </body>
 </html>

@@ -10,12 +10,13 @@
             <span class="sr-only">Toggle navigation</span>
 
         </button>
-        <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle"style="margin-top:-5px"></i>
+        <i class="navbar-brand fa fa-bars fa-2x" id="menu-toggle" style="margin-top:-5px"></i>
     </div>
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-        <a href="/" class="text-center" style="margin-right: 410px;"><i class="fa" style="color:blue;"></i><b>GEEKHUB HOME</b></a>
+        <a href="/" class="text-center" style="margin-right: 410px;"><i class="fa" style="color:blue;"></i><b>GEEKHUB
+            HOME</b></a>
         <security:authorize access="hasRole('ROLE_ADMIN')">
             <a href="/admin" enabled="false"><i class="fa" style="color:blue"></i>${username}</a>
         </security:authorize>
@@ -25,19 +26,19 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STUDENT') or hasRole('ROLE_TEACHER')">
-                    <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-            </security:authorize>
-            <security:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="/registration"><i class="fa fa-gear fa-fw"></i>Register</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="/auth"><i class="fa fa-sign-out fa-fw"></i> Login</a>
-                    </li>
-                </ul>
-            </security:authorize>
-            <!-- /.dropdown-user -->
+        <li><a href="<c:url value="/j_spring_security_logout"/>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
+        </security:authorize>
+        <security:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_STUDENT') and !hasRole('ROLE_TEACHER')">
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="/registration"><i class="fa fa-gear fa-fw"></i>Register</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth"><i class="fa fa-sign-out fa-fw"></i> Login</a>
+                </li>
+            </ul>
+        </security:authorize>
+        <!-- /.dropdown-user -->
         </li>
         <!-- /.dropdown -->
     </ul>

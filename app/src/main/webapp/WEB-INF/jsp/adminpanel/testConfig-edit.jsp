@@ -5,13 +5,13 @@
 
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>TestConfig edit page</title>
+    <title>TestConfig edit page</title>
 
 
     <jsp:include page="../source.jsp"></jsp:include>
@@ -27,7 +27,8 @@
                     <div class="container">
                         <h1 class="page-header">Edit test config</h1>
 
-                        <form data-toggle="validator" role="form" action="/admin/testConfig/${courseId}/${testConfigBeen.id}/edit" method="POST"
+                        <form data-toggle="validator" role="form"
+                              action="/admin/testConfig/${courseId}/${testConfigBeen.id}/edit" method="POST"
                               class="form-horizontal">
                             <fieldset>
                                 <dl class="dl-horizontal">
@@ -36,15 +37,18 @@
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="text" id="title" min="0" name="title" value="${testConfigBeen.tittle}">
+                                            <input type="text" id="title" min="0" name="title"
+                                                   value="${testConfigBeen.tittle}">
                                         </div>
                                     </dd>
                                     <dt>
-                                        <label class="pull-left control-label" for="questionCount">Question count</label>
+                                        <label class="pull-left control-label" for="questionCount">Question
+                                            count</label>
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="number" id="questionCount" min="0" name="questionCount" value="${testConfigBeen.questionCount}">
+                                            <input type="number" id="questionCount" min="0" name="questionCount"
+                                                   value="${testConfigBeen.questionCount}">
                                         </div>
                                     </dd>
 
@@ -53,7 +57,8 @@
                                     </dt>
                                     <dd>
                                         <div class="form-group col-lg-3">
-                                            <input type="date" id="dateStart" class="form-control" name="dateStart" value="${testConfigBeen.dateStartStr}">
+                                            <input type="date" id="dateStart" class="form-control" name="dateStart"
+                                                   value="${testConfigBeen.dateStartStr}">
                                         </div>
                                     </dd>
                                     <dt>
@@ -61,7 +66,8 @@
                                     </dt>
                                     <dd>
                                         <div class="form-group col-lg-3">
-                                            <input type="date" id="dateFinish" class="form-control" name="dateFinish" value="${testConfigBeen.dateFinishStr}">
+                                            <input type="date" id="dateFinish" class="form-control" name="dateFinish"
+                                                   value="${testConfigBeen.dateFinishStr}">
                                         </div>
                                     </dd>
 
@@ -71,7 +77,8 @@
                                     </dt>
                                     <dd>
                                         <div class="form-group">
-                                            <input type="number" min="0" id ="timeToTest"  name="timeToTest" value="${testConfigBeen.timeToTest}">
+                                            <input type="number" min="0" id="timeToTest" name="timeToTest"
+                                                   value="${testConfigBeen.timeToTest}">
                                         </div>
                                     </dd>
 
@@ -99,14 +106,7 @@
                 </div>
                 <!-- /.row -->
             </div>
+        </div>
     </div>
-</div>
-
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
 </body>
 </html>

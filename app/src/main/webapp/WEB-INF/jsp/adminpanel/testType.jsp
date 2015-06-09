@@ -22,6 +22,7 @@
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
         <h1>Test Types</h1>
+
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="alert alert-success text-center">
@@ -44,7 +45,8 @@
                             <td class="text-center">${testType.name}</td>
                             <td class="text-center">${testType.course.name}</td>
                             <td class="text-center">
-                                <a href="/admin/testType/change/${testType.id}"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="/admin/testType/change/${testType.id}"><i
+                                        class="fa fa-pencil-square-o"></i></a>
                                 <a href="/admin//testType/delete/${testType.id}"> <i class="fa fa-times"></i></a>
                             </td>
                         </tr>

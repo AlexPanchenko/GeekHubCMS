@@ -14,16 +14,9 @@
     <jsp:include page="../source.jsp"></jsp:include>
 </head>
 <body>
-    <jsp:include page="myNavbar.jsp"></jsp:include>
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
-    </div>
-
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
+</div>
 </body>
 </html>

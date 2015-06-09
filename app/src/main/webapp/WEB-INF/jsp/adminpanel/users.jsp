@@ -16,31 +16,26 @@
     <jsp:include page="../source.jsp"></jsp:include>
     <!-- /#wrapper -->
     <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
-        function showNewPage(page){
+        function showNewPage(page) {
             $.ajax({
-                url:"ajax/usersShow",
-                type:"post",
-                data:{page:page},
-                success:function(data) {
+                url: "ajax/usersShow",
+                type: "post",
+                data: {page: page},
+                success: function (data) {
                     $("#rows").html(data);
                 }
             });
         }
-        function countUsers(){
+        function countUsers() {
             $.ajax({
-                url:"ajax/countUsers",
-                type:"post",
-                data:'',
-                success:function(data) {
+                url: "ajax/countUsers",
+                type: "post",
+                data: '',
+                success: function (data) {
                 }
             });
         }
-        $(document).ready(function() {
+        $(document).ready(function () {
             countUsers();
             showNewPage(1);
         });
@@ -57,15 +52,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
-                    <a href="/admin/createUser" class="pull-left">Create User </a>
-                    <b>Users manage</b></h1>
-                    <table class="table text-black" >
+                        <a href="/admin/createUser" class="pull-left">Create User </a>
+                        <b>Users manage</b></h1>
+                    <table class="table text-black">
                         <div id="rows" class="col-lg-12">
                         </div>
                     </table>
                     <div class="text-center">
                         <nav>
-                            <ul id="course" class="pagination" >
+                            <ul id="course" class="pagination">
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
@@ -88,17 +83,10 @@
         </div>
         <!-- /.row -->
     </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
+    <!-- /.row -->
 </div>
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-
+<!-- /.container-fluid -->
+</div>
 
 </body>
 </html>

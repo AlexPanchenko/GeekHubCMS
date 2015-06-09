@@ -3,7 +3,7 @@
 <html>
 <head>
     <title></title>
-    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css'/>" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">

@@ -136,7 +136,8 @@
                                                                 multiple>
                                                             <c:forEach items="${courseList}" var="coursWrapper">
                                                                 <c:set var="selectCourse" value="false"/>
-                                                                <c:forEach items="${user.usersCourses}" var="userCourse">
+                                                                <c:forEach items="${user.usersCourses}"
+                                                                           var="userCourse">
                                                                     <c:if test="${coursWrapper.id eq userCourse.id}">
                                                                         <c:set var="selectCourse" value="true"/>
                                                                     </c:if>
@@ -160,10 +161,12 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class=" col-md-1 col-lg-1 col-lg-offset-3">
-                                                    <a href="#myModal" class="btn btn-success pull-right" data-toggle="modal">Send FeedBack</a>
+                                                    <a href="#feedbackForm" class="btn btn-success pull-right"
+                                                       data-toggle="modal">Send FeedBack</a>
                                                 </div>
                                                 <div class=" col-md-1 col-lg-1 col-lg-offset-1">
-                                                    <button type="submit" class="btn btn-success pull-right" >Update Data
+                                                    <button type="submit" class="btn btn-success pull-right">Update
+                                                        Data
                                                     </button>
                                                 </div>
                                             </div>
@@ -181,39 +184,30 @@
     </div>
 </div>
 
-<!-- /#wrapper -->
-<div id="myModal" class="modal fade">
+
+<div id="feedbackForm" class="modal fade">
     <div class="modal-dialog text-black">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Write FeedBack</h4>
             </div>
-            <form action="/admin/createFeedback/${user.id}" id="sendFeedback" method="get">
+            <form id="sendFeedback">
                 <div class="modal-body">
-                    <textarea type="text" cols="68" rows="5" name="feedback"></textarea>
+                    <textarea id="feedbackText"type="text" cols="68" rows="5" name="feedback" placeholder="Write feedback here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save feedback</button>
                 </div>
             </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="javascript:func()"><button type="button" class="btn btn-primary">Save feedback</button></a>
-            </div>
         </div>
     </div>
 </div>
 
-
 <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+    var userId = ${user.id};
 </script>
-<script>
-    function func(){
-        document.getElementById("sendFeedback").submit();
-    }
-</script>
+<script src="<c:url value='/resources/js/adminpanel/userEdit.js'/>" type="text/javascript"></script>
 
 </body>
 </html>
