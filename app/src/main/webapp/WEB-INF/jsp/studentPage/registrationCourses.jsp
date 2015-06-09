@@ -45,7 +45,6 @@
                                                 <div class="checkbox">
                                                     <label style="font-size: 1.0em">
                                                         <input type="checkbox" checked disabled>
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -55,7 +54,6 @@
                                                 <div class="checkbox">
                                                     <label style="font-size: 1.0em">
                                                         <input type="checkbox" name="courseId" value="${courseWrapper.course.id}">
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                     </label>
                                                 </div>
                                             </div>
