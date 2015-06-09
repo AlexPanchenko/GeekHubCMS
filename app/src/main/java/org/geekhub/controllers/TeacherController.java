@@ -1,9 +1,6 @@
 package org.geekhub.controllers;
 
-import org.geekhub.hibernate.bean.ClassRoomBean;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.Page;
-import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Question;
@@ -98,7 +95,7 @@ public class TeacherController extends MasterController {
     @RequestMapping(value ="/teacherPage", method = RequestMethod.GET)
     public ModelAndView userProfile(Principal principal){
         ModelAndView model = new ModelAndView("teacherPage/teacherProfile");
-        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        model.addObject("user", userService.getUserBeanByEmail(principal.getName()));
         return model;
     }
 
@@ -141,8 +138,11 @@ public class TeacherController extends MasterController {
     }
 
     @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String studentProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
+    public String viewUserProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
         UserBean userBean = userService.getUserBeanById(userId);
+        User user = userService.getUserById(userId);
+        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(user);
+        model.addAttribute("notesAboutUser", notesAboutUser);
         model.addAttribute("user", userBean);
         return "teacherPage/userProfile";
     }

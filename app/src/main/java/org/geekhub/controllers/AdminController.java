@@ -106,7 +106,7 @@ public class AdminController extends MasterController {
             k = pagesCount.intValue();
         for(int i = 1; i<=k; i++)
             pageNumbers.add(i);
-        mav.addObject("pageNumbers",pageNumbers);
+        mav.addObject("pageNumbers", pageNumbers);
         return mav;
     }
 
@@ -130,7 +130,7 @@ public class AdminController extends MasterController {
     @RequestMapping(value ="/adminPage", method = RequestMethod.GET)
     public ModelAndView userProfile(Principal principal){
         ModelAndView model = new ModelAndView("adminpanel/userProfile");
-        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        model.addObject("user", userService.getUserBeanByEmail(principal.getName()));
         return model;
     }
 
@@ -685,7 +685,7 @@ public class AdminController extends MasterController {
                                 @RequestParam(value = "className") String className,
                                 @RequestParam(value = "classDescription") String classDescription){
 
-        classroomService.createClassroom(usersId,courseId,teacherId,className,classDescription);
+        classroomService.createClassroom(usersId, courseId, teacherId, className, classDescription);
         return "/admin/classRoomList";
 //>>>>>>> 966e4e7125cd139192af0bba44c4cfb1b9dcdbe5
     }
@@ -737,7 +737,7 @@ public class AdminController extends MasterController {
                                         @RequestParam(value = "className") String className,
                                         @RequestParam(value = "classDescription") String classDescription,
                                         @RequestParam(value = "classId") int classroomId){
-        classroomService.updateClassroom(usersId,courseId,teacherId,className,classDescription,classroomId);
+        classroomService.updateClassroom(usersId, courseId, teacherId, className, classDescription, classroomId);
         return "/admin/classRoomList";
     }
 
@@ -923,6 +923,17 @@ public class AdminController extends MasterController {
             (@PathVariable("userid") int userid, Principal principal,
              @RequestParam("feedback") String feedback, HttpServletResponse response) throws IOException {
         super.createFeedback(userid, principal, feedback, response);
+    }
+
+    @Override
+    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
+    public String viewUserProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
+        UserBean userBean = userService.getUserBeanById(userId);
+        User user = userService.getUserById(userId);
+        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(user);
+        model.addAttribute("notesAboutUser", notesAboutUser);
+        model.addAttribute("user", userBean);
+        return "teacherPage/userProfile";
     }
 
 /*    *//*Pagination for classroom*//*
