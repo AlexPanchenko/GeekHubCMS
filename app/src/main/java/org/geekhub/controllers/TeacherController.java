@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/teacher")
-public class TeacherController extends MasterController {
+public class TeacherController {
 
     @Autowired
     CourseService courseService;
@@ -146,6 +146,23 @@ public class TeacherController extends MasterController {
         model.addAttribute("teacher", classroomService.getTeacherByClassroomId(classroomId));
         return "teacherPage/students";
     }
+
+    @RequestMapping(value = "/leavenote/{userid}")
+    public void createFeedback(@PathVariable("userid") int userid,
+                               Principal principal,
+                               @RequestParam("feedback") String feedback,
+                               HttpServletResponse response) throws IOException {
+
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        NoteBean noteBean = new NoteBean();
+        noteBean.setNoteText(feedback);
+        noteBean.setReceiver(userService.getUserById(userid));
+        noteBean.setSender(userService.getUserById(userBean.getId()));
+        noteBean.setDate(new Date());
+        userService.saveNote(noteBean);
+        response.getWriter().write("OK");
+    }
+
 
     //@RequestMapping(value = )
 

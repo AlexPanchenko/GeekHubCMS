@@ -24,7 +24,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController extends MasterController {
+public class AdminController {
 
     @Autowired
     private QuestionService questionService;
