@@ -105,3 +105,7 @@ h1 {
 #feedbackText {
     width: 570px;
 }
+
+.right-answer {
+    background-color: #5CB85C;
+}

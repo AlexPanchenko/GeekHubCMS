@@ -325,25 +325,8 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="answer-box">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">
-                                <input type="checkbox">
-                            </span>
-                            <input type="text" class="form-control" placeholder="answer"
-                                   aria-describedby="basic-addon1">
-                            <span class="input-group-addon" id="basic-addon2">
-                                <a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/edit"><i
-                                        class="fa fa-pencil-square-o"></i></a>
-
-                            </span>
-                            <span class="input-group-addon" id="basic-addon3">
-                                <a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/delete"><i
-                                        class="fa fa-times"></i></a>
-                            </span>
-                        </div>
                     </div>
-
-
+                    <button class="btn btn-success glyphicon glyphicon-plus pull-right" id="addAnswer"></button>
                 </div>
             </div>
         </div>

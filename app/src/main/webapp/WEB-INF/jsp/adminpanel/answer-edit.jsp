@@ -62,15 +62,6 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                            <%--<dt>--%>
-                                            <%--<label class="control-label pull-left">Status question</label>--%>
-                                            <%--</dt>--%>
-                                            <%--<dd>--%>
-                                            <%--<div class="form-group">--%>
-                                            <%--<input type="checkbox" id="questionStatus" name="questionStatus" value="true">--%>
-                                            <%--<input type="hidden" name="questionStatus" value="false">--%>
-                                            <%--</div>--%>
-                                            <%--</dd>--%>
                                         <dt>
                                             <label class="control-label pull-left">Your answer</label>
                                         </dt>
@@ -162,23 +153,6 @@
                                                        class="form-control pull-left" required>
                                             </div>
                                         </dd>
-                                            <%--<dt>--%>
-                                            <%--<label class="control-label pull-left">Status question</label>--%>
-                                            <%--</dt>--%>
-                                            <%--<dd>--%>
-                                            <%--<div class="form-group">--%>
-                                            <%--<c:choose>--%>
-                                            <%--<c:when test="${question.questionStatus eq true}">--%>
-                                            <%--<input type="checkbox" id="questionStatusTrue" name="questionStatus" checked>--%>
-                                            <%--<input type="hidden" name="questionStatus" value="false">--%>
-                                            <%--</c:when>--%>
-                                            <%--<c:otherwise>--%>
-                                            <%--<input type="checkbox" id="questionStatusFalse" name="questionStatus" >--%>
-                                            <%--<input type="hidden" name="questionStatus" value="false">--%>
-                                            <%--</c:otherwise>--%>
-                                            <%--</c:choose>--%>
-                                            <%--</div>--%>
-                                            <%--</dd>--%>
                                         <dt>
                                             <label class="control-label pull-left">Your answer</label>
                                         </dt>
@@ -208,8 +182,6 @@
                                         <td>${answer.answerText}</td>
                                         <td>${answer.answerRight}</td>
                                         <td class="text-center">
-                                                <%--<a href="/admin/question/${questionId}/answer/${answer.id}/edit"><i--%>
-                                                <%--class="fa fa-pencil-square-o"></i></a>--%>
                                             <a href="/admin/question/${questionId}/answer/${answer.id}/delete"><i
                                                     class="fa fa-times"></i></a>
                                         </td>
