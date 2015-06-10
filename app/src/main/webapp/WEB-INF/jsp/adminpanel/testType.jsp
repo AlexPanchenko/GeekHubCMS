@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="alert alert-success text-center">
-                    <a href="/admin/testType/create"><i class="glyphicon glyphicon-pencil pull-left"
+                    <a href="/admin/testType/create"><i class="glyphicon glyphicon-plus pull-right"
                                                         title="Create new course"></i></a>
                     <b>Test type manage</b></h1>
                 <table class="table text-black">
