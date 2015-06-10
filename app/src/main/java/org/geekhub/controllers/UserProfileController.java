@@ -30,7 +30,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/student")
-public class UserProfileController {
+public class UserProfileController extends MasterController {
 
     @Autowired
     private CourseService courseService;
@@ -45,12 +45,10 @@ public class UserProfileController {
     private BeanService beanService;
 
     @RequestMapping(value ="/userProfile", method = RequestMethod.GET)
-    public ModelAndView userProfile(Principal principal){
+    public ModelAndView viewU(Principal principal){
         ModelAndView model = new ModelAndView("studentPage/userProfile");
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
-        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(beanService.toUserEntity(userBean));
         model.addObject("user", userBean);
-        model.addObject("notesAboutUser", notesAboutUser);
         return model;
     }
 
@@ -97,30 +95,10 @@ public class UserProfileController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/users/{userId}/changepassword2", method = RequestMethod.GET)
-    public void postChangePassword(@PathVariable("userId") Integer userId, ModelMap model,
-                                   @RequestParam("oldpassword") String oldPassword,
-                                   @RequestParam("newpassword") String newPassword,
-                                   @RequestParam("confirmpassword") String confirmNewPassword,
-                                   HttpServletResponse response) throws IOException {
-
-        ModelAndView modelAndView = new ModelAndView("studentPage/changePassword");
-        UserBean userBean = userService.getUserBeanById(userId);
-        System.out.println(userBean.getPassword());
-        System.out.println(DigestUtils.md5Hex(oldPassword));
-        if (!userBean.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
-            response.getWriter().write("Wrong Password");
-            return;
-        }
-        if(!newPassword.equals(confirmNewPassword)) {
-            response.getWriter().write("Wrong data");
-            return;
-        }
-        userBean.setPassword(confirmNewPassword);
-        userService.saveUser(userBean);
-        response.sendRedirect("/student/userProfile");
+    @Override
+    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
+    public String viewUserProfile(ModelMap model, @PathVariable(value = "userId") int userId) {
+        return super.viewUserProfile(model, userId);
     }
-
-
 }
 

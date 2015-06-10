@@ -82,6 +82,24 @@
     </div>
 </div>
 
+<div class="comment-box">
+    <c:forEach var="each" items="${notesAboutUser}">
+        <div class="comment">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><a href="http://localhost:8080/teacher/profile/${each.getSender().getId()}">${each.getSender().getFirstName()} ${each.getSender().getLastName()}</a></strong>
+                    <span class="text-muted">${each.getDate()}</span>
+                </div>
+                <div class="panel-body">
+                        ${each.getNoteText()}
+                </div>
+            </div>
+        </div>
+
+    </c:forEach>
+</div>
+
+
 <script>
     var userId = ${user.id};
 </script>
