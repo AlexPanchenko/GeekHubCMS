@@ -138,7 +138,9 @@ public class TeacherController {
 
 
     @RequestMapping(value = "/students/classroom", method = RequestMethod.GET)
-    public String studentClassroom(ModelMap model,@RequestParam int classroomId, Principal principal) {
+    public String studentClassroom(ModelMap model,
+                                   @RequestParam int classroomId,
+                                   Principal principal) {
         List<UserBean> userBeans = classroomService.getUserByClassroomId(classroomId);
         model.addAttribute("users", userBeans);
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
@@ -163,6 +165,15 @@ public class TeacherController {
         response.getWriter().write("OK");
     }
 
+    @RequestMapping(value = "/showfeedbacks/{userid}")
+    public ModelAndView showFeedbacks(@PathVariable("userid") int userid,
+                               HttpServletResponse response) throws IOException {
+        ModelAndView mav = new ModelAndView("/shared/showFeedbacks.jsp");
+        User user = userService.getUserById(userid);
+        List<NoteBean> noteBeansList = userService.getNotesListByReceiver(user);
+        mav.addObject("noteBeansList",noteBeansList);
+        return mav;
+    }
 
     //@RequestMapping(value = )
 
