@@ -131,37 +131,22 @@ public class TeacherController extends MasterController {
         int courseId = userDao.getUserByEmail(principal.getName()).getClassroom().getCourseId().getId();
         List<UserBean> userBeans = courseService.getUsersByCourse(courseId);
         model.addAttribute("users", userBeans);
-
         List<ClassRoomBean> classroomBeans = classroomService.getBeansByCourseId(courseId);
         model.addAttribute("classRooms", classroomBeans);
         return "teacherPage/studentByClassroom";
     }
 
-    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String viewUserProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
-        UserBean userBean = userService.getUserBeanById(userId);
-        User user = userService.getUserById(userId);
-        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(user);
-        model.addAttribute("notesAboutUser", notesAboutUser);
-        model.addAttribute("user", userBean);
-        return "teacherPage/userProfile";
-    }
 
     @RequestMapping(value = "/students/classroom", method = RequestMethod.GET)
-    public String studentClassroom(ModelMap model,@RequestParam int classroomId) {
+    public String studentClassroom(ModelMap model,@RequestParam int classroomId, Principal principal) {
         List<UserBean> userBeans = classroomService.getUserByClassroomId(classroomId);
         model.addAttribute("users", userBeans);
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        model.addAttribute("logedUser", userBean);
         model.addAttribute("teacher", classroomService.getTeacherByClassroomId(classroomId));
         return "teacherPage/students";
     }
 
-    @Override
-    @RequestMapping(value = "/leavenote/{userid}")
-    public void createFeedback(
-            @PathVariable("userid") int userid, Principal principal,
-            @RequestParam("feedback") String feedback, HttpServletResponse response) throws IOException {
-        super.createFeedback(userid, principal, feedback, response);
-    }
-//@RequestMapping(value = )
+    //@RequestMapping(value = )
 
 }

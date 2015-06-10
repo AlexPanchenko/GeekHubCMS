@@ -95,10 +95,5 @@ public class UserProfileController extends MasterController {
         return modelAndView;
     }
 
-    @Override
-    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String viewUserProfile(ModelMap model, @PathVariable(value = "userId") int userId) {
-        return super.viewUserProfile(model, userId);
-    }
 }
 

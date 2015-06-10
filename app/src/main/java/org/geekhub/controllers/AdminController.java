@@ -642,9 +642,11 @@ public class AdminController extends MasterController {
     }
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(@RequestParam int page) {
-        ModelAndView mav = new ModelAndView("adminpanel/usersShow");
+    public ModelAndView usersOnPage(@RequestParam int page, Principal principal) {
+        ModelAndView mav = new ModelAndView("teacherPage/students");
         List<UserBean> users = userService.getUsersOnOnePage(page);
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        mav.addObject("logedUser", userBean);
         mav.addObject("users", users);
         return mav;
     }
@@ -917,24 +919,6 @@ public class AdminController extends MasterController {
         return "redirect:/admin/assignTest/" + testConfigId;
     }
 
-    @Override
-    @RequestMapping(value = "/leavenote/{userid}")
-    public void createFeedback
-            (@PathVariable("userid") int userid, Principal principal,
-             @RequestParam("feedback") String feedback, HttpServletResponse response) throws IOException {
-        super.createFeedback(userid, principal, feedback, response);
-    }
-
-    @Override
-    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String viewUserProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
-        UserBean userBean = userService.getUserBeanById(userId);
-        User user = userService.getUserById(userId);
-        List<NoteBean> notesAboutUser = userService.getNotesListByReceiver(user);
-        model.addAttribute("notesAboutUser", notesAboutUser);
-        model.addAttribute("user", userBean);
-        return "teacherPage/userProfile";
-    }
 
 /*    *//*Pagination for classroom*//*
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
