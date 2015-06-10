@@ -26,6 +26,8 @@
             <td align="center">
                 <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                 <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
+                <a href="/admin/users/${user.id}/levefeedback"><i class="fa fa-comment"></i></a>
+                <a href="/admin/users/${user.id}/vievfeedback"><i class="fa fa-eye"></i></a>
             </td>
         </tr>
     </c:forEach>

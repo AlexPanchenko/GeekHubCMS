@@ -22,6 +22,8 @@
             <th>${user.phoneNumber}</th>
             <th class="text-center">
                 <a href="/teacher/profile/${user.id}"><i class="fa fa-pencil-square-o"></i></a>
+                <a href="/admin/users/${user.id}/levefeedback"><i class="fa fa-comment"></i></a>
+                <a href="/admin/users/${user.id}/vievfeedback"><i class="fa fa-eye"></i></a>
             </th>
         </tr>
         <%--</c:if>--%>
