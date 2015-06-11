@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class BeanServiceImpl implements BeanService {
 
     @Override
-    public List<TestResWrapper> toTestResWrapper(TestAssignment testAssignment) {
-        TestResWrapper testResWrapper;
-        List<TestResWrapper> testResWrappers = new ArrayList<TestResWrapper>();
+    public List<testResWrapper> toTestResWrapper(TestAssignment testAssignment) {
+        testResWrapper testResWrapper;
+        List<org.geekhub.hibernate.bean.testResWrapper> testResWrappers = new ArrayList<org.geekhub.hibernate.bean.testResWrapper>();
 
         for (UserResults userResult: testAssignment.getUserResults()){
-            testResWrapper = new TestResWrapper();
+            testResWrapper = new testResWrapper();
             testResWrapper.setTestAssignmentId(testAssignment.getId());
             testResWrapper.setQuestion(userResult.getQuestion());
             testResWrapper.setUserAnswers(userResult.getUserAnswerses());
@@ -108,6 +108,17 @@ public class BeanServiceImpl implements BeanService {
         testConfigBeen.setTimeToTest(testConfig.getTimeToTest());
         testConfigBeen.setTittle(testConfig.getTitle());
         return null;
+    }
+
+    @Override
+    public NoteBean toNoteBean(Note note) {
+        NoteBean noteBean = new NoteBean();
+        noteBean.setId(note.getId());
+        noteBean.setReceiver(note.getReceiver());
+        noteBean.setSender(note.getSender());
+        noteBean.setNoteText(note.getNoteText());
+        noteBean.setDate(note.getDate());
+        return noteBean;
     }
 
     @Override

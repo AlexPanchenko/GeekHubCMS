@@ -2,10 +2,12 @@ package org.geekhub.service.impl;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.dao.CourseDao;
+import org.geekhub.hibernate.dao.NoteDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
 import org.geekhub.hibernate.entity.*;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -45,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BeanService beanService;
+
+    @Autowired
+    private NoteDao noteDao;
 
 
     public User getUserById(int userId) {
@@ -338,5 +344,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isRemovable(User user) {
         return user.getTestAssignments().isEmpty();
+    }
+
+    @Override
+    public List<NoteBean> getNotesListBySender(User user) {
+        List<Note> senderNotesList = noteDao.getNotesListBySender(user);
+        return senderNotesList.stream().map(note -> beanService.toNoteBean(note)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NoteBean> getNotesListByReceiver(User user) {
+        List<Note> receiverNotesList = noteDao.getNotesListByReceiver(user);
+        return receiverNotesList.stream().map(note -> beanService.toNoteBean(note)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveNote(NoteBean noteBean) {
+        Note note = new Note();
+        note.setSender(noteBean.getSender());
+        note.setReceiver(noteBean.getReceiver());
+        note.setNoteText(noteBean.getNoteText());
+        note.setDate(noteBean.getDate());
+        noteDao.create(note);
     }
 }

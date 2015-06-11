@@ -1,5 +1,6 @@
 package org.geekhub.service;
 
+import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.bean.RegistrationResponseBean;
 import org.geekhub.hibernate.bean.UserBean;
@@ -31,6 +32,9 @@ public interface UserService  {
     public List<User> getAllUsersByCourse(Course course);
     public User getLogInUser();
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig);
+    public List<NoteBean> getNotesListBySender (User user);
+    public List<NoteBean> getNotesListByReceiver (User user);
+    public void saveNote(NoteBean noteBean);
     public Page<UserWrapper> getPageUserByCourse(Course course, int page, int recordsPerPage, TestConfig testConfig);
     public List<UserWrapper> convertToUserWrapperListByTestConfig(List<User> list, TestConfig testConfig);
     public boolean isRemovable(User user);

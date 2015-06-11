@@ -1,9 +1,13 @@
 package org.geekhub.controllers;
 
+import com.sun.deploy.net.HttpResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.bean.CourseBean;
+import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
+import org.geekhub.service.BeanService;
 import org.geekhub.service.CourseService;
 import org.geekhub.service.TestConfigService;
 import org.geekhub.service.UserService;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
@@ -35,10 +41,14 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BeanService beanService;
+
     @RequestMapping(value ="/userProfile", method = RequestMethod.GET)
-    public ModelAndView userProfile(Principal principal){
+    public ModelAndView viewU(Principal principal){
         ModelAndView model = new ModelAndView("studentPage/userProfile");
-        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        model.addObject("user", userBean);
         return model;
     }
 
@@ -75,6 +85,43 @@ public class UserProfileController {
         userBean.setPhoneNumber(phone);
         userService.updateUserByUserBean(userBean);
         return "redirect:/student";
+    }
+
+    @RequestMapping(value = "/users/{userId}/changepassword", method = RequestMethod.GET)
+    public ModelAndView getChangePassword(@PathVariable("userId") int userId,
+                                          HttpServletResponse response,
+                                          Principal principal) throws IOException {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userId != userBean.getId()) {
+            response.sendRedirect("student/users/" + userBean.getId() + "/changepassword");
+        }
+        ModelAndView modelAndView = new ModelAndView("studentPage/changePassword");
+        User user = userService.getUserById(userId);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{userId}/changepasswordfromprofile", method = RequestMethod.POST)
+    public void getChangePassword(@PathVariable("userId") int userId,
+                                    @RequestParam("oldpassword") String oldPassword,
+                                    @RequestParam("newpassword") String newPassword,
+                                    @RequestParam("confirmpassword") String confirmPassword,
+                                    Principal principal,
+                                    HttpServletResponse response) throws IOException {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userId != userBean.getId()) {
+            return;
+        }
+        if (!userBean.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
+            response.getWriter().write("Error old password incorrect");
+            return;
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            response.getWriter().write("Error new password and confirm password, are different");
+            return;
+        }
+        userBean.setPassword(newPassword);
+        userService.updateUserByUserBean(userBean);
     }
 }
 

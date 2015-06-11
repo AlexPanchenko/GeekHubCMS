@@ -5,7 +5,7 @@ import org.geekhub.hibernate.entity.UserAnswers;
 
 import java.util.List;
 
-public class TestResWrapper {
+public class testResWrapper {
     private int testAssignmentId;
     private Question question;
     private List<UserAnswers> userAnswers;
