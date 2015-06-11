@@ -16,12 +16,12 @@
     <jsp:include page="../source.jsp"></jsp:include>
 
     <script>
-        function selectClassroom(data){
+        function selectClassroom(data) {
             $.ajax({
-                url:"/teacher/students/classroom",
-                type:"get",
-                data:{classroomId:data},
-                success:function(data) {
+                url: "/teacher/students/classroom",
+                type: "get",
+                data: {classroomId: data},
+                success: function (data) {
                     $("#items").html(data);
                 }
             });
@@ -42,27 +42,53 @@
 
                         <!-- /////////////////////////////////////////////////////////-->
 
-                        <select id="selectClassroom" class="dropdown-toggle" onchange="selectClassroom($('#selectClassroom').val())">
+                        <select id="selectClassroom" class="dropdown-toggle"
+                                onchange="selectClassroom($('#selectClassroom').val())">
                             <option id="0">-------</option>
                             <c:forEach items="${classRooms}" var="classRoom">
-                                <option value=${classRoom.id} >${classRoom.name}</option>
+                                <option value=${classRoom.id}>${classRoom.name}</option>
                             </c:forEach>
                         </select>
 
                         <!-- /////////////////////////////////////////////////////////-->
 
                         <b>Students</b></h1>
-                        <div class="col-lg-12" id="items">
+                    <div class="col-lg-12" id="items">
 
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="feedbackForm" class="modal fade">
+    <div class="modal-dialog text-black">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Write FeedBack</h4>
+            </div>
+            <form id="sendFeedback">
+                <div class="modal-body">
+                    <textarea id="feedbackText" type="text" cols="68" rows="5" name="feedback"
+                              placeholder="Write feedback here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-    $("#menu-toggle").click(function(e) {
+
+</script>
+
+<script src="/resources/js/shared/sendFeedback.js"></script>
+<script>
+    $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });

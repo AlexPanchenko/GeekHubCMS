@@ -13,23 +13,23 @@ function escapeHtml(string) {
     });
 }
 
-var sendFeedback = function(url, feedback){
+var sendFeedback = function (url, feedback) {
     $.ajax({
             method: "get",
             url: url,
             data: {
                 "feedback": feedback
             },
-            dataType: "html",
-            success: function (data, status) {
-                if (data = "OK") {
+            dataType: "text",
+            success: function (data) {
+                if (data == "OK") {
                     var p = $("<p></p>").text("Feedback successfully added");
                     p.addClass("text-success");
                     $("#sendFeedback").append(p);
-
+                    console.log("hello");
                     setTimeout(function () {
                         $('#feedbackForm').modal('hide');
-                        textValue.val("");
+                        $("#feedbackText").val("");
                         p.remove();
                     }, 1500);
                     return true;
@@ -38,3 +38,19 @@ var sendFeedback = function(url, feedback){
         }
     );
 };
+
+
+$("#sendFeedback").on("submit", function (event) {
+    event.preventDefault();
+    var textValue = $(event.target[0]);
+    var data = textValue.val();
+    data = escapeHtml(data);
+    sendFeedback("http://localhost:8080/teacher/leavenote/" + userId, data);
+});
+
+
+$('#feedbackForm').on('shown.bs.modal', function (e) {
+    var id = $(e.relatedTarget).prop("id");
+    id = id.substr(4) * 1;
+    window.userId = id;
+});

@@ -61,6 +61,8 @@
                     <b>Users manage</b></h1>
                     <table class="table text-black" >
                         <div id="rows" class="col-lg-12">
+
+
                         </div>
                     </table>
                     <div class="text-center">
@@ -92,13 +94,33 @@
     </div>
     <!-- /.container-fluid -->
 </div>
+
+<div id="feedbackForm" class="modal fade">
+    <div class="modal-dialog text-black">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Write FeedBack</h4>
+            </div>
+            <form id="sendFeedback">
+                <div class="modal-body">
+                    <textarea id="feedbackText"type="text" cols="68" rows="5" name="feedback" placeholder="Write feedback here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/resources/js/shared/sendFeedback.js"></script>
 <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 </script>
-
 
 </body>
 </html>

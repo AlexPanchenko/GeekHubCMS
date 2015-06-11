@@ -105,6 +105,5 @@
 </script>
 
 <script src="<c:url value="/resources/js/shared/sendFeedback.js"/> "></script>
-<script src="<c:url value="/resources/js/teacher/userProfile.js"/> "></script>
 </body>
 </html>
