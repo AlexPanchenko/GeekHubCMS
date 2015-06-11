@@ -1,5 +1,6 @@
 package org.geekhub.service.impl;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.geekhub.hibernate.dao.PasswordDao;
 import org.geekhub.hibernate.dao.UserDao;

@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1024,7 +1022,7 @@ public class AdminController {
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByUserId(userId);
         String url = "";
 
-        List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
+        List<testResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
         model.addAttribute("testWra", testResWrappers);
         model.addAttribute("userId",userId);
 
