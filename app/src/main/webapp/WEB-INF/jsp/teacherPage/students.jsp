@@ -22,16 +22,16 @@
             <td>${user.skype}</td>
             <td align="center">
                 <c:if test="${logedUser.role eq \"ROLE_ADMIN\"}">
-                    ${logedUser.role}
+                    <input type="hidden" value="${user.id}">
                     <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                     <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
                     <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i class="fa fa-comment"></i></a>
-                    <a href="#"><i class="fa fa-eye"></i></a>
+                    <a href="#"><i class="fa fa-eye view-feedbacks"></i></a>
                 </c:if>
                 <c:if test="${logedUser.role eq \"ROLE_TEACHER\"}">
                     <a href="/teacher/profile/${user.id}"><i class="fa fa-pencil-square-o"></i></a>
                     <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i class="fa fa-comment"></i></a>
-                    <a href="#"><i class="fa fa-eye"></i></a>
+                    <a href="#"><i class="fa fa-eye view-feedbacks"></i></a>
                 </c:if>
             </td>
         </tr>

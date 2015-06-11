@@ -20,30 +20,6 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
-
-        function showNewPage(page){
-            $.ajax({
-                url:"ajax/usersShow",
-                type:"post",
-                data:{page:page},
-                success:function(data) {
-                    $("#rows").html(data);
-                }
-            });
-        }
-        function countUsers(){
-            $.ajax({
-                url:"ajax/countUsers",
-                type:"post",
-                data:'',
-                success:function(data) {
-                }
-            });
-        }
-        $(document).ready(function() {
-            countUsers();
-            showNewPage(1);
-        });
     </script>
 </head>
 <body>
@@ -114,7 +90,8 @@
     </div>
 </div>
 
-<script src="/resources/js/shared/sendFeedback.js"></script>
+<script src="/resources/js/shared/feedbacks.js"></script>
+<script src="/resources/js/shared/users.js"></script>
 <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
