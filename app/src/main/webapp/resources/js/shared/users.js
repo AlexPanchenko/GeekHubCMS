@@ -1,9 +1,9 @@
-function showNewPage(page){
+function showNewPage(page) {
     $.ajax({
-        url:"ajax/usersShow",
-        type:"post",
-        data:{page:page},
-        success:function(data) {
+        url: "ajax/usersShow",
+        type: "post",
+        data: {page: page},
+        success: function (data) {
             $("#rows").html(data);
             //Register handler on ajax load
             $(".view-feedbacks").on("click", function (event) {
@@ -14,25 +14,34 @@ function showNewPage(page){
         }
     });
 }
-var showFeedbacks = function(userId){
+var showFeedbacks = function (userId) {
     $.ajax({
-        url:"/teacher/showfeedbacks/" + userId,
-        type:"get",
-        success:function(data) {
-            $("#rows").html(data);
+        url: config.url + "/teacher/showfeedbacks/" + userId,
+        type: "get",
+        success: function (data) {
+            $(".row").toggleClass("hidden");
+            $(".comment-box").html(data);
+
+            $("#go-back").on("click", function(){
+                $(".row").toggleClass("hidden");
+                $(".comment-box").html("");
+            })
         }
     });
 };
-function countUsers(){
+
+
+
+function countUsers() {
     $.ajax({
-        url:"ajax/countUsers",
-        type:"post",
-        data:'',
-        success:function(data) {
+        url: "ajax/countUsers",
+        type: "post",
+        data: '',
+        success: function (data) {
         }
     });
 }
-$(document).ready(function() {
+$(document).ready(function () {
     countUsers();
     showNewPage(1);
 });

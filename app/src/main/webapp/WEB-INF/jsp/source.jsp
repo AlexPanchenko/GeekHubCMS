@@ -17,12 +17,10 @@
 <script src="<c:url value='/resources/vendors/bootstrap/dist/js/bootstrap.min.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/metisMenu.min.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/sb-admin-2.js'/>" type="text/javascript"></script>
-
+<script src="<c:url value='/resources/js/sidebar.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/validator.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/vendors/jquery.easing/js/jquery.easing.min.js'/>" type="text/javascript"></script>
 <script src="<c:url value='/resources/js/grayscale.js'/>" type="text/javascript"></script>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
 <script src="<c:url value='/resources/js/config.js'/>" type="text/javascript"></script>
 

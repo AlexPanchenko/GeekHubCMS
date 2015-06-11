@@ -15,12 +15,6 @@
 
     <jsp:include page="../source.jsp"></jsp:include>
     <!-- /#wrapper -->
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
@@ -61,6 +55,8 @@
                 </div>
             </div>
             <!-- /.col-lg-12 -->
+
+            <div class="comment-box"></div>
         </div>
         <!-- /.row -->
     </div>
@@ -87,16 +83,8 @@
         </div>
     </div>
 </div>
-
-<script src="/resources/js/shared/feedbacks.js"></script>
-<script src="/resources/js/shared/users.js"></script>
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-
+<script src="<c:url value="/resources/js/shared/feedbacks.js"/>"></script>
+<script src="<c:url value="/resources/js/shared/users.js"/>"></script>
 </body>
 </html>
 

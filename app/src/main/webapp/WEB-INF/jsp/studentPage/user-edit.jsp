@@ -160,7 +160,7 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class=" col-md-1 col-lg-1 col-lg-offset-3">
-                                                    <a href="#myModal" class="btn btn-success pull-right" data-toggle="modal">Send FeedBack</a>
+                                                    <a href="#" data-toggle="modal" data-target="#change-password" class="btn btn-success pull-right" data-toggle="modal">Change password</a>
                                                 </div>
                                                 <div class=" col-md-1 col-lg-1 col-lg-offset-1">
                                                     <button type="submit" class="btn btn-success pull-right" >Update Data
@@ -181,5 +181,6 @@
     </div>
 </div>
 
+<jsp:include page="changePasswordForm.jsp"></jsp:include>
 </body>
 </html>
