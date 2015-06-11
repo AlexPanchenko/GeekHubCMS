@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>${each.getSender().getFirstName()} ${each.getSender().getLastName()}</strong>
-                    <span class="text-muted">${each.getDate()}</span>
+                    <span class="text-muted">${each.foromatedDate}</span>
                 </div>
                 <div class="panel-body">
                         ${each.getNoteText()}
