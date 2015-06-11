@@ -7,6 +7,7 @@ import org.geekhub.service.BeanService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -118,6 +119,8 @@ public class BeanServiceImpl implements BeanService {
         noteBean.setSender(note.getSender());
         noteBean.setNoteText(note.getNoteText());
         noteBean.setDate(note.getDate());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        noteBean.setForomatedDate(simpleDateFormat.format(note.getDate()));
         return noteBean;
     }
 

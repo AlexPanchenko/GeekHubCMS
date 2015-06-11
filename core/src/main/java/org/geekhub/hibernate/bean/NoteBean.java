@@ -16,6 +16,8 @@ public class NoteBean {
 
     private Date date;
 
+    private String foromatedDate;
+
     public NoteBean () {
 
     }
@@ -58,5 +60,13 @@ public class NoteBean {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getForomatedDate() {
+        return foromatedDate;
+    }
+
+    public void setForomatedDate(String foromatedDate) {
+        this.foromatedDate = foromatedDate;
     }
 }

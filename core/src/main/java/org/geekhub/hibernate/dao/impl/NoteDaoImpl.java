@@ -4,6 +4,7 @@ import org.geekhub.hibernate.dao.NoteDao;
 import org.geekhub.hibernate.entity.Note;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,7 @@ public class NoteDaoImpl extends BaseDaoImpl implements NoteDao {
 
     @Override
     public List<Note> getNotesListByReceiver(User user) {
-        List<Note> notesListByReceiver = (List <Note>) sessionFactory.getCurrentSession().createCriteria(Note.class).add(Restrictions.eq("receiver", user)).list();
+        List<Note> notesListByReceiver = (List <Note>) sessionFactory.getCurrentSession().createCriteria(Note.class).add(Restrictions.eq("receiver", user)).addOrder(Order.desc("date")).list();
         return  notesListByReceiver;
     }
 
