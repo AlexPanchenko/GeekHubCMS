@@ -30,7 +30,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/student")
-public class UserProfileController extends MasterController {
+public class UserProfileController {
 
     @Autowired
     private CourseService courseService;
@@ -88,12 +88,40 @@ public class UserProfileController extends MasterController {
     }
 
     @RequestMapping(value = "/users/{userId}/changepassword", method = RequestMethod.GET)
-    public ModelAndView getChangePassword(@PathVariable("userId") Integer userId, ModelMap model){
+    public ModelAndView getChangePassword(@PathVariable("userId") int userId,
+                                          HttpServletResponse response,
+                                          Principal principal) throws IOException {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userId != userBean.getId()) {
+            response.sendRedirect("student/users/" + userBean.getId() + "/changepassword");
+        }
         ModelAndView modelAndView = new ModelAndView("studentPage/changePassword");
         User user = userService.getUserById(userId);
         modelAndView.addObject("user", user);
         return modelAndView;
     }
 
+    @RequestMapping(value = "/{userId}/changepasswordfromprofile", method = RequestMethod.POST)
+    public void getChangePassword(@PathVariable("userId") int userId,
+                                    @RequestParam("oldpassword") String oldPassword,
+                                    @RequestParam("newpassword") String newPassword,
+                                    @RequestParam("confirmpassword") String confirmPassword,
+                                    Principal principal,
+                                    HttpServletResponse response) throws IOException {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userId != userBean.getId()) {
+            return;
+        }
+        if (!userBean.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
+            response.getWriter().write("Error old password incorrect");
+            return;
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            response.getWriter().write("Error new password and confirm password, are different");
+            return;
+        }
+        userBean.setPassword(newPassword);
+        userService.updateUserByUserBean(userBean);
+    }
 }
 

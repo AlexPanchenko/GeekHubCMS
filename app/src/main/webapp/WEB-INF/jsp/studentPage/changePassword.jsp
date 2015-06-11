@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <form method="get" action="/student/users/${user.id}/changepassword2">
+                    <form method="post" action="/student/${user.id}/changepasswordfromprofile">
                         <input type="password" placeholder="Old password" name="oldpassword">
                         <br> <br>
                         <input type="password" placeholder="New password" name="newpassword">

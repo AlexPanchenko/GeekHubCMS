@@ -166,15 +166,11 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/showfeedbacks/{userid}")
-    public ModelAndView showFeedbacks(@PathVariable("userid") int userid,
-                               HttpServletResponse response) throws IOException {
-        ModelAndView mav = new ModelAndView("/shared/showFeedbacks.jsp");
+    public ModelAndView showFeedbacks(@PathVariable("userid") int userid) throws IOException {
+        ModelAndView mav = new ModelAndView("shared/showFeedbacks");
         User user = userService.getUserById(userid);
         List<NoteBean> noteBeansList = userService.getNotesListByReceiver(user);
         mav.addObject("noteBeansList",noteBeansList);
         return mav;
     }
-
-    //@RequestMapping(value = )
-
 }

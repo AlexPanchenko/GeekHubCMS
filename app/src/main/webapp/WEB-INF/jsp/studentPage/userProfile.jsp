@@ -59,8 +59,8 @@
                         <a data-original-title="Remove this user" data-toggle="tooltip" type="button"
                            class="btn btn-sm btn-danger" href="/student/users/${user.id}/edit"><i
                                 class="fa fa-pencil-square-o fa-2x"></i></a>
-                        <a data-original-title="Remove this user" data-toggle="tooltip" type="button"
-                           class="btn btn-sm btn-danger" href="/student/users/${user.id}/changepassword">Change
+                        <a data-original-title="Remove this user" data-toggle="tooltip" type="button" name="changepassword"
+                           class="btn btn-sm btn-danger" >Change
                             Password</a>
                     </div>
                 </div>
@@ -69,6 +69,7 @@
     </div>
     <!-- /#page-content-wrapper -->
 </div>
+
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
