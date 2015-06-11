@@ -12,5 +12,6 @@ public interface BeanService {
     public CourseBean toCourseBean(Course course);
     public ClassRoomBean toClassroomBean(ClassRoom classRoom);
     public TestConfigBeen toTestConfigBean(TestConfig testConfig);
+    public NoteBean toNoteBean (Note note);
     public TestAssignmentBean toTestAssignmentBean(TestAssignment testAssignment);
 }

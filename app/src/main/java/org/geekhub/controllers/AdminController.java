@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -524,8 +526,7 @@ public class AdminController {
         model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
-
-    ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/update", method = RequestMethod.POST)
     public String updateAnswer(@PathVariable("questionId") int questionId,
                                @PathVariable("courseId") int courseId,
@@ -657,9 +658,11 @@ public class AdminController {
     }
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(@RequestParam int page) {
-        ModelAndView mav = new ModelAndView("adminpanel/usersShow");
+    public ModelAndView usersOnPage(@RequestParam int page, Principal principal) {
+        ModelAndView mav = new ModelAndView("teacherPage/students");
         List<UserBean> users = userService.getUsersOnOnePage(page);
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        mav.addObject("logedUser", userBean);
         mav.addObject("users", users);
         return mav;
     }
@@ -683,15 +686,15 @@ public class AdminController {
         return mav;
     }
 
-    /*<<<<<<< HEAD
-        @RequestMapping("/ajax/createClassroom")
-        public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                    @RequestParam("CourseId") int courseId,
-                                    @RequestParam("TeacherId") int teacherId) {
-            classroomService.createClassroom(usersId, courseId, teacherId);
-            return "redirect: /admin/classRoomList";
-            ======
-        }*/
+/*<<<<<<< HEAD
+    @RequestMapping("/ajax/createClassroom")
+    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
+                                @RequestParam("CourseId") int courseId,
+                                @RequestParam("TeacherId") int teacherId) {
+        classroomService.createClassroom(usersId, courseId, teacherId);
+        return "redirect: /admin/classRoomList";
+        ======
+    }*/
     @RequestMapping(value = "/ajax/createClassroom", method = RequestMethod.POST)
     @ResponseBody
     public String saveClassroom(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
@@ -1044,4 +1047,6 @@ public class AdminController {
 //        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }*/
+
+
 }

@@ -111,6 +111,17 @@ public class BeanServiceImpl implements BeanService {
     }
 
     @Override
+    public NoteBean toNoteBean(Note note) {
+        NoteBean noteBean = new NoteBean();
+        noteBean.setId(note.getId());
+        noteBean.setReceiver(note.getReceiver());
+        noteBean.setSender(note.getSender());
+        noteBean.setNoteText(note.getNoteText());
+        noteBean.setDate(note.getDate());
+        return noteBean;
+    }
+
+    @Override
     public ClassRoomBean toClassroomBean(ClassRoom classRoom) {
         ClassRoomBean classRoomBean = new ClassRoomBean();
         classRoomBean.setId(classRoom.getId());

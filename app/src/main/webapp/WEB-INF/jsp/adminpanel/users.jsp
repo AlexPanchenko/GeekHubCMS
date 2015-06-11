@@ -16,28 +16,9 @@
     <jsp:include page="../source.jsp"></jsp:include>
     <!-- /#wrapper -->
     <script>
-        function showNewPage(page) {
-            $.ajax({
-                url: "ajax/usersShow",
-                type: "post",
-                data: {page: page},
-                success: function (data) {
-                    $("#rows").html(data);
-                }
-            });
-        }
-        function countUsers() {
-            $.ajax({
-                url: "ajax/countUsers",
-                type: "post",
-                data: '',
-                success: function (data) {
-                }
-            });
-        }
-        $(document).ready(function () {
-            countUsers();
-            showNewPage(1);
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
         });
     </script>
 </head>
@@ -87,6 +68,34 @@
 </div>
 <!-- /.container-fluid -->
 </div>
+
+<div id="feedbackForm" class="modal fade">
+    <div class="modal-dialog text-black">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Write FeedBack</h4>
+            </div>
+            <form id="sendFeedback">
+                <div class="modal-body">
+                    <textarea id="feedbackText"type="text" cols="68" rows="5" name="feedback" placeholder="Write feedback here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/resources/js/shared/feedbacks.js"></script>
+<script src="/resources/js/shared/users.js"></script>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 
 </body>
 </html>

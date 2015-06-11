@@ -1,9 +1,6 @@
 package org.geekhub.controllers;
 
-import org.geekhub.hibernate.bean.ClassRoomBean;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.Page;
-import org.geekhub.hibernate.bean.UserBean;
+import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.dao.TestConfigDao;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.entity.Question;
@@ -22,6 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
@@ -96,7 +95,7 @@ public class TeacherController {
     @RequestMapping(value ="/teacherPage", method = RequestMethod.GET)
     public ModelAndView userProfile(Principal principal){
         ModelAndView model = new ModelAndView("teacherPage/teacherProfile");
-        model.addObject("user",userService.getUserBeanByEmail(principal.getName()));
+        model.addObject("user", userService.getUserBeanByEmail(principal.getName()));
         return model;
     }
 
@@ -130,29 +129,48 @@ public class TeacherController {
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String students(ModelMap model, Principal principal) {
         int courseId = userDao.getUserByEmail(principal.getName()).getClassroom().getCourseId().getId();
-
         List<UserBean> userBeans = courseService.getUsersByCourse(courseId);
         model.addAttribute("users", userBeans);
-
         List<ClassRoomBean> classroomBeans = classroomService.getBeansByCourseId(courseId);
         model.addAttribute("classRooms", classroomBeans);
         return "teacherPage/studentByClassroom";
     }
 
-    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
-    public String studentProfile(ModelMap model,@PathVariable(value = "userId") int userId) {
-        UserBean userBean = userService.getUserBeanById(userId);
-        model.addAttribute("user", userBean);
-        return "teacherPage/userProfile";
-    }
 
     @RequestMapping(value = "/students/classroom", method = RequestMethod.GET)
-    public String studentClassroom(ModelMap model,@RequestParam int classroomId) {
+    public String studentClassroom(ModelMap model,
+                                   @RequestParam int classroomId,
+                                   Principal principal) {
         List<UserBean> userBeans = classroomService.getUserByClassroomId(classroomId);
         model.addAttribute("users", userBeans);
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        model.addAttribute("logedUser", userBean);
         model.addAttribute("teacher", classroomService.getTeacherByClassroomId(classroomId));
         return "teacherPage/students";
     }
 
+    @RequestMapping(value = "/leavenote/{userid}")
+    public void createFeedback(@PathVariable("userid") int userid,
+                               Principal principal,
+                               @RequestParam("feedback") String feedback,
+                               HttpServletResponse response) throws IOException {
 
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        NoteBean noteBean = new NoteBean();
+        noteBean.setNoteText(feedback);
+        noteBean.setReceiver(userService.getUserById(userid));
+        noteBean.setSender(userService.getUserById(userBean.getId()));
+        noteBean.setDate(new Date());
+        userService.saveNote(noteBean);
+        response.getWriter().write("OK");
+    }
+
+    @RequestMapping(value = "/showfeedbacks/{userid}")
+    public ModelAndView showFeedbacks(@PathVariable("userid") int userid) throws IOException {
+        ModelAndView mav = new ModelAndView("shared/showFeedbacks");
+        User user = userService.getUserById(userid);
+        List<NoteBean> noteBeansList = userService.getNotesListByReceiver(user);
+        mav.addObject("noteBeansList",noteBeansList);
+        return mav;
+    }
 }
