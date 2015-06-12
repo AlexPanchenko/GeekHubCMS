@@ -50,11 +50,17 @@ public class RecoverPasswordController {
     public String recoverPasswordPost(@PathVariable("passwordId")int passwordId,
                                       @RequestParam("recoverPassword") String recoverPassword,
                                       @RequestParam("confirmRecoverPassword") String confirmRecoverPassword,
-                                      @PathVariable("Link") String link) {
-        if (recoverPassword.equals(confirmRecoverPassword)) {
-            recoverPasswordService.recoverPassword(recoverPassword, passwordId);
-            PasswordLink passwordLink = recoverPasswordService.getPasswordLinkById(passwordId);
-            recoverPasswordService.deleteUniqueLink(passwordLink);
+                                      @PathVariable("Link")String link,
+                                      HttpServletResponse response) throws IOException {
+        PasswordLink passwordLink = recoverPasswordService.getPasswordLinkById(passwordId);
+        if (passwordLink.getPasswordLink().equals(link)) {
+            if (recoverPassword.equals(confirmRecoverPassword)) {
+                recoverPasswordService.recoverPassword(recoverPassword, passwordId);
+                recoverPasswordService.deleteUniqueLink(passwordLink);
+                //Залогинить.
+                return "login";
+            }
+            response.getWriter().write("Password error: your password and confirmation password do not match.");
         }
         return "login";
     }

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 04.06.2015
-  Time: 10:53
-  To change this template use File | Settings | File Templates.
---%>
 <html>
 <head>
   <title>End</title>

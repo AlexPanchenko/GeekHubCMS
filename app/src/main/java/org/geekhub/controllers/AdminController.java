@@ -115,7 +115,7 @@ public class AdminController {
         Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
         if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE > 0)
             pagesCount++;
-        List<Integer> pageNumbers = new ArrayList<Integer>();
+        List<Integer> pageNumbers = new ArrayList<>();
         int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
         if (pagesCount < k)
             k = pagesCount.intValue();
@@ -136,9 +136,12 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
-    public String removeUser(@PathVariable("userId") Integer userId, ModelMap model) {
-        //ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
-        ModelAndView modelAndView = new ModelAndView();
+    public String removeUser(@PathVariable("userId") int userId,
+                             Principal principal) {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userBean.getId() == userId) {
+            return "warning/canNotDeleteUser";
+        }
         if(userService.removeUserById(userId)) {
             return "redirect:/admin/users";
         } else {
