@@ -1,9 +1,6 @@
 package org.geekhub.controllers;
 
-import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.geekhub.hibernate.bean.CourseBean;
-import org.geekhub.hibernate.bean.NoteBean;
 import org.geekhub.hibernate.bean.UserBean;
 import org.geekhub.hibernate.entity.Role;
 import org.geekhub.hibernate.entity.User;
@@ -26,7 +23,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/student")
@@ -113,15 +109,16 @@ public class UserProfileController {
             return;
         }
         if (!userBean.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
-            response.getWriter().write("Error old password incorrect");
+            response.getWriter().write("Password error: the old password is incorrect");
             return;
         }
         if (!newPassword.equals(confirmPassword)) {
-            response.getWriter().write("Error new password and confirm password, are different");
+            response.getWriter().write("Password error: your password and confirmation password do not match.");
             return;
         }
         userBean.setPassword(newPassword);
         userService.updateUserByUserBean(userBean);
+        response.getWriter().write("Password updated successfully");
     }
 }
 

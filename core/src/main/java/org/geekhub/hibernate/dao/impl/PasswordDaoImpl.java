@@ -14,8 +14,13 @@ public class PasswordDaoImpl extends BaseDaoImpl implements PasswordDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public PasswordLink getUserId(int passwordLinkID) {
+    public PasswordLink getPasswordLinkById(int passwordLinkID) {
         PasswordLink pl = (PasswordLink) sessionFactory.getCurrentSession().createCriteria(PasswordLink.class).add(Restrictions.eq("id",passwordLinkID)).list().get(0);
         return pl;
+    }
+
+    @Override
+    public void deleteLink(PasswordLink passwordLink) {
+        sessionFactory.getCurrentSession().delete(passwordLink);
     }
 }

@@ -20,11 +20,13 @@
                             <form class="form" action="/recoverPassword/${passwordId}/${link}" method="post">
                                 <fieldset>
                                     <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                            <!--EMAIL ADDRESS-->
-                                            <input id="emailInput" class="form-control" type="password" name="recoverPassword"  required="">
-                                        </div>
+                                        <input id="emailInput" class="form-control" type="password"
+                                               name="recoverPassword" placeholder="Enter New Password" required="">
+                                        <br>
+                                        <input id="confirmEmailInput" class="form-control" type="password"
+                                               name="confirmRecoverPassword" placeholder="Confirm New Password"
+                                               required="">
+
                                     </div>
                                     <div class="form-group">
                                         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Change password">

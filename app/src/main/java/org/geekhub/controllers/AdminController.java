@@ -62,6 +62,9 @@ public class AdminController {
     @Autowired
     private List<AbstractScheduler> schedulers;
 
+    @Autowired
+    private RecoverPasswordService recoverPasswordService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "adminpanel/index";
@@ -1034,6 +1037,18 @@ public class AdminController {
         }
         return url;
     }
+
+    @RequestMapping(value = "/resetpassword/{userId}", method = RequestMethod.GET)
+    public String getResetPassword(@PathVariable("userId") int userId) {
+        UserBean userBean = userService.getUserBeanById(userId);
+        recoverPasswordService.sendRecover(userBean.getEmail());
+        return ("User password reseted successfully");
+    }
+
+
+
+
+
 
     /*Pagination for classroom
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
