@@ -23,36 +23,33 @@
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
-                            <th class="text-center"> СlassRoom_ID</th>
-                            <th class="text-center"> Course_Name</th>
-                            <th class="text-center"> Classroom_Name</th>
-                            <th class="text-center"> Classroom_Description</th>
-                            <th class="text-center"> Teachers</th>
-                            <th class="text-center"> Students</th>
-                            <th class="text-center"> Action</th>
+                            <th> Course</th>
+                            <th> Name</th>
+                            <th> Description</th>
+                            <th> Teachers</th>
+                            <th> Students</th>
+                            <th> Action</th>
                         </tr>
                         </thead>
                         <c:forEach items="${classRoomBeans}" var="classroom">
                             <tr>
-                                <td>${classroom.id}</td>
                                 <td>${classroom.courseId.name}</td>
                                 <td>${classroom.name}</td>
                                 <td>${classroom.description}</td>
-                                    <%--<td>${classroom.teachers}</td>--%>
                                 <td><c:forEach items="${classroom.users}" var="user">
                                     <c:if test="${user.role == 'ROLE_TEACHER'}">
                                         ${user.lastName}<br>
                                     </c:if>
                                 </c:forEach>
                                 </td>
-                                <td class="text-black">
+                                <td>
                                     <c:forEach items="${classroom.users}" var="user">
                                         <c:if test="${user.role == 'ROLE_STUDENT'}">
                                             ${user.lastName}<br>
                                         </c:if>
                                     </c:forEach>
                                 </td>
-                                <td class="text-center">
+                                <td>
                                     <a href="/admin/classroom/${classroom.id}/edit"><i
                                             class="fa fa-pencil-square-o"></i></a>
                                     <a data-href="/admin/classroom-remove/${classroom.id}" data-toggle="modal"
