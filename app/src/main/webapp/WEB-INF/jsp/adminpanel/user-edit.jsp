@@ -158,19 +158,7 @@
                                                 </dd>
                                             </dl>
                                         </div>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class=" col-md-1 col-lg-1 col-lg-offset-3">
-                                                    <a href="#feedbackForm" class="btn btn-success pull-right"
-                                                       data-toggle="modal">Send FeedBack</a>
-                                                </div>
-                                                <div class=" col-md-1 col-lg-1 col-lg-offset-1">
-                                                    <button type="submit" class="btn btn-success pull-right">Update
-                                                        Data
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <button type="submit" class="btn btn-success pull-right">Update Data</button>
                                     </fieldset>
                                 </div>
                             </div>
@@ -184,30 +172,6 @@
     </div>
 </div>
 
-
-<div id="feedbackForm" class="modal fade">
-    <div class="modal-dialog text-black">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Write FeedBack</h4>
-            </div>
-            <form id="sendFeedback">
-                <div class="modal-body">
-                    <textarea id="feedbackText"type="text" cols="68" rows="5" name="feedback" placeholder="Write feedback here..."></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save feedback</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    var userId = ${user.id};
-</script>
-<script src="<c:url value='/resources/js/adminpanel/userEdit.js'/>" type="text/javascript"></script>
 
 </body>
 </html>

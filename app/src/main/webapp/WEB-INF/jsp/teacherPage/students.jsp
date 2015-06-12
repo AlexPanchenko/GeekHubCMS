@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<table class="table text-black">
+<table class="table text-black table-hover">
     <thead class="alert alert-success">
     <tr>
         <th> Last name <input class="input-sm" placeholder="Place for filthering"></th>
@@ -13,6 +13,7 @@
         <th> Action</th>
     </tr>
     </thead>
+    <tbody>
     <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.lastName}</td>
@@ -25,17 +26,20 @@
                     <input type="hidden" value="${user.id}">
                     <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
                     <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
-                    <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i class="fa fa-comment"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i
+                            class="fa fa-comment"></i></a>
                     <a href="#"><i class="fa fa-eye view-feedbacks"></i></a>
                 </c:if>
                 <c:if test="${logedUser.role eq \"ROLE_TEACHER\"}">
                     <a href="/teacher/profile/${user.id}"><i class="fa fa-pencil-square-o"></i></a>
-                    <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i class="fa fa-comment"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i
+                            class="fa fa-comment"></i></a>
                     <a href="#"><i class="fa fa-eye view-feedbacks"></i></a>
                 </c:if>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 
 
