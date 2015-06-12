@@ -47,7 +47,8 @@
                             <td class="text-center">
                                 <a href="/admin/testType/change/${testType.id}"><i
                                         class="fa fa-pencil-square-o"></i></a>
-                                <a href="/admin//testType/delete/${testType.id}"> <i class="fa fa-times"></i></a>
+                                <a data-href="/admin/testType/delete/${testType.id}" data-toggle="modal"
+                                   data-target="#delete-confirm"> <i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -58,5 +59,6 @@
         </div>
     </div>
 </div>
+<jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
 </body>
 </html>

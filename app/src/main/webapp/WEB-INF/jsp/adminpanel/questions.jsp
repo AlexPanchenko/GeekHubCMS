@@ -97,7 +97,8 @@
                                 <td>${question.manyAnswers}</td>
                                 <td class="text-center">
                                     <a href="/admin/course/${question.course.id}/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/course/${question.course.id}/question/${question.id}/delete"><i class="fa fa-times"></i></a>
+                                    <a data-href="/admin/course/${question.course.id}/question/${question.id}/delete"
+                                            data-target="#delete-confirm" data-toggle="modal"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             <%--</c:if>--%>
@@ -129,6 +130,7 @@
         </div>
       </div>
     </div>
+    <jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
     <script>
         var currentCourse = ${currentCourse};
     </script>

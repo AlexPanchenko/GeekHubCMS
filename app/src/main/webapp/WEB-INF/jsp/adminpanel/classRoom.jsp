@@ -23,10 +23,10 @@
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
-                            <th class="text-center"> СlassRoom_ID </th>
-                            <th class="text-center"> Course_Name </th>
-                            <th class="text-center"> Classroom_Name </th>
-                            <th class="text-center"> Classroom_Description </th>
+                            <th class="text-center"> СlassRoom_ID</th>
+                            <th class="text-center"> Course_Name</th>
+                            <th class="text-center"> Classroom_Name</th>
+                            <th class="text-center"> Classroom_Description</th>
                             <th class="text-center"> Teachers</th>
                             <th class="text-center"> Students</th>
                             <th class="text-center"> Action</th>
@@ -38,7 +38,7 @@
                                 <td>${classroom.courseId.name}</td>
                                 <td>${classroom.name}</td>
                                 <td>${classroom.description}</td>
-                            <%--<td>${classroom.teachers}</td>--%>
+                                    <%--<td>${classroom.teachers}</td>--%>
                                 <td><c:forEach items="${classroom.users}" var="user">
                                     <c:if test="${user.role == 'ROLE_TEACHER'}">
                                         ${user.lastName}<br>
@@ -53,18 +53,20 @@
                                     </c:forEach>
                                 </td>
                                 <td class="text-center">
-                                    <a href="/admin/classroom/${classroom.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/classroom-remove/${classroom.id}"> <i class="fa fa-times"></i></a>
+                                    <a href="/admin/classroom/${classroom.id}/edit"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a data-href="/admin/classroom-remove/${classroom.id}" data-toggle="modal"
+                                       data-target="#delete-confirm"> <i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </table>
-                    </div>
                 </div>
+            </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-
+    <jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
 </div>
 </body>
 </html>
