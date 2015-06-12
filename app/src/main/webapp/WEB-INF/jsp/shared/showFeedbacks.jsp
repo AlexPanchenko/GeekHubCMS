@@ -2,7 +2,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="comment-box">
+<c:if test="${noteBeansList.isEmpty()}">
+    <div class="text-center">
+        <span class="bg-warning">This user has no feedback</span>
+    </div>
+</c:if>
     <c:forEach var="each" items="${noteBeansList}">
         <div class="comment">
             <div class="panel panel-default">
@@ -16,4 +20,5 @@
             </div>
         </div>
     </c:forEach>
-</div>
+
+<button class="btn btn-default pull-right" id="go-back">Go back</button>

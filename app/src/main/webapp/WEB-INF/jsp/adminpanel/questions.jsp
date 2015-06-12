@@ -29,7 +29,7 @@
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
 
-                        <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
+                        <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-plus pull-right" title="Create new question"></i></a>
                         <!-- /////////////////////////////////////////////////////////-->
                         <select id="selectCourse" class="dropdown-toggle" onchange="selectCourse()">
                                     <option id="0">All Courses</option>

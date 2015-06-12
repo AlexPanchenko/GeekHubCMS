@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="alert alert-success text-center">
-                    <a href="/admin/testConfig/create"><i class="glyphicon glyphicon-pencil pull-left"
+                    <a href="/admin/testConfig/create"><i class="glyphicon glyphicon-plus  pull-right"
                                                           title="Create new test config"></i></a>
                     <b>Test config manage</b></h1>
                 <table class="table text-black" class="text-center">

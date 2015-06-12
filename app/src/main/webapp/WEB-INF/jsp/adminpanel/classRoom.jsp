@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
-                        <a href="/admin/createClassrom" class="pull-left">Create classrom </a>
+                        <a href="/admin/createClassrom" class="pull-right glyphicon glyphicon-plus"></a>
                         <b>Classroom manage</b></h1>
                     <table class="table">
                         <thead class="alert alert-success">

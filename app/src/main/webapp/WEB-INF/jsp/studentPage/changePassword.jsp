@@ -50,6 +50,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="panel-footer">
                     <form method="post" action="/student/${user.id}/changepasswordfromprofile">
                         <input type="password" placeholder="Old password" name="oldpassword">
@@ -67,11 +68,5 @@
     </div>
     <!-- /#page-content-wrapper -->
 </div>
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
 </body>
 </html>
