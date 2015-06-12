@@ -262,7 +262,7 @@
                                         </dd>
                                     </dl>
                                 </fieldset>
-                                <input type="hidden" id="answersList" name="answerList" value=""/>
+                                <input type="hidden" id="answersList" name="answersList" value=""/>
                             </form>
                             <%--<table class="table">--%>
                                 <%--<c:forEach items="${answers}" var="answer">--%>

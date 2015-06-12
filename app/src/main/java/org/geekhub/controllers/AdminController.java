@@ -1,5 +1,6 @@
 package org.geekhub.controllers;
 
+import com.google.gson.Gson;
 import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.bean.Page;
 import org.geekhub.hibernate.entity.*;
@@ -62,6 +63,9 @@ public class AdminController {
     @Autowired
     private List<AbstractScheduler> schedulers;
 
+    @Autowired
+    private RecoverPasswordService recoverPasswordService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index() {
         return "adminpanel/index";
@@ -112,7 +116,7 @@ public class AdminController {
         Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
         if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE > 0)
             pagesCount++;
-        List<Integer> pageNumbers = new ArrayList<Integer>();
+        List<Integer> pageNumbers = new ArrayList<>();
         int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
         if (pagesCount < k)
             k = pagesCount.intValue();
@@ -133,9 +137,12 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
-    public String removeUser(@PathVariable("userId") Integer userId, ModelMap model) {
-        //ModelAndView modelAndView = new ModelAndView("redirect:/admin/users");
-        ModelAndView modelAndView = new ModelAndView();
+    public String removeUser(@PathVariable("userId") int userId,
+                             Principal principal) {
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        if (userBean.getId() == userId) {
+            return "warning/canNotDeleteUser";
+        }
         if(userService.removeUserById(userId)) {
             return "redirect:/admin/users";
         } else {
@@ -204,6 +211,8 @@ public class AdminController {
             CourseBean course = courseService.getById(courseId);
             model.addObject("course", course);
             model.addObject("enumStatus", TestStatus.values());
+            Boolean isUpdated = true;
+            model.addObject("isUpdated", isUpdated);
             return model;
         } catch (CourseNotFoundException ex) {
 
@@ -463,15 +472,26 @@ public class AdminController {
                                @RequestParam("questionText") String questionText,
                                @RequestParam("questionCode") String questionCode,
                                @RequestParam("questionWeight") byte questionWeight,
-                               //@RequestParam("questionStatus") boolean questionStatus,
                                @RequestParam("myAnswer") boolean myAnswer,
                                @RequestParam("manyAnswers") boolean manyAnswers,
                                @RequestParam("testTypeIdUpdate") int testTypeId,
-                               @PathVariable("courseId") int courseId) {
+                               @PathVariable("courseId") int courseId,
+                               @RequestParam ("answersList") String answers) {
         QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
         questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
         questionBean.setManyAnswers(manyAnswers);
         questionService.update(questionBean);
+
+        Gson gson = new Gson();
+        AnswerBean[] answersArray = gson.fromJson(answers, AnswerBean[].class);
+        Question question = questionService.read(questionId);
+        for (AnswerBean each : answersArray) {
+            if (each.getId() == 0) {
+                answerService.create(each.getAnswerText(), each.getAnswerRight(), question);
+            } else {
+                answerService.update(each.getId(), each.getAnswerText(), each.getAnswerRight(), question);
+            }
+        }
         return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }
 
@@ -485,7 +505,7 @@ public class AdminController {
                              @RequestParam("answerText") String answerText,
                              @RequestParam("answerRight") boolean answerRight) {
 
-        answerService.update(answerId, answerText, answerRight);
+        answerService.update(answerId, answerText, answerRight, questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/answer/" + answerId + "/edit";
     }
 
@@ -511,7 +531,7 @@ public class AdminController {
                                @RequestParam("answerText") String answerText,
                                @RequestParam("answerRight") boolean answerRight) {
 
-        answerService.create(questionId, answerText, answerRight);
+        answerService.create(answerText, answerRight, questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
@@ -524,8 +544,7 @@ public class AdminController {
         model.addAttribute("question", questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
-
-    ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}/update", method = RequestMethod.POST)
     public String updateAnswer(@PathVariable("questionId") int questionId,
                                @PathVariable("courseId") int courseId,
@@ -533,7 +552,7 @@ public class AdminController {
                                @RequestParam("answerText") String answerText,
                                @RequestParam("answerRight") boolean answerRight) {
 
-        answerService.update(answerId, answerText, answerRight);
+        answerService.update(answerId, answerText, answerRight, questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
 
@@ -657,9 +676,11 @@ public class AdminController {
     }
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(@RequestParam int page) {
-        ModelAndView mav = new ModelAndView("adminpanel/usersShow");
+    public ModelAndView usersOnPage(@RequestParam int page, Principal principal) {
+        ModelAndView mav = new ModelAndView("teacherPage/students");
         List<UserBean> users = userService.getUsersOnOnePage(page);
+        UserBean userBean = userService.getUserBeanByEmail(principal.getName());
+        mav.addObject("logedUser", userBean);
         mav.addObject("users", users);
         return mav;
     }
@@ -683,15 +704,15 @@ public class AdminController {
         return mav;
     }
 
-    /*<<<<<<< HEAD
-        @RequestMapping("/ajax/createClassroom")
-        public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                    @RequestParam("CourseId") int courseId,
-                                    @RequestParam("TeacherId") int teacherId) {
-            classroomService.createClassroom(usersId, courseId, teacherId);
-            return "redirect: /admin/classRoomList";
-            ======
-        }*/
+/*<<<<<<< HEAD
+    @RequestMapping("/ajax/createClassroom")
+    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
+                                @RequestParam("CourseId") int courseId,
+                                @RequestParam("TeacherId") int teacherId) {
+        classroomService.createClassroom(usersId, courseId, teacherId);
+        return "redirect: /admin/classRoomList";
+        ======
+    }*/
     @RequestMapping(value = "/ajax/createClassroom", method = RequestMethod.POST)
     @ResponseBody
     public String saveClassroom(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
@@ -1021,7 +1042,7 @@ public class AdminController {
         TestAssignment testAssignment = testAssignmentService.getTestAssignmentBeanByUserId(userId);
         String url = "";
 
-        List<TestResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
+        List<testResWrapper> testResWrappers = beanService.toTestResWrapper(testAssignment);
         model.addAttribute("testWra", testResWrappers);
         model.addAttribute("userId",userId);
 
@@ -1034,6 +1055,18 @@ public class AdminController {
         return url;
     }
 
+    @RequestMapping(value = "/resetpassword/{userId}", method = RequestMethod.GET)
+    public String getResetPassword(@PathVariable("userId") int userId) {
+        UserBean userBean = userService.getUserBeanById(userId);
+        recoverPasswordService.sendRecover(userBean.getEmail());
+        return ("User password reseted successfully");
+    }
+
+
+
+
+
+
     /*Pagination for classroom
     @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
     public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
@@ -1044,4 +1077,6 @@ public class AdminController {
 //        modelMap.addAttribute("page", page);
         return "adminpanel/courses";
     }*/
+
+
 }

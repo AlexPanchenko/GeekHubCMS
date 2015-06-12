@@ -25,12 +25,12 @@ var updateAnswers = function () {
         var text = $(el).find(".answer-input").val();
         var right = $(el).find(".right-answer-cb").prop('checked');
         //If answer text is empty, then answer will not send
-        if(text === "") {
+        if (text === "") {
             return;
         }
         var answer = {
-            text: text,
-            right: right
+            answerText: text,
+            answerRight: right
         };
         //New answers must be send without id
         if (id) {
@@ -38,8 +38,8 @@ var updateAnswers = function () {
         }
         return answer;
     });
-    answersArray = answersArray.filter(function(answer){
-       return  answer != undefined;
+    answersArray = answersArray.filter(function (answer) {
+        return answer != undefined;
     });
     return JSON.stringify(answersArray);
 
@@ -59,6 +59,7 @@ $(".answer-box").on("click", function (event) {
 $("#updateSubmit").on("click", function () {
     var answers = updateAnswers();
     $("#answersList").val(answers);
+    console.log(answers)
     $("#edit").submit();
 });
 

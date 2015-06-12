@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class BeanServiceImpl implements BeanService {
 
     @Override
-    public List<TestResWrapper> toTestResWrapper(TestAssignment testAssignment) {
-        TestResWrapper testResWrapper;
-        List<TestResWrapper> testResWrappers = new ArrayList<TestResWrapper>();
+    public List<testResWrapper> toTestResWrapper(TestAssignment testAssignment) {
+        testResWrapper testResWrapper;
+        List<org.geekhub.hibernate.bean.testResWrapper> testResWrappers = new ArrayList<org.geekhub.hibernate.bean.testResWrapper>();
 
         for (UserResults userResult: testAssignment.getUserResults()){
-            testResWrapper = new TestResWrapper();
+            testResWrapper = new testResWrapper();
             testResWrapper.setTestAssignmentId(testAssignment.getId());
             testResWrapper.setQuestion(userResult.getQuestion());
             testResWrapper.setUserAnswers(userResult.getUserAnswerses());
