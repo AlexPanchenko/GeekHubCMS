@@ -25,21 +25,20 @@ var updateAnswers = function () {
         var text = $(el).find(".answer-input").val();
         var right = $(el).find(".right-answer-cb").prop('checked');
         //If answer text is empty, then answer will not send
-        if(text === "") {
+        if (text === "") {
             return;
+        }
+        //New answers must be send without id
+        if (id) {
+            answer.id = id.substring(6);
         }
         var answer = {
             text: text,
             right: right
         };
-        //New answers must be send without id
-        if (id) {
-            answer.id = id.substring(6);
-        }
         return answer;
-    });
-    answersArray = answersArray.filter(function(answer){
-       return  answer != undefined;
+    }).filter(function (answer) {
+        return answer != undefined;
     });
     return JSON.stringify(answersArray);
 
