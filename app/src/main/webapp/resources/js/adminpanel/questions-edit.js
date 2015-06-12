@@ -37,8 +37,7 @@ var updateAnswers = function () {
             answer.id = id.substring(6);
         }
         return answer;
-    });
-    answersArray = answersArray.filter(function (answer) {
+    }).filter(function (answer) {
         return answer != undefined;
     });
     return JSON.stringify(answersArray);
@@ -50,6 +49,10 @@ $("#addAnswer").on("click", addNewAnswer);
 $(".answer-box").on("click", function (event) {
     target = event.target;
 
+    if ($(target).attr("type") == "checkbox") {
+        $(target).parent().toggleClass("right-answer");
+    }
+
     if ($(target).hasClass("deleteAnswer")) {
         event.preventDefault();
         $(target).parent().parent().remove();
@@ -59,7 +62,6 @@ $(".answer-box").on("click", function (event) {
 $("#updateSubmit").on("click", function () {
     var answers = updateAnswers();
     $("#answersList").val(answers);
-    console.log(answers)
     $("#edit").submit();
 });
 

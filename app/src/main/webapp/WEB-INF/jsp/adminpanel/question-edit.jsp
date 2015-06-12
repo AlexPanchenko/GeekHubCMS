@@ -317,11 +317,12 @@
                         </c:otherwise>
                     </c:choose>
                     <!-- /.col-lg-12 -->
+                    <h3>Answers</h3>
                     <div class="answer-box">
                         <c:forEach items="${answers}" var="answer">
                             <div class="input-group" id="answer${answer.id}">
-                            <span class="input-group-addon" id="basic-addon1">
-                                <input type="checkbox" class="right-answer-cb" checked="${answer.answerRight}">
+                            <span class="input-group-addon <c:if test="${answer.answerRight}">right-answer</c:if>" id="basic-addon1">
+                                <input type="checkbox" class="right-answer-cb" <c:if test="${answer.answerRight}">checked</c:if>>
                             </span>
                                 <input type="text" value="${answer.answerText}" aria-describedby="basic-addon1"
                                        class="form-control answer-input"
@@ -333,9 +334,7 @@
                         </c:forEach>
                     </div>
                     <button class="btn btn-success glyphicon glyphicon-plus pull-right" id="addAnswer"></button>
-                    <button id="updateSubmit" class="btn btn-primary btn-lg">Update
-                        question
-                    </button>
+                    <button id="updateSubmit" class="btn btn-primary btn-lg">Update question</button>
                 </div>
             </div>
         </div>
