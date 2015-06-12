@@ -1,5 +1,5 @@
 var addNewAnswer = function () {
-    var inputGrp = $("<div></div>").addClass("input-group").attr("id", "answer" + id).appendTo($('.answer-box'));
+    var inputGrp = $("<div></div>").addClass("input-group").appendTo($('.answer-box'));
     var checkboxWrap = $("<span></span>").addClass("input-group-addon").attr("id", "basic-addon1").appendTo(inputGrp);
     $('<input />', {
         type: 'checkbox',
@@ -9,33 +9,40 @@ var addNewAnswer = function () {
         "type": 'text',
         "value": name,
         "aria-describedby": "basic-addon1",
-        "class": "form-control answer-input"
+        "class": "form-control answer-input",
+        "placeholder": "input answer here"
     }).appendTo(inputGrp);
     var deleteWrap = $("<span></span>").addClass("input-group-addon").attr("id", "basic-addon2").appendTo(inputGrp);
     var deleteHref = $("<a/>").addClass("fa fa-times deleteAnswer").appendTo(deleteWrap);
 };
 
-var updateQuestion = function () {
+var updateAnswers = function () {
     var answersArray = [];
     var tmpArray = [];
     var inputs = $(".input-group");
     answersArray = [].map.call(inputs, function (el) {
-        var answer = {};
-        answer.id = "answer" + ($(el).attr("id") || 0);
-        answer.text = $(el).find(".answer-input").val();
-        answer.right = $(el).find(".right-answer-cb").prop('checked');
+        var id = $(el).attr("id");
+        var text = $(el).find(".answer-input").val();
+        var right = $(el).find(".right-answer-cb").prop('checked');
+        //If answer text is empty, then answer will not send
+        if(text === "") {
+            return;
+        }
+        var answer = {
+            text: text,
+            right: right
+        };
+        //New answers must be send without id
+        if (id) {
+            answer.id = id.substring(6);
+        }
         return answer;
-
     });
-
-
-    console.log(answers);
+    return JSON.stringify(answersArray);
 
 };
 
-$("#addAnswer").on("click", function () {
-    addNewAnswer();
-});
+$("#addAnswer").on("click", addNewAnswer);
 
 $(".answer-box").on("click", function (event) {
     target = event.target;
@@ -44,11 +51,12 @@ $(".answer-box").on("click", function (event) {
         event.preventDefault();
         $(target).parent().parent().remove();
     }
+});
 
-    if ($(target).attr("type") == "checkbox") {
-        $(target).parent().toggleClass("right-answer");
-    }
-
+$("#updateSubmit").on("click", function () {
+    var answers = updateAnswers();
+    $("#answersList").val(answers);
+    $("#edit").submit();
 });
 
 

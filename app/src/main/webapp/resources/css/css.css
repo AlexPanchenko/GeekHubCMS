@@ -109,3 +109,7 @@ h1 {
 .right-answer {
     background-color: #5CB85C;
 }
+
+.answer-box {
+    margin-bottom: 15px;
+}
