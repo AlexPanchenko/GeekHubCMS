@@ -38,6 +38,9 @@ var updateAnswers = function () {
         }
         return answer;
     });
+    answersArray = answersArray.filter(function(answer){
+       return  answer != undefined;
+    });
     return JSON.stringify(answersArray);
 
 };
