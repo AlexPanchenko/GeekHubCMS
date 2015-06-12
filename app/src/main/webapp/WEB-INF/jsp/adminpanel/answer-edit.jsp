@@ -256,7 +256,6 @@
             <!-- /.container-fluid -->
         </div>
     </div>
-
     <script src="<c:url value='/resources/js/adminpanel/answer-edit.js'/>" type="text/javascript"></script>
 </body>
 </html>

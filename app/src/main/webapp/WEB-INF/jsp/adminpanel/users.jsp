@@ -83,6 +83,7 @@
         </div>
     </div>
 </div>
+<jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
 <script src="<c:url value="/resources/js/shared/feedbacks.js"/>"></script>
 <script src="<c:url value="/resources/js/shared/users.js"/>"></script>
 </body>

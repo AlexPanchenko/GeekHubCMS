@@ -45,40 +45,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${testConfigList}" var="testConfig">
-                            <tr class="text-center">
-                                <td class="text-center">${testConfig.id}</td>
-                                <td class="text-center">${testConfig.title}</td>
-                                <c:choose>
-                                    <c:when test="${testConfig.testType eq null}">
-                                        <td class="text-center">-</td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td class="text-center">${testConfig.testType.name} (${testConfig.testType.course.name})</td>
-                                    </c:otherwise>
-                                </c:choose>
+                    <c:forEach items="${testConfigList}" var="testConfig">
+                        <tr class="text-center">
+                            <td class="text-center">${testConfig.id}</td>
+                            <td class="text-center">${testConfig.title}</td>
+                            <c:choose>
+                                <c:when test="${testConfig.testType eq null}">
+                                    <td class="text-center">-</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td class="text-center">${testConfig.testType.name}
+                                        (${testConfig.testType.course.name})
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
 
-                                <td class="text-center"><fmt:formatDate type="date"
-                                                                        value="${testConfig.dateStart}" /></td>
-                                <td class="text-center"><fmt:formatDate type="date"
-                                                                        value="${testConfig.dateFinish}" /></td>
-                                <td class="text-center">${testConfig.timeToTest}m</td>
-                                <td class="text-center">${testConfig.status}</td>
+                            <td class="text-center"><fmt:formatDate type="date"
+                                                                    value="${testConfig.dateStart}"/></td>
+                            <td class="text-center"><fmt:formatDate type="date"
+                                                                    value="${testConfig.dateFinish}"/></td>
+                            <td class="text-center">${testConfig.timeToTest}m</td>
+                            <td class="text-center">${testConfig.status}</td>
 
-                                <td class="text-center">
-                                    <a href="/admin/testConfig/edit/${testConfig.id}"><i
-                                            class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/testConfig/delete/${testConfig.id}"> <i class="fa fa-times"></i></a>
-                                </td>
+                            <td class="text-center">
+                                <a href="/admin/testConfig/edit/${testConfig.id}"><i
+                                        class="fa fa-pencil-square-o"></i></a>
+                                <a data-href="/admin/testConfig/delete/${testConfig.id}" data-toggle="modal"
+                                   data-target="#delete-confirm"> <i class="fa fa-times"></i></a>
+                            </td>
 
-                            </tr>
-                        </c:forEach>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
 </body>
 </html>
 

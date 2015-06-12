@@ -25,7 +25,7 @@
                 <c:if test="${logedUser.role eq \"ROLE_ADMIN\"}">
                     <input type="hidden" value="${user.id}">
                     <a href="/admin/users/${user.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                    <a href="/admin/users/${user.id}/remove"><i class="fa fa-times"></i></a>
+                    <a data-href="/admin/users/${user.id}/remove" data-toggle="modal" data-target="#delete-confirm"><i class="fa fa-times"></i></a>
                     <a href="#" data-toggle="modal" data-target="#feedbackForm" id="user${user.id}"><i
                             class="fa fa-comment"></i></a>
                     <a href="#"><i class="fa fa-eye view-feedbacks"></i></a>
