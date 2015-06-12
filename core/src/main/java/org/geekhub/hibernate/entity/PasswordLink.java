@@ -41,8 +41,11 @@ public class PasswordLink extends BaseEntity implements Serializable {
         this.userId = userId;
     }
 
+    public String getPasswordLink() {
+        return passwordLink;
+    }
+
     public void setPasswordLink(String passwordLink) {
         this.passwordLink = passwordLink;
     }
-
 }

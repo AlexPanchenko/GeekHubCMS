@@ -30,7 +30,7 @@ public class RecoverPasswordServiceImpl implements RecoverPasswordService{
 
     @Override
     public void recoverPassword(String newPassword,int id) {
-        PasswordLink pl = passwordDao.getUserId(id);
+        PasswordLink pl = passwordDao.getPasswordLinkById(id);
         User user = userDao.getUserById(pl.getUserId());
         user.setPassword(DigestUtils.md5Hex(newPassword));
         userDao.update(user);
@@ -56,5 +56,15 @@ public class RecoverPasswordServiceImpl implements RecoverPasswordService{
 
         String html = "<p> you may recover password if you redirect to this link </p><a href='http://localhost:8080/recoverPassword/" + passwordLink.getId() +"/" + randomString + "'>http://localhost:8080/recoverPassword/'" + passwordLink.getId() +"/" + randomString + "</a>";
         javaSender.sendMimeMessage("myjekauser@gmail.com",email,"Recover Password",html);
+    }
+
+    @Override
+    public void deleteUniqueLink(PasswordLink passwordLink) {
+     passwordDao.deleteLink(passwordLink);
+    }
+
+    @Override
+    public PasswordLink getPasswordLinkById(int id) {
+        return passwordDao.getPasswordLinkById(id);
     }
 }
