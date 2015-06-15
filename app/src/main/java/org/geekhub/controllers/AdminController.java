@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -476,11 +474,23 @@ public class AdminController {
                                @RequestParam("manyAnswers") boolean manyAnswers,
                                @RequestParam("testTypeIdUpdate") int testTypeId,
                                @PathVariable("courseId") int courseId,
-                               @RequestParam ("answersList") String answers) {
+                               @RequestParam ("answersList") String answers,
+                               @RequestParam("answersToDelete") String answersToDelete) {
         QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
         questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
         questionBean.setManyAnswers(manyAnswers);
-        questionService.update(questionBean);
+        if (questionBean.getId() == 0) {
+            questionService.create(questionBean);
+        } else {
+            questionService.update(questionBean);
+        }
+        if (!answersToDelete.equals("")) {
+            ArrayList<String> list = new ArrayList<>(Arrays.asList(answersToDelete.split(",")));
+            List<Integer> answersIdsToDelete = list.stream().map(stringId -> Integer.parseInt(stringId)).collect(Collectors.toList());
+            for (Integer each: answersIdsToDelete) {
+                answerService.delete(each);
+            }
+        }
 
         Gson gson = new Gson();
         AnswerBean[] answersArray = gson.fromJson(answers, AnswerBean[].class);
@@ -495,9 +505,6 @@ public class AdminController {
         return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
     }
 
-    // END QUESTION CONTROLLER
-
-    //START ANSWER CONTROLLER
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
     public String editAnswer(@PathVariable("questionId") int questionId,
                              @RequestParam("answerId") int answerId,
@@ -555,23 +562,6 @@ public class AdminController {
         answerService.update(answerId, answerText, answerRight, questionService.read(questionId));
         return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
     }
-
-
-//
-//    public String updateAnswer(@PathVariable("questionId") int questionId,
-//                               @PathVariable("courseId") int courseId,
-//                               @PathVariable("answerId") int answerId,
-//                               ModelMap model) {
-//        model.addAttribute("question", questionService.read(questionId));
-//        model.addAttribute("answers", answerService.getAnswersByQuestion(questionId));
-//        model.addAttribute("answerSelect", answerService.read(answerId));
-//        model.addAttribute("listTestType", testTypeService.getListByCourseId(courseId));
-//        model.addAttribute("curentTestTypeId", ((Question) questionService.read(questionId)).getTestType().getId());
-//        return "adminpanel/answer-edit";
-//    }
-
-    // END ANSWER CONTROLLER
-
 
     @RequestMapping(value = "/testConfig/{courseId}/create", method = RequestMethod.GET)
     public ModelAndView createTestConfig(@PathVariable int courseId) {
@@ -704,15 +694,6 @@ public class AdminController {
         return mav;
     }
 
-/*<<<<<<< HEAD
-    @RequestMapping("/ajax/createClassroom")
-    public String saveClassroom(@RequestParam("UsersId") Integer[] usersId,
-                                @RequestParam("CourseId") int courseId,
-                                @RequestParam("TeacherId") int teacherId) {
-        classroomService.createClassroom(usersId, courseId, teacherId);
-        return "redirect: /admin/classRoomList";
-        ======
-    }*/
     @RequestMapping(value = "/ajax/createClassroom", method = RequestMethod.POST)
     @ResponseBody
     public String saveClassroom(@RequestParam(value = "usersId[]", required = false) Integer[] usersId,
@@ -723,7 +704,6 @@ public class AdminController {
 
         classroomService.createClassroom(usersId, courseId, teacherId, className, classDescription);
         return "/admin/classRoomList";
-//>>>>>>> 966e4e7125cd139192af0bba44c4cfb1b9dcdbe5
     }
 
     @RequestMapping(value = "/classRoomList", method = RequestMethod.GET)
@@ -733,26 +713,6 @@ public class AdminController {
         return "adminpanel/classRoom";
     }
 
-    /*<<<<<<< HEAD
-
-        @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.GET)
-        public String classroomListEdit(ModelMap model, @PathVariable("classroomId") int classroomId) {
-            model.addAttribute("classroomId", classroomId);
-            return "adminpanel/editClassRoom";
-        }
-
-
-        @RequestMapping(value = "/admin/classroom/{classroomId}/edit", method = RequestMethod.POST)
-        public String classroomListEditPost(ModelMap model, @PathVariable("classroomId") int classroomId) {
-
-            return "adminpanel/classRoom";
-        }
-
-        @RequestMapping(value = "/admin/classroom-remove/{classroomId}", method = RequestMethod.GET)
-        public String classroomRemove(ModelMap model, @PathVariable("classroomId") int classroomId) {
-
-        }
-    =======*/
     @RequestMapping(value = "/classroom/{classroomId}/edit")
     public ModelAndView classroomListEdit(@PathVariable("classroomId") int classroomId) {
         ModelAndView mav = new ModelAndView("adminpanel/classroom-edit");
@@ -808,7 +768,6 @@ public class AdminController {
     @RequestMapping(value = "/testType/delete/{id}", method = RequestMethod.GET)
     public String testTypeDelete(ModelMap model,
                                  @PathVariable("id") int id) {
-        //if(testTypeService.getTestTypeById(id).getTestConfigList().)
         if (testTypeService.isRemovable(testTypeService.getTestTypeById(id))) {
             testTypeService.deleteById(id);
             return "redirect:/admin/testType";
@@ -879,7 +838,6 @@ public class AdminController {
     @RequestMapping(value = "/testConfig/delete/{id}", method = RequestMethod.GET)
     public String testConfigDelete(Map<String, Object> model,
                                    @PathVariable("id") int id) {
-        //if(testAssignmentService.getTestAssignmentListByTestConfig(testConfigService.getTestConfigByID(id)) != null)
         if (testConfigService.isRemovable(testConfigService.getTestConfigByID(id))) {
             testConfigService.deleteById(id);
             return "redirect:/admin/testConfig";
@@ -1061,22 +1019,5 @@ public class AdminController {
         recoverPasswordService.sendRecover(userBean.getEmail());
         return ("User password reseted successfully");
     }
-
-
-
-
-
-
-    /*Pagination for classroom
-    @RequestMapping(value = "/classroom/list", method = RequestMethod.GET)
-    public String classromList(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
-                               @RequestParam(value = "results", defaultValue = "5", required = false) Integer recPerPage,
-                               ModelMap modelMap) {
-
-//        Page<Classroom> page =  courseService.getAll(p, recPerPage);
-//        modelMap.addAttribute("page", page);
-        return "adminpanel/courses";
-    }*/
-
 
 }
