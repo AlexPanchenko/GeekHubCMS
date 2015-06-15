@@ -84,7 +84,7 @@ $(".answer-box").on("click", function (event) {
 $("#updateSubmit").on("click", function () {
     var answers = updateAnswers();
     $("#answersList").val(answers);
-    //$("#answersToDelete").val(addToDeleteList.toString());
+    $("#answersToDelete").val(addToDeleteList());
     $("#edit").submit();
 });
 

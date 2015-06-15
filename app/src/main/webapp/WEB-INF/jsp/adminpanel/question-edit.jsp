@@ -263,7 +263,7 @@
                                     </dl>
                                 </fieldset>
                                 <input type="hidden" id="answersList" name="answersList" value=""/>
-                                <input type="hidden" id="answersToDelete" name="answersList" value=""/>
+                                <input type="hidden" id="answersToDelete" name="answersToDelete" value=""/>
                             </form>
                             <%--<table class="table">--%>
                             <%--<c:forEach items="${answers}" var="answer">--%>
