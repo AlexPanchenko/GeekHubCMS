@@ -16,9 +16,29 @@ var addNewAnswer = function () {
     var deleteHref = $("<a/>").addClass("fa fa-times deleteAnswer").appendTo(deleteWrap);
 };
 
+function deleteListArray() {
+    var waitingToDelete = [];
+    return function (id) {
+        if(id){
+            return waitingToDelete.push(parseInt(id));
+        } else {
+            return waitingToDelete;
+        }
+    };
+}
+
+var addToDeleteList = deleteListArray();
+
+var getAnswerId = function (answer) {
+    if (answer) {
+        return answer.substring(6);
+
+    }
+};
+
+
 var updateAnswers = function () {
     var answersArray = [];
-    var tmpArray = [];
     var inputs = $(".input-group");
     answersArray = [].map.call(inputs, function (el) {
         var id = $(el).attr("id");
@@ -34,7 +54,7 @@ var updateAnswers = function () {
         };
         //New answers must be send without id
         if (id) {
-            answer.id = id.substring(6);
+            answer.id = getAnswerId(id);
         }
         return answer;
     }).filter(function (answer) {
@@ -55,15 +75,19 @@ $(".answer-box").on("click", function (event) {
 
     if ($(target).hasClass("deleteAnswer")) {
         event.preventDefault();
-        $(target).parent().parent().remove();
+        var answer = $(target).closest(".input-group");
+        answer.remove();
+        addToDeleteList(getAnswerId(answer.attr("id")));
     }
 });
 
 $("#updateSubmit").on("click", function () {
     var answers = updateAnswers();
     $("#answersList").val(answers);
+    //$("#answersToDelete").val(addToDeleteList.toString());
     $("#edit").submit();
 });
+
 
 
 $(function () {
