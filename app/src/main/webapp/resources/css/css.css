@@ -110,6 +110,10 @@ h1 {
     background-color: #5CB85C;
 }
 
-.answer-box {
+.answers-container {
     margin-bottom: 15px;
+}
+
+.multiple-form-group {
+    margin-top: 33px;
 }

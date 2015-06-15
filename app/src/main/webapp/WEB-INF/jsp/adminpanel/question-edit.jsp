@@ -52,17 +52,16 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-lg-10">
+                <div class="col-lg-7">
                     <c:choose>
                         <c:when test="${action eq 'create'}">
-                            <h1 class="alert alert-success text-center">
+                            <h1 class="page-header">
                                 <b>Add new question for course ${courseName}</b>
                             </h1>
 
                             <%--<h1 class="page-header">Add new question for course ${courseName}</h1>--%>
                             <form data-toggle="validator" name="create" id="create" role="form"
-                                  action="/admin/course/${courseId}/question/create" method="POST"
-                                  class="form-horizontal">
+                                  action="/admin/course/${courseId}/question/create" method="POST">
                                 <fieldset>
                                     <h1 class="alert alert-success text-center">
                                         <b>Select TestType for ${courseName}</b>
@@ -217,29 +216,6 @@
                                             </div>
                                         </dd>
                                         <dt>
-                                            <label class="control-label pull-left">ManyAnswers</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <c:choose>
-                                                    <c:when test="${question.manyAnswers eq true}">
-                                                        <input type="checkbox"
-                                                               id="questionManyAnswersTrue"
-                                                               name="manyAnswers" checked>
-                                                        <input type="hidden" name="manyAnswers"
-                                                               value="false">
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input type="checkbox"
-                                                               id="manyAnswersFalse"
-                                                               name="manyAnswers">
-                                                        <input type="hidden" name="manyAnswers"
-                                                               value="false">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                        </dd>
-                                        <dt>
                                             <label class="control-label pull-left">User answer</label>
                                         </dt>
                                         <dd>
@@ -264,82 +240,76 @@
                                 </fieldset>
                                 <input type="hidden" id="answersList" name="answersList" value=""/>
                                 <input type="hidden" id="answersToDelete" name="answersToDelete" value=""/>
+                                <input type="hidden" id="manyAnswers" name="manyAnswers" value=""/>
                             </form>
-                            <%--<table class="table">--%>
-                            <%--<c:forEach items="${answers}" var="answer">--%>
-                            <%--<tr>--%>
-                            <%--<td>${answer.id}</td>--%>
-                            <%--<td>${answer.answerText}</td>--%>
-                            <%--<td>${answer.answerRight}</td>--%>
-                            <%--<td class="text-center">--%>
-                            <%--<a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/edit"><i--%>
-                            <%--class="fa fa-pencil-square-o"></i></a>--%>
-                            <%--<a href="/admin/course/${courseId}/question/${questionId}/answer/${answer.id}/delete"><i--%>
-                            <%--class="fa fa-times"></i></a>--%>
-                            <%--</td>--%>
-                            <%--</tr>--%>
-                            <%--</c:forEach>--%>
-                            <%--</table>--%>
-                            <%--<form data-toggle="validator" role="form"--%>
-                            <%--action="/admin/course/${question.course.id}/question/${question.id}/answer/create"--%>
-                            <%--method="POST" class="form-horizontal">--%>
-                            <%--<fieldset>--%>
-                            <%--<dl class="dl-horizontal">--%>
-                            <%--<dt>--%>
-                            <%--<label class="pull-left control-label" for="answerText">Answer--%>
-                            <%--text</label>--%>
-                            <%--</dt>--%>
-                            <%--<dd>--%>
-                            <%--<div class="form-group">--%>
-                            <%--<textarea class="form-control" id="answerText"--%>
-                            <%--name="answerText"--%>
-                            <%--placeholder="Enter the answer text"--%>
-                            <%--rows="2"--%>
-                            <%--required>${answer.answerText}</textarea>--%>
-                            <%--</div>--%>
-                            <%--</dd>--%>
-                            <%--<dt>--%>
-                            <%--<label class="control-label pull-left">Answer--%>
-                            <%--right?</label>--%>
-                            <%--</dt>--%>
-                            <%--<dd>--%>
-                            <%--<div class="form-group">--%>
-                            <%--<input type="checkbox" id="answerRight"--%>
-                            <%--name="answerRight">--%>
-                            <%--<input type="hidden" name="answerRight"--%>
-                            <%--value="false">--%>
-                            <%--</div>--%>
-                            <%--</dd>--%>
-                            <%--</dl>--%>
-                            <%--</fieldset>--%>
-                            <%--<button type="submit" class="btn btn-primary btn-lg">Create answer--%>
-                            <%--</button>--%>
-                            <%--</form>--%>
+                            <div class="clearfix"></div>
+                            <button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>
                         </c:otherwise>
                     </c:choose>
                     <!-- /.col-lg-12 -->
-                    <h3>Answers</h3>
 
-                    <div class="answer-box">
-                        <c:forEach items="${answers}" var="answer">
-                            <div class="input-group" id="answer${answer.id}">
-                                <span class="input-group-addon <c:if test="${answer.answerRight}">right-answer</c:if>"
-                                      id="basic-addon1">
-                                    <input type="checkbox" class="right-answer-cb"
-                                           <c:if test="${answer.answerRight}">checked</c:if>>
-                                </span>
-                                <input type="text" value="${answer.answerText}" aria-describedby="basic-addon1"
-                                       class="form-control answer-input"
-                                       placeholder="input answer here">
-                                <span class="input-group-addon" id="basic-addon2">
-                                    <a class="fa fa-times deleteAnswer"></a>
-                                </span>
+                </div>
+
+
+                <div class="answers-container col-lg-5">
+                    <h3 class="page-header">Answers</h3>
+
+                    <div class="multiple-form-group">
+                        <c:forEach items="${answers}" var="answer" varStatus="loop">
+                            <div class="form-group  input-group" id="answer${answer.id}">
+                                <div class="input-group-btn input-group-select">
+                                    <button type="button"
+                                            class="btn ${answer.answerRight ? 'btn-success': 'btn-danger'} dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <span class="concept">${answer.answerRight ? 'Correct': 'Incorrect'}</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#false">Incorrect</a></li>
+                                        <li><a href="#true">Correct</a></li>
+                                    </ul>
+                                    <input type="hidden" class="input-group-select-val" name=""
+                                           value="${answer.answerRight}">
+                                </div>
+                                <input type="text" class="form-control answer-input"
+                                       value="${answer.answerText}">
+                        <span class="input-group-btn">
+                            <button type="button"
+                                    class="btn ${loop.last ? 'btn-success btn-add' : 'btn-danger btn-remove'}">
+                                    ${loop.last ? '+' : '-'}
+                            </button>
+                        </span>
                             </div>
                         </c:forEach>
+
+                        <%--Add empty field if answers is empty--%>
+                        <c:if test="${answers.isEmpty()}">
+                            <div class="form-group  input-group">
+                                <div class="input-group-btn input-group-select">
+                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <span class="concept"> Incorrect</span> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#false">Incorrect</a></li>
+                                        <li><a href="#true">Correct</a></li>
+                                    </ul>
+                                    <input type="hidden" class="input-group-select-val" name="" value="false">
+                                </div>
+                                <input type="text" class="form-control answer-input"
+                                       value="">
+                        <span class="input-group-btn">
+                            <button type="button"
+                                    class="btn btn-success btn-add">
+                                +
+                            </button>
+                        </span>
+                            </div>
+                        </c:if>
                     </div>
-                    <button class="btn btn-success glyphicon glyphicon-plus pull-right" id="addAnswer"></button>
-                    <button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>
                 </div>
+                <%--<div class="clearfix"></div>--%>
+                <%--<button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>--%>
             </div>
         </div>
     </div>
@@ -347,6 +317,7 @@
     <!-- Page Content -->
 
 </div>
+
 <script src="<c:url value="/resources/js/adminpanel/questions-edit.js"/> "></script>
 </body>
 </html>
