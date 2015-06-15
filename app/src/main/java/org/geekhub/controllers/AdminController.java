@@ -408,8 +408,10 @@ public class AdminController {
     public String createQuestionPageByCourse(@PathVariable("courseId") int courseId, ModelMap model) {
         model.addAttribute("action", "create");
         //  model.addAttribute("question", new Question());
+        List<Answer> answerList = new ArrayList<>();
         model.addAttribute("courseId", courseId);
         model.addAttribute("listTestType", testTypeService.getListByCourseId(courseId));
+        model.addAttribute("answers", answerList);
         try {
             model.addAttribute("courseName", courseService.getById(courseId).getName());
         } catch (CourseNotFoundException ex) {
