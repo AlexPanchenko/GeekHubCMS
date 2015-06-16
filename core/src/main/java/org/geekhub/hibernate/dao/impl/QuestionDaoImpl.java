@@ -36,4 +36,11 @@ public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
                 .add(Restrictions.eq("course", course))
                 .add(Restrictions.isNull("testType")).list();
     }
+
+    @Override
+    public Question getQuestionWithId(Question question) {
+        return (Question) sessionFactory.getCurrentSession().createCriteria(Question.class).add(Restrictions.eq("questionText", question.getQuestionText()))
+                .add(Restrictions.eq("questionWeight", question.getQuestionWeight())).add(Restrictions.eq("questionStatus", question.getQuestionStatus()))
+                .add(Restrictions.eq("myAnswer", question.getMyAnswer())).add(Restrictions.eq("questionCode", question.getQuestionCode())).uniqueResult();
+    }
 }

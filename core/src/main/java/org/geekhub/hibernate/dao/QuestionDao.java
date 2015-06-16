@@ -15,4 +15,5 @@ public interface QuestionDao extends BaseDao{
     public List<Question> getByTestType(TestType testType);
     public List<Question> getByCourseWithoutTestType(Course course);
 
+    public Question getQuestionWithId(Question question);
 }

@@ -467,22 +467,27 @@ public class AdminController {
         return "redirect:/admin/questions";
     }
 
-    @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.POST)
-    public String editQuestion(@PathVariable("questionId") int questionId,
-                               @RequestParam("questionText") String questionText,
-                               @RequestParam("questionCode") String questionCode,
-                               @RequestParam("questionWeight") byte questionWeight,
-                               @RequestParam("myAnswer") boolean myAnswer,
-                               @RequestParam("manyAnswers") boolean manyAnswers,
-                               @RequestParam("testTypeIdUpdate") int testTypeId,
+    @RequestMapping(value = "/course/{courseId}/question/edit", method = RequestMethod.POST)
+    public String editQuestion(@RequestParam(value = "questionId", required = true) int questionId,
+                               @RequestParam(value = "questionText", required = true) String questionText,
+                               @RequestParam(value = "questionCode", required = true) String questionCode,
+                               @RequestParam(value = "questionWeight", required = true) byte questionWeight,
+                               @RequestParam(value = "myAnswer",required = true ) boolean myAnswer,
+                               @RequestParam(value = "manyAnswers", required = true) boolean manyAnswers,
+                               @RequestParam(value = "testTypeIdUpdate",required = false) int testTypeId,
                                @PathVariable("courseId") int courseId,
                                @RequestParam ("answersList") String answers,
-                               @RequestParam("answersToDelete") String answersToDelete) {
+                               @RequestParam("answersToDelete") String answersToDelete) throws CourseNotFoundException {
         QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
-        questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
+        Question question = new Question();
+        if (testTypeId != 0) {
+            questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
+        }
         questionBean.setManyAnswers(manyAnswers);
         if (questionBean.getId() == 0) {
             questionService.create(questionBean);
+            question = beanService.toQuestionEntity(questionBean);
+            question = questionService.getQuestionWithId(question);
         } else {
             questionService.update(questionBean);
         }
@@ -496,7 +501,9 @@ public class AdminController {
 
         Gson gson = new Gson();
         AnswerBean[] answersArray = gson.fromJson(answers, AnswerBean[].class);
-        Question question = questionService.read(questionId);
+        if (questionId != 0) {
+            question = questionService.read(questionId);
+        }
         for (AnswerBean each : answersArray) {
             if (each.getId() == 0) {
                 answerService.create(each.getAnswerText(), each.getAnswerRight(), question);

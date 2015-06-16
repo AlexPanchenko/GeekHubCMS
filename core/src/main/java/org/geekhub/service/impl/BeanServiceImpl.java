@@ -3,7 +3,10 @@ package org.geekhub.service.impl;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.entity.*;
+import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 import org.geekhub.service.BeanService;
+import org.geekhub.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,6 +17,10 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class BeanServiceImpl implements BeanService {
+
+    @Autowired
+    private CourseService courseService;
+
 
     @Override
     public List<testResWrapper> toTestResWrapper(TestAssignment testAssignment) {
@@ -137,5 +144,19 @@ public class BeanServiceImpl implements BeanService {
         testAssignmentBean.setTestStatusAssignment(testAssignment.getTestStatusAssignment());
 
         return testAssignmentBean;
+    }
+
+    @Override
+    public Question toQuestionEntity(QuestionBean questionBean) throws CourseNotFoundException {
+        Question question = new Question();
+        question.setId(questionBean.getId());
+        question.setQuestionText(questionBean.getQuestionText());
+        question.setQuestionWeight(questionBean.getQuestionWeight());
+        question.setQuestionStatus(questionBean.getQuestionStatus());
+        question.setMyAnswer(questionBean.getMyAnswer());
+        Course course = (Course) courseService.getCourseById(questionBean.getCourse());
+        question.setCourse(course);
+        question.setQuestionCode(questionBean.getQuestionCode());
+        return question;
     }
 }

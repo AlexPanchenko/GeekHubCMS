@@ -2,7 +2,6 @@ package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.QuestionBean;
-import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestType;
 import org.springframework.stereotype.Component;
@@ -24,4 +23,5 @@ public interface QuestionService{
     int create(QuestionBean questionBean);
     void update(QuestionBean questionBean);
 
+    public Question getQuestionWithId(Question question);
 }
