@@ -86,4 +86,10 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Question> getQuestionsByCourseWithoutTestType(CourseBean courseBean) {
         return questionDao.getByCourseWithoutTestType(courseDao.getCourseByName(courseBean.getName()));
     }
+
+    @Override
+    public Question getQuestionWithId(Question question) {
+        return questionDao.getQuestionWithId(question);
+
+    }
 }

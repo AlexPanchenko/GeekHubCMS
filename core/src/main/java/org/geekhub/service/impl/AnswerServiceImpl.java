@@ -42,11 +42,11 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public void create(int questionId, String answerText, Boolean answerRight) {
+    public void create(String answerText, Boolean answerRight, Question question) {
         Answer answer = new Answer();
         answer.setAnswerText(answerText);
         answer.setAnswerRight(answerRight);
-        answer.setQuestion((Question)questionDao.read(questionId, Question.class));
+        answer.setQuestion(question);
         answerDao.create(answer);
     }
 
@@ -56,7 +56,7 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public void update(int answerId, String answerText, Boolean answerRight) {
+    public void update(int answerId, String answerText, Boolean answerRight, Question question) {
         Answer answer = (Answer)answerDao.read(answerId,Answer.class);
         answer.setAnswerText(answerText);
         answer.setAnswerRight(answerRight);

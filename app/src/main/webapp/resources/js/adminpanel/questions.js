@@ -1,52 +1,46 @@
-var selectCourse = function() {
-    if ($('#selectCourse option:selected').attr('id') == 0) {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-        document.getElementById('selectTestType').style.visibility = 'hidden';
+var selectCourse = function () {
+    var selectedCourse = $('#selectCourse option:selected');
+    if (selectedCourse.attr('id') == 0) {
+        $("#addQuestion").hide();
+        $(".testTypeWrap").hide();
         window.location.replace("/admin/questions");
     } else {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-        document.getElementById('selectTestType').style.visibility = 'visible';
+        $("#addQuestion").show();
+        $(".testTypeWrap").show();
 
-        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-        var redirectTo = "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/questions/";
+        $('addQuestion').attr("href", "/admin/course/" + selectedCourse.attr('id') + "/question/create");
+        var redirectTo = "/admin/course/" + selectedCourse.attr('id') + "/questions/";
         window.location.replace(redirectTo);
-
-//          $.get("/admin/questions/" + $('#selectCourse option:selected').attr('id'), function(data){
-//              $('#page-content-wrapper').load('questions.jsp');
-//            alert(data);
-        //document.getElementById("selectTestType").setAttribute("${testTypeList}");
-//          })
     }
 
 };
 
-var selectTestType = function() {
+var selectTestType = function () {
+    var redirectTo;
     if ($('#selectTestType option:selected').attr('id') == "testType0") {
+        console.log("hello");
+        redirectTo = "/admin/course/" + currentCourse + "/questions/";
     } else {
-        var redirectTo = "/admin/course/" + currentCourse +"/testType/" + $('#selectTestType option:selected').attr('id') + "/questions/";
-        window.location.replace(redirectTo);
+        redirectTo = "/admin/course/" + currentCourse + "/testType/" + $('#selectTestType option:selected').attr('id') + "/questions/";
     }
+    window.location.replace(redirectTo);
 };
 
 $(document).ready(function () {
-    //<%--document.getElementById('selectCourse').selectedIndex = ${currentCourse};--%>
-
-    if ($('#selectCourse option:selected').attr('id') == 0) {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-        document.getElementById('selectTestType').style.visibility = 'hidden';
+    var selectedCourse = $('#selectCourse option:selected'),
+        addQuestionBtn = $('#addQuestion');
+    if (selectedCourse.attr('id') == 0) {
+        addQuestionBtn.hide();
+        $('.testTypeWrap').hide();
 
     } else {
-        document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-        document.getElementById('selectTestType').style.visibility = 'visible';
-        $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
+        addQuestionBtn.show();
+        $('.testTypeWrap').show();
+        addQuestionBtn.attr("href", "/admin/course/" + selectedCourse.attr('id') + "/question/create");
     }
 });
 
 //Event handlers
-$("#selectTestType").on("change", function () {
-    selectTestType();
-});
+$("#selectTestType").on("change", selectTestType);
 
-$("#selectCourse").on("change", function(){
-    selectCourse();
-});
+$("#selectCourse").on("change", selectCourse);

@@ -2,6 +2,7 @@ package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.*;
 import org.geekhub.hibernate.entity.*;
+import org.geekhub.hibernate.exceptions.CourseNotFoundException;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface BeanService {
     public TestConfigBeen toTestConfigBean(TestConfig testConfig);
     public NoteBean toNoteBean (Note note);
     public TestAssignmentBean toTestAssignmentBean(TestAssignment testAssignment);
+    public Question toQuestionEntity (QuestionBean questionBean) throws CourseNotFoundException;
 }

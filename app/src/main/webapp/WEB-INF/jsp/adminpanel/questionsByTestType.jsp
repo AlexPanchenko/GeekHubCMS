@@ -17,54 +17,6 @@
 
     <jsp:include page="../source.jsp"></jsp:include>
 
-    <script>
-        function selectCource() {
-            if ($('#selectCourse option:selected').attr('id') == 0) {
-                document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-                document.getElementById('selectTestType').style.visibility = 'hidden';
-                window.location.replace("/admin/questions");
-            } else {
-                document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-                document.getElementById('selectTestType').style.visibility = 'visible';
-
-                $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-                var redirectTo = "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/questions/";
-                window.location.replace(redirectTo);
-
-//          $.get("/admin/questions/" + $('#selectCourse option:selected').attr('id'), function(data){
-//              $('#page-content-wrapper').load('questions.jsp');
-//            alert(data);
-                //document.getElementById("selectTestType").setAttribute("${testTypeList}");
-//          })
-            }
-
-        }
-        <%--alert(${currentCourse});--%>
-        $(document).ready(function () {
-            <%--document.getElementById('selectCourse').selectedIndex = ${currentCourse};--%>
-
-            if ($('#selectCourse option:selected').attr('id') == 0) {
-                document.getElementById('linkCreateQuestionByCourse').style.visibility = 'hidden';
-                document.getElementById('selectTestType').style.visibility = 'hidden';
-
-            } else {
-                document.getElementById('linkCreateQuestionByCourse').style.visibility = 'visible';
-                document.getElementById('selectTestType').style.visibility = 'visible';
-                $('#linkCreateQuestionByCourse').attr("href", "/admin/course/" + $('#selectCourse option:selected').attr('id') + "/question/create");
-            }
-        });
-
-        function selectTestType() {
-            if ($('#selectTestType option:selected').attr('id') == "testType0") {
-                var redirectTo = "/admin/course/" + ${currentCourse} +"/questions/";
-                window.location.replace(redirectTo);
-            } else {
-                var redirectTo = "/admin/course/" + ${currentCourse} +"/testType/" + $('#selectTestType option:selected').attr('id') + "/questions/";
-                window.location.replace(redirectTo);
-            }
-        }
-
-    </script>
 
 </head>
 <body>
@@ -78,10 +30,12 @@
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
 
-                        <a id="linkCreateQuestionByCourse" href="#"><i class="glyphicon glyphicon-pencil pull-left"
-                                                                       title="Create new question"></i></a>
-                        <!-- /////////////////////////////////////////////////////////-->
-                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCource()">
+                        <b>Questions manage</b>
+                    </h1>
+
+                    <div class="panel panel-heading">
+                        <label for="selectCourse">Select course:</label>
+                        <select id="selectCourse" class="dropdown-toggle">
                             <option id="0">All Courses</option>
                             <c:forEach items="${courses}" var="course">
                                 <c:if test="${course.id != currentCourse}">
@@ -91,31 +45,24 @@
                                     <option selected id=${course.id}>${course.name}</option>
                                 </c:if>
                             </c:forEach>
-                            <%--<option selected id=${currentCourse}>${currentCourse}</option>--%>
                         </select>
 
-                        <select id="selectTestType" class="dropdown-toggle" onchange="selectTestType()">
-                            <option id="testType0">All TestType</option>
-                            <c:if test="${0 == testTypeId}">
-                                <option selected id="0">withoutTestType</option>
-                            </c:if>
-                            <c:if test="${0 != testTypeId}">
+                        <div class="testTypeWrap">
+                            <label for="selectTestType">Select test type:</label>
+                            <select id="selectTestType" class="dropdown-toggle">
+                                <option id="testType0">All TestType</option>
+                                <c:forEach items="${testTypeList}" var="testType">
+                                    <c:if test="${testType.id != currentTestType}">
+                                        <option id=${testType.id}>${testType.name}</option>
+                                    </c:if>
+                                    <c:if test="${testType.id == currentTestType}">
+                                        <option selected id=${testType.id}>${testType.name}</option>
+                                    </c:if>
+                                </c:forEach>
                                 <option id="0">withoutTestType</option>
-                            </c:if>
-                            <c:forEach items="${testTypeList}" var="testType">
-                                <c:if test="${testType.id != testTypeId}">
-                                    <option id=${testType.id}>${testType.name}</option>
-                                </c:if>
-                                <c:if test="${testType.id == testTypeId}">
-                                    <option selected id=${testType.id}>${testType.name}</option>
-                                </c:if>
-                            </c:forEach>
-                            <%--<option id="0">withoutTestType</option>--%>
-                        </select>
-
-
-                        <b>Questions manage</b></h1>
-
+                            </select>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
@@ -128,9 +75,7 @@
                             <th class="text-center"> Action</th>
                         </tr>
                         </thead>
-                        <%--<c:set var="courseIdNow" value="2"/>--%>
                         <c:forEach items="${questions}" var="question">
-                            <%--<c:if test="${question.course.id == courseIdNow}">--%>
                             <tr>
                                 <td>${question.id}</td>
                                 <td>${question.questionText}</td>
@@ -141,13 +86,10 @@
                                 <td class="text-center">
                                     <a href="/admin/course/${question.course.id}/testType/${testTypeId}/question/${question.id}/edit"><i
                                             class="fa fa-pencil-square-o"></i></a>
-                                        <%--<a href="/admin/course/${question.course.id}/question/${question.id}/delete"><i class="fa fa-times"></i></a>--%>
                                 </td>
                             </tr>
-                            <%--</c:if>--%>
                         </c:forEach>
                     </table>
-
 
                     <div class="text-center">
                         <nav>
@@ -175,5 +117,9 @@
         </div>
     </div>
 </div>
+<script>
+    var currentCourse = ${currentCourse};
+</script>
+<script src="<c:url value='/resources/js/adminpanel/questions.js'/>" type="text/javascript"></script>
 </body>
 </html>

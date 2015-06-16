@@ -158,3 +158,19 @@ h1 {
 }#feedbackText {
     width: 570px;
 }
+
+.right-answer {
+    background-color: #5CB85C;
+}
+
+.answers-container {
+    margin-bottom: 15px;
+}
+
+.multiple-form-group {
+    margin-top: 33px;
+}
+
+.testTypeWrap {
+    display: inline-block;
+}
