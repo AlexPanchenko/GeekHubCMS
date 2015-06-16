@@ -419,31 +419,6 @@ public class AdminController {
         return "adminpanel/question-edit";
     }
 
-    ////////////////////////////////////////////////////////////
-    @RequestMapping(value = "/course/{courseId}/question/create", method = RequestMethod.POST)
-    public String createQuestion(@RequestParam("questionText") String questionText,
-                                 @RequestParam("questionCode") String questionCode,
-                                 @RequestParam("questionWeight") byte questionWeight,
-                                 @RequestParam("questionStatusManyAnswers") boolean questionStatusManyAnswers,
-                                 @RequestParam("myAnswer") boolean myAnswer,
-                                 @RequestParam("testTypeId") int testTypeId,
-                                 @PathVariable("courseId") int courseId) {
-        QuestionBean questionBean = new QuestionBean(questionText, questionWeight, true, myAnswer, courseId);
-        if (testTypeId != 0) {
-            questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
-        } else {
-            questionBean.setTestType(null);
-        }
-        questionBean.setQuestionCode(questionCode);
-        questionBean.setManyAnswers(questionStatusManyAnswers);
-        int questionId = questionService.create(questionBean);
-
-
-        System.out.println("Question text " + questionText + "   Question Weight " + questionWeight);
-        return "redirect:/admin/course/" + courseId + "/question/" + questionId + "/edit";
-    }
-
-
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/edit", method = RequestMethod.GET)
     public String editQuestion(@PathVariable("questionId") int questionId,
                                @PathVariable("courseId") int courseId,
