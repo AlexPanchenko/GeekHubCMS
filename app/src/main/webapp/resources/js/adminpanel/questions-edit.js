@@ -5,7 +5,6 @@ var queueDeletion = (function () {
             return answersToDelete;
         },
         addAnswer: function (answerId) {
-            console.log(answerId);
             answersToDelete.push(parseInt(answerId))
         }
     }
@@ -30,7 +29,7 @@ var updateAnswers = function () {
     answersArray = [].map.call(inputs, function (el) {
         var id = $(el).attr("id");
         var text = $(el).find(".answer-input").val();
-        var right = $(el).find(".input-group-select-val").val();
+        var right = $(el).find(".input-group-select-val").val() === "true";
         //If answer text is empty, then answer will not send
         if (text === "") {
             return;
