@@ -468,7 +468,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/course/{courseId}/question/edit", method = RequestMethod.POST)
-    public String editQuestion(@RequestParam(value = "questionId", required = true) int questionId,
+    public String editQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId,
                                @RequestParam(value = "questionText", required = true) String questionText,
                                @RequestParam(value = "questionCode", required = true) String questionCode,
                                @RequestParam(value = "questionWeight", required = true) byte questionWeight,
