@@ -61,7 +61,7 @@
 
                             <%--<h1 class="page-header">Add new question for course ${courseName}</h1>--%>
                             <form data-toggle="validator" name="create" id="create" role="form"
-                                  action="/admin/course/${courseId}/question/create" method="POST">
+                                  action="/admin/course/${question.course.id}/question/${question.id}/edit" method="POST">
                                 <fieldset>
                                     <h1 class="alert alert-success text-center">
                                         <b>Select TestType for ${courseName}</b>
@@ -108,17 +108,6 @@
                                                        type="text"
                                                        placeholder="enter the weight question"
                                                        class="form-control pull-left" required>
-                                            </div>
-                                        </dd>
-                                        <dt>
-                                            <label class="control-label pull-left">ManyAnswers</label>
-                                        </dt>
-                                        <dd>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="questionStatusManyAnswers"
-                                                       name="questionStatusManyAnswers" value="true">
-                                                <input type="hidden" name="questionStatusManyAnswers"
-                                                       value="false">
                                             </div>
                                         </dd>
                                         <dt>
