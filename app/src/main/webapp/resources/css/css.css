@@ -117,3 +117,7 @@ h1 {
 .multiple-form-group {
     margin-top: 33px;
 }
+
+.testTypeWrap {
+    display: inline-block;
+}

@@ -7,19 +7,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>AdminPanel</title>
+    <title>AdminPanel</title>
 
     <jsp:include page="../source.jsp"></jsp:include>
 
 </head>
 <body>
-    <jsp:include page="myNavbar.jsp"></jsp:include>
+<jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
@@ -28,56 +28,40 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="alert alert-success text-center">
+                        <b>Questions manage</b>
+                    </h1>
 
-                        <a id="linkCreateQuestionByCourse" href="#" ><i class="glyphicon glyphicon-pencil pull-left" title="Create new question"></i></a>
-                        <!-- /////////////////////////////////////////////////////////-->
-                        <select id="selectCourse" class="dropdown-toggle" onchange="selectCourse()">
-                                    <option id="0">All Courses</option>
-                                    <c:forEach items="${courses}" var="course">
-                                        <c:if test="${course.id != currentCourse}">
-                                            <option id=${course.id} >${course.name}</option>
-                                        </c:if>
-                                        <c:if test="${course.id == currentCourse}">
-                                            <option selected id=${course.id} >${course.name}</option>
-                                        </c:if>
-                                    </c:forEach>
-                            <%--<option selected id=${currentCourse}>${currentCourse}</option>--%>
-                        </select>
-
-                        <select id="selectTestType" class="dropdown-toggle" onchange="selectTestType()">
-                            <option id="testType0">All TestType</option>
-                            <c:forEach items="${testTypeList}" var="testType">
-                                    <option id=${testType.id}>${testType.name}</option>
+                    <div class="panel panel-heading">
+                        <label for="selectCourse">Select course:</label>
+                        <select id="selectCourse" class="dropdown-toggle">
+                            <option id="0">All Courses</option>
+                            <c:forEach items="${courses}" var="course">
+                                <c:if test="${course.id != currentCourse}">
+                                    <option id=${course.id}>${course.name}</option>
+                                </c:if>
+                                <c:if test="${course.id == currentCourse}">
+                                    <option selected id=${course.id}>${course.name}</option>
+                                </c:if>
                             </c:forEach>
-                            <option id="0">withoutTestType</option>
                         </select>
 
-                        <%--<select id="selectTestType" class="dropdown-toggle">--%>
-                            <%--<option id="0">All TestType</option>--%>
-                            <%--<c:forEach items="${testTypeList}" var="testType">--%>
-                                <%--<option id=${testType.id} >${testType.name}</option>--%>
-                            <%--</c:forEach>--%>
-                        <%--</select>--%>
-
-                        <%--<div>--%>
-                            <%--<button class="courses btn">Change course</button>--%>
-                            <%--<div class="js-slide">--%>
-                                <%--<ul>--%>
-                                    <%--<c:forEach items="${courses}" var="course">--%>
-                                        <%--<li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>--%>
-                                    <%--</c:forEach>--%>
-                                <%--</ul>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <!-- /////////////////////////////////////////////////////////-->
-
-                        <b>Questions manage</b></h1>
+                        <div class="testTypeWrap">
+                            <label for="selectTestType">Select test type:</label>
+                            <select id="selectTestType" class="dropdown-toggle">
+                                <option id="testType0">All TestType</option>
+                                <c:forEach items="${testTypeList}" var="testType">
+                                    <option id=${testType.id}>${testType.name}</option>
+                                </c:forEach>
+                                <option id="0">withoutTestType</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
-                            <th> ID </th>
-                            <th> Text question </th>
+                            <th> ID</th>
+                            <th> Text question</th>
                             <th> Weigth</th>
                             <th> Status</th>
                             <th> Your answer</th>
@@ -96,8 +80,10 @@
                                 <td>${question.myAnswer}</td>
                                 <td>${question.manyAnswers}</td>
                                 <td class="text-center">
-                                    <a href="/admin/course/${question.course.id}/question/${question.id}/edit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="/admin/course/${question.course.id}/question/${question.id}/delete"><i class="fa fa-times"></i></a>
+                                    <a href="/admin/course/${question.course.id}/question/${question.id}/edit"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a href="/admin/course/${question.course.id}/question/${question.id}/delete"><i
+                                            class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             <%--</c:if>--%>
@@ -105,7 +91,7 @@
                     </table>
                     <div class="text-center">
                         <nav>
-                            <ul class="pagination" >
+                            <ul class="pagination">
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
@@ -122,16 +108,18 @@
                                     </a>
                                 </li>
                             </ul>
+                            <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add
+                                question</a>
                         </nav>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
     </div>
-    <script>
-        var currentCourse = ${currentCourse};
-    </script>
-    <script src="<c:url value='/resources/js/adminpanel/questions.js'/>" type="text/javascript"></script>
+</div>
+<script>
+    var currentCourse = ${currentCourse};
+</script>
+<script src="<c:url value='/resources/js/adminpanel/questions.js'/>" type="text/javascript"></script>
 </body>
 </html>

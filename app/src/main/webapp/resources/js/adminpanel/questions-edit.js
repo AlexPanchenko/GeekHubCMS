@@ -1,20 +1,19 @@
-var answersToDelete = function () {
-    var waitingToDelete = [];
-    return function (id) {
-        if (id) {
-            return waitingToDelete.push(parseInt(id));
-        } else {
-            return waitingToDelete;
+var queueDeletion = (function () {
+    var answersToDelete = [];
+    return {
+        getQueue: function () {
+            return answersToDelete;
+        },
+        addAnswer: function (answerId) {
+            console.log(answerId);
+            answersToDelete.push(parseInt(answerId))
         }
-    };
-};
-
-var deleteQueue = answersToDelete();
+    }
+})();
 
 var getAnswerId = function (answer) {
     if (answer) {
         return answer.substring(6);
-
     }
 };
 
@@ -51,7 +50,6 @@ $("#updateSubmit").on("click", function () {
     var isManyAnswers = answers.filter(function (answer) {
         return answer.answerRight === true;
     }).length;
-    console.log(answers);
     var manyAnswersField = $("#manyAnswers");
     if (isManyAnswers > 1) {
         manyAnswersField.val(true);
@@ -59,8 +57,7 @@ $("#updateSubmit").on("click", function () {
         manyAnswersField.val(false);
     }
     $("#answersList").val(JSON.stringify(answers));
-    $("#answersToDelete").val(deleteQueue());
-    console.log(answers);
+    $("#answersToDelete").val(queueDeletion.getQueue());
     $("#edit").submit();
 });
 
@@ -103,7 +100,10 @@ $("#updateSubmit").on("click", function () {
             if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
                 $lastFormGroupLast.find('.btn-add').attr('disabled', false);
             }
-            deleteQueue(getAnswerId($formGroup.attr("id")));
+            var answerId = getAnswerId($formGroup.attr("id"));
+            if (answerId) {
+                queueDeletion.addAnswer(answerId);
+            }
             $formGroup.remove();
         };
 
