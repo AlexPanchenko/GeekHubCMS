@@ -61,7 +61,7 @@
 
                             <%--<h1 class="page-header">Add new question for course ${courseName}</h1>--%>
                             <form data-toggle="validator" name="create" id="create" role="form"
-                                  action="/admin/course/${question.course.id}/question/${question.id}/edit" method="POST">
+                                  action="/admin/course/${courseId}/question/edit" method="POST">
                                 <fieldset>
                                     <h1 class="alert alert-success text-center">
                                         <b>Select TestType for ${courseName}</b>
@@ -121,8 +121,10 @@
                                             </div>
                                         </dd>
                                     </dl>
+                                    <input type="hidden" class="answersList" name="answersList" value=""/>
+                                    <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                                <button  id="createSubmit" type="submit" class="btn btn-primary btn-lg">Create</button>
                             </form>
 
                         </c:when>
@@ -130,7 +132,7 @@
                             <h1 class="page-header">Edit question № ${question.id} for course ${courseName}</h1>
 
                             <form data-toggle="validator" name="edit" id="edit" role="form"
-                                  action="/admin/course/${question.course.id}/question/${question.id}/edit"
+                                  action="/admin/course/${courseId}/question/edit"
                                   method="POST" class="form-horizontal">
                                 <fieldset>
                                     <dl class="dl-horizontal">
@@ -164,7 +166,7 @@
                                                     </c:forEach>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="testTypeIdUpdate" name="testTypeIdUpdate"
+                                            <input type="hidden" id="testTypeIdUpdate" name="testTypeId"
                                                    value=${curentTestTypeId}>
                                         </dd>
                                         <dt>
@@ -227,9 +229,10 @@
                                         </dd>
                                     </dl>
                                 </fieldset>
-                                <input type="hidden" id="answersList" name="answersList" value=""/>
+                                <input type="hidden" class="answersList" name="answersList" value=""/>
                                 <input type="hidden" id="answersToDelete" name="answersToDelete" value=""/>
-                                <input type="hidden" id="manyAnswers" name="manyAnswers" value=""/>
+                                <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
+                                <input type="hidden" name="questionId" value="${question.id}"/>
                             </form>
                             <div class="clearfix"></div>
                             <button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>

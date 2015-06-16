@@ -17,6 +17,12 @@ var getAnswerId = function (answer) {
     }
 };
 
+var isManyAnswers = function (answers) {
+    var rightCount = answers.filter(function (answer) {
+        return answer.answerRight === true;
+    }).length;
+    return rightCount > 1;
+};
 
 var updateAnswers = function () {
     var answersArray = [];
@@ -45,22 +51,20 @@ var updateAnswers = function () {
 
 };
 
-$("#updateSubmit").on("click", function () {
+$("#updateSubmit").on("click", function (e) {
     var answers = updateAnswers();
-    var isManyAnswers = answers.filter(function (answer) {
-        return answer.answerRight === true;
-    }).length;
-    var manyAnswersField = $("#manyAnswers");
-    if (isManyAnswers > 1) {
-        manyAnswersField.val(true);
-    } else {
-        manyAnswersField.val(false);
-    }
-    $("#answersList").val(JSON.stringify(answers));
+    $(".answersList").val(JSON.stringify(answers));
+    $(".manyAnswers").val(isManyAnswers(answers));
     $("#answersToDelete").val(queueDeletion.getQueue());
     $("#edit").submit();
 });
 
+$("#createSubmit").on("click", function (e) {
+    var answers = updateAnswers();
+    $(".manyAnswers").val(isManyAnswers(answers));
+    $(".answersList").val(JSON.stringify(answers));
+    $("#create").submit();
+});
 
 (function ($) {
     $(function () {

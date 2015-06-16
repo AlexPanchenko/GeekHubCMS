@@ -474,10 +474,10 @@ public class AdminController {
                                @RequestParam(value = "questionWeight", required = true) byte questionWeight,
                                @RequestParam(value = "myAnswer",required = true ) boolean myAnswer,
                                @RequestParam(value = "manyAnswers", required = true) boolean manyAnswers,
-                               @RequestParam(value = "testTypeIdUpdate",required = false) int testTypeId,
+                               @RequestParam("testTypeId") int testTypeId,
                                @PathVariable("courseId") int courseId,
                                @RequestParam ("answersList") String answers,
-                               @RequestParam("answersToDelete") String answersToDelete) throws CourseNotFoundException {
+                               @RequestParam(value = "answersToDelete", required = false, defaultValue = "") String answersToDelete) throws CourseNotFoundException {
         QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
         Question question = new Question();
         if (testTypeId != 0) {
@@ -511,7 +511,7 @@ public class AdminController {
                 answerService.update(each.getId(), each.getAnswerText(), each.getAnswerRight(), question);
             }
         }
-        return "redirect:/admin/course/" + questionBean.getCourse() + "/question/" + questionBean.getId() + "/edit";
+        return "redirect:/admin/course/" + question.getCourse().getId() + "/question/" + question.getId() + "/edit";
     }
 
     @RequestMapping(value = "/course/{courseId}/question/{questionId}/answer/{answerId}", method = RequestMethod.POST)
