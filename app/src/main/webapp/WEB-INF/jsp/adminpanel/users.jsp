@@ -38,7 +38,7 @@
                             <c:if test="${pagesCount > 1}">
                             <ul id="course" class="pagination" data-pages-count="${pagesCount}">
                                 <li>
-                                    <a href="#" aria-label="Previous">
+                                    <a href="#" aria-label="Previous" id="prev-page">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -51,7 +51,7 @@
 
                                 <%--</div>--%>
                                 <li>
-                                    <a href="#" aria-label="Next">
+                                    <a href="#" aria-label="Next" id="next-page">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -92,6 +92,7 @@
 </div>
 <jsp:include page="../shared/deleteConfirmation.jsp"></jsp:include>
 <script src="<c:url value="/resources/js/shared/feedbacks.js"/>"></script>
+<script src="<c:url value="/resources/js/pagination.js"/>"></script>
 <script src="<c:url value="/resources/js/shared/users.js"/>"></script>
 </body>
 </html>
