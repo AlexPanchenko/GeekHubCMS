@@ -35,15 +35,17 @@
                     </table>
                     <div class="text-center">
                         <nav>
-                            <ul id="course" class="pagination">
+                            <id="course" class="pagination">
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <c:forEach items="${pageNumbers}" var="number">
-                                    <li><a href="#" onclick="showNewPage(${number})">${number}</a></li>
+                            <c:if test="${pagesCount > 1}">
+                                <c:forEach var="page" begin="1" end="${pagesCount}">
+                                    <li><a href="#" onclick="showNewPage(${page})">${page}</a></li>
                                 </c:forEach>
+                            </c:if>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>

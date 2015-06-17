@@ -111,16 +111,13 @@ public class AdminController {
     public ModelAndView users() {
         ModelAndView mav = new ModelAndView("adminpanel/users");
         Long usersCount = userService.getUsersCount();
-        Long pagesCount = usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
-        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE > 0)
-            pagesCount++;
-        List<Integer> pageNumbers = new ArrayList<>();
-        int k = org.geekhub.hibernate.entity.Page.PAGES_NUMBER_ON_PAGE;
-        if (pagesCount < k)
-            k = pagesCount.intValue();
-        for (int i = 1; i <= k; i++)
-            pageNumbers.add(i);
-        mav.addObject("pageNumbers", pageNumbers);
+        int pagesCount = 0;
+        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE == 0) {
+            pagesCount = (int) (usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE);
+        } else {
+            pagesCount = (int) (usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE + 1);
+        }
+        mav.addObject("pagesCount", pagesCount);
         return mav;
     }
 
@@ -650,9 +647,11 @@ public class AdminController {
     }
 
     @RequestMapping("/ajax/usersShow")
-    public ModelAndView usersOnPage(@RequestParam int page, Principal principal) {
+    public ModelAndView usersOnPage(
+            @RequestParam(value = "page", defaultValue = "1", required = false) int pageIndex,
+            Principal principal) {
         ModelAndView mav = new ModelAndView("teacherPage/students");
-        List<UserBean> users = userService.getUsersOnOnePage(page);
+        List<UserBean> users = userService.getUsersOnOnePage(pageIndex);
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
         mav.addObject("logedUser", userBean);
         mav.addObject("users", users);

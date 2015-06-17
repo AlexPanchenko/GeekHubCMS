@@ -1,9 +1,8 @@
 package org.geekhub.hibernate.dao.impl;
 
-import org.geekhub.hibernate.bean.ClassRoomBean;
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
-import org.geekhub.hibernate.entity.ClassRoom;
+import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
@@ -35,7 +34,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public List<User> usersOnPage(int page) throws UsernameNotFoundException {
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult(4 * (page - 1)).setMaxResults(4).list();
+        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult((page - 1) * Page.USERS_ON_PAGE).setMaxResults(page * Page.USERS_ON_PAGE).list();
     }
 
     @Override
