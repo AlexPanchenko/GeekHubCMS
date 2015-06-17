@@ -2,17 +2,17 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Course;
+import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestType;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by helldes on 15.05.2015.
- */
 @Repository("questionDao")
+@SuppressWarnings("unchecked")
 public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
 
     @Override
@@ -42,5 +42,18 @@ public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
         return (Question) sessionFactory.getCurrentSession().createCriteria(Question.class).add(Restrictions.eq("questionText", question.getQuestionText()))
                 .add(Restrictions.eq("questionWeight", question.getQuestionWeight())).add(Restrictions.eq("questionStatus", question.getQuestionStatus()))
                 .add(Restrictions.eq("myAnswer", question.getMyAnswer())).add(Restrictions.eq("questionCode", question.getQuestionCode())).uniqueResult();
+    }
+
+    @Override
+    public Long getQuestionsCount() {
+        Long questionCount = (Long) sessionFactory.getCurrentSession().createCriteria(Question.class)
+                .setProjection(Projections.rowCount())
+                .uniqueResult();
+        return questionCount;
+    }
+
+    @Override
+    public List<Question> getQuestionsOnOnePage(int pageIndex) {
+        return sessionFactory.getCurrentSession().createCriteria(Question.class).setFirstResult((pageIndex - 1) * Page.USERS_ON_PAGE).setMaxResults(Page.USERS_ON_PAGE).list();
     }
 }

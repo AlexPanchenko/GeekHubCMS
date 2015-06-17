@@ -88,8 +88,22 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
+    public Long getQuestionsCount() {
+        return questionDao.getQuestionsCount();
+    }
+
+    @Override
+    public List<Question> getQuestionsOnOnePage(int pageIndex) {
+        List<Question> questionList = questionDao.getQuestionsOnOnePage(pageIndex);
+        return questionList;
+    }
+
+    @Override
     public Question getQuestionWithId(Question question) {
         return questionDao.getQuestionWithId(question);
+
+
+
 
     }
 }

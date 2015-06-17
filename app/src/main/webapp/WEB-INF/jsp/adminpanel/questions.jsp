@@ -88,29 +88,30 @@
                             <%--</c:if>--%>
                         </c:forEach>
                     </table>
-                    <div class="text-center">
-                        <nav>
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add
-                                question</a>
-                        </nav>
-                    </div>
+                    <c:if test="${pagesCount > 1}">
+                        <div class="text-center">
+                            <nav>
+                                <ul class="pagination">
+ <%--                                   <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+ --%>                               <c:forEach var="page" begin="1" end="${pagesCount}">
+
+                                    <li><a href="questions?page=${page}">${page}</a></li>
+                                    </c:forEach>
+     <%--                               <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+     --%>                           </ul>
+                                <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add
+                                    question</a>
+                            </nav>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>

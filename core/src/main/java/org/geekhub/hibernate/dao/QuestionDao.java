@@ -16,4 +16,8 @@ public interface QuestionDao extends BaseDao{
     public List<Question> getByCourseWithoutTestType(Course course);
 
     public Question getQuestionWithId(Question question);
+
+    Long getQuestionsCount();
+
+    List<Question> getQuestionsOnOnePage(int pageIndex);
 }
