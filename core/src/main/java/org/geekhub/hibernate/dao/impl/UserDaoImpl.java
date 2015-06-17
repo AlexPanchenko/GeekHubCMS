@@ -34,7 +34,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public List<User> usersOnPage(int page) throws UsernameNotFoundException {
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult((page - 1) * Page.USERS_ON_PAGE).setMaxResults(page * Page.USERS_ON_PAGE).list();
+        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult((page - 1) * Page.USERS_ON_PAGE).setMaxResults(Page.USERS_ON_PAGE).list();
     }
 
     @Override
