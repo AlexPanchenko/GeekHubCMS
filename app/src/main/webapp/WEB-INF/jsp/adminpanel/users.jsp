@@ -35,23 +35,28 @@
                     </table>
                     <div class="text-center">
                         <nav>
-                            <id="course" class="pagination">
+                            <c:if test="${pagesCount > 1}">
+                            <ul id="course" class="pagination" data-pages-count="${pagesCount}">
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                            <c:if test="${pagesCount > 1}">
+
                                 <c:forEach var="page" begin="1" end="${pagesCount}">
-                                    <li><a href="#" onclick="showNewPage(${page})">${page}</a></li>
+                                    <li><a href="#" class="page-number" id="page${page}">${page}</a></li>
                                 </c:forEach>
-                            </c:if>
+
+                                <%--<div class="pagination-pages">--%>
+
+                                <%--</div>--%>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
+                            </c:if>
                         </nav>
                     </div>
                 </div>
