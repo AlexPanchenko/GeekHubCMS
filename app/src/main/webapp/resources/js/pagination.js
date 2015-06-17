@@ -9,7 +9,7 @@ function Pagination(options) {
     this.showNewPage = function (page) {
         this.currentPage = page;
         $.ajax({
-            url: "ajax/usersShow",
+            url: url,
             data: {page: page},
             success: function (data) {
                 $("#rows").html(data);
@@ -22,13 +22,11 @@ function Pagination(options) {
     };
     this.nextPage = function () {
         if (this.currentPage < this.pagesCount) {
-            //this.prevPage = this.currentPage;
             this.showNewPage(++this.currentPage);
         }
     };
     this.previousPage = function () {
         if (this.currentPage > 1) {
-            //this.prevPage = this.currentPage;
             this.showNewPage(--this.currentPage);
         }
     };
