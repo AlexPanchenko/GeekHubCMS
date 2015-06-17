@@ -646,7 +646,7 @@ public class AdminController {
         return userService.getUsersCount();
     }
 
-    @RequestMapping("/ajax/usersShow")
+    @RequestMapping(value = "/ajax/usersShow", method = RequestMethod.GET)
     public ModelAndView usersOnPage(
             @RequestParam(value = "page", defaultValue = "1", required = false) int pageIndex,
             Principal principal) {
