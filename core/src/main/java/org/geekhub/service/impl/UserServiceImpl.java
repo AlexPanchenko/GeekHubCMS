@@ -109,12 +109,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserBean> getUsersOnOnePage(int page){
         List<User> users = userDao.usersOnPage(page);
-        System.out.println(users.size());
-        List<UserBean> userBeans = new ArrayList<UserBean>();
-        for(User u: users){
-            userBeans.add(beanService.toUserBean(u));
-        }
-        return userBeans;
+        return users.stream().map(user -> beanService.toUserBean(user)).collect(Collectors.toList());
     }
     public Long getUsersCount(){
         return userDao.usersCount();
