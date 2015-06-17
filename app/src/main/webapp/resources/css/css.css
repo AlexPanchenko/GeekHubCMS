@@ -174,3 +174,11 @@ h1 {
 .testTypeWrap {
     display: inline-block;
 }
+
+.header-text {
+    font-size: 24px;
+}
+
+.header-text h2 {
+    margin-bottom: 0;
+}

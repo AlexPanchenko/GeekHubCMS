@@ -66,10 +66,8 @@
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
-                            <th> ID</th>
                             <th> Text question</th>
                             <th> Weigth</th>
-                            <th> Status</th>
                             <th> Your answer</th>
                             <th> Many answer</th>
                             <th class="text-center"> Action</th>
@@ -77,12 +75,18 @@
                         </thead>
                         <c:forEach items="${questions}" var="question">
                             <tr>
-                                <td>${question.id}</td>
                                 <td>${question.questionText}</td>
                                 <td>${question.questionWeight}</td>
-                                <td>${question.questionStatus}</td>
-                                <td>${question.myAnswer}</td>
-                                <td>${question.manyAnswers}</td>
+                                <td>
+                                    <c:if test="${question.myAnswer}">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${question.manyAnswers}">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </c:if>
+                                </td>
                                 <td class="text-center">
                                     <a href="/admin/course/${question.course.id}/testType/${testTypeId}/question/${question.id}/edit"><i
                                             class="fa fa-pencil-square-o"></i></a>

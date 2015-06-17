@@ -17,9 +17,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="alert alert-success text-center">
+                    <div class="alert alert-success text-center header-text">
                         <a href="/admin/createClassrom" class="pull-right glyphicon glyphicon-plus"></a>
-                        <b>Classroom manage</b></h1>
+
+                        <h2>Classrooms</h2>
+                    </div>
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>

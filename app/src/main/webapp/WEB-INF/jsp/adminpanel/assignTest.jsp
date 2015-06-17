@@ -22,19 +22,14 @@
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
-        <h1>Assign test</h1>
-
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="alert alert-success text-center">
-                    <b>Assign test</b></h1>
-
+                <div class="alert alert-success text-center header-text">
+                    <h2>Assignment tests</h2>
+                </div>
                 <div class="selectCourse">
                     <h3>Select Test config</h3>
                     <ul>
-                        <%--<c:forEach items="${courseList}" var="course">--%>
-                            <%--<li><a class="titleSelect" href="/admin/assignTest/${course.id}">${course.name}</a></li>--%>
-                        <%--</c:forEach>--%>
                         <c:forEach items="${testConfigList}" var="testConfig">
                             <c:choose>
                                 <c:when test="${testConfig.questionCount <= fn:length(testConfig.testType.questionList)}">
@@ -81,7 +76,6 @@
                         <table class="table text-black">
                             <thead class="alert alert-success">
                             <tr>
-                                <th class="text-center"> ID</th>
                                 <th class="text-center"> Name</th>
                                 <th class="text-center"> Email</th>
                                 <th class="text-center"> Action</th>
@@ -90,7 +84,6 @@
 
                             <c:forEach items="${page.list}" var="userWrapper">
                                 <tr>
-                                    <td class="text-center">${userWrapper.user.id}</td>
                                     <td class="text-center">${userWrapper.user.firstName}</td>
                                     <td class="text-center">${userWrapper.user.email}</td>
                                     <td class="text-center">

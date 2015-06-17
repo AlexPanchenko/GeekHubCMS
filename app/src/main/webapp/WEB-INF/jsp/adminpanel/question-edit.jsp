@@ -129,7 +129,7 @@
 
                         </c:when>
                         <c:otherwise>
-                            <h1 class="page-header">Edit question № ${question.id} for course ${courseName}</h1>
+                            <h1 class="page-header">Edit question</h1>
 
                             <form data-toggle="validator" name="edit" id="edit" role="form"
                                   action="/admin/course/${courseId}/question/edit"

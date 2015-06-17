@@ -27,14 +27,14 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="alert alert-success text-center">
+                <div class="alert alert-success text-center header-text">
                     <a href="/admin/testConfig/create"><i class="glyphicon glyphicon-plus  pull-right"
                                                           title="Create new test config"></i></a>
-                    <b>Test config manage</b></h1>
-                <table class="table text-black" class="text-center">
+                    <h2>Test configs</h2>
+                </div>
+                <table class="table text-black text-center">
                     <thead class="alert alert-success">
                     <tr class="text-center">
-                        <th class="text-center">ID</th>
                         <th class="text-center">Title</th>
                         <th class="text-center">Test type</th>
                         <th class="text-center">Date start</th>
@@ -47,7 +47,6 @@
                     <tbody>
                     <c:forEach items="${testConfigList}" var="testConfig">
                         <tr class="text-center">
-                            <td class="text-center">${testConfig.id}</td>
                             <td class="text-center">${testConfig.title}</td>
                             <c:choose>
                                 <c:when test="${testConfig.testType eq null}">
