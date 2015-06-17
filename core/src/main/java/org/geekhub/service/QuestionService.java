@@ -24,4 +24,8 @@ public interface QuestionService{
     void update(QuestionBean questionBean);
 
     public Question getQuestionWithId(Question question);
+
+    Long getQuestionsCount();
+
+    List<Question> getQuestionsOnOnePage(int pageIndex);
 }

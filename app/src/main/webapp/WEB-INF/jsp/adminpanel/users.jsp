@@ -33,27 +33,29 @@
                         <div id="rows" class="col-lg-12">
                         </div>
                     </table>
-                    <div class="text-center">
-                        <nav>
-                            <id="course" class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            <c:if test="${pagesCount > 1}">
-                                <c:forEach var="page" begin="1" end="${pagesCount}">
-                                    <li><a href="#" onclick="showNewPage(${page})">${page}</a></li>
-                                </c:forEach>
-                            </c:if>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <c:if test="${pagesCount > 1}">
+                        <div class="text-center">
+                            <nav>
+                                <ul id="course" class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <c:forEach var="page" begin="1" end="${pagesCount}">
+                                        <li><a href="#" onclick="showNewPage(${page})">${page}</a></li>
+                                    </c:forEach>
+
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <!-- /.col-lg-12 -->

@@ -285,14 +285,23 @@ public class AdminController {
 
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
-    public String questions(ModelMap model) {
-
-        List<Question> list = questionService.getAll();
-        model.addAttribute("questions", list);
+    public String questions(ModelMap model,
+                            @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex) {
+        Long questionsCount = questionService.getQuestionsCount();
+        int pagesCount = 0;
+        if (questionsCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE == 0) {
+            pagesCount = (int) (questionsCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE);
+        } else {
+            pagesCount = (int) (questionsCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE + 1);
+        }
+        model.addAttribute("pagesCount", pagesCount);
         List<CourseBean> listCourse = courseService.getAllBeans();
         model.addAttribute("courses", listCourse);
         List<TestType> testTypeList = testTypeService.getList();
         model.addAttribute("testTypeList", testTypeList);
+
+        List<Question> questionList = questionService.getQuestionsOnOnePage(pageIndex);
+        model.addAttribute("questions" , questionList);
         model.addAttribute("currentCourse", 0);
         return "adminpanel/questions";
     }
