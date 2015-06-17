@@ -110,14 +110,6 @@ public class AdminController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView users() {
         ModelAndView mav = new ModelAndView("adminpanel/users");
-        Long usersCount = userService.getUsersCount();
-        int pagesCount = 0;
-        if (usersCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE == 0) {
-            pagesCount = (int) (usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE);
-        } else {
-            pagesCount = (int) (usersCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE + 1);
-        }
-        mav.addObject("pagesCount", pagesCount);
         return mav;
     }
 
@@ -303,6 +295,7 @@ public class AdminController {
         List<Question> questionList = questionService.getQuestionsOnOnePage(pageIndex);
         model.addAttribute("questions" , questionList);
         model.addAttribute("currentCourse", 0);
+        model.addAttribute("currentPage", pageIndex);
         return "adminpanel/questions";
     }
 
