@@ -88,30 +88,27 @@
                             <%--</c:if>--%>
                         </c:forEach>
                     </table>
-                    <c:if test="${pagesCount > 1}">
-                        <div class="text-center">
-                            <nav>
-                                <ul class="pagination">
- <%--                                   <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
- --%>                               <c:forEach var="page" begin="1" end="${pagesCount}">
 
-                                    <li><a href="questions?page=${page}">${page}</a></li>
-                                    </c:forEach>
-     <%--                               <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-     --%>                           </ul>
-                                <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add
-                                    question</a>
-                            </nav>
-                        </div>
-                    </c:if>
+                    <div class="text-center">
+                        <nav>
+                            <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add question</a>
+                            <c:if test="${pagesCount > 1}">
+                                <c:set var="p" value="${currentPage}"/> <%-- current page (1-based) --%>
+                                <c:set var="l" value="5"/> <%-- amount of page links to be displayed --%>
+                                <c:set var="r" value="${l / 2}"/> <%-- minimum link range ahead/behind --%>
+                                <c:set var="t" value="${pagesCount}"/> <%-- total amount of pages --%>
+                                <c:set var="begin"
+                                       value="${((p - r) > 0 ? ((p - r) < (t - l + 1) ? (p - r) : (t - l)) : 0) + 1}"/>
+                                <c:set var="end" value="${(p + r) < t ? ((p + r) > l ? (p + r) : l) : t}"/>
+
+                                <c:forEach begin="${begin}" end="${end}" var="page">
+                                    <ul class="pagination">
+                                        <li><a href="questions?page=${page}">${page}</a></li>
+                                    </ul>
+                                </c:forEach>
+                            </c:if>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
