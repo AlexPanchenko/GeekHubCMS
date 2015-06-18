@@ -43,17 +43,17 @@ function Pagination(options) {
         $(".page-number").remove();
         var paginationPages = $("#next-page").parent();
         var start, finish;
-        var center = Math.floor(this.maxSize/2);
+        var center = Math.floor(this.maxSize / 2);
         var currentPage = parseInt(this.currentPage);
         var max = this.pagesCount >= this.maxSize ? this.maxSize : this.pagesCount;
-        if((currentPage + center) >= this.pagesCount){
+        if ((currentPage + center) >= this.pagesCount) {
             start = this.pagesCount - max + 1;
             finish = this.pagesCount;
         }
-         else if(currentPage <= center){
+        else if (currentPage <= center) {
             start = 1;
             finish = max;
-        } else{
+        } else {
             start = currentPage - center;
             finish = currentPage + center;
         }
@@ -67,5 +67,28 @@ function Pagination(options) {
                 text: start
             }).appendTo(li);
         }
+    };
+    this.addListeners = function () {
+        var self = this;
+        var paginationContainer = $(".pagination");
+        paginationContainer.on("click", ".page-number", function () {
+            var page = $(this).attr("id").substr(4);
+            self.showNewPage(page)
+        });
+
+        paginationContainer.on("click", "#next-page", function(){
+            self.nextPage();
+        });
+
+        paginationContainer.on("click", "#prev-page", function(){
+            self.previousPage();
+        });
+
+        paginationContainer.on("click", "#first-page", function(){
+            self.firstPage();
+        });
+        paginationContainer.on("click", "#last-page", function(){
+            self.lastPage();
+        });
     }
 }
