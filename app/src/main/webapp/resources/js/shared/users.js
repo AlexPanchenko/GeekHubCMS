@@ -6,7 +6,8 @@ var init = function () {
             window.pagination = new Pagination({
                 itemsCount: count,
                 currentPage: 1,
-                url: "/ajax/userShow"
+                url: "ajax/usersShow",
+                maxSize: 5
             });
             pagination.showNewPage(1);
         }
@@ -31,6 +32,14 @@ paginationContainer.on("click", "#next-page", function(){
 
 paginationContainer.on("click", "#prev-page", function(){
     pagination.previousPage();
+});
+
+paginationContainer.on("click", "#first-page", function(){
+    pagination.firstPage();
+});
+
+paginationContainer.on("click", "#last-page", function(){
+    pagination.lastPage();
 });
 
 

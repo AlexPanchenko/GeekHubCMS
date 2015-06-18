@@ -35,28 +35,38 @@
                     </table>
                     <div class="text-center">
                         <nav>
-                            <c:if test="${pagesCount > 1}">
-                            <ul id="course" class="pagination" data-pages-count="${pagesCount}">
+                            <ul id="course" class="pagination">
+
+                                <li>
+                                    <a href="#" aria-label="Previous" id="first-page">
+                                        <span aria-hidden="true">First</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="#" aria-label="Previous" id="prev-page">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
 
-                                <c:forEach var="page" begin="1" end="${pagesCount}">
-                                    <li><a href="#" class="page-number" id="page${page}">${page}</a></li>
-                                </c:forEach>
+                                <%--&lt;%&ndash;<c:forEach var="page" begin="1" end="${pagesCount}">&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<li><a href="#" class="page-number" id="page${page}">${page}</a></li>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
 
-                                <%--<div class="pagination-pages">--%>
+                                    <%--&lt;%&ndash;<li><a href="#" class="page-number" id="page${page}">${page}</a></li>&ndash;%&gt;--%>
 
-                                <%--</div>--%>
+                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
                                 <li>
                                     <a href="#" aria-label="Next" id="next-page">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a href="#" aria-label="Previous" id="last-page">
+                                        <span aria-hidden="true">Last</span>
+                                    </a>
+                                </li>
                             </ul>
-                            </c:if>
                         </nav>
                     </div>
                 </div>
