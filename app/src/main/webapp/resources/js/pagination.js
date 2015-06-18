@@ -15,6 +15,7 @@ function Pagination() {
 
     this.showNewPage = function (page) {
         this.currentPage = page;
+
         $.ajax({
             url: this.url,
             data: {page: page},
@@ -22,9 +23,22 @@ function Pagination() {
                 $("#rows").html(data);
             }
         });
+
         this.render();
+
+        $(".disabled").removeClass("disabled");
+        if (page == this.pagesCount) {
+            $("#last-page").parent().addClass("disabled");
+            $("#next-page").parent().addClass("disabled");
+        }
+        if (page == 1) {
+            $("#first-page").parent().addClass("disabled");
+            $("#prev-page").parent().addClass("disabled");
+        }
+
         $("#page" + this.prevPage).closest("li").removeClass("active");
         $("#page" + page).closest("li").addClass("active");
+
         this.prevPage = this.currentPage;
     };
     this.nextPage = function () {
@@ -41,6 +55,7 @@ function Pagination() {
     this.firstPage = function () {
         this.showNewPage(1);
     };
+
     this.lastPage = function () {
         this.showNewPage(this.pagesCount);
     };
