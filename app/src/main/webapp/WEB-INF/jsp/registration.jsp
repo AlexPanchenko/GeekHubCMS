@@ -15,7 +15,7 @@
 <body>
 <h1>Registration</h1>
 
-<form id="registration-form" class="login-form well" action="/registration" method="post">
+<form id="registration-form" class="reg-form well" action="/registration" method="post">
 
     <div class="form-group">
         <span class="must">*</span><label for="email">Email address</label>

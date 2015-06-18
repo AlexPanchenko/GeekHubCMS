@@ -124,7 +124,7 @@
                                     <input type="hidden" class="answersList" name="answersList" value=""/>
                                     <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
                                 </fieldset>
-                                <button  id="createSubmit" type="submit" class="btn btn-primary btn-lg">Create</button>
+                                <button id="createSubmit" type="submit" class="btn btn-primary btn-lg">Create</button>
                             </form>
 
                         </c:when>
@@ -187,9 +187,8 @@
                                         </dt>
                                         <dd>
                                             <div class="form-group">
-                                                                    <textarea class="form-control" name="questionCode"
-                                                                              rows="4"
-                                                                              required>${question.questionCode}</textarea>
+                                                <textarea class="form-control" name="questionCode"
+                                                          rows="4">${question.questionCode}</textarea>
                                             </div>
                                         </dd>
                                         <dt>

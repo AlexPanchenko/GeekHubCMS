@@ -7,8 +7,31 @@
     text-align: center;
 }
 .login-form {
-    width: 50%;
-    margin: 0 auto;
+    width: 400px;
+    margin: 90px auto;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    box-shadow: 0 15px 30px;
+    -moz-box-shadow: 0 15px 30px;
+    -webkit-box-shadow: 0 15px 30px;
+    -o-box-shadow: 0 15px 30px;
+}
+
+.auth-page {
+    background: #B4E0F9;
+}
+.reg-form {
+    width: 750px;
+    margin: 50px auto;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+.auth-page .panel {
+    width: 450px;
+}
+.forgot-password {
+    width: 600px;
 }
 ul.nav {
     margin: 20px 0 50px;
@@ -31,11 +54,6 @@ a.logo {
     font-size: 20px;
     color: #e50000;
 }
-.login-form {
-    transition: all .5s;
-    -webkit-transition: all .5s;
-}
-
 .panel {
     background-color: white;
     width: 330px;
