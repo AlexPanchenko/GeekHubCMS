@@ -41,7 +41,7 @@ function Pagination(options) {
 
     this.render = function () {
         $(".page-number").remove();
-        var paginationList = $("#next-page").parent();
+        var paginationPages = $("#next-page").parent();
         var start, finish;
         var center = Math.floor(this.maxSize/2);
         var currentPage = parseInt(this.currentPage);
@@ -58,7 +58,7 @@ function Pagination(options) {
         }
 
         for (start; start <= finish; start++) {
-            var li = $("<li/>").insertBefore(items);
+            var li = $("<li/>").insertBefore(paginationPages);
             $('<a/>', {
                 id: 'page' + start,
                 href: '#',
