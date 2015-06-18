@@ -45,13 +45,14 @@ function Pagination(options) {
         var start, finish;
         var center = Math.floor(this.maxSize/2);
         var currentPage = parseInt(this.currentPage);
+        var max = this.pagesCount >= this.maxSize ? this.maxSize : this.pagesCount;
         if((currentPage + center) >= this.pagesCount){
-            start = this.pagesCount - this.maxSize + 1;
+            start = this.pagesCount - max + 1;
             finish = this.pagesCount;
         }
          else if(currentPage <= center){
             start = 1;
-            finish = this.maxSize;
+            finish = max;
         } else{
             start = currentPage - center;
             finish = currentPage + center;
