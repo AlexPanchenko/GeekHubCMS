@@ -1,11 +1,17 @@
-function Pagination(options) {
-    this.itemsCount = options.itemsCount;
-    this.limit = options.limit || 15;
-    this.maxSize = options.maxSize || 5;
-    this.currentPage = options.currentPage;
-    this.url = options.url;
-    this.pagesCount = Math.ceil(this.itemsCount / this.limit);
+function Pagination() {
     this.prevPage = 0;
+    this.currentPage = 1;
+    this.init = function (options) {
+        if ((options.itemsCount && options.url) != undefined) {
+            this.itemsCount = options.itemsCount;
+            this.url = options.url;
+            this.limit = options.limit || 15;
+            this.maxSize = options.maxSize || 5;
+            this.pagesCount = Math.ceil(this.itemsCount / this.limit);
+            this.showNewPage(this.currentPage);
+            this.addListeners();
+        } else console.error("itemCount and url must not be empty!");
+    };
 
     this.showNewPage = function (page) {
         this.currentPage = page;
@@ -76,18 +82,18 @@ function Pagination(options) {
             self.showNewPage(page)
         });
 
-        paginationContainer.on("click", "#next-page", function(){
+        paginationContainer.on("click", "#next-page", function () {
             self.nextPage();
         });
 
-        paginationContainer.on("click", "#prev-page", function(){
+        paginationContainer.on("click", "#prev-page", function () {
             self.previousPage();
         });
 
-        paginationContainer.on("click", "#first-page", function(){
+        paginationContainer.on("click", "#first-page", function () {
             self.firstPage();
         });
-        paginationContainer.on("click", "#last-page", function(){
+        paginationContainer.on("click", "#last-page", function () {
             self.lastPage();
         });
     }

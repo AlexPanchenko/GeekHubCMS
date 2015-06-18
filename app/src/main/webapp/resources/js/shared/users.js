@@ -3,14 +3,12 @@ var init = function () {
         url: "ajax/countUsers",
         dataType: "text",
         success: function (count) {
-            window.pagination = new Pagination({
+            window.pagination = new Pagination();
+            pagination.init({
                 itemsCount: count,
-                currentPage: 1,
                 url: "ajax/usersShow",
                 maxSize: 5
             });
-            pagination.showNewPage(1);
-            pagination.addListeners();
         }
     })
 };
