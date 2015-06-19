@@ -77,6 +77,10 @@ public class QuestionBean {
         return id;
     }
 
+    public boolean isNew() {
+        return getId() == 0;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

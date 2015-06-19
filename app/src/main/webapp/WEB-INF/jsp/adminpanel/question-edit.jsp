@@ -139,8 +139,8 @@
                                         <div class="form-group">
                                             <input class="form-control" id="id" name="id"
                                                    type="hidden" value="${question.id}">
-                                            <input class="form-control" id="course" name="course"
-                                                   type="hidden" value="${question.course.id}">
+                                            <%--<input class="form-control" id="course" name="course"
+                                                   type="hidden" value="${question.course.id}">--%>
                                         </div>
                                         <dt>
                                             <label class="pull-left control-label"
@@ -232,7 +232,7 @@
                                 <input type="hidden" class="answersList" name="answersList" value=""/>
                                 <input type="hidden" id="answersToDelete" name="answersToDelete" value=""/>
                                 <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
-                                <input type="hidden" name="questionId" value="${question.id}"/>
+                                <%--<input type="hidden" name="questionId" value="${question.id}"/>--%>
                             </form>
                             <div class="clearfix"></div>
                             <button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>

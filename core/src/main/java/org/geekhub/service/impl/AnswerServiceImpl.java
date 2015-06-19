@@ -52,7 +52,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     public void delete(int answerId) {
-        answerDao.delete((Answer)answerDao.read(answerId, Answer.class));
+        answerDao.delete((Answer) answerDao.read(answerId, Answer.class));
     }
 
     @Override
@@ -63,5 +63,14 @@ public class AnswerServiceImpl implements AnswerService{
         answerDao.update(answer);
     }
 
+    @Override
+    public void delete(List<Integer> answerIdsToDelete) {
+        answerDao.delete(answerIdsToDelete);
+    }
+
+    @Override
+    public void saveOrUpdate(Answer answer) {
+        answerDao.saveOrUpdate(answer);
+    }
 
 }

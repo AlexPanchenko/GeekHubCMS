@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -124,16 +126,18 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{userId}/remove", method = RequestMethod.GET)
-    public String removeUser(@PathVariable("userId") int userId,
-                             Principal principal) {
+    public void ajaxRemoveUser(@PathVariable("userId") int userId,
+                             Principal principal,
+                             HttpServletResponse response) throws IOException {
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
         if (userBean.getId() == userId) {
-            return "warning/canNotDeleteUser";
+            response.getWriter().write("warning you are trying to delete yourself");
+            return;
         }
         if(userService.removeUserById(userId)) {
-            return "redirect:/admin/users";
+            response.getWriter().write("User has been deleted");
         } else {
-            return "warning/canNotDeleteUser";
+            response.getWriter().write("User can not be deleted");
         }
     }
 
@@ -281,6 +285,7 @@ public class AdminController {
                             @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex) {
         Long questionsCount = questionService.getQuestionsCount();
         int pagesCount = 0;
+
         if (questionsCount % org.geekhub.hibernate.entity.Page.USERS_ON_PAGE == 0) {
             pagesCount = (int) (questionsCount / org.geekhub.hibernate.entity.Page.USERS_ON_PAGE);
         } else {
@@ -442,48 +447,37 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/course/{courseId}/question/edit", method = RequestMethod.POST)
-    public String editQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId,
-                               @RequestParam(value = "questionText", required = true) String questionText,
-                               @RequestParam(value = "questionCode", required = true) String questionCode,
-                               @RequestParam(value = "questionWeight", required = true) byte questionWeight,
-                               @RequestParam(value = "myAnswer",required = true ) boolean myAnswer,
-                               @RequestParam(value = "manyAnswers", required = true) boolean manyAnswers,
-                               @RequestParam("testTypeId") int testTypeId,
+    public String editQuestion(Question question,
+                               @RequestParam(value = "testTypeId", required = false) int testTypeId,
                                @PathVariable("courseId") int courseId,
-                               @RequestParam ("answersList") String answers,
-                               @RequestParam(value = "answersToDelete", required = false, defaultValue = "") String answersToDelete) throws CourseNotFoundException {
-        QuestionBean questionBean = new QuestionBean(questionId, questionText, questionWeight, true, myAnswer, courseId, questionCode);
-        Question question = new Question();
+                               @RequestParam (value = "answersList", required = true) String answers,
+                               @RequestParam(value = "answersToDelete", required = false, defaultValue = "") String answersToDelete) {
+        Course course = new Course();
+        course.setId(courseId);
+        question.setCourse(course);
+
+        question.setQuestionStatus(true);
+
         if (testTypeId != 0) {
-            questionBean.setTestType(testTypeService.getTestTypeById(testTypeId));
+            TestType testType = new TestType();
+            testType.setId(testTypeId);
+            question.setTestType(testType);
         }
-        questionBean.setManyAnswers(manyAnswers);
-        if (questionBean.getId() == 0) {
-            questionService.create(questionBean);
-            question = beanService.toQuestionEntity(questionBean);
-            question = questionService.getQuestionWithId(question);
-        } else {
-            questionService.update(questionBean);
-        }
-        if (!answersToDelete.equals("")) {
+
+        questionService.saveOrUpdate(question);
+
+        if (!answersToDelete.isEmpty()) {
             ArrayList<String> list = new ArrayList<>(Arrays.asList(answersToDelete.split(",")));
-            List<Integer> answersIdsToDelete = list.stream().map(stringId -> Integer.parseInt(stringId)).collect(Collectors.toList());
-            for (Integer each: answersIdsToDelete) {
-                answerService.delete(each);
-            }
+            List<Integer> answersIdsToDelete = list.stream().map(Integer::parseInt).collect(Collectors.toList());
+            answerService.delete(answersIdsToDelete);
+
         }
 
         Gson gson = new Gson();
-        AnswerBean[] answersArray = gson.fromJson(answers, AnswerBean[].class);
-        if (questionId != 0) {
-            question = questionService.read(questionId);
-        }
-        for (AnswerBean each : answersArray) {
-            if (each.getId() == 0) {
-                answerService.create(each.getAnswerText(), each.getAnswerRight(), question);
-            } else {
-                answerService.update(each.getId(), each.getAnswerText(), each.getAnswerRight(), question);
-            }
+        Answer[] answersArray = gson.fromJson(answers, Answer[].class);
+        for (Answer each : answersArray) {
+                each.setQuestion(question);
+                answerService.saveOrUpdate(each);
         }
         return "redirect:/admin/course/" + question.getCourse().getId() + "/question/" + question.getId() + "/edit";
     }

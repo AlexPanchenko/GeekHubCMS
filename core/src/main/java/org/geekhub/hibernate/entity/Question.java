@@ -1,6 +1,5 @@
 package org.geekhub.hibernate.entity;
 
-import org.geekhub.hibernate.bean.CourseBean;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -64,6 +63,14 @@ public class Question extends BaseEntity implements Serializable{
         this.myAnswer = myAnswer;
         this.manyAnswers = manyAnswers;
         this.course = course;
+    }
+
+    public Question(int id, String questionText, Byte questionWeight, Boolean myAnswer, Boolean manyAnswers) {
+        this.id = id;
+        this.questionText = questionText;
+        this.questionWeight = questionWeight;
+        this.myAnswer = myAnswer;
+        this.manyAnswers = manyAnswers;
     }
 
     public TestType getTestType() {

@@ -58,7 +58,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public int create(QuestionBean questionBean) {
+    public Question create(QuestionBean questionBean) {
         Question question = new Question();
         question.setQuestionText(questionBean.getQuestionText());
         question.setQuestionCode(questionBean.getQuestionCode());
@@ -69,7 +69,7 @@ public class QuestionServiceImpl implements QuestionService{
         question.setManyAnswers(questionBean.getManyAnswers());
         question.setTestType(questionBean.getTestType());
         questionDao.create(question);
-        return question.getId();
+        return question;
     }
 
     @Override
@@ -101,9 +101,10 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public Question getQuestionWithId(Question question) {
         return questionDao.getQuestionWithId(question);
+    }
 
-
-
-
+    @Override
+    public void saveOrUpdate(Question question) {
+        questionDao.saveOrUpdate(question);
     }
 }
