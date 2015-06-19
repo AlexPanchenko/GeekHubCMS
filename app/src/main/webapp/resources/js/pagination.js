@@ -1,7 +1,8 @@
-function Pagination() {
+function Pagination(options) {
     this.prevPage = 0;
     this.currentPage = 1;
-    this.init = function (options) {
+
+    this.init = function () {
         if ((options.itemsCount && options.url) != undefined) {
             this.itemsCount = options.itemsCount;
             this.url = options.url;
@@ -60,6 +61,10 @@ function Pagination() {
         this.showNewPage(this.pagesCount);
     };
 
+    this.reloadPage = function () {
+      this.showNewPage(this.currentPage);
+    };
+
     this.render = function () {
         $(".page-number").remove();
         var paginationPages = $("#next-page").parent();
@@ -111,5 +116,9 @@ function Pagination() {
         paginationContainer.on("click", "#last-page", function () {
             self.lastPage();
         });
-    }
+    };
+
+    this.init();
 }
+
+

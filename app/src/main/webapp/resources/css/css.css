@@ -174,3 +174,15 @@ h1 {
 .testTypeWrap {
     display: inline-block;
 }
+
+.alert-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    width: 350px;
+}
+
+.modal-dialog {
+    margin-top: 270px;
+}
