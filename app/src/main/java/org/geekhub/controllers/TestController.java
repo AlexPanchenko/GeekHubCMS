@@ -94,7 +94,7 @@ public class TestController {
         }
     }
 
-    @RequestMapping(value = "/course/comletetest/{testId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/completetest/{testId}", method = RequestMethod.POST)
     public String completeTest(
                              @PathVariable("testId") int testId,
                              @RequestBody String jsonStr) {

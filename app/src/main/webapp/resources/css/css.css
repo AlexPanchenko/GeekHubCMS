@@ -1,52 +1,67 @@
-.profile-avatar{
+.profile-avatar {
     width: 300px;
     height: 150px;
 }
 
-.avatar-upload{
-    margin-top:5px;
+.avatar-upload {
+    margin-top: 5px;
 }
 
 .form-horizontal .controls {
     margin-top: 5px;
 }
 
-.updateCourse{
+.updateCourse {
     background-color: #DFF0D8;
     padding: 30px;
     padding-right: 300px;
 }
 
-.coursesAdminResult{
+.coursesAdminResult {
     background-color: #d5d5d5;
 }
 
-.endTesting{
+.endTesting {
     align-content: center;
 }
-.text{
+
+.text {
     text-align: center;
 }
 
 .testMain {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 50px;
+    font-size: 14px;
+    width: 960px;
+    margin: 0 auto 50px;
 }
 
-.back{
+#my_timer {
+    color: #ff5a35;
+}
+
+.test-header {
+    font-size: 30px;
+    overflow: auto;
+    margin: 25px 0;
+}
+
+.timer p {
+    display: inline-block;
+}
+
+.back {
     background-color: #FFF9FB;
 }
 
-.radius{
+.radius {
     background-color: #EEF4F7;
 }
 
-.js-submit{
+.js-submit {
     margin-left: 20px;
 }
 
-.myAnswer{
+.myAnswer {
     margin: 10px;
 }
 
@@ -54,14 +69,14 @@
 
 }
 
-.selectCourse{
+.selectCourse {
     background-color: #f9f9f3;
     padding: 20px;
     margin: 30px;
     width: 1000px;
 }
 
-.titleSelect{
+.titleSelect {
     color: #2b669a;
     font-size: 30px;
 }
@@ -125,37 +140,42 @@ h1 {
     opacity: .5;
 }
 
-
 .comment-box {
     width: 90%;
     margin: 30px auto;
 }
 
 .comment-box .panel {
-    position:relative;
+    position: relative;
 }
-.comment-box .panel>.panel-heading:after,.panel>.panel-heading:before{
-    position:absolute;
-    top:11px;left:-16px;
-    right:100%;
-    width:0;
-    height:0;
-    display:block;
-    content:" ";
-    border-color:transparent;
-    border-style:solid solid outset;
-    pointer-events:none;
+
+.comment-box .panel > .panel-heading:after, .panel > .panel-heading:before {
+    position: absolute;
+    top: 11px;
+    left: -16px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    display: block;
+    content: " ";
+    border-color: transparent;
+    border-style: solid solid outset;
+    pointer-events: none;
 }
-.comment-box .panel>.panel-heading:after{
-    border-width:7px;
-    border-right-color:#f7f7f7;
-    margin-top:1px;
-    margin-left:2px;
+
+.comment-box .panel > .panel-heading:after {
+    border-width: 7px;
+    border-right-color: #f7f7f7;
+    margin-top: 1px;
+    margin-left: 2px;
 }
-.comment-box .panel>.panel-heading:before{
-    border-right-color:#ddd;
-    border-width:8px;
-}#feedbackText {
+
+.comment-box .panel > .panel-heading:before {
+    border-right-color: #ddd;
+    border-width: 8px;
+}
+
+#feedbackText {
     width: 570px;
 }
 

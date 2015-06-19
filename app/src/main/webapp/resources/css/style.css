@@ -7,7 +7,7 @@
     text-align: center;
 }
 .login-form {
-    width: 400px;
+    width: 450px;
     margin: 90px auto;
     transition: all .5s;
     -webkit-transition: all .5s;
@@ -53,11 +53,6 @@ a.logo {
     margin: 10px;
     font-size: 20px;
     color: #e50000;
-}
-.panel {
-    background-color: white;
-    width: 330px;
-    float: left;
 }
 
 .mainContent {
@@ -187,15 +182,12 @@ h1{
     margin: 100px;
 }
 
-div.questionCode{
-    padding: 0px 20px ;
+.question{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
-div.question{
-    font-size: 20px;
-    color: #444444;
-    font: 'Open Sans', Arial, Helvetica, Sans-Serif;
-    padding: 0px 20px 0px 20px ;
+.question .panel-body {
+    padding: 20px;
 }
 
 div.questionBlock{
@@ -209,14 +201,6 @@ div.radius {
     margin-left: 20px;
     margin-right: 20px;
 
-}
-
-div.radio{
-    padding: 0px 20px 0px 20px ;
-}
-
-div.checkbox{
-    padding: 0px 20px 0px 20px ;
 }
 
 div.headerTest{

@@ -6,14 +6,14 @@ package org.geekhub.hibernate.bean;
 public class TestInfo {
     private int questionId;
     private String customAnswer;
-    private int[] answerArray;
+    private int[] answersArray;
 
-    public int[] getAnswerArray() {
-        return answerArray;
+    public int[] getAnswersArray() {
+        return answersArray;
     }
 
-    public void setAnswerArray(int[] answerArray) {
-        this.answerArray = answerArray;
+    public void setAnswersArray(int[] answersArray) {
+        this.answersArray = answersArray;
     }
 
     public int getQuestionId() {

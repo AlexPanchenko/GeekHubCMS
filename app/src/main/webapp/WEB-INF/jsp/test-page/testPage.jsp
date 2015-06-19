@@ -25,33 +25,29 @@
 <body class="back">
 <div>
     <div class="testMain">
-        <div>
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <h1 align="center">Test
-                        <small>Course name:${questions.get(0).course.name}</small>
-                    </h1>
+        <%--<div>--%>
+            <div class="test-header">
+                <span class="pull-left">${questions.get(0).course.name} Test</span>
+                <div class="timer pull-right">
+                    <span>Time to end:</span>
+                    <span id="my_timer">00:${timeToTest}:00</span>
                 </div>
-                <p>Last time: <span id="my_timer"
-                                    style="color: #f00; font-size: 150%; font-weight: bold;">00:${timeToTest}:00</span>
-                </p>
             </div>
             <form>
                 <c:set var="count" value="0" scope="page"/>
                 <input type="hidden" id="test-id" value="${testId}">
-                <c:forEach items="${questions}" var="question">
-                    <div class="question" id="question-${question.id}">
-                            <div>
-                                №<c:set var="count" value="${count + 1}"
-                                        scope="page"/>
-                                <span>${count}</span>
-                                    ${question.questionText}
-                                <c:if test="${!(question.questionCode eq null)}">
-                                    <div class="questionCode">
-                                        <pre><b>${question.questionCode}</b></pre>
-                                    </div>
-                                </c:if>
-                            </div>
+                <c:forEach items="${questions}" var="question" varStatus="status">
+
+                    <div class="question panel panel-default panel-info" id="question-${question.id}">
+                        <div class="panel-heading">
+                            <span>${status.index + 1}. ${question.questionText}</span>
+                        </div>
+                        <div class="panel-body">
+                            <c:if test="${!(question.questionCode).isEmpty()}">
+                                <div class="questionCode">
+                                    <pre><b>${question.questionCode}</b></pre>
+                                </div>
+                            </c:if>
                             <div class="answers">
                                 <c:forEach items="${question.answers}" var="answer">
                                     <c:choose>
@@ -79,20 +75,20 @@
                                 </c:forEach>
                                 <c:if test="${question.myAnswer eq true}">
                                     <div class="myAnswer">
-                                        <p>Custom answer :</p>
-                                    <textarea class="custom" cols="100" rows="5">
-                                    </textarea>
+                                        <p>Custom answer:</p>
+                                        <textarea class="form-control" cols="100" rows="5"></textarea>
                                     </div>
                                 </c:if>
                             </div>
+                        </div>
                     </div>
                 </c:forEach>
             </form>
-            <button class="btn btn-primary" id="send-answers" onclick="sendAnswers()">Send</button>
-            <script src="/resources/js/test-page/testing.js" type="text/javascript"></script>
+            <button class="btn btn-lg btn-primary pull-right" id="send-answers">Send answers</button>
         </div>
-    </div>
+    <%--</div>--%>
 </div>
-<p align="center">Ukraine 2015</p>
+<p class="text-center">Ukraine 2015</p>
+<script src="/resources/js/test-page/testing.js" type="text/javascript"></script>
 </body>
 </html>
