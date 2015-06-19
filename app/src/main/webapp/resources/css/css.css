@@ -181,6 +181,7 @@ h1 {
     left: 50%;
     margin-left: -175px;
     width: 350px;
+    z-index: 10;
 }
 
 .modal-dialog {

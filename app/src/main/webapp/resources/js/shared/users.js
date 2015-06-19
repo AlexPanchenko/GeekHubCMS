@@ -51,15 +51,14 @@
                     "data-dismiss": "alert",
                     "text": ""
                 }).appendTo(alertDiv);
-
+                pagination.reloadPage();
                 setTimeout(function () {
-                    alertDiv.remove()
+                    alertDiv.remove();
                 }, 3000);
             }
         });
 
-        var sibl = $(this).siblings().click();
-        pagination.reloadPage();
+        $(this).siblings().click();
     });
 
 
