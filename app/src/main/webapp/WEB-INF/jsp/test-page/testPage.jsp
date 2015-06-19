@@ -11,16 +11,18 @@
 <html>
 <head>
     <title>Test</title>
-    <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/css.css" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="/resources/js/timer.js" type="text/javascript"></script>
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet"
+          type="text/css">
+    <link href="<c:url value="/resources/css/courses.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/css/css.css"/>" rel="stylesheet" type="text/css">
+    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js"/>"></script>
+    <script src="<c:url value="/resources/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/js/timer.js"/>" type="text/javascript"></script>
+    <link href="<c:url value="/resources/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet"
+          type="text/css">
 </head>
-<body class="back" onload="startTimer()">
+<body class="back">
 <div>
     <div class="testMain">
         <div>
@@ -36,20 +38,21 @@
             </div>
             <form>
                 <c:set var="count" value="0" scope="page"/>
-                <input type="hidden" class="testId" id="${testId}">
+                <input type="hidden" id="test-id" value="${testId}">
                 <c:forEach items="${questions}" var="question">
-                    <div class="${question.id}">
-                        <div class="radius">
-                            <div class="question" id="${question.id}">
+                    <div class="question" id="question-${question.id}">
+                            <div>
                                 №<c:set var="count" value="${count + 1}"
-                                        scope="page"/><span>${count}</span> ${question.questionText}
+                                        scope="page"/>
+                                <span>${count}</span>
+                                    ${question.questionText}
                                 <c:if test="${!(question.questionCode eq null)}">
                                     <div class="questionCode">
                                         <pre><b>${question.questionCode}</b></pre>
                                     </div>
                                 </c:if>
                             </div>
-                            <div class="answer" id="question${question.id}">
+                            <div class="answers">
                                 <c:forEach items="${question.answers}" var="answer">
                                     <c:choose>
                                         <c:when test="${question.manyAnswers eq true}">
@@ -64,7 +67,7 @@
                                         <c:when test="${question.manyAnswers eq false}">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="${question.id}" id="${answer.id}"
+                                                    <input type="radio" name="${question.id}" id="answer-${answer.id}"
                                                            class="answer">
                                             <span class="cr"><i
                                                     class="cr-icon fa fa-check"></i></span>${answer.answerText}
@@ -82,12 +85,11 @@
                                     </div>
                                 </c:if>
                             </div>
-                        </div>
                     </div>
                 </c:forEach>
             </form>
-            <button class="btn btn-primary js-submit" onclick="sendAnswers()">Send</button>
-            <script src="/resources/js/testing.js" type="text/javascript"></script>
+            <button class="btn btn-primary" id="send-answers" onclick="sendAnswers()">Send</button>
+            <script src="/resources/js/test-page/testing.js" type="text/javascript"></script>
         </div>
     </div>
 </div>

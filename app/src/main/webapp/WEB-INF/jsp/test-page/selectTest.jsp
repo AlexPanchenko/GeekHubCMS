@@ -16,13 +16,12 @@
 <html>
 <head>
     <title>Select test</title>
-    <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap-them.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/css/courses.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet" type="text/css">
+    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js"/>"></script>
+    <script src="<c:url value="/resources/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
 
 </head>
 <body>
