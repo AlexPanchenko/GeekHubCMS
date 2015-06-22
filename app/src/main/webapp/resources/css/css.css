@@ -162,12 +162,11 @@ h1 {
     border-style: solid solid outset;
     pointer-events: none;
 }
-
-.comment-box .panel > .panel-heading:after {
-    border-width: 7px;
-    border-right-color: #f7f7f7;
-    margin-top: 1px;
-    margin-left: 2px;
+.comment-box .panel>.panel-heading:after{
+    border-width:7px;
+    border-right-color:#f7f7f7;
+    margin-top:1px;
+    margin-left:2px;
 }
 
 .comment-box .panel > .panel-heading:before {
@@ -195,10 +194,22 @@ h1 {
     display: inline-block;
 }
 
-.header-text {
-    font-size: 24px;
+.alert-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    width: 350px;
+    z-index: 10;
 }
 
+.modal-dialog {
+    margin-top: 270px;
+}
+
+.answers-container .dropdown-toggle {
+    width: 125px;
+}
 .header-text h2 {
     margin-bottom: 0;
 }
