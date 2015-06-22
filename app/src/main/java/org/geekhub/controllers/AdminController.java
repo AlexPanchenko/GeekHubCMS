@@ -283,10 +283,29 @@ public class AdminController {
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model,
                             @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex,
-                            @RequestParam (value = "limit", required = false) Integer limit) {
-        Long questionsCount = questionService.getQuestionsCount();
+                            @RequestParam (value = "limit", required = false) Integer limit,
+                            @RequestParam (value = "course", required = false) Integer course,
+                            @RequestParam (value = "testType", required = false) Integer testType) {
         if (limit == null) {
             limit = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+        }
+        Long questionsCount;
+        List<Question> questionList;
+        if(course != null & testType == null) {
+            Course course1 = new Course();
+            course1.setId(course);
+            questionsCount = questionService.getQuestionsCountByCourse(course1);
+            questionList = questionService.getQuestionsOnOnePageByCourse(pageIndex, limit, course1);
+        } else if(testType != null & course != null) {
+            Course course1 = new Course();
+            course1.setId(course);
+            TestType testType1 = new TestType();
+            testType1.setId(testType);
+            questionsCount = questionService.getQuestionsCountByCourseAndTestType(course1, testType1);
+            questionList = questionService.getQuestionsOnOnePageByCourseAndTestType(pageIndex, limit, course1, testType1);
+        } else {
+            questionsCount  = questionService.getQuestionsCount();
+            questionList = questionService.getQuestionsOnOnePage(pageIndex, limit);
         }
 
         int pagesCount = (int) (questionsCount / limit);
@@ -301,7 +320,7 @@ public class AdminController {
         List<TestType> testTypeList = testTypeService.getList();
         model.addAttribute("testTypeList", testTypeList);
 
-        List<Question> questionList = questionService.getQuestionsOnOnePage(pageIndex, limit);
+
         model.addAttribute("questions" , questionList);
         model.addAttribute("currentCourse", 0);
         model.addAttribute("currentPage", pageIndex);

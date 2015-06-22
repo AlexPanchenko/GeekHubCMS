@@ -2,6 +2,7 @@ package org.geekhub.service;
 
 import org.geekhub.hibernate.bean.CourseBean;
 import org.geekhub.hibernate.bean.QuestionBean;
+import org.geekhub.hibernate.entity.Course;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestType;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,11 @@ public interface QuestionService{
     void delete(int questionId);
     void update(QuestionBean questionBean);
     Long getQuestionsCount();
+    Long getQuestionsCountByCourse(Course course);
+    Long getQuestionsCountByCourseAndTestType(Course course, TestType testType);
     List<Question> getQuestionsOnOnePage(int pageIndex, int limit);
+    List<Question> getQuestionsOnOnePageByCourse(int pageIndex, Integer limit, Course course);
+    List<Question> getQuestionsOnOnePageByCourseAndTestType(int pageIndex, Integer limit, Course course, TestType testType);
+
     public void saveOrUpdate(Question question);
 }
