@@ -52,8 +52,8 @@ public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
     }
 
     @Override
-    public List<Question> getQuestionsOnOnePage(int pageIndex, int offset) {
-        return sessionFactory.getCurrentSession().createCriteria(Question.class).setFirstResult((pageIndex - 1) * offset).setMaxResults(offset).list();
+    public List<Question> getQuestionsOnOnePage(int pageIndex, int limit) {
+        return sessionFactory.getCurrentSession().createCriteria(Question.class).setFirstResult((pageIndex - 1) * limit).setMaxResults(limit).list();
     }
 
     @Override

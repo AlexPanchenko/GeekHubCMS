@@ -22,6 +22,6 @@ public interface QuestionService{
     void delete(int questionId);
     void update(QuestionBean questionBean);
     Long getQuestionsCount();
-    List<Question> getQuestionsOnOnePage(int pageIndex, int offset);
+    List<Question> getQuestionsOnOnePage(int pageIndex, int limit);
     public void saveOrUpdate(Question question);
 }

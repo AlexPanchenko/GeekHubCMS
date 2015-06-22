@@ -283,15 +283,15 @@ public class AdminController {
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public String questions(ModelMap model,
                             @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex,
-                            @RequestParam (value = "offset", required = false) Integer offset) {
+                            @RequestParam (value = "limit", required = false) Integer limit) {
         Long questionsCount = questionService.getQuestionsCount();
-        if (offset == null) {
-            offset = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+        if (limit == null) {
+            limit = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
         }
 
-        int pagesCount = (int) (questionsCount / offset);
+        int pagesCount = (int) (questionsCount / limit);
 
-        if (questionsCount % offset != 0) {
+        if (questionsCount % limit != 0) {
             pagesCount = pagesCount + 1;
         }
 
@@ -301,7 +301,7 @@ public class AdminController {
         List<TestType> testTypeList = testTypeService.getList();
         model.addAttribute("testTypeList", testTypeList);
 
-        List<Question> questionList = questionService.getQuestionsOnOnePage(pageIndex, offset);
+        List<Question> questionList = questionService.getQuestionsOnOnePage(pageIndex, limit);
         model.addAttribute("questions" , questionList);
         model.addAttribute("currentCourse", 0);
         model.addAttribute("currentPage", pageIndex);

@@ -78,8 +78,8 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public List<Question> getQuestionsOnOnePage(int pageIndex, int offset) {
-        return questionDao.getQuestionsOnOnePage(pageIndex, offset);
+    public List<Question> getQuestionsOnOnePage(int pageIndex, int limit) {
+        return questionDao.getQuestionsOnOnePage(pageIndex, limit);
     }
 
     @Override
