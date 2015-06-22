@@ -290,6 +290,29 @@ public class AdminController {
         return "adminpanel/questions";
     }
 
+    @RequestMapping(value = "/countQuestions", method = RequestMethod.GET)
+    @ResponseBody
+    public String countQuestions(@RequestParam (value = "course", required = false) Integer course,
+                          @RequestParam (value = "testType", required = false) Integer testType) {
+        Long questionsCount;
+        if(course != null & testType == null) {
+            Course course1 = new Course();
+            course1.setId(course);
+            questionsCount = questionService.getQuestionsCountByCourse(course1);
+        } else if(testType != null & course != null) {
+            Course course1 = new Course();
+            course1.setId(course);
+            TestType testType1 = new TestType();
+            testType1.setId(testType);
+            questionsCount = questionService.getQuestionsCountByCourseAndTestType(course1, testType1);
+        } else {
+            questionsCount  = questionService.getQuestionsCount();
+        }
+        return String.valueOf(questionsCount);
+    }
+
+
+
     @RequestMapping(value = "/ajaxQuestions", method = RequestMethod.GET)
     public String ajaxQuestions(ModelMap model,
                             @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex,
