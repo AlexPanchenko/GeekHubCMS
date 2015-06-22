@@ -21,4 +21,5 @@ public interface AnswerService {
 
     void delete (List<Integer> answerIdsToDelete);
     void saveOrUpdate(Answer answer);
+    void saveOrUpdate(List<Answer> answersList);
 }

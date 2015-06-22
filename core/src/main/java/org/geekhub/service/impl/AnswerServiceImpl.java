@@ -3,6 +3,7 @@ package org.geekhub.service.impl;
 import org.geekhub.hibernate.dao.AnswerDao;
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Answer;
+import org.geekhub.hibernate.entity.BaseEntity;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.UserAnswers;
 import org.geekhub.service.AnswerService;
@@ -73,4 +74,9 @@ public class AnswerServiceImpl implements AnswerService{
         answerDao.saveOrUpdate(answer);
     }
 
+    @Override
+    public void saveOrUpdate(List<Answer> answersList) {
+        List<BaseEntity> baseEntitiesList = (List<BaseEntity>)(List<?>) answersList;
+        answerDao.saveOrUpdate(baseEntitiesList);
+    }
 }
