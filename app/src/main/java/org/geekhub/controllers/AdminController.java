@@ -617,9 +617,13 @@ public class AdminController {
     @RequestMapping(value = "/ajax/usersShow", method = RequestMethod.GET)
     public ModelAndView usersOnPage(
             @RequestParam(value = "page", defaultValue = "1", required = false) int pageIndex,
+            @RequestParam(value = "limit", required = false) Integer limit,
             Principal principal) {
+        if (limit == null){
+            limit = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+        }
         ModelAndView mav = new ModelAndView("teacherPage/students");
-        List<UserBean> users = userService.getUsersOnOnePage(pageIndex);
+        List<UserBean> users = userService.getUsersOnOnePage(pageIndex, limit);
         UserBean userBean = userService.getUserBeanByEmail(principal.getName());
         mav.addObject("logedUser", userBean);
         mav.addObject("users", users);
