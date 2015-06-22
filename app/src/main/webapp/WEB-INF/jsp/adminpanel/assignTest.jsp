@@ -28,7 +28,19 @@
                     <h2>Assignment tests</h2>
                 </div>
                 <div class="selectCourse">
-                    <h3>Select Test config</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="selectTestConfig">Select test config: </label>
+                                <select class="form-control" id="selectTestConfig">
+                                    <c:forEach items="${testConfigList}" var="testConfig">
+                                        <option value="${testConfig.id}">${testConfig.testType.course.name}: ${testConfig.title}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <%--<ul>--%>
                         <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
                             <%--<c:choose>--%>
