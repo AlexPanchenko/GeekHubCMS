@@ -19,7 +19,10 @@ function Pagination(options) {
 
         $.ajax({
             url: this.url,
-            data: {page: page},
+            data: {
+                page: page,
+                limit: this.limit
+            },
             success: function (data) {
                 $("#rows").html(data);
             }
@@ -62,7 +65,7 @@ function Pagination(options) {
     };
 
     this.reloadPage = function () {
-      this.showNewPage(this.currentPage);
+        this.showNewPage(this.currentPage);
     };
 
     this.render = function () {
