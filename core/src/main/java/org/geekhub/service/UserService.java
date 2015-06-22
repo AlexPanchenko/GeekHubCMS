@@ -23,7 +23,7 @@ public interface UserService  {
     public User getUserById(int userId);
     public RegistrationResponseBean addUser(UserBean userBean) throws ParseException;
     public Long getUsersCount();
-    public List<UserBean> getUsersOnOnePage(int page);
+    public List<UserBean> getUsersOnOnePage(int page, int limit);
     public List<UserBean> getAllTeachers();
     Object getUserTestResultWrapperListByCourseName(String course);
     Page<UserTestResultWrapper> getPageUserTestResultWrapperListByCourseName(String course, int p, int i);

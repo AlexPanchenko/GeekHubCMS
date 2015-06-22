@@ -2,7 +2,6 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.UserDao;
 import org.geekhub.hibernate.dao.UsersCoursesDao;
-import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.TestAssignment;
 import org.geekhub.hibernate.entity.User;
 import org.hibernate.SessionFactory;
@@ -33,8 +32,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> usersOnPage(int page) throws UsernameNotFoundException {
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult((page - 1) * Page.USERS_ON_PAGE).setMaxResults(Page.USERS_ON_PAGE).list();
+    public List<User> usersOnPage(int page, int limit) throws UsernameNotFoundException {
+        return sessionFactory.getCurrentSession().createCriteria(User.class).setFirstResult((page - 1) * limit).setMaxResults(limit).list();
     }
 
     @Override
