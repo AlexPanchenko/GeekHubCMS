@@ -190,19 +190,6 @@ h1{
     padding: 20px;
 }
 
-div.questionBlock{
-    padding: 20px 20px;
-    background-color: lightgoldenrodyellow;
-}
-div.radius {
-    border: 2px solid CornflowerBlue;
-    border-radius: 22px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-
-}
-
 div.headerTest{
     width:600px;
     height:100px;

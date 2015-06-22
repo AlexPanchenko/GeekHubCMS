@@ -211,3 +211,23 @@ h1 {
 .header-text {
     font-size: 24px;
 }
+
+.selectTest {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.selectTest h2 {
+    width: 960px;
+    margin: 25px auto;
+}
+
+.selectTest table {
+    background: white;
+    box-shadow: 0 5px 25px;
+    width: 960px;
+    margin: 0 auto;
+}
+.geekhub-bg {
+    background: url("/resources/img/geekhub_bg.png");
+}
