@@ -58,21 +58,6 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question create(QuestionBean questionBean) {
-        Question question = new Question();
-        question.setQuestionText(questionBean.getQuestionText());
-        question.setQuestionCode(questionBean.getQuestionCode());
-        question.setQuestionWeight(questionBean.getQuestionWeight());
-        question.setCourse((Course) courseDao.read(questionBean.getCourse(), Course.class));
-        question.setMyAnswer(questionBean.getMyAnswer());
-        question.setQuestionStatus(questionBean.getQuestionStatus());
-        question.setManyAnswers(questionBean.getManyAnswers());
-        question.setTestType(questionBean.getTestType());
-        questionDao.create(question);
-        return question;
-    }
-
-    @Override
     public List<Question> getQuestionsByCourse(CourseBean courseBean) {
         return questionDao.getByCourse(courseDao.getCourseByName(courseBean.getName()));
     }
@@ -93,14 +78,8 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public List<Question> getQuestionsOnOnePage(int pageIndex) {
-        List<Question> questionList = questionDao.getQuestionsOnOnePage(pageIndex);
-        return questionList;
-    }
-
-    @Override
-    public Question getQuestionWithId(Question question) {
-        return questionDao.getQuestionWithId(question);
+    public List<Question> getQuestionsOnOnePage(int pageIndex, int offset) {
+        return questionDao.getQuestionsOnOnePage(pageIndex, offset);
     }
 
     @Override

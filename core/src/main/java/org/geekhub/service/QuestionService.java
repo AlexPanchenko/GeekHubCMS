@@ -20,10 +20,8 @@ public interface QuestionService{
 
     Question read(int questionId);
     void delete(int questionId);
-    Question create(QuestionBean questionBean);
     void update(QuestionBean questionBean);
-    public Question getQuestionWithId(Question question);
     Long getQuestionsCount();
-    List<Question> getQuestionsOnOnePage(int pageIndex);
+    List<Question> getQuestionsOnOnePage(int pageIndex, int offset);
     public void saveOrUpdate(Question question);
 }

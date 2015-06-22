@@ -2,7 +2,6 @@ package org.geekhub.hibernate.dao.impl;
 
 import org.geekhub.hibernate.dao.QuestionDao;
 import org.geekhub.hibernate.entity.Course;
-import org.geekhub.hibernate.entity.Page;
 import org.geekhub.hibernate.entity.Question;
 import org.geekhub.hibernate.entity.TestType;
 import org.hibernate.criterion.Projections;
@@ -53,8 +52,8 @@ public class QuestionDaoImpl extends BaseDaoImpl implements QuestionDao{
     }
 
     @Override
-    public List<Question> getQuestionsOnOnePage(int pageIndex) {
-        return sessionFactory.getCurrentSession().createCriteria(Question.class).setFirstResult((pageIndex - 1) * Page.USERS_ON_PAGE).setMaxResults(Page.USERS_ON_PAGE).list();
+    public List<Question> getQuestionsOnOnePage(int pageIndex, int offset) {
+        return sessionFactory.getCurrentSession().createCriteria(Question.class).setFirstResult((pageIndex - 1) * offset).setMaxResults(offset).list();
     }
 
     @Override
