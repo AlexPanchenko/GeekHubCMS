@@ -281,7 +281,17 @@ public class AdminController {
 
     // START QUESTION CONTROLLER
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
-    public String questions(ModelMap model,
+    public String questions(ModelMap model) {
+        List<CourseBean> listCourse = courseService.getAllBeans();
+        model.addAttribute("courses", listCourse);
+        List<TestType> testTypeList = testTypeService.getList();
+        model.addAttribute("testTypeList", testTypeList);
+        model.addAttribute("currentCourse", 0);
+        return "adminpanel/questions";
+    }
+
+    @RequestMapping(value = "/ajaxQuestions", method = RequestMethod.GET)
+    public String ajaxQuestions(ModelMap model,
                             @RequestParam (value = "page", required = false, defaultValue = "1") int pageIndex,
                             @RequestParam (value = "limit", required = false) Integer limit,
                             @RequestParam (value = "course", required = false) Integer course,
@@ -289,8 +299,10 @@ public class AdminController {
         if (limit == null) {
             limit = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
         }
+
         Long questionsCount;
         List<Question> questionList;
+
         if(course != null & testType == null) {
             Course course1 = new Course();
             course1.setId(course);
@@ -315,16 +327,9 @@ public class AdminController {
         }
 
         model.addAttribute("pagesCount", pagesCount);
-        List<CourseBean> listCourse = courseService.getAllBeans();
-        model.addAttribute("courses", listCourse);
-        List<TestType> testTypeList = testTypeService.getList();
-        model.addAttribute("testTypeList", testTypeList);
-
-
         model.addAttribute("questions" , questionList);
-        model.addAttribute("currentCourse", 0);
         model.addAttribute("currentPage", pageIndex);
-        return "adminpanel/questions";
+        return "shared/questionAjax";
     }
 
     @RequestMapping(value = "/course/{courseId}/questions/", method = RequestMethod.GET)
