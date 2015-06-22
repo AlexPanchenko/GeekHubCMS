@@ -1,71 +1,71 @@
-var queueDeletion = (function () {
-    var answersToDelete = [];
-    return {
-        getQueue: function () {
-            return answersToDelete;
-        },
-        addAnswer: function (answerId) {
-            answersToDelete.push(parseInt(answerId))
-        }
-    }
-})();
-
-var getAnswerId = function (answer) {
-    if (answer) {
-        return answer.substring(6);
-    }
-};
-
-var isManyAnswers = function (answers) {
-    var rightCount = answers.filter(function (answer) {
-        return answer.answerRight === true;
-    }).length;
-    return rightCount > 1;
-};
-
-var updateAnswers = function () {
-    var answersArray = [];
-    var inputs = $(".input-group");
-    answersArray = [].map.call(inputs, function (el) {
-        var id = $(el).attr("id");
-        var text = $(el).find(".answer-input").val();
-        var right = $(el).find(".input-group-select-val").val() === "true";
-        //If answer text is empty, then answer will not send
-        if (text === "") {
-            return;
-        }
-        var answer = {
-            answerText: text,
-            answerRight: right
-        };
-        //New answers must be send without id
-        if (id) {
-            answer.id = getAnswerId(id);
-        }
-        return answer;
-    }).filter(function (answer) {
-        return answer != undefined;
-    });
-    return answersArray;
-
-};
-
-$("#updateSubmit").on("click", function (e) {
-    var answers = updateAnswers();
-    $(".answersList").val(JSON.stringify(answers));
-    $(".manyAnswers").val(isManyAnswers(answers));
-    $("#answersToDelete").val(queueDeletion.getQueue());
-    $("#edit").submit();
-});
-
-$("#createSubmit").on("click", function (e) {
-    var answers = updateAnswers();
-    $(".manyAnswers").val(isManyAnswers(answers));
-    $(".answersList").val(JSON.stringify(answers));
-    $("#create").submit();
-});
-
 (function ($) {
+    var queueDeletion = (function () {
+        var answersToDelete = [];
+        return {
+            getQueue: function () {
+                return answersToDelete;
+            },
+            addAnswer: function (answerId) {
+                answersToDelete.push(parseInt(answerId))
+            }
+        }
+    })();
+
+    var getAnswerId = function (answer) {
+        if (answer) {
+            return answer.substring(6);
+        }
+    };
+
+    var isManyAnswers = function (answers) {
+        var rightCount = answers.filter(function (answer) {
+            return answer.answerRight === true;
+        }).length;
+        return rightCount > 1;
+    };
+
+    var updateAnswers = function () {
+        var answersArray = [];
+        var inputs = $(".input-group");
+        answersArray = [].map.call(inputs, function (el) {
+            var id = $(el).attr("id");
+            var text = $(el).find(".answer-input").val();
+            var right = $(el).find(".input-group-select-val").val() === "true";
+            //If answer text is empty, then answer will not send
+            if (text === "") {
+                return;
+            }
+            var answer = {
+                answerText: text,
+                answerRight: right
+            };
+            //New answers must be send without id
+            if (id) {
+                answer.id = getAnswerId(id);
+            }
+            return answer;
+        }).filter(function (answer) {
+            return answer != undefined;
+        });
+        return answersArray;
+
+    };
+
+    $("#updateSubmit").on("click", function (e) {
+        var answers = updateAnswers();
+        $(".answersList").val(JSON.stringify(answers));
+        $(".manyAnswers").val(isManyAnswers(answers));
+        $("#answersToDelete").val(queueDeletion.getQueue());
+        $("#edit").submit();
+    });
+
+    $("#createSubmit").on("click", function (e) {
+        var answers = updateAnswers();
+        $(".manyAnswers").val(isManyAnswers(answers));
+        $(".answersList").val(JSON.stringify(answers));
+        $("#create").submit();
+    });
+
     $(function () {
 
         var addFormGroup = function (event) {

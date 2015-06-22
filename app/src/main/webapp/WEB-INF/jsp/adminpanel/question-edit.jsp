@@ -124,7 +124,7 @@
                                     <input type="hidden" class="answersList" name="answersList" value=""/>
                                     <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
                                 </fieldset>
-                                <button  id="createSubmit" type="submit" class="btn btn-primary btn-lg">Create</button>
+                                <button id="createSubmit" type="submit" class="btn btn-primary btn-lg">Create</button>
                             </form>
 
                         </c:when>
@@ -139,8 +139,7 @@
                                         <div class="form-group">
                                             <input class="form-control" id="id" name="id"
                                                    type="hidden" value="${question.id}">
-                                            <%--<input class="form-control" id="course" name="course"
-                                                   type="hidden" value="${question.course.id}">--%>
+
                                         </div>
                                         <dt>
                                             <label class="pull-left control-label"
@@ -187,9 +186,8 @@
                                         </dt>
                                         <dd>
                                             <div class="form-group">
-                                                                    <textarea class="form-control" name="questionCode"
-                                                                              rows="4"
-                                                                              required>${question.questionCode}</textarea>
+                                                <textarea class="form-control" name="questionCode"
+                                                          rows="4">${question.questionCode}</textarea>
                                             </div>
                                         </dd>
                                         <dt>
@@ -198,9 +196,9 @@
                                         </dt>
                                         <dd>
                                             <div class="form-group">
-                                                <input id="questionWeight1" minlenght="1"
-                                                       maxlength="25" name="questionWeight"
-                                                       type="text"
+                                                <input id="questionWeight1" min="1"
+                                                       max="10" name="questionWeight"
+                                                       type="number"
                                                        value="${question.questionWeight}"
                                                        placeholder="enter the weight question"
                                                        class="form-control pull-left" required>
@@ -232,7 +230,7 @@
                                 <input type="hidden" class="answersList" name="answersList" value=""/>
                                 <input type="hidden" id="answersToDelete" name="answersToDelete" value=""/>
                                 <input type="hidden" class="manyAnswers" name="manyAnswers" value=""/>
-                                <%--<input type="hidden" name="questionId" value="${question.id}"/>--%>
+                                    <%--<input type="hidden" name="questionId" value="${question.id}"/>--%>
                             </form>
                             <div class="clearfix"></div>
                             <button id="updateSubmit" class="btn btn-primary btn-lg">Save</button>
