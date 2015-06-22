@@ -78,8 +78,28 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
+    public Long getQuestionsCountByCourse(Course course) {
+        return questionDao.getQuestionsCountByCourse(course);
+    }
+
+    @Override
+    public Long getQuestionsCountByCourseAndTestType(Course course, TestType testType) {
+        return questionDao.getQuestionsCountByCourseAndTestType(course, testType);
+    }
+
+    @Override
     public List<Question> getQuestionsOnOnePage(int pageIndex, int limit) {
         return questionDao.getQuestionsOnOnePage(pageIndex, limit);
+    }
+
+    @Override
+    public List<Question> getQuestionsOnOnePageByCourse(int pageIndex, Integer limit, Course course) {
+        return questionDao.getQuestionsOnOnePageByCourse(pageIndex, limit, course);
+    }
+
+    @Override
+    public List<Question> getQuestionsOnOnePageByCourseAndTestType(int pageIndex, Integer limit, Course course, TestType testType) {
+        return questionDao.getQuestionsOnOnePageByCourseAndTestType(pageIndex, limit, course, testType);
     }
 
     @Override
