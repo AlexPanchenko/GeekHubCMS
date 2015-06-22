@@ -2,13 +2,13 @@
     var pagination;
     var init = function () {
         $.ajax({
-            url: "ajax/countUsers",
             dataType: "text",
             success: function (count) {
                 pagination = new Pagination({
                     itemsCount: count,
                     url: "ajax/usersShow",
-                    maxSize: 5
+                    maxSize: 5,
+                    countUrl: "ajax/countUsers"
                 });
             }
         })

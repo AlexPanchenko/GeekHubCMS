@@ -67,17 +67,6 @@
                             | ${currentTestConfig.testType.name})
                                 ${currentTestConfig.title}</h3>
 
-                        <%--<div class="form-group">--%>
-                            <%--<select class="selectpicker selectpicker" id="testType" name="testConfigId">--%>
-                                <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
-                                    <%--<option value="${testConfig.id}">(${testConfig.testType.course.name}--%>
-                                        <%--| ${testConfig.testType.name})--%>
-                                            <%--${testConfig.title}--%>
-                                    <%--</option>--%>
-                                <%--</c:forEach>--%>
-                            <%--</select>--%>
-                        <%--</div>--%>
-
                         <table class="table text-black">
                             <thead class="alert alert-success">
                             <tr>

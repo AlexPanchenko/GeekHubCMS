@@ -1,21 +1,49 @@
 function Pagination(options) {
     this.prevPage = 0;
-    this.currentPage = 1;
+    this.currentPage = 0;
+    this.pagesCount = 0;
 
     this.init = function () {
         if ((options.itemsCount && options.url) != undefined) {
-            this.itemsCount = options.itemsCount;
+            //this.itemsCount = options.itemsCount;
             this.url = options.url;
             this.limit = options.limit || 15;
             this.maxSize = options.maxSize || 5;
-            this.pagesCount = Math.ceil(this.itemsCount / this.limit);
-            this.showNewPage(this.currentPage);
+            this.countUrl = options.countUrl;
+            this.showNewPage(1);
             this.addListeners();
         } else console.error("itemCount and url must not be empty!");
     };
 
     this.showNewPage = function (page) {
+        var self = this;
         this.currentPage = page;
+
+        $.ajax({
+            url: this.countUrl,
+            success: function (count) {
+                self.pagesCount = Math.ceil(count / self.limit);
+
+                if (self.currentPage > self.pagesCount) {
+                    return self.previousPage();
+                }
+
+                self.render();
+
+                $(".disabled").removeClass("disabled");
+                if (page == self.pagesCount) {
+                    $("#last-page").parent().addClass("disabled");
+                    $("#next-page").parent().addClass("disabled");
+                }
+                if (page == 1) {
+                    $("#first-page").parent().addClass("disabled");
+                    $("#prev-page").parent().addClass("disabled");
+                }
+
+                $("#page" + self.prevPage).parent().removeClass("active");
+                $("#page" + page).parent().addClass("active");
+            }
+        });
 
         $.ajax({
             url: this.url,
@@ -27,21 +55,6 @@ function Pagination(options) {
                 $("#rows").html(data);
             }
         });
-
-        this.render();
-
-        $(".disabled").removeClass("disabled");
-        if (page == this.pagesCount) {
-            $("#last-page").parent().addClass("disabled");
-            $("#next-page").parent().addClass("disabled");
-        }
-        if (page == 1) {
-            $("#first-page").parent().addClass("disabled");
-            $("#prev-page").parent().addClass("disabled");
-        }
-
-        $("#page" + this.prevPage).closest("li").removeClass("active");
-        $("#page" + page).closest("li").addClass("active");
 
         this.prevPage = this.currentPage;
     };
@@ -69,7 +82,7 @@ function Pagination(options) {
     };
 
     this.render = function () {
-        $(".page-number").remove();
+        $(".page-number").parent().remove();
         var paginationPages = $("#next-page").parent();
         var start, finish;
         var center = Math.floor(this.maxSize / 2);

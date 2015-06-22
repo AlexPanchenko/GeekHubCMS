@@ -177,8 +177,8 @@ h1 {
 
 .alert-absolute {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    bottom: 50px;
+    right: 50px;
     margin-left: -175px;
     width: 350px;
     z-index: 10;
