@@ -60,6 +60,7 @@
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
+                            <th> Course name</th>
                             <th> Text question</th>
                             <th> Weigth</th>
                             <th> Your answer</th>
@@ -69,6 +70,7 @@
                         </thead>
                         <c:forEach items="${questions}" var="question">
                             <tr>
+                                <td>${question.course.name}</td>
                                 <td>${question.questionText}</td>
                                 <td>${question.questionWeight}</td>
                                 <td>

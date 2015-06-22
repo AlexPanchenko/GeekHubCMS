@@ -29,28 +29,25 @@
                 </div>
                 <div class="selectCourse">
                     <h3>Select Test config</h3>
-                    <ul>
-                        <c:forEach items="${testConfigList}" var="testConfig">
-                            <c:choose>
-                                <c:when test="${testConfig.questionCount <= fn:length(testConfig.testType.questionList)}">
-                                    <li><a class="titleSelect" href="/admin/assignTest/${testConfig.id}">(${testConfig.testType.course.name}
-                                        | ${testConfig.testType.name})
-                                            ${testConfig.title}
-                                    </a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <p class="titleSelect">(${testConfig.testType.course.name}
-                                        | ${testConfig.testType.name})
-                                            ${testConfig.title} <span class="alert-warning">Warning : Not enough questions</span>
-                                    </p>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </ul>
-                </div>
+                    <%--<ul>--%>
+                        <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
+                            <%--<c:choose>--%>
+                                <%--<c:when test="${testConfig.questionCount <= fn:length(testConfig.testType.questionList)}">--%>
+                                    <%--<li><a class="titleSelect" href="/admin/assignTest/${testConfig.id}">--%>
+                                    <%--${testConfig.testType.course.name} | ${testConfig.testType.name} ${testConfig.title}--%>
+                                    <%--</a></li>--%>
+                                <%--</c:when>--%>
+                                <%--<c:otherwise>--%>
+                                    <%--<p class="titleSelect">(${testConfig.testType.course.name}--%>
+                                        <%--| ${testConfig.testType.name})--%>
+                                            <%--${testConfig.title} <span class="alert-warning">Warning : Not enough questions</span>--%>
+                                    <%--</p>--%>
+                                <%--</c:otherwise>--%>
+                            <%--</c:choose>--%>
+                        <%--</c:forEach>--%>
+                    <%--</ul>--%>
+                <%--</div>--%>
 
-
-                <%--<h2>${currentCourse.name}</h2>--%>
 
                 <form data-toggle="validator" role="form" action="/admin/assignTest/save"
                       method="POST"
@@ -61,17 +58,6 @@
                         <h3>(${currentTestConfig.testType.course.name}
                             | ${currentTestConfig.testType.name})
                                 ${currentTestConfig.title}</h3>
-
-                        <%--<div class="form-group">--%>
-                            <%--<select class="selectpicker selectpicker" id="testType" name="testConfigId">--%>
-                                <%--<c:forEach items="${testConfigList}" var="testConfig">--%>
-                                    <%--<option value="${testConfig.id}">(${testConfig.testType.course.name}--%>
-                                        <%--| ${testConfig.testType.name})--%>
-                                            <%--${testConfig.title}--%>
-                                    <%--</option>--%>
-                                <%--</c:forEach>--%>
-                            <%--</select>--%>
-                        <%--</div>--%>
 
                         <table class="table text-black">
                             <thead class="alert alert-success">
