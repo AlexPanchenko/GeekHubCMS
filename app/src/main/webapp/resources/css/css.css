@@ -207,3 +207,7 @@ h1 {
 .header-text h2 {
     margin-bottom: 0;
 }
+
+.header-text {
+    font-size: 24px;
+}
