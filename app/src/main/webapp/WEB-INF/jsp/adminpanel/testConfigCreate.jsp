@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="container">
-                            <h1 class="page-header">Add new test config</h1>
+                            <h1 class="page-header">!Add new test config</h1>
                             <c:choose>
                                 <c:when test="${empty testTypeList}">
                                     <p>You must create "TestType"</p>

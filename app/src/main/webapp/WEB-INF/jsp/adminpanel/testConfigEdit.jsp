@@ -24,122 +24,88 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-10">
-                        <div class="container">
-                            <h1 class="page-header">Add new test config</h1>
-                            <c:choose>
-                                <c:when test="${empty testTypeList}">
-                                    <p>You must create "TestType"</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <form data-toggle="validator" role="form"
-                                          action="/admin/testConfig/edit/${testConfig.id}"
-                                          method="POST"
-                                          class="form-horizontal">
-                                        <fieldset>
-                                            <dl class="dl-horizontal">
+                    <div class="col-lg-5">
 
-                                                <dt>
-                                                    <label class="pull-left control-label" for="testType">Test
-                                                        type</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <select class="selectpicker" id="testType" name="testType">
-                                                            <c:forEach items="${testTypeList}" var="testType">
-                                                                <option value="${testType.id}"
-                                                                        <c:if test="${testType.id eq testConfig.testType.id}">selected</c:if>>${testType.name}
-                                                                    (${testType.course.name})
-                                                                </option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                </dd>
-                                                <dt>
-                                                    <label class="pull-left control-label" for="title">Test config
-                                                        title</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input required type="text" id="title" min="0" name="title"
-                                                               value="${testConfig.title}">
-                                                    </div>
-                                                </dd>
-                                                <dt>
-                                                    <label class="pull-left control-label" for="questionCount">Question
-                                                        count</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input required type="number" id="questionCount" min="0"
-                                                               name="questionCount" value="${testConfig.questionCount}">
-                                                    </div>
-                                                </dd>
+                        <h1 class="page-header">Edit test config</h1>
+                        <c:choose>
+                            <c:when test="${empty testTypeList}">
+                                <p>You must create "TestType"</p>
+                            </c:when>
+                            <c:otherwise>
+                                <form data-toggle="validator" role="form"
+                                      action="/admin/testConfig/edit/${testConfig.id}"
+                                      method="POST">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="control-label" for="testType">Test type</label>
+                                            <select class="form-control" id="testType" name="testType">
+                                                <c:forEach items="${testTypeList}" var="testType">
+                                                    <option value="${testType.id}"
+                                                            <c:if test="${testType.id eq testConfig.testType.id}">selected</c:if>>${testType.name}
+                                                        (${testType.course.name})
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
 
-                                                <dt>
-                                                    <label class="pull-left control-label" for="dateStart">Date
-                                                        start </label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input required type="date" id="dateStart" class="form-control"
-                                                               name="dateStart" ${testConfig.dateStart}
-                                                               value='<fmt:formatDate type="date" value="${testConfig.dateStart}" pattern="yyyy-MM-dd" />'>
-                                                    </div>
-                                                </dd>
-                                                <dt>
-                                                    <label class="pull-left control-label" for="dateFinish">Date
-                                                        finish </label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input required type="date" id="dateFinish" class="form-control"
-                                                               name="dateFinish"
-                                                               value='<fmt:formatDate type="date" value="${testConfig.dateFinish}" pattern="yyyy-MM-dd" />'>
-                                                    </div>
-                                                </dd>
-
-                                                <dt>
-                                                    <label class="pull-left control-label" for="timeToTest">Time to
-                                                        test</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <input required type="number" min="0" id="timeToTest"
-                                                               name="timeToTest" value="${testConfig.timeToTest}">
-                                                    </div>
-                                                </dd>
+                                        <div class="form-group">
+                                            <label class="control-label" for="title">Test config title</label>
+                                            <input class="form-control" required type="text" id="title" min="0"
+                                                   name="title"
+                                                   value="${testConfig.title}">
+                                        </div>
 
 
-                                                <dt>
-                                                    <label class="pull-left control-label" for="status">status</label>
-                                                </dt>
-                                                <dd>
-                                                    <div class="form-group">
-                                                        <div class="btn-group">
-                                                            <select name="status"
-                                                                    class="btn btn-default dropdown-toggle"
-                                                                    data-toggle="dropdown" aria-expanded="false"
-                                                                    id="status">
-                                                                <c:forEach items="${status}" var="status">
-                                                                    <option value="${status}"
-                                                                            <c:if test="${testConfig.status eq status}">selected</c:if>>${status}</option>
-                                                                </c:forEach>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </dd>
-                                            </dl>
-                                        </fieldset>
-                                        <button type="submit" class="btn btn-primary btn-lg">Save</button>
-                                    </form>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <!-- /.col-lg-12 -->
+                                        <div class="form-group">
+                                            <label class="pull-left control-label" for="questionCount">Question
+                                                count</label>
+                                            <input class="form-control" required type="number" id="questionCount"
+                                                   min="0"
+                                                   name="questionCount" value="${testConfig.questionCount}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="pull-left control-label" for="dateStart">Date start </label>
+                                            <input required type="date" id="dateStart" class="form-control"
+                                                   name="dateStart" ${testConfig.dateStart}
+                                                   value='<fmt:formatDate type="date" value="${testConfig.dateStart}" pattern="yyyy-MM-dd" />'>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="pull-left control-label" for="dateFinish">Date finish </label>
+                                            <input required type="date" id="dateFinish" class="form-control"
+                                                   name="dateFinish"
+                                                   value='<fmt:formatDate type="date" value="${testConfig.dateFinish}" pattern="yyyy-MM-dd" />'>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="pull-left control-label" for="timeToTest">Time to
+                                                test</label>
+                                            <input class="form-control" required type="number" min="0" id="timeToTest"
+                                                   name="timeToTest" value="${testConfig.timeToTest}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label" for="status">Status</label>
+
+                                            <select name="status"
+                                                    class="btn btn-default dropdown-toggle form-control"
+                                                    data-toggle="dropdown" aria-expanded="false"
+                                                    id="status">
+                                                <c:forEach items="${status}" var="status">
+                                                    <option value="${status}"
+                                                            <c:if test="${testConfig.status eq status}">selected</c:if>>${status}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                    <!-- /.row -->
                 </div>
+                <!-- /.row -->
             </div>
         </div>
     </div>
