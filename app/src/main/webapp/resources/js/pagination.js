@@ -4,12 +4,14 @@ function Pagination(options) {
     this.pagesCount = 0;
 
     this.init = function () {
-        if ((options.itemsCount && options.url) != undefined) {
+        //if ((options.itemsCount && options.url) != undefined) {
+        if (options.url != undefined) {
             //this.itemsCount = options.itemsCount;
             this.url = options.url;
             this.limit = options.limit || 15;
             this.maxSize = options.maxSize || 5;
             this.countUrl = options.countUrl;
+            this.getParams = options.getParams;
             this.showNewPage(1);
             this.addListeners();
         } else console.error("itemCount and url must not be empty!");
@@ -18,16 +20,30 @@ function Pagination(options) {
     this.showNewPage = function (page) {
         var self = this;
         this.currentPage = page;
-
+        var i = 0;
+        var queryParams = {};
+        var pagination = $(".pagination");
+        if (this.getParams) {
+            var params = this.getParams();
+            for (i in params) {
+                if (params.hasOwnProperty(i)) {
+                    queryParams[i] = params[i];
+                }
+            }
+        }
         $.ajax({
             url: this.countUrl,
+            data: queryParams,
+
             success: function (count) {
                 self.pagesCount = Math.ceil(count / self.limit);
-
-                if (self.currentPage > self.pagesCount) {
+                if (self.pagesCount == 0) {
+                    pagination.hide();
+                } else if (self.currentPage > self.pagesCount) {
                     return self.previousPage();
+                } else {
+                    pagination.show();
                 }
-
                 self.render();
 
                 $(".disabled").removeClass("disabled");
@@ -47,17 +63,15 @@ function Pagination(options) {
 
         $.ajax({
             url: this.url,
-            data: {
-                page: page,
-                limit: this.limit
-            },
+            data: $.extend({page: page, limit: this.limit}, queryParams),
             success: function (data) {
-                $("#rows").html(data);
+                $(options.target).html(data);
             }
         });
 
         this.prevPage = this.currentPage;
     };
+
     this.nextPage = function () {
         if (this.currentPage < this.pagesCount) {
             this.showNewPage(++this.currentPage);
@@ -99,7 +113,6 @@ function Pagination(options) {
             start = currentPage - center;
             finish = currentPage + center;
         }
-
         for (start; start <= finish; start++) {
             var li = $("<li/>").insertBefore(paginationPages);
             $('<a/>', {

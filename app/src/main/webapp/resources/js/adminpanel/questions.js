@@ -1,49 +1,54 @@
 (function () {
-    var selectCourse = function () {
-        var selectedCourse = $('#selectCourse option:selected');
-        if (selectedCourse.attr('id') == 0) {
-            $("#addQuestion").hide();
-            $(".testTypeWrap").hide();
-            window.location.replace("/admin/questions");
-        } else {
-            $("#addQuestion").show();
-            $(".testTypeWrap").show();
+    var pagination = new Pagination({
+            target: ".questions-box",
+            limit: 15,
+            url: config.url + "/admin/ajaxQuestions",
+            maxSize: 5,
+            countUrl: config.url + "/admin/countQuestions",
+            getParams: function () {
+                var course = $("#selectCourse").val();
+                var testType = $("#selectTestType").val();
 
-            $('addQuestion').attr("href", "/admin/course/" + selectedCourse.attr('id') + "/question/create");
-            var redirectTo = "/admin/course/" + selectedCourse.attr('id') + "/questions/";
-            window.location.replace(redirectTo);
+                return {
+                    course: course != 0 ? course : undefined,
+                    testType: testType != 0 ? testType: undefined
+                }
+            }
         }
+    );
 
-    };
 
-    var selectTestType = function () {
-        var redirectTo;
-        if ($('#selectTestType option:selected').attr('id') == "testType0") {
-            console.log("hello");
-            redirectTo = "/admin/course/" + currentCourse + "/questions/";
+    $("#selectCourse").on("change", function (e) {
+        var selectedCourse = $(this).val();
+        var wrapper = $(".testTypeWrap");
+        if (selectedCourse == 0) {
+            wrapper.hide();
         } else {
-            redirectTo = "/admin/course/" + currentCourse + "/testType/" + $('#selectTestType option:selected').attr('id') + "/questions/";
-        }
-        window.location.replace(redirectTo);
-    };
+            var testTypes = $("#selectTestType");
+            $.ajax({
+                url: config.url + "/admin/ajax/getTestType",
+                data: {
+                    courseId: selectedCourse
+                },
+                dataType: "json",
+                success: function (data) {
+                    testTypes.empty();
+                    data.forEach(function (testType) {
+                        console.log(testType);
+                        $("<option>", {
+                            value: testType.id,
+                            text: testType.name
+                        }).appendTo(testTypes);
+                    });
+                    wrapper.show();
+                }
 
-    $(document).ready(function () {
-        var selectedCourse = $('#selectCourse option:selected'),
-            addQuestionBtn = $('#addQuestion');
-        if (selectedCourse.attr('id') == 0) {
-            addQuestionBtn.hide();
-            $('.testTypeWrap').hide();
-
-        } else {
-            addQuestionBtn.show();
-            $('.testTypeWrap').show();
-            addQuestionBtn.attr("href", "/admin/course/" + selectedCourse.attr('id') + "/question/create");
+            });
         }
     });
 
-//Event handlers
-    $("#selectTestType").on("change", selectTestType);
-
-    $("#selectCourse").on("change", selectCourse);
+    $("#questionsFilter").on("click", function () {
+        pagination.firstPage();
+    });
 
 })();
