@@ -4,9 +4,7 @@ function Pagination(options) {
     this.pagesCount = 0;
 
     this.init = function () {
-        //if ((options.itemsCount && options.url) != undefined) {
         if (options.url != undefined) {
-            //this.itemsCount = options.itemsCount;
             this.url = options.url;
             this.limit = options.limit || 15;
             this.maxSize = options.maxSize || 5;
@@ -34,10 +32,9 @@ function Pagination(options) {
         $.ajax({
             url: this.countUrl,
             data: queryParams,
-
             success: function (count) {
                 self.pagesCount = Math.ceil(count / self.limit);
-                if (self.pagesCount == 0) {
+                if (self.pagesCount < 2) {
                     pagination.hide();
                 } else if (self.currentPage > self.pagesCount) {
                     return self.previousPage();

@@ -50,5 +50,4 @@
     $("#questionsFilter").on("click", function () {
         pagination.firstPage();
     });
-
 })();
