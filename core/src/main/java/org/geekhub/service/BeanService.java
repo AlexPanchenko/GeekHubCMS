@@ -16,4 +16,5 @@ public interface BeanService {
     public NoteBean toNoteBean (Note note);
     public TestAssignmentBean toTestAssignmentBean(TestAssignment testAssignment);
     public Question toQuestionEntity (QuestionBean questionBean) throws CourseNotFoundException;
+    public TestTypeBean toTestTypeBean (TestType testType);
 }

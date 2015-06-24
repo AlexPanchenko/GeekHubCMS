@@ -173,4 +173,12 @@ public class BeanServiceImpl implements BeanService {
         question.setQuestionCode(questionBean.getQuestionCode());
         return question;
     }
+
+    @Override
+    public TestTypeBean toTestTypeBean(TestType testType) {
+        TestTypeBean testTypeBean = new TestTypeBean();
+        testTypeBean.setId(testType.getId());
+        testTypeBean.setName(testType.getName());
+        return testTypeBean;
+    }
 }
