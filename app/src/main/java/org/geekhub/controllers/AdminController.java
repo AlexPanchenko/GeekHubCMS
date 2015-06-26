@@ -257,13 +257,17 @@ public class AdminController {
         return "adminpanel/userTestResult";
     }
 
-    @RequestMapping(value = "/userTestResult/{course}", method = RequestMethod.GET)
-    public String getUserTestResultWithCourse(@RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
-                                              @RequestParam(value = "results", defaultValue = "4", required = false) Integer recPerPage,
-                                              @PathVariable String course, Map<String, Object> model) throws Exception {
+    @RequestMapping(value = "/userTestResult/{courseId}", method = RequestMethod.GET)
+    public String getUserTestResultWithCourse(@RequestParam(value = "page", required = true, defaultValue = "1") Integer p,
+                                              @RequestParam(value = "limit", required = false) Integer recPerPage,
+                                              @PathVariable int courseId, Map<String, Object> model) throws Exception {
+    if(recPerPage == null) {
+        recPerPage = org.geekhub.hibernate.entity.Page.USERS_ON_PAGE;
+    }
         model.put("coursesList", courseService.getAllBeans());
-        model.put("courseName", course);
-        Page<UserTestResultWrapper> page = userService.getPageUserTestResultWrapperListByCourseName(course, p, recPerPage);
+        CourseBean courseBean = courseService.getById(courseId);
+        model.put("courseName", courseBean.getName());
+        Page<UserTestResultWrapper> page = userService.getPageUserTestResultWrapperListByCourseName(courseBean.getName(), p, recPerPage);
         model.put("page", page);
         return "adminpanel/userTestResult";
     }
@@ -275,8 +279,8 @@ public class AdminController {
                             ModelMap model) {
         List<TestType> list = testTypeService.getListByCourseId(courseId);
         model.addAttribute("testTypeList", list);
-
         return "adminpanel/questions";
+
     }
 
     // START QUESTION CONTROLLER
