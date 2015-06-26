@@ -26,17 +26,20 @@
         <div class="container-fluid">
             <h1 class="alert alert-success text-center"><b>Users test result</b></h1>
 
-            <div>
-                <button class="courses btn">Change course</button>
+            <h1>${fn:toUpperCase(courseName)}</h1>
+
+            <div class="panel panel-heading">
                 <div class="js-slide">
-                    <ul>
+                    <select id="selectCourse">
+                        <option disabled="disabled" selected>Select the course</option>
                         <c:forEach items="${coursesList}" var="course">
-                            <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
+                            <option value="${course.name}" <c:if test="${course.name eq courseName}">selected</c:if> id="${course.id}">${course.name}</option>
                         </c:forEach>
-                    </ul>
+                    </select>
+                    <br>
                 </div>
             </div>
-            <h1>${fn:toUpperCase(courseName)}</h1>
+
             <table class="table table-striped table-condensed table-bordered">
                 <thead>
                 <tr>
@@ -81,7 +84,7 @@
     </div>
 
 
-    <c:if test="${not empty page}">
+    <c:if test="${page.maxPages > 1}">
         <c:url var="firstUrl" value="/admin/userTestResult/${courseName}?p=1"/>
         <c:url var="lastUrl" value="/admin/userTestResult/${courseName}?p=${page.end}"/>
         <c:url var="prevUrl" value="/admin/userTestResult/${courseName}?p=${page.current - 1}"/>
@@ -126,6 +129,29 @@
     </c:if>
     </div>
 </div>
+
+    <script>
+        (function () {
+            var selectCourse = function () {
+                var selectedCourse = $('#selectCourse option:selected');
+                if (selectedCourse.attr('id') != 0) {
+                    window.location.replace("/admin/userTestResult/" + selectedCourse.attr('id'));
+                } else {
+                    $("#addQuestion").show();
+                    $(".testTypeWrap").show();
+
+                    $('addQuestion').attr("href", "/admin/course/" + selectedCourse.attr('id') + "/question/create");
+                    var redirectTo = "/admin/course/" + selectedCourse.attr('id') + "/questions/";
+                    window.location.replace(redirectTo);
+                }
+
+            };
+
+            //Event handlers
+            $("#selectCourse").on("change", selectCourse);
+        })();
+    </script>
+
 
 <!-- /#wrapper -->
 </body>

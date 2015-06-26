@@ -27,6 +27,12 @@ public class Page<T> {
         this.end = end;
     }
 
+    public Page(List<T> list, int current, int maxPages) {
+        this.list = list;
+        this.current = current;
+        this.maxPages = maxPages;
+    }
+
     public int getEnd() {
         return end;
     }
