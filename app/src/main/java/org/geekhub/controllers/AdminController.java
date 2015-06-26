@@ -355,6 +355,16 @@ public class AdminController {
         return "shared/questionAjax";
     }
 
+    @RequestMapping(value = "ajax/getTestType", method = RequestMethod.GET)
+    public void getTestType(@RequestParam(value = "courseId", required = true) int courseId,
+                            HttpServletResponse response) throws IOException {
+        List<TestType> testTypeList = testTypeService.getListByCourseId(courseId);
+        List <TestTypeBean> toReturn = testTypeList.stream().map(beanService::toTestTypeBean).collect(Collectors.toList());
+        String gson = new Gson().toJson(toReturn);
+        System.out.println(gson);
+        response.getWriter().write(gson);
+    }
+
     @RequestMapping(value = "/course/{courseId}/questions/", method = RequestMethod.GET)
     public String questionsByCourse(@PathVariable("courseId") int courseId, ModelMap model) throws CourseNotFoundException {
 

@@ -1,17 +1,12 @@
 (function() {
     var pagination;
     var init = function () {
-        $.ajax({
-            dataType: "text",
-            success: function (count) {
                 pagination = new Pagination({
-                    itemsCount: count,
+                    target: "#rows",
                     url: "ajax/usersShow",
                     maxSize: 5,
                     countUrl: "ajax/countUsers"
                 });
-            }
-        })
     };
 
     $("#rows").on("click", ".view-feedbacks", function (event) {

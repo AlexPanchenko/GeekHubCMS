@@ -34,27 +34,28 @@
                     <div class="panel panel-heading">
                         <label for="selectCourse">Select course:</label>
                         <select id="selectCourse" class="dropdown-toggle">
-                            <option id="0">All Courses</option>
+                            <option value="0">All Courses</option>
                             <c:forEach items="${courses}" var="course">
                                 <c:if test="${course.id != currentCourse}">
-                                    <option id=${course.id}>${course.name}</option>
+                                    <option value="${course.id}">${course.name}</option>
                                 </c:if>
                                 <c:if test="${course.id == currentCourse}">
-                                    <option selected id=${course.id}>${course.name}</option>
+                                    <option selected value="${course.id}">${course.name}</option>
                                 </c:if>
                             </c:forEach>
                         </select>
 
-                        <div class="testTypeWrap">
+                        <div class="testTypeWrap" style="display:none">
                             <label for="selectTestType">Select test type:</label>
                             <select id="selectTestType" class="dropdown-toggle">
-                                <option id="testType0">All TestType</option>
+                                <option value="0">All TestType</option>
                                 <c:forEach items="${testTypeList}" var="testType">
-                                    <option id=${testType.id}>${testType.name}</option>
+                                    <option value="${testType.id}">${testType.name}</option>
                                 </c:forEach>
-                                <option id="0">withoutTestType</option>
+                                <option value="0">withoutTestType</option>
                             </select>
                         </div>
+                        <button id="questionsFilter">Filter</button>
                     </div>
 
                     <table class="table">
@@ -70,28 +71,37 @@
                         </tr>
                         </thead>
                         <tbody class="questions-box">
-                            <jsp:include page="../shared/questionAjax.jsp"></jsp:include>
+
                         </tbody>
                     </table>
 
+
                     <div class="text-center">
                         <nav>
-                            <a class="btn btn-success glyphicon glyphicon-plus pull-right" id="addQuestion">Add question</a>
-                            <c:if test="${pagesCount > 1}">
-                                <c:set var="p" value="${currentPage}"/> <%-- current page (1-based) --%>
-                                <c:set var="l" value="5"/> <%-- amount of page links to be displayed --%>
-                                <c:set var="r" value="${l / 2}"/> <%-- minimum link range ahead/behind --%>
-                                <c:set var="t" value="${pagesCount}"/> <%-- total amount of pages --%>
-                                <c:set var="begin"
-                                       value="${((p - r) > 0 ? ((p - r) < (t - l + 1) ? (p - r) : (t - l)) : 0) + 1}"/>
-                                <c:set var="end" value="${(p + r) < t ? ((p + r) > l ? (p + r) : l) : t}"/>
+                            <ul id="course" class="pagination">
 
-                                <c:forEach begin="${begin}" end="${end}" var="page">
-                                    <ul class="pagination">
-                                        <li><a href="questions?page=${page}">${page}</a></li>
-                                    </ul>
-                                </c:forEach>
-                            </c:if>
+                                <li>
+                                    <a href="#" aria-label="Previous" id="first-page">
+                                        <span aria-hidden="true">First</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-label="Previous" id="prev-page">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-label="Next" id="next-page">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" aria-label="Previous" id="last-page">
+                                        <span aria-hidden="true">Last</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </nav>
                     </div>
                 </div>
@@ -102,6 +112,7 @@
     <script>
         var currentCourse = ${currentCourse};
     </script>
+    <script src="<c:url value='/resources/js/pagination.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/adminpanel/questions.js'/>" type="text/javascript"></script>
 </body>
 </html>
