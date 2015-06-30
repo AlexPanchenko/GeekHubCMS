@@ -25,7 +25,6 @@
 <body class="back">
 <div>
     <div class="testMain">
-        <%--<div>--%>
             <div class="test-header">
                 <span class="pull-left">${questions.get(0).course.name} Test</span>
                 <div class="timer pull-right">
@@ -54,7 +53,7 @@
                                         <c:when test="${question.manyAnswers eq true}">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="${answer.id}" class="answer">
+                                                    <input type="checkbox" id="answer-${answer.id}" class="answer">
                                             <span class="cr"><i
                                                     class="cr-icon fa fa-check"></i></span>${answer.answerText}
                                                 </label>
@@ -86,7 +85,6 @@
             </form>
             <button class="btn btn-lg btn-primary pull-right" id="send-answers">Send answers</button>
         </div>
-    <%--</div>--%>
 </div>
 <p class="text-center">Ukraine 2015</p>
 <script src="/resources/js/test-page/testing.js" type="text/javascript"></script>
