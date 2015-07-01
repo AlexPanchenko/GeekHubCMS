@@ -26,6 +26,7 @@
                 var url = classId ? "/admin/classroom/edit" : "/admin/ajax/createClassroom";
                 var message = "Classroom successfully ";
                 message += classId ? "updated" : "added";
+                message += "! You will be redirected to classrooms in 3 sec. ";
                 if (course != "" && className != "" && classDescription != "")
                     $.ajax({
                         url: url,
@@ -38,10 +39,11 @@
                             classId: classId
                         },
                         success: function (data) {
-                            $('#alert-box').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times;</a><span>' + message + '</span></div>');
+                            $('#alert-box').html('<div class="alert alert-success">' +
+                                '<a class="close" data-dismiss="alert">&times;</a><span>' + message + '</span></div>');
                             setTimeout(function () {
                                 window.location = data;
-                            }, 2000)
+                            }, 3500)
                         }
                     });
             }
