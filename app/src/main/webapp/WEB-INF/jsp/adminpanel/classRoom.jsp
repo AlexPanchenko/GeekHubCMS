@@ -29,7 +29,6 @@
                             <th> Name</th>
                             <th> Description</th>
                             <th> Teachers</th>
-                            <th> Students</th>
                             <th> Action</th>
                         </tr>
                         </thead>
@@ -43,13 +42,6 @@
                                         ${user.lastName}<br>
                                     </c:if>
                                 </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach items="${classroom.users}" var="user">
-                                        <c:if test="${user.role == 'ROLE_STUDENT'}">
-                                            ${user.lastName}<br>
-                                        </c:if>
-                                    </c:forEach>
                                 </td>
                                 <td>
                                     <a href="/admin/classroom/${classroom.id}/edit"><i

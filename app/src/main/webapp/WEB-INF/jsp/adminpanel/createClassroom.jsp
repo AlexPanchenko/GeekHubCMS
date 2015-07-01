@@ -28,35 +28,43 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div id="error-message" style="color:red;"></div>
-                <p>Classroom name <span style="color: red;">*</span></p>
-                <input id='ClassroomName' type='text'/>
-
-                <p>Classroom description <span style="color: red;">*</span></p>
-                <input id='ClassroomDescription' type='text'/>
-
-                <p>Course name <span style="color: red;">*</span></p>
-                <select size='1' id="course" onchange='showUsers($("#course").val())'>
-                    <c:forEach items="${courses}" var="s">
-                        <option value="${s.id}">${s.name}</option>
-                    </c:forEach>
-                </select>
-
-                <p>Teacher name</p>
-                <select size='1' id="teacher">
-                    <option value="0"></option>
-                    <c:forEach items="${teachers}" var="t">
-                        <option value="${t.id}">${t.lastName}</option>
-                    </c:forEach>
-                </select>
-
-                <div id="users"></div>
-                <p><input type='button' value='Save classroom' onclick='saveClassroom();'/></p>
+                <div class="col-lg-6">
+                    <form id="save-classroom">
+                        <div class="form-group">
+                            <label for="classroom-name">Classroom name</label>
+                            <input type="text" id="classroom-name" name="classroom-name" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="classroom-description">Description</label>
+                            <input type="text" id="classroom-description" name="classroom-description" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="course">Course</label>
+                            <select id="course" class="form-control">
+                                <c:forEach items="${courses}" var="course">
+                                        <option value="${course.id}">${course.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher">Teacher</label>
+                            <select id="teacher" class="form-control">
+                                <c:forEach items="${teachers}" var="teacher">
+                                    <option value="${teacher.id}">${teacher.firstName}
+                                        &nbsp; ${teacher.lastName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <button class="btn btn-lg btn-primary" type="submit">Save</button>
+                    </form>
+                    <div id="alert-box"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="<c:url value='/resources/js/adminpanel/createClassroom.js'/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/vendors/jquery-validation/dist/jquery.validate.min.js" />"></script>
+<script src="<c:url value='/resources/js/adminpanel/classroom-edit.js'/>" type="text/javascript"></script>
 </body>
 </html>

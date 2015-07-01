@@ -63,8 +63,6 @@
     <input type="submit" value="Register" class="btn btn-primary">
 
 </form>
-<%--<script src="/resources/js/forms.js"></script>--%>
-<%--<script src="/resources/js/sign-in.js"></script>--%>
 
 <script src="<c:url value="/resources/js/registrationValidate.js" />"></script>
 </body>

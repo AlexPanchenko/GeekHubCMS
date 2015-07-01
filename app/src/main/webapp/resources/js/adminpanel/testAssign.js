@@ -9,7 +9,6 @@
         });
     });
 
-
     $("#selectTestConfig").on("change", function () {
         var configId = $(this).find(":selected").val();
         window.location = config.url + "/admin/assignTest/" + configId;

@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean removeUserById(int userId) {
         User user = userDao.getUserById(userId);
-        if (isRemovable(user)){
+        if (isRemovable(user)) {
             userDao.delete(user);
             return true;
         } else {
@@ -107,16 +107,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserBean> getUsersOnOnePage(int page){
+    public List<UserBean> getUsersOnOnePage(int page) {
         List<User> users = userDao.usersOnPage(page);
         System.out.println(users.size());
         List<UserBean> userBeans = new ArrayList<UserBean>();
-        for(User u: users){
+        for (User u : users) {
             userBeans.add(beanService.toUserBean(u));
         }
         return userBeans;
     }
-    public Long getUsersCount(){
+
+    public Long getUsersCount() {
         return userDao.usersCount();
     }
 
@@ -125,7 +126,7 @@ public class UserServiceImpl implements UserService {
         List<UserBean> allTeachers = new ArrayList<UserBean>();
         List<User> users = userDao.readAllUsers();
         for (User u : users) {
-            if (u.getRole().equals(Role.ROLE_TEACHER)&&u.getClassroom()==null) {
+            if (u.getRole().equals(Role.ROLE_TEACHER)) {
                 allTeachers.add(beanService.toUserBean(u));
             }
         }
@@ -199,9 +200,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private boolean findMyAnswer(TestConfig tc){
-        for (Question question: tc.getTestType().getQuestionList()){
-            if (question.getMyAnswer()){
+    private boolean findMyAnswer(TestConfig tc) {
+        for (Question question : tc.getTestType().getQuestionList()) {
+            if (question.getMyAnswer()) {
                 return true;
             }
         }
@@ -215,9 +216,9 @@ public class UserServiceImpl implements UserService {
 
         for (User user : userList) {
             List<TestAssignment> list = user.getTestAssignments();
-            for(TestAssignment tA: list){
-                if(tA.getTestConfig().getTestType().getCourse().equals(course)) {
-                    UserTestResultWrapper us=new UserTestResultWrapper(user, course, tA, tA.getTestConfig());
+            for (TestAssignment tA : list) {
+                if (tA.getTestConfig().getTestType().getCourse().equals(course)) {
+                    UserTestResultWrapper us = new UserTestResultWrapper(user, course, tA, tA.getTestConfig());
                     us.setReview(tA.isStatusReview());
                     us.setScore(testAssignmentService.countRightAnswer(tA).getCountTrueAnswers());
                     userTestResultWrapperList.add(us);
@@ -288,16 +289,17 @@ public class UserServiceImpl implements UserService {
 
         return userBeans;
     }
+
     public List<UserWrapper> getUserWrapperListByCourse(Course course, TestConfig testConfig) {
         List<User> userList = getAllUsersByCourse(course);
         System.out.println("List = " + userList);
         List<UserWrapper> userWrapperList = new ArrayList<>();
-        for(User user: userList){
+        for (User user : userList) {
             UserWrapper userWrapper = new UserWrapper();
             userWrapper.setUser(user);
             userWrapper.setIsRegistered(false);
-            for(TestAssignment testAssignment: user.getTestAssignments()){
-                if(testAssignment.getTestConfig().equals(testConfig)){
+            for (TestAssignment testAssignment : user.getTestAssignments()) {
+                if (testAssignment.getTestConfig().equals(testConfig)) {
                     userWrapper.setIsRegistered(true);
                 }
             }
@@ -315,7 +317,7 @@ public class UserServiceImpl implements UserService {
         int current = page;
         int begin = Math.max(1, current - recordsPerPage);
         int end = maxPages;
-        int firstRecordOnPage = page==1 ? 1 : page * recordsPerPage - recordsPerPage +1;
+        int firstRecordOnPage = page == 1 ? 1 : page * recordsPerPage - recordsPerPage + 1;
         List<UserWrapper> list = convertToUserWrapperListByTestConfig(usersCoursesDao.getAllUsersByCourse(course, firstRecordOnPage, recordsPerPage), testConfig);
         Page<UserWrapper> resultPage = new Page<>(list, begin, current, size, maxPages, recordsPerPage, end);
 
@@ -326,18 +328,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserWrapper> convertToUserWrapperListByTestConfig(List<User> userList, TestConfig testConfig) {
         List<UserWrapper> userWrapperList = new ArrayList<>();
-        for(User user: userList){
+        for (User user : userList) {
             UserWrapper userWrapper = new UserWrapper();
             userWrapper.setUser(user);
             userWrapper.setIsRegistered(false);
-            for(TestAssignment testAssignment: user.getTestAssignments()){
-                if(testAssignment.getTestConfig().equals(testConfig)){
+            for (TestAssignment testAssignment : user.getTestAssignments()) {
+                if (testAssignment.getTestConfig().equals(testConfig)) {
                     userWrapper.setIsRegistered(true);
                 }
             }
             userWrapperList.add(userWrapper);
         }
-        System.out.println("List 2 = "+ userWrapperList);
+        System.out.println("List 2 = " + userWrapperList);
         return userWrapperList;
     }
 
