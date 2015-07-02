@@ -43,7 +43,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <c:forEach items="${coursesList}" var="course">
                         <c:if test="${course.name != courseName}">
-                            <li><a href="/admin/userTestResult/${course.name}">${course.name}</a></li>
+                            <li><a href="/admin/userTestResult/${course.id}">${course.name}</a></li>
                         </c:if>
                     </c:forEach>
                 </ul>
