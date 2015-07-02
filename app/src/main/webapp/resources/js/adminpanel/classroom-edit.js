@@ -1,39 +1,52 @@
-var showUsers = function (course) {
-    $.ajax({
-        url: "/admin/ajax/usersOnCourse",
-        type: "post",
-        data: {course: course},
-        success: function (data) {
-            $("#users").html(data);
-        }
-    });
-};
-
-var saveEdits = function () {
-    var users = $('.inlineCheckbox1:checked');
-    var idUsers = [];
-    for (var i = 0; i < users.length; i++)
-        idUsers.push(users[i].value);
-    var course = $('#course').val();
-    var teacher = $('#teacher').val();
-    var className = $('#ClassroomName').val();
-    var classDescription = $('#ClassroomDescription').val();
-    if (course != "" && className != "" && classDescription != "")
+(function () {
+    var showUsers = function (course) {
         $.ajax({
-            url: "/admin/classroom/edit",
+            url: "/admin/ajax/usersOnCourse",
             type: "post",
-            data: {
-                usersId: idUsers,
-                courseId: course,
-                teacherId: teacher,
-                className: className,
-                classDescription: classDescription,
-                classId: classId
-            },
+            data: {course: course},
             success: function (data) {
-                window.location = data;
+                $("#users").html(data);
             }
         });
-    else
-        $("#error-message").html("Fill in all required fields!");
-};
+    };
+
+
+    $("#save-classroom").validate({
+            errorClass: "text-danger",
+            rules: {
+                "classroom-name": "required",
+                "classroom-description": "required"
+            },
+            submitHandler: function () {
+                var course = $('#course').val();
+                var teacher = $('#teacher').val();
+                var className = $('#classroom-name').val();
+                var classId = $('#classroom-id').val();
+                var classDescription = $('#classroom-description').val();
+                var url = classId ? "/admin/classroom/edit" : "/admin/ajax/createClassroom";
+                var message = "Classroom successfully ";
+                message += classId ? "updated" : "added";
+                message += "! You will be redirected to classrooms in 3 sec. ";
+                if (course != "" && className != "" && classDescription != "")
+                    $.ajax({
+                        url: url,
+                        type: "post",
+                        data: {
+                            courseId: course,
+                            teacherId: teacher,
+                            className: className,
+                            classDescription: classDescription,
+                            classId: classId
+                        },
+                        success: function (data) {
+                            $('#alert-box').html('<div class="alert alert-success">' +
+                                '<a class="close" data-dismiss="alert">&times;</a><span>' + message + '</span></div>');
+                            setTimeout(function () {
+                                window.location = data;
+                            }, 3500)
+                        }
+                    });
+            }
+        }
+    );
+})();

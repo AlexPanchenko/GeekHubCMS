@@ -11,51 +11,49 @@
 <html>
 <head>
     <title>Test</title>
-    <link href="/resources/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/courses.css" rel="stylesheet" type="text/css">
-    <link href="/resources/css/css.css" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="/resources/js/timer.js" type="text/javascript"></script>
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet"
+          type="text/css">
+    <link href="<c:url value="/resources/css/courses.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/resources/css/css.css"/>" rel="stylesheet" type="text/css">
+    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js"/>"></script>
+    <script src="<c:url value="/resources/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/js/timer.js"/>" type="text/javascript"></script>
+    <link href="<c:url value="/resources/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet"
+          type="text/css">
 </head>
-<body class="back" onload="startTimer()">
+<body class="back">
 <div>
     <div class="testMain">
-        <div>
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <h1 align="center">Test
-                        <small>Course name:${questions.get(0).course.name}</small>
-                    </h1>
+            <div class="test-header">
+                <span class="pull-left">${questions.get(0).course.name} Test</span>
+                <div class="timer pull-right">
+                    <span>Time to end:</span>
+                    <span id="my_timer">00:${timeToTest}:00</span>
                 </div>
-                <p>Last time: <span id="my_timer"
-                                    style="color: #f00; font-size: 150%; font-weight: bold;">00:${timeToTest}:00</span>
-                </p>
             </div>
             <form>
                 <c:set var="count" value="0" scope="page"/>
-                <input type="hidden" class="testId" id="${testId}">
-                <c:forEach items="${questions}" var="question">
-                    <div class="${question.id}">
-                        <div class="radius">
-                            <div class="question" id="${question.id}">
-                                №<c:set var="count" value="${count + 1}"
-                                        scope="page"/><span>${count}</span> ${question.questionText}
-                                <c:if test="${!(question.questionCode eq null)}">
-                                    <div class="questionCode">
-                                        <pre><b>${question.questionCode}</b></pre>
-                                    </div>
-                                </c:if>
-                            </div>
-                            <div class="answer" id="question${question.id}">
+                <input type="hidden" id="test-id" value="${testId}">
+                <c:forEach items="${questions}" var="question" varStatus="status">
+
+                    <div class="question panel panel-default panel-info" id="question-${question.id}">
+                        <div class="panel-heading">
+                            <span>${status.index + 1}. ${question.questionText}</span>
+                        </div>
+                        <div class="panel-body">
+                            <c:if test="${!(question.questionCode).isEmpty()}">
+                                <div class="questionCode">
+                                    <pre><b>${question.questionCode}</b></pre>
+                                </div>
+                            </c:if>
+                            <div class="answers">
                                 <c:forEach items="${question.answers}" var="answer">
                                     <c:choose>
                                         <c:when test="${question.manyAnswers eq true}">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="${answer.id}" class="answer">
+                                                    <input type="checkbox" id="answer-${answer.id}" class="answer">
                                             <span class="cr"><i
                                                     class="cr-icon fa fa-check"></i></span>${answer.answerText}
                                                 </label>
@@ -64,7 +62,7 @@
                                         <c:when test="${question.manyAnswers eq false}">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="${question.id}" id="${answer.id}"
+                                                    <input type="radio" name="${question.id}" id="answer-${answer.id}"
                                                            class="answer">
                                             <span class="cr"><i
                                                     class="cr-icon fa fa-check"></i></span>${answer.answerText}
@@ -76,9 +74,8 @@
                                 </c:forEach>
                                 <c:if test="${question.myAnswer eq true}">
                                     <div class="myAnswer">
-                                        <p>Custom answer :</p>
-                                    <textarea class="custom" cols="100" rows="5">
-                                    </textarea>
+                                        <p>Custom answer:</p>
+                                        <textarea class="form-control" cols="100" rows="5"></textarea>
                                     </div>
                                 </c:if>
                             </div>
@@ -86,11 +83,10 @@
                     </div>
                 </c:forEach>
             </form>
-            <button class="btn btn-primary js-submit" onclick="sendAnswers()">Send</button>
-            <script src="/resources/js/testing.js" type="text/javascript"></script>
+            <button class="btn btn-lg btn-primary pull-right" id="send-answers">Send answers</button>
         </div>
-    </div>
 </div>
-<p align="center">Ukraine 2015</p>
+<p class="text-center">Ukraine 2015</p>
+<script src="/resources/js/test-page/testing.js" type="text/javascript"></script>
 </body>
 </html>

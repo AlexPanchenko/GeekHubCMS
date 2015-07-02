@@ -10,7 +10,7 @@
 <link href="<c:url value='/resources/css/profile.css'/>" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="<c:url value="/resources/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet" type="text/css">
 
 
 <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js'/>" type="text/javascript"></script>

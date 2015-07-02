@@ -10,53 +10,64 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <jsp:include page="../source.jsp"></jsp:include>
+    <jsp:include page="../source.jsp"></jsp:include>
 
 </head>
 <body>
 <jsp:include page="myNavbar.jsp"></jsp:include>
 <div id="wrapper">
-  <jsp:include page="sidebar.jsp"></jsp:include>
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div id="error-message" style="color:red;"></div>
-        <p>Classroom name <span style="color: red;">*</span></p>
-        <input id ='ClassroomName' type='text' value='${classroom.name}'/>
-        <p>Classroom description <span style="color: red;">*</span></p>
-        <input id ='ClassroomDescription' type='text' value="${classroom.description}"/>
-        <p>Course name <span style="color: red;">*</span></p>
-        <select size='1' id="course" onchange='showUsers($("#course").val())'>
-          <%--<option selected value="${classroom.courseId}">${classroom.courseId.name}</option>--%>
-          <c:forEach items="${courses}" var="s">
-            <option value="${s.id}">${s.name}</option>
-          </c:forEach>
-        </select>
-        <p>Teacher name</p>
-        <select size='1' id="teacher">
-          <option value="0"></option>
-          <c:forEach items="${teachers}" var="t">
-            <option value="${t.id}">${t.lastName}</option>
-          </c:forEach>
-        </select>
-        <div id="users"></div>
-        <p><input type='button' value='Save edits' onclick='saveEdits();'/></p>
-      </div>
+    <jsp:include page="sidebar.jsp"></jsp:include>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form id="save-classroom">
+                        <input type="hidden" id="classroom-id" value="${classroom.id}"/>
+
+                        <div class="form-group">
+                            <label for="classroom-name">Classroom name</label>
+                            <input type="text" id="classroom-name" name="classroom-name" class="form-control" value="${classroom.name}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="classroom-description">Description</label>
+                            <input type="text" id="classroom-description" name="classroom-description" class="form-control"
+                                   value="${classroom.description}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="course">Course</label>
+                            <select id="course" class="form-control">
+                                <option selected value="${classroom.courseId.id}">${classroom.courseId.name}</option>
+                                <c:forEach items="${courses}" var="course">
+                                    <c:if test="${course.id != classroom.courseId.id}">
+                                        <option value="${course.id}">${course.name}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher">Teacher</label>
+                            <select id="teacher" class="form-control">
+                                <c:forEach items="${teachers}" var="teacher">
+                                    <option value="${teacher.id}">${teacher.firstName}
+                                        &nbsp; ${teacher.lastName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <button class="btn btn-lg btn-primary" type="submit">Save</button>
+                    </form>
+                    <div id="alert-box"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
-
-<script>
-  var classId = ${classroom.id};
-</script>
-
+<script src="<c:url value="/resources/vendors/jquery-validation/dist/jquery.validate.min.js" />"></script>
 <script src="<c:url value='/resources/js/adminpanel/classroom-edit.js'/>" type="text/javascript"></script>
 </body>
 </html>

@@ -100,10 +100,6 @@
                                                              </c:if>
                                                          </p>
                                                      </c:if>
-
-                  <%--                                   <c:if test="${item.id != usAnswer.answer.id}">
-                                                         <p style="margin-left: 30px;margin-bottom: -3px;"><input type="checkbox" class="inlineCheckbox1" disabled> ${item.answerText}</p>
-                                                     </c:if>--%>
                                                  </c:if>
                                              </c:if>
 
@@ -143,12 +139,5 @@
         </div>
       </div>
     </div>
-
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
 </body>
 </html>

@@ -56,10 +56,10 @@ public class TestResultServiceImpl implements TestResultService {
             userResults.setTestAssignment(testAssignment);
             userResults.setUser(user);
             user.getTestAssignments().add(testAssignment);
-            for(int i=0; i<testInfo.getAnswerArray().length; i++){
+            for(int i=0; i<testInfo.getAnswersArray().length; i++){
                 UserAnswers userAnswers = new UserAnswers();
                 userAnswers.setUserResults(userResults);
-                userAnswers.setAnswer((Answer) answerDao.read(testInfo.getAnswerArray()[i], Answer.class));
+                userAnswers.setAnswer((Answer) answerDao.read(testInfo.getAnswersArray()[i], Answer.class));
                 userAnswersDao.create(userAnswers);
                 userResults.getUserAnswerses().add(userAnswers);
             }

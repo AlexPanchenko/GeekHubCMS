@@ -1,12 +1,3 @@
-/**
- * Created by user on 05.06.2015.
- */
-
-var isValidPhone = function (phoneNumber) {
-    //regexp pattern
-};
-
-
 $("#registration-form").validate({
         errorClass: "error",
         rules: {
@@ -24,7 +15,6 @@ $("#registration-form").validate({
                 maxlength: 24,
                 equalTo: "#password"
             }
-            //phoneNumber: isValidPhone($("#phoneNumber").val())
         },
         messages: {
             confirmPassword: {

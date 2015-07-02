@@ -16,8 +16,7 @@
     <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/bootstrap-theme.min.css'/>" rel="stylesheet"/>
     <link href="<c:url value='/resources/css/courses.css'/>" rel="stylesheet"/>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
+    <link href="<c:url value="/resources/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet" type="text/css">
     <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/vendors/bootstrap/dist/js/bootstrap.min.js'/>" type="text/javascript"></script>
 

@@ -17,9 +17,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="alert alert-success text-center">
+                    <div class="alert alert-success text-center header-text">
                         <a href="/admin/createClassrom" class="pull-right glyphicon glyphicon-plus"></a>
-                        <b>Classroom manage</b></h1>
+
+                        <h2>Classrooms</h2>
+                    </div>
                     <table class="table">
                         <thead class="alert alert-success">
                         <tr>
@@ -27,7 +29,6 @@
                             <th> Name</th>
                             <th> Description</th>
                             <th> Teachers</th>
-                            <th> Students</th>
                             <th> Action</th>
                         </tr>
                         </thead>
@@ -41,13 +42,6 @@
                                         ${user.lastName}<br>
                                     </c:if>
                                 </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach items="${classroom.users}" var="user">
-                                        <c:if test="${user.role == 'ROLE_STUDENT'}">
-                                            ${user.lastName}<br>
-                                        </c:if>
-                                    </c:forEach>
                                 </td>
                                 <td>
                                     <a href="/admin/classroom/${classroom.id}/edit"><i

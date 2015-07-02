@@ -7,8 +7,31 @@
     text-align: center;
 }
 .login-form {
-    width: 50%;
-    margin: 0 auto;
+    width: 450px;
+    margin: 90px auto;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    box-shadow: 0 15px 30px;
+    -moz-box-shadow: 0 15px 30px;
+    -webkit-box-shadow: 0 15px 30px;
+    -o-box-shadow: 0 15px 30px;
+}
+
+.auth-page {
+    background: #B4E0F9;
+}
+.reg-form {
+    width: 750px;
+    margin: 50px auto;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+.auth-page .panel {
+    width: 450px;
+}
+.forgot-password {
+    width: 600px;
 }
 ul.nav {
     margin: 20px 0 50px;
@@ -30,16 +53,6 @@ a.logo {
     margin: 10px;
     font-size: 20px;
     color: #e50000;
-}
-.login-form {
-    transition: all .5s;
-    -webkit-transition: all .5s;
-}
-
-.panel {
-    background-color: white;
-    width: 330px;
-    float: left;
 }
 
 .mainContent {
@@ -169,36 +182,12 @@ h1{
     margin: 100px;
 }
 
-div.questionCode{
-    padding: 0px 20px ;
+.question{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
-div.question{
-    font-size: 20px;
-    color: #444444;
-    font: 'Open Sans', Arial, Helvetica, Sans-Serif;
-    padding: 0px 20px 0px 20px ;
-}
-
-div.questionBlock{
-    padding: 20px 20px;
-    background-color: lightgoldenrodyellow;
-}
-div.radius {
-    border: 2px solid CornflowerBlue;
-    border-radius: 22px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-
-}
-
-div.radio{
-    padding: 0px 20px 0px 20px ;
-}
-
-div.checkbox{
-    padding: 0px 20px 0px 20px ;
+.question .panel-body {
+    padding: 20px;
 }
 
 div.headerTest{

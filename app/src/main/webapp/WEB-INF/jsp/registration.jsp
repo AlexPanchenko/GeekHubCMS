@@ -15,7 +15,7 @@
 <body>
 <h1>Registration</h1>
 
-<form id="registration-form" class="login-form well" action="/registration" method="post">
+<form id="registration-form" class="reg-form well" action="/registration" method="post">
 
     <div class="form-group">
         <span class="must">*</span><label for="email">Email address</label>
@@ -63,8 +63,6 @@
     <input type="submit" value="Register" class="btn btn-primary">
 
 </form>
-<%--<script src="/resources/js/forms.js"></script>--%>
-<%--<script src="/resources/js/sign-in.js"></script>--%>
 
 <script src="<c:url value="/resources/js/registrationValidate.js" />"></script>
 </body>

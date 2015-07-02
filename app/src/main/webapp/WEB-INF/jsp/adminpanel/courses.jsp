@@ -20,19 +20,17 @@
 <div id="wrapper">
     <jsp:include page="sidebar.jsp"></jsp:include>
     <div id="page-content-wrapper">
-        <h1>Courses</h1>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="alert alert-success text-center">
-                        <a href="/admin/course/create"><i class="glyphicon glyphicon-plus pull-right"
+                    <div class="alert alert-success text-center header-text">
+                        <a href="/admin/course/create"><i class="big-font glyphicon glyphicon-plus pull-right"
                                                           title="Create new course"></i></a>
-                        <b>Courses manage</b></h1>
+                        <h2>Courses</h2>
+                    </div>
                     <table class="table text-black">
                         <thead class="alert alert-success">
                         <tr>
-                            <th class="text-center"> ID</th>
                             <th class="text-center"> Name</th>
                             <th class="text-center"> Description</th>
                             <th class="text-center"></th>
@@ -42,7 +40,6 @@
 
                         <c:forEach items="${courses}" var="course">
                             <tr>
-                                <td class="text-center">${course.id}</td>
                                 <td class="text-center">${course.name}</td>
                                 <td class="text-center">${course.description}</td>
                                 <td class="text-center">

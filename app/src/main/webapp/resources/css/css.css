@@ -1,67 +1,76 @@
-.profile-avatar{
+.profile-avatar {
     width: 300px;
     height: 150px;
 }
 
-.avatar-upload{
-    margin-top:5px;
+.avatar-upload {
+    margin-top: 5px;
 }
 
 .form-horizontal .controls {
     margin-top: 5px;
 }
 
-.updateCourse{
+.updateCourse {
     background-color: #DFF0D8;
     padding: 30px;
     padding-right: 300px;
 }
 
-.coursesAdminResult{
+.coursesAdminResult {
     background-color: #d5d5d5;
 }
 
-.endTesting{
+.endTesting {
     align-content: center;
 }
-.text{
+
+.text {
     text-align: center;
 }
 
 .testMain {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 50px;
+    font-size: 14px;
+    width: 960px;
+    margin: 0 auto 50px;
 }
 
-.back{
+#my_timer {
+    color: #ff5a35;
+}
+
+.test-header {
+    font-size: 30px;
+    overflow: auto;
+    margin: 25px 0;
+}
+
+.timer p {
+    display: inline-block;
+}
+
+.back {
     background-color: #FFF9FB;
 }
 
-.radius{
+.radius {
     background-color: #EEF4F7;
 }
 
-.js-submit{
+.js-submit {
     margin-left: 20px;
 }
 
-.myAnswer{
+.myAnswer {
     margin: 10px;
 }
 
-.myW {
-
-}
-
-.selectCourse{
-    background-color: #f9f9f3;
+.selectCourse {
     padding: 20px;
     margin: 30px;
-    width: 1000px;
 }
 
-.titleSelect{
+.titleSelect {
     color: #2b669a;
     font-size: 30px;
 }
@@ -125,26 +134,27 @@ h1 {
     opacity: .5;
 }
 
-
 .comment-box {
     width: 90%;
     margin: 30px auto;
 }
 
 .comment-box .panel {
-    position:relative;
+    position: relative;
 }
-.comment-box .panel>.panel-heading:after,.panel>.panel-heading:before{
-    position:absolute;
-    top:11px;left:-16px;
-    right:100%;
-    width:0;
-    height:0;
-    display:block;
-    content:" ";
-    border-color:transparent;
-    border-style:solid solid outset;
-    pointer-events:none;
+
+.comment-box .panel > .panel-heading:after, .panel > .panel-heading:before {
+    position: absolute;
+    top: 11px;
+    left: -16px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    display: block;
+    content: " ";
+    border-color: transparent;
+    border-style: solid solid outset;
+    pointer-events: none;
 }
 .comment-box .panel>.panel-heading:after{
     border-width:7px;
@@ -152,10 +162,13 @@ h1 {
     margin-top:1px;
     margin-left:2px;
 }
-.comment-box .panel>.panel-heading:before{
-    border-right-color:#ddd;
-    border-width:8px;
-}#feedbackText {
+
+.comment-box .panel > .panel-heading:before {
+    border-right-color: #ddd;
+    border-width: 8px;
+}
+
+#feedbackText {
     width: 570px;
 }
 
@@ -177,8 +190,8 @@ h1 {
 
 .alert-absolute {
     position: absolute;
-    bottom: 50px;
-    right: 50px;
+    top: 50%;
+    left: 50%;
     margin-left: -175px;
     width: 350px;
     z-index: 10;
@@ -186,4 +199,35 @@ h1 {
 
 .modal-dialog {
     margin-top: 270px;
+}
+
+.answers-container .dropdown-toggle {
+    width: 125px;
+}
+.header-text h2 {
+    margin-bottom: 0;
+}
+
+.header-text {
+    font-size: 24px;
+}
+
+.selectTest {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.selectTest h2 {
+    width: 960px;
+    margin: 25px auto;
+}
+
+.selectTest table {
+    background: white;
+    box-shadow: 0 5px 25px;
+    width: 960px;
+    margin: 0 auto;
+}
+.geekhub-bg {
+    background: url("/resources/img/geekhub_bg.png");
 }

@@ -25,14 +25,14 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="alert alert-success text-center">
+                <div class="alert alert-success text-center header-text">
                     <a href="/admin/testType/create"><i class="glyphicon glyphicon-plus pull-right"
                                                         title="Create new course"></i></a>
-                    <b>Test type manage</b></h1>
+                    <h2>Test types</h2>
+                </div>
                 <table class="table text-black">
                     <thead class="alert alert-success">
                     <tr>
-                        <th class="text-center"> ID</th>
                         <th class="text-center"> Name</th>
                         <th class="text-center"> Course</th>
                         <th class="text-center"> Action</th>
@@ -41,7 +41,6 @@
 
                     <c:forEach items="${testTypeList}" var="testType">
                         <tr>
-                            <td class="text-center">${testType.id}</td>
                             <td class="text-center">${testType.name}</td>
                             <td class="text-center">${testType.course.name}</td>
                             <td class="text-center">

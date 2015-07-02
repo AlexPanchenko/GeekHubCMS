@@ -929,7 +929,7 @@ public class AdminController {
     @RequestMapping(value = "/assignTest/{testConfigId}", method = RequestMethod.GET)
     public String assignTestByCourse(Map<String, Object> model,
                                      @RequestParam(value = "p", required = true, defaultValue = "1") Integer p,
-                                     @RequestParam(value = "results", defaultValue = "1", required = false) Integer recPerPage,
+                                     @RequestParam(value = "results", defaultValue = "15", required = false) Integer recPerPage,
                                      @PathVariable("testConfigId") int testConfigId) throws CourseNotFoundException {
         TestConfig testConfig = testConfigService.getTestConfigByID(testConfigId);
         Page<UserWrapper> page = userService.getPageUserByCourse(testConfig.getTestType().getCourse(), p, recPerPage, testConfig);

@@ -11,28 +11,28 @@
                     <h3> Admin Panel</h3>
                 </li>
                 <li>
-                    <a href="/admin/users"> Users</a>
+                    <a href="/admin/users">Users</a>
                 </li>
                 <li>
-                    <a href="/admin/course/list"> Courses</a>
+                    <a href="/admin/course/list">Courses</a>
                 </li>
                 <li>
-                    <a href="/admin/classRoomList"> ClassRoom</a>
+                    <a href="/admin/classRoomList">Classrooms</a>
                 </li>
                 <li>
                     <a href="#" class="nav-collapse" data-togle="collapse" data-target=".collapse-menu">Tests</a>
                     <ul class="collapse-menu">
                         <li>
-                            <a href="/admin/testType">Test type</a>
+                            <a href="/admin/testType">Test types</a>
                         </li>
                         <li>
-                            <a href="/admin/testConfig"> Test config</a>
+                            <a href="/admin/testConfig">Test configs</a>
                         </li>
                         <li>
-                            <a href="/admin/assignTest">Assign test </a>
+                            <a href="/admin/assignTest">Assignment tests</a>
                         </li>
                         <li>
-                            <a href="/admin/questions">Base questions</a>
+                            <a href="/admin/questions">Test questions</a>
                         </li>
                         <li>
                             <a href="/admin/userTestResult">User test result</a>
